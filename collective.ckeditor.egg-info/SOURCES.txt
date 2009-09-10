@@ -1,0 +1,17 @@
+README.txt
+setup.cfg
+setup.py
+collective/__init__.py
+collective.ckeditor.egg-info/PKG-INFO
+collective.ckeditor.egg-info/SOURCES.txt
+collective.ckeditor.egg-info/dependency_links.txt
+collective.ckeditor.egg-info/entry_points.txt
+collective.ckeditor.egg-info/namespace_packages.txt
+collective.ckeditor.egg-info/not-zip-safe
+collective.ckeditor.egg-info/requires.txt
+collective.ckeditor.egg-info/top_level.txt
+collective/ckeditor/__init__.py
+collective/ckeditor/config.py
+collective/ckeditor/setuphandlers.py
+collective/ckeditor/browser/__init__.py
+collective/ckeditor/browser/ckeditorview.py

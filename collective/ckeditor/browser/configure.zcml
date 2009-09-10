@@ -1,0 +1,29 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.ckeditor">
+
+    
+    <!-- Resource directory for ckeditor files -->
+    <browser:resourceDirectory
+        name="ckeditor"
+        directory="ckeditor"
+        />    
+    
+    <!-- Resource directory for static files -->
+    <browser:resourceDirectory
+        name="ckeditor_statics"
+        directory="statics"
+        />  
+
+    <browser:page
+      for="*"
+      name="ckeditor_wysiwyg_support"
+      class=".ckeditorview.CKeditorView"
+      template="templates/ckeditor_wysiwyg_support.pt"
+      allowed_interface=".ckeditorview.ICKeditorView"
+      permission="zope.Public"
+    />        
+
+</configure>

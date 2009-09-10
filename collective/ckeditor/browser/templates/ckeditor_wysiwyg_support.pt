@@ -1,0 +1,295 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xml:lang="en"
+      lang="en"
+      i18n:domain="plone">
+
+<tal:defines define="fname fieldName|inputname|nothing;
+                     usesCKeditor python:view.contentUsesCKeditor(fname)">
+
+ <!-- wysiwyg default widget -->
+ <div metal:define-macro="wysiwygEditorBox">
+  
+    <tal:block tal:condition="usesCKeditor"
+               tal:define="lang current_language | request/LANGUAGE | default_language;
+                           widget nocall:widget | nothing;
+                           isCKWidget python:widget and widget.macro=='ckwidget' or False;
+                           ckParams view/getCK_params;
+                           ck_skin python:isCKWidget and widget.ck_skin(context) or ckParams['ck_skin'];
+                           ck_skin_path python:'skins/%s/' %ck_skin;
+                           ck_toolbar widget/ck_toolbar | ckParams/ck_toolbar;
+                           pa_meta_types widget/pa_meta_types | ckParams/pa_meta_types;
+                           spellchecker widget/spellchecker | ckParams/spellchecker;
+                           keyboard_entermode widget/keyboard_entermode | ckParams/keyboard_entermode;
+                           keyboard_shiftentermode widget/keyboard_shiftentermode | ckParams/keyboard_shiftentermode;
+                           is_r2l widget/ck_default_r2l | ckParams/ck_default_r2l;
+                           ck_default_r2l python:test(is_r2l,'rtl','ltr');
+                           paste_as_text widget/force_paste_as_text | ckParams/force_paste_as_text;
+                           force_paste_as_text python:test(paste_as_text,'true','false');
+                           latin_entities widget/allow_latin_entities | ckParams/allow_latin_entities;
+                           allow_latin_entities python:test(latin_entities,'true','false');
+                           allow_relative_links widget/allow_relative_links | ckParams/allow_relative_links;
+                           parse_url python:test(context.isPrincipiaFolderish, context.absolute_url()+'/', context.absolute_url());
+                           portal_url context/portal_url;
+                           server_url  request/SERVER_URL;
+                           ckAbsUrl nocall:modules/Products.CKeditor.utils/ckAbsUrl;
+                           cleaninput python:ckAbsUrl(parse_url, portal_url, server_url, inputvalue);
+                           base_path python:portal_url.replace(server_url, '');
+                           basehref python:context.getCK_basehref(pa_meta_types);
+                           path_user python:basehref.replace(portal_url,'');
+                           ck_basehref python:test(context.meta_type in pa_meta_types, basehref, basehref+'/').replace(server_url,'')  ;
+                           links_basehref python:allow_relative_links and ck_basehref or '';
+                           browser_path python:isCKWidget and widget.browser_path(context) or ckParams['browser_path'];
+                           path_user python: test(browser_path, browser_path, path_user);
+                           root python:isCKWidget and widget.browser_root(context) or ckParams['browser_root'];
+                           browser_root string:$root/;
+                           allow_browsing widget/allow_server_browsing | ckParams/allow_server_browsing;
+                           allow_server_browsing python:test(allow_browsing,'true','false');
+                           allow_files widget/allow_file_upload | ckParams/allow_file_upload;
+                           allow_file_upload python:test(allow_browsing,test(allow_files,'true','false'),'false');
+                           allow_images widget/allow_image_upload | ckParams/allow_image_upload;
+                           allow_image_upload python:test(allow_browsing,test(allow_images,'true','false'),'false');
+                           allow_flashs widget/allow_flash_upload | ckParams/allow_flash_upload;
+                           allow_flash_upload python:test(allow_browsing,test(allow_flashs,'true','false'),'false');
+                           cols widget/cols | python:0;
+                           rows widget/rows | python:25;
+                           editor_width widget/width | python:cols and str(int(cols*100/40)) + '%' or '100%';
+                           editor_height widget/height | python: (rows > 15) and rows*24 or 400;
+                           ck_force_width widget/ck_force_width | ckParams/ck_force_width;
+                           ck_force_height widget/ck_force_height | ckParams/ck_force_height;
+                           editor_width python: test(ck_force_width, ck_force_width, editor_width);
+                           editor_height python: test(ck_force_height, ck_force_height, editor_height);
+                           editor_width python:str(editor_width).replace('px','');
+                           editor_height python:str(editor_height).replace('px','');
+                           editor_height python: test(editor_height.endswith('\x25'), str(int(int(editor_height.replace('\x25',''))*960/100)), editor_height);">
+  
+     <div id="ckLoading"
+          style="DISPLAY: block"
+          tal:attributes="id string:${inputname}_ckLoading" >
+          <span style="color:#FF0000"
+                i18n:domain="collective.ckeditor"
+                i18n:translate="label_ckeditor_is_loading">
+           CKeditor is loading ...
+          </span>
+          <br />&nbsp;
+     </div>
+  
+     <div id="ckError"
+          style="DISPLAY: none"
+          tal:attributes="id string:${inputname}_ckError" >
+          <span style="color:#FF0000"
+                i18n:domain="collective.ckeditor"
+                i18n:translate="label_ckeditor_js_error">
+            Javascript Error when trying to load CKeditor. Contact the webmaster
+          </span>
+          <br />&nbsp;
+     </div>
+  
+     <input type="text"
+            class="ckSaveField"
+            tal:condition="python:not('/portal_factory' in request.URLPATH0)"
+            style="border:none; background:none; color: red; font-weight:bold; visibility:hidden"
+            i18n:attributes="value label_save_content"
+            tal:attributes="id string:${inputname}_ckSaveField" />
+  
+     <div tal:attributes="id string:${inputname}_ckContainer"
+          class="ckContainer">
+  
+          <div style="display:none"
+               tal:attributes="id string:${inputname}_cleaninput;
+                                    name string:${inputname}_cleaninput;"
+               tal:content="cleaninput">
+                 The Rich Text Field Value
+          </div>
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_path_user;
+                                 name string:${inputname}_path_user;
+                                 value path_user" />
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_base_path;
+                                 name string:${inputname}_base_path;
+                                 value base_path" />
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_input_url;
+                                 name string:${inputname}_input_url;
+                                 value context/absolute_url" />
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_ck_basehref;
+                                 name string:${inputname}_ck_basehref;
+                                 value ck_basehref" />
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_links_basehref;
+                                 name string:${inputname}_links_basehref;
+                                 value links_basehref" />
+  
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_allow_server_browsing;
+                                 name string:${inputname}_allow_server_browsing;
+                                 value allow_server_browsing" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_browser_root;
+                                 name string:${inputname}_browser_root;
+                                 value browser_root" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_allow_file_upload;
+                                 name string:${inputname}_allow_file_upload;
+                                 value allow_file_upload" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_allow_image_upload;
+                                 name string:${inputname}_allow_image_upload;
+                                 value allow_image_upload" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_allow_flash_upload;
+                                 name string:${inputname}_allow_flash_upload;
+                                 value allow_flash_upload" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_ck_skin_path;
+                                 name string:${inputname}_ck_skin_path;
+                                 value ck_skin_path" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_lang;
+                                 name string:${inputname}_lang;
+                                 value lang" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_ck_default_r2l;
+                                 name string:${inputname}_ck_default_r2l;
+                                 value ck_default_r2l" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_force_paste_as_text;
+                                 name string:${inputname}_force_paste_as_text;
+                                 value force_paste_as_text" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_allow_latin_entities;
+                                 name string:${inputname}_allow_latin_entities;
+                                 value allow_latin_entities" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_spellchecker;
+                                 name string:${inputname}_spellchecker;
+                                 value spellchecker" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_keyboard_entermode;
+                                 name string:${inputname}_keyboard_entermode;
+                                 value keyboard_entermode" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_keyboard_shiftentermode;
+                                 name string:${inputname}_keyboard_shiftentermode;
+                                 value keyboard_shiftentermode" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_ck_toolbar;
+                                 name string:${inputname}_ck_toolbar;
+                                 value ck_toolbar" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_editor_width;
+                                 name string:${inputname}_editor_width;
+                                 value editor_width" />
+  
+          <input type="hidden"
+                 tal:attributes="id string:${inputname}_editor_height;
+                                 name string:${inputname}_editor_height;
+                                 value editor_height" />
+  
+     </div>
+  
+    </tal:block>
+  
+    <tal:block condition="not: usesCKeditor">
+     <textarea cols="80"
+               rows="25"
+               tabindex=""
+               name="text"
+               tal:content="inputvalue"
+               tal:attributes="name inputname;
+                               id inputname;
+                               onfocus onfocus|nothing;
+                               onblur onblur|nothing;
+                               tabindex tabindex|nothing;" id="Textarea2"></textarea>
+    </tal:block>
+ </div>
+
+ <div metal:define-macro="textFormatSelector">
+
+  <tal:block condition="usesCKeditor">
+        <input type="hidden"
+               name="text_format"
+               value="html" id="Hidden1"/>
+  </tal:block>
+
+  <tal:block condition="not: usesCKeditor">
+    <div class="row">
+      <div class="label">
+         <span i18n:translate="label_format">Format</span>
+         <div id="format_help"
+              i18n:translate="help_format"
+              class="help"
+              style="visibility:hidden">
+           Select which format you want to type the contents of this
+           document in. If you are unsure of which format to use, just
+           select Plain Text and type the document as you usually
+           do.
+         </div>
+      </div>
+      <div class="field"
+           tal:define="tabindex tabindex/next;
+                       text_format python:request.get('text_format', getattr(context,'text_format','structured-text'))">
+        <input class="noborder"
+               type="radio"
+               name="text_format"
+               value="structured-text"
+               tabindex=""
+               id="cb_structuredtext"
+               onfocus="formtooltip('format_help',1)"
+               onblur="formtooltip('format_help',0)"
+               tal:attributes="checked python:test(text_format=='structured-text', 1, '');
+                               tabindex tabindex;"
+               />
+        <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
+
+        <input class="noborder"
+               type="radio"
+               name="text_format"
+               value="html"
+               tabindex=""
+               id="cb_html"
+               tal:attributes="checked python:test(text_format=='html', 1, '');
+                               tabindex tabindex;"
+               onfocus="formtooltip('format_help',1)"
+               onblur="formtooltip('format_help',0)"
+               />
+        <label for="cb_html" i18n:translate="html">HTML</label> <br />
+
+        <input class="noborder"
+               type="radio"
+               name="text_format"
+               value="plain"
+               tabindex=""
+               id="cb_plain"
+               tal:attributes="checked python:test(text_format=='plain', 1, '');
+                               tabindex tabindex;"
+               onfocus="formtooltip('format_help',1)"
+               onblur="formtooltip('format_help',0)"
+               />
+        <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
+      </div>
+    </div>
+  </tal:block>
+
+ </div>
+
+</tal:defines>
+
+</html>

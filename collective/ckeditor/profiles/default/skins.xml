@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_skins" meta_type="Plone Skins Tool">
+  <object name="plone_ckeditor" meta_type="Filesystem Directory View"
+    directory="collective.ckeditor:skins/plone_ckeditor"/>    
+  <skin-path name="*">
+    <layer name="plone_ckeditor"
+           insert-after="custom" />
+  </skin-path>
+</object>

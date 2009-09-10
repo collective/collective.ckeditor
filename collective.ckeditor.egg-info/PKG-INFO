@@ -1,0 +1,26 @@
+Metadata-Version: 1.0
+Name: collective.ckeditor
+Version: 3.0dev
+Summary: CKeditor for Plone integration
+Home-page: https://svn.plone.org/svn/collective/collective.ckeditor
+Author: Ingeniweb - Alterway Solutions
+Author-email: support@ingeniweb.com
+License: GPL
+Description: Introduction
+        ============
+        
+        
+        
+        Changelog
+        =========
+        
+        3.0 - Unreleased
+        ----------------
+        
+        * Initial release
+        
+        
+Keywords: Plone CKeditor WYSIWYG
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
