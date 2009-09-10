@@ -56,5 +56,7 @@ class CKeditorView(BrowserView):
 
     def getCK_params(self) :
         """
-        return True when using specific AT widget
+        return CK Control Panel Settings or widget Settings
         """            
+        
+        
