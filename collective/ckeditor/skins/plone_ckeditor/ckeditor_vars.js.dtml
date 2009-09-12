@@ -1,0 +1,8 @@
+/* <dtml-call "REQUEST.set('portal_url', portal_url())"> (not this either :) */
+
+// set the good base path for the editor because
+// portal_javascripts loose it
+// otherwise ckeditor linked urls are bad
+
+var CKEDITOR_BASEPATH = '&dtml-portal_url;/++resource++ckeditor/';
+

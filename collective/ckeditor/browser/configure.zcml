@@ -13,17 +13,33 @@
     
     <!-- Resource directory for static files -->
     <browser:resourceDirectory
-        name="ckeditor_statics"
+        name="ckeditor_for_plone"
         directory="statics"
         />  
 
-    <browser:page
+    <!--browser:page
       for="*"
       name="ckeditor_wysiwyg_support"
       class=".ckeditorview.CKeditorView"
       template="templates/ckeditor_wysiwyg_support.pt"
       allowed_interface=".ckeditorview.ICKeditorView"
       permission="zope.Public"
-    />        
+    /-->       
+
+    <!-- main ckeditor template macros -->
+    <browser:page
+      for="*"
+      name="ckeditor_wysiwyg_support"
+      template="templates/ckeditor_wysiwyg_support.pt"
+      permission="zope.Public"
+    />  
+    
+    <!-- main ckeditor view -->
+    <browser:page
+      for="*"
+      name="ckeditor_view"
+      class=".ckeditorview.CKeditorView"
+      permission="zope.Public"
+    />      
 
 </configure>
