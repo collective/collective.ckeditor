@@ -146,7 +146,7 @@ def makeSkinDirs(srcDir ,destDir):
                      fileObj.write(u.lstrip(unicode( codecs.BOM_UTF8, "utf8" )))       
                      fileObj.close()
                               
-              if destpath.endswith('_samples') and  ext=='html' :
+              if ('_samples' in destpath or '_tests' in destpath) and  ext=='html' :                  
                   fileObj = file(dest) 
                   content = fileObj.read()   
                   fileObj.close()  
@@ -157,16 +157,32 @@ def makeSkinDirs(srcDir ,destDir):
                   fileObj.close()       
               
               # fix xhtml compilation error
-              if ext in ('html', 'xml', 'pt') :
+              if ext in ('html', 'xml', 'pt') :                           
                   fileObj = file(dest) 
                   content = fileObj.read()   
                   fileObj.close()  
-                  # TODO : use a regexp (replace /option by any tag)
-                  content = content.replace("'</option>'","'<\/option>'")
+                  
+                  # use regexp to fix xhtml errors in tal parser (https://bugs.launchpad.net/zope2/+bug/142333)
+                  regxp = '(?P<start>\/\/\<\!\[CDATA\[[?!\<]*)(?P<tags>.*?)(?P<end>\/\/\]\]\>)'
+                  Badtags = re.compile(regxp, re.IGNORECASE |re.DOTALL )
+                  def replace_bad_tags(match):
+                      bad = match.group('tags')     
+                      good = bad.replace('</', '<\/')                            
+                      return match.group('start') + good + match.group('end')   
+                  content = Badtags.sub(replace_bad_tags, content)
+                  
+                  # replace empty frame tags by an open frame tag (another tal compilation error)                   
                   content = content.replace("></frame>"," />")
+                  
+                  # fix ckeditor specific xhtml errors (http://dev.fckeditor.net/ticket/4416)
+                  if filename=='range.html' :
+                      content = content.replace("<br/ >","<br />")                
+                  
                   fileObj = file(dest,"w")
                   fileObj.write(content)
                   fileObj.close()                    
+                  
+ 
 
   
       # skip svn directories
