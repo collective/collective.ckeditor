@@ -151,7 +151,13 @@ def makeSkinDirs(srcDir ,destDir):
                   content = fileObj.read()   
                   fileObj.close()  
                   # put good base href + basehref IE fix for samples (bug ckeditor 3.0 http://dev.fckeditor.net/ticket/4405)
-                  content = content.replace('<head>','<head>\n  <base href="./" /><!--[if lt IE 7]></base><![endif]-->')
+                  fixbasehref="""
+  <script>
+  	//<![CDATA[
+        document.write('<base href="' + document.location.href.substring(0,document.location.href.lastIndexOf('/')+1) + '" /><!--[if lt IE 7]><\/base><![endif]-->');
+  	//]]>
+  </script>"""
+                  content = content.replace('<head>','<head>\n%s' %fixbasehref)
                   fileObj = file(dest,"w")
                   fileObj.write(content)
                   fileObj.close()       
