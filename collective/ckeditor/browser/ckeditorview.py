@@ -30,10 +30,7 @@ class CKeditorView(BrowserView):
         pm = getToolByName(self.portal, 'portal_membership')
         return pm.getAuthenticatedMember().getProperty('wysiwyg_editor')=='CKeditor'
         
-    def tototest(self):
-        """return True if member uses CKeditor"""
-        pm = getToolByName(self.portal, 'portal_membership')
-        return pm.getAuthenticatedMember().getProperty('wysiwyg_editor')=='CKeditor'        
+ 
     
     def contentUsesCKeditor(self, fieldname=''):
         """
