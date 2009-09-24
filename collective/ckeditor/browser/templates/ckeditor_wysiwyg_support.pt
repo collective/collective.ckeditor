@@ -14,7 +14,7 @@
      <textarea cols="80"
                rows="25"
                tabindex=""
-               class="ckeditor"
+               class="ckeditor_plone"
                tal:content="inputvalue"
                tal:attributes="name inputname;
                                id inputname;

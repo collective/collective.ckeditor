@@ -1,3 +1,7 @@
+/* Standard CKeditor tips for non compatible browsers 
+   Must be i18nized */
+
+
 if ( typeof console != 'undefined' )
 	console.log();
 
@@ -57,3 +61,24 @@ if ( window.CKEDITOR )
 			window.attachEvent( 'onload', onload );
 	})();
 }
+
+
+/* End Standard CKeditor tips for non compatible browsers  */
+
+/* Plone specific ckeditor launcher using jQuery */
+
+
+launchCKInstances = function() {
+    jq('.ckeditor_plone').each(function(){
+        ckid = jq(this).attr('id');
+        alert(ckid);
+        CKEDITOR.replace( ckid,
+          {
+              customConfig : CKEDITOR_PLONE_BASEPATH + '/custom/ckeditor_config.js'
+          });
+
+    })
+}
+
+jq(document).ready(launchCKInstances);
+
