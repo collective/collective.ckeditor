@@ -28,15 +28,7 @@ then run all editor tests ::
   
   - http://yourplonesite/++resource++ckeditor/_tests/testall.html
 
-Result,  (1 failed / 360 passed) - i didn't find the reason why 1 test is failing
-
-          - do not fail with MSIE !! (a miracle ?)
-          
-          - do not fail when putting the same ckeditor files under an Apache classical web site
-          
-          - do not fail offline
-
-When launching the tests offline, only ajax tests will fail, but it's normal.
+Result,  (0 failed / 361 passedd) 
 
 Install ckeditor
 ================
@@ -66,7 +58,7 @@ TODO
   
   - ckeditor MediaWiki plugin integration 
   
-  - other old fckeditor plone plugins to make compliant with ckeditor
+  - other old fckeditor plone plugins to make it compliant with ckeditor
 
 Dependencies
 ============
