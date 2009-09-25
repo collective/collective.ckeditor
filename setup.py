@@ -33,6 +33,7 @@ setup(name='collective.ckeditor',
       install_requires=[
           'setuptools',
           'iw.resourcetraverser>=0.1.1',
+          'collective.plonefinder',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
