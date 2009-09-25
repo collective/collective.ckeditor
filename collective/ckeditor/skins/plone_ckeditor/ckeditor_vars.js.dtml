@@ -3,6 +3,7 @@
 // set the good base path for the editor because
 // portal_javascripts loose it
 // otherwise ckeditor linked urls are bad
+// important : this script must be called before ckeditor.js
 
 var CKEDITOR_BASEPATH = '&dtml-portal_url;/++resource++ckeditor/';
 var CKEDITOR_PLONE_BASEPATH = '&dtml-portal_url;/++resource++ckeditor_for_plone/';

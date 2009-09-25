@@ -71,10 +71,13 @@ if ( window.CKEDITOR )
 launchCKInstances = function() {
     jq('.ckeditor_plone').each(function(){
         ckid = jq(this).attr('id');
-        alert(ckid);
         CKEDITOR.replace( ckid,
           {
-              customConfig : CKEDITOR_PLONE_BASEPATH + '/custom/ckeditor_config.js'
+            customConfig : CKEDITOR_PLONE_BASEPATH + '/ckeditor_plone_config.js',
+            filebrowserBrowseUrl : portal_url + '/@@plone_finder',       
+            filebrowserImageBrowseUrl :  portal_url + '/@@plone_finder?type=image',   
+            language : 'en',
+            uiColor : '#9AB8F3'     
           });
 
     })
