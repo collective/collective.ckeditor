@@ -9,8 +9,5 @@
     id="++resource++ckeditor/ckeditor.js" inline="False"/>
  <javascript cacheable="True" compression="safe" conditionalcomment=""
     cookable="True" enabled="True" expression=""
-    id="++resource++ckeditor_for_plone/ckeditor_plone_config.js" inline="False"/>
- <javascript cacheable="True" compression="safe" conditionalcomment=""
-    cookable="True" enabled="True" expression=""
     id="++resource++ckeditor_for_plone/ckeditor_plone.js" inline="False"/>
 </object>
