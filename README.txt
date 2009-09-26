@@ -49,7 +49,7 @@ Run ckeditor for plone yui tests
 Edit the Plone front-page
 =========================
 
-  - It works fine
+  - It works fine  
   
 TODO
 ====
@@ -78,4 +78,19 @@ Thanks to Youenn Boussard
 
 It will be released on pypi in future
 
-collective.plonefinder will be used in future for media browsing and upload 
+collective.plonefinder (always in progress at this time) is used for attached media browsing and upload 
+
+
+More information
+================
+
+It's a big work to redesign old FCKeditor.Plone features with zope3 and Plone 3.3
+technologies and new ckeditor javascript, but it's also a big pleasure, and i can only say one thing :
+
+it will be a blast.
+
+My company (Alter Way / Ingeniweb) support myself of course, but
+any kind of external support is really welcome :
+
+- support@ingeniweb.com
+
