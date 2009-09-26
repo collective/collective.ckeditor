@@ -69,7 +69,7 @@ if ( window.CKEDITOR )
 
 
 launchCKInstances = function() {
-    jq('.ckeditor_plone').each(function(){
+    jQuery('.ckeditor_plone').each(function(){
         ckid = jq(this).attr('id');
         CKEDITOR.replace( ckid,
           {
@@ -83,5 +83,5 @@ launchCKInstances = function() {
     })
 }
 
-jq(document).ready(launchCKInstances);
+jQuery(document).ready(launchCKInstances);
 
