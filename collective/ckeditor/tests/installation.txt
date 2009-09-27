@@ -1,0 +1,24 @@
+CKEditor Installation
+======================
+
+First just try to see if ckeditor properties sheet is installed:
+
+    >>> self.loginAsManager()
+    >>> ptool = self.ptool
+    >>> 'ckeditor_properties' in ptool.objectIds()
+    True
+
+    
+Control the wysiwyg_editor property in site_properties
+------------------------------------------------------
+
+    >>> site_props = ptool.site_properties
+    >>> 'CKeditor' in site_props.available_editors
+    True
+    
+Control the wysiwyg_editor property in memberdata
+-------------------------------------------------
+
+    >>> memberdata = self.portal.portal_memberdata
+    >>> memberdata.wysiwyg_editor
+    'CKeditor'    
