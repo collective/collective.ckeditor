@@ -15,16 +15,7 @@
     <browser:resourceDirectory
         name="ckeditor_for_plone"
         directory="statics"
-        />  
-
-    <!--browser:page
-      for="*"
-      name="ckeditor_wysiwyg_support"
-      class=".ckeditorview.CKeditorView"
-      template="templates/ckeditor_wysiwyg_support.pt"
-      allowed_interface=".ckeditorview.ICKeditorView"
-      permission="zope.Public"
-    /-->       
+        />     
 
     <!-- main ckeditor template macros -->
     <browser:page
@@ -41,5 +32,32 @@
       class=".ckeditorview.CKeditorView"
       permission="zope.Public"
     />      
+    
+    <!-- ckeditor control panel adapter -->    
+    <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />
+    
+    <!-- ckeditor control panel form view -->    
+    <browser:page
+        name="ckeditor-controlpanel"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".ckeditorsettings.CKEditorControlPanel"
+        permission="cmf.ManagePortal"
+        />    
+        
+    <!-- vocabularies -->
+    <utility
+      component=".vocabularies.CKEditorImageTypesVocabularyFactory"
+      name="collective.ckeditor.vocabularies.ImageTypes"
+      />        
+        
+    <utility
+      component=".vocabularies.CKEditorFileTypesVocabularyFactory"
+      name="collective.ckeditor.vocabularies.FileTypes"
+      />       
+        
+    <utility
+      component=".vocabularies.CKEditorFolderTypesVocabularyFactory"
+      name="collective.ckeditor.vocabularies.FolderTypes"
+      />       
 
 </configure>

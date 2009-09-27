@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<action-icons>
+ <action-icon category="controlpanel" 
+              action_id="CKEditor"
+              title="CKEditor"
+              priority="0"
+              icon_expr="++resource++ckeditor_for_plone/ckeditor_icon.png"/>
+</action-icons>

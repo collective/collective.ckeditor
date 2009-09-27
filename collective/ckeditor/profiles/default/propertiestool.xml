@@ -1,135 +1,31 @@
 <?xml version="1.0"?>
 <object name="portal_properties" meta_type="Plone Properties Tool">
- <!--
  <object name="ckeditor_properties" meta_type="Plone Property Sheet">
-  <property name="title">CK Editor properties</property>
-  <property name="start_expanded" type="boolean">True</property>
+  <property name="title">CKEditor properties</property>
   <property name="allow_link_byuid" type="boolean">True</property>
   <property name="allow_relative_links" type="boolean">True</property>
-  <property name="allow_latin_entities" type="boolean">False</property>
-  <property name="force_paste_as_text" type="boolean">False</property>
-  <property name="keyboard_entermode" type="string">p</property>
-  <property name="keyboard_shiftentermode" type="string">br</property>
-  <property name="keyboard_keystrokesmode" type="string">standard</property>
-  <property name="keyboard_customkeystrokes" type="text"> [
-   	[ CTRL + 65 /*A*/, true ],
-   	[ CTRL + 67 /*C*/, true ],
-   	[ CTRL + 70 /*F*/, true ],
-   	[ CTRL + 83 /*S*/, true ],
-   	[ CTRL + 88 /*X*/, true ],
-   	[ CTRL + 86 /*V*/, 'Paste' ],
-   	[ SHIFT + 45 /*INS*/, 'Paste' ],
-   	[ CTRL + 90 /*Z*/, 'Undo' ],
-   	[ CTRL + 89 /*Y*/, 'Redo' ],
-   	[ CTRL + SHIFT + 90 /*Z*/, 'Redo' ],
-   	[ CTRL + 76 /*L*/, 'Link' ],
-   	[ CTRL + 66 /*B*/, 'Bold' ],
-   	[ CTRL + 73 /*I*/, 'Italic' ],
-   	[ CTRL + 85 /*U*/, 'Underline' ],
-   	[ CTRL + SHIFT + 83 /*S*/, 'Save' ],
-   	[ CTRL + ALT + 13 /*ENTER*/, 'FitWindow' ],
-   	[ CTRL + 9 /*TAB*/, 'Source' ]
-   ]</property>
-  <property name="spellchecker" type="string">ieSpell</property>
-  <property name="ck_force_width" type="string"></property>
-  <property name="ck_force_height" type="string"></property>
-  <property name="ck_toolbar" type="string">PloneDefaultToolbar</property>
-  <property name="ck_custom_toolbar" type="text">[
-    ['Source','DocProps','-','Save','Preview','-','Templates'],
-    ['Cut','Copy','Paste','PasteText','PasteWord','-','Print','rtSpellCheck'],
-    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-    ['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
-    ['OrderedList','UnorderedList','-','Outdent','Indent'],
-    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyFull'],
-    ['Link','Unlink','Anchor'],
-    ['Image','Flash','flvPlayer','Table','Rule','SpecialChar','UniversalKey','PageBreak','Smiley'],
-    ['Form','Checkbox','Radio','TextField','Textarea','Select','Button','ImageButton','HiddenField'],
-    '/',
-    ['Style','FontFormat','FontName','FontSize'],
-    ['TextColor','BGColor'],
-    ['FitWindow','-','About']
-   ]</property>
   <property name="allow_server_browsing" type="boolean">True</property>
-  <property name="allow_file_upload" type="boolean">True</property>
-  <property name="allow_image_upload" type="boolean">True</property>
-  <property name="allow_flash_upload" type="boolean">True</property>
+  <property name="allow_file_upload" type="boolean">False</property>
+  <property name="allow_image_upload" type="boolean">False</property>
+  <property name="allow_flash_upload" type="boolean">False</property>
   <property name="file_portal_type" type="string">File</property>
   <property name="image_portal_type" type="string">Image</property>
   <property name="browse_images_portal_types" type="lines">
    <element value="Image"/>
-   <element value="ATPhoto"/>
-   <element value="ATImage"/>
+   <element value="News Item"/>
   </property>
   <property name="flash_portal_type" type="string">File</property>
   <property name="browse_flashs_portal_types" type="lines">
    <element value="File"/>
-   <element value="ATFile"/>
-   <element value="Flash"/>
   </property>
   <property name="folder_portal_type" type="string">Folder</property>
-  <property name="pa_meta_types" type="lines">
-   <element value="PloneArticle"/>
-   <element value="MyPloneArticleType"/>
-  </property>
-  <property name="rd_portal_types" type="lines">
-   <element value="RichDocument"/>
-   <element value="RichPage"/>
-  </property>
-  <property name="ck_area_style" type="lines"/>
   <property name="ck_force_path" type="boolean">False</property>
   <property name="ck_force_other_path" type="string"></property>
   <property name="ck_force_root" type="boolean">False</property>
   <property name="ck_force_other_root" type="string"></property>
-  <property name="ck_default_skin" type="string">default</property>
-  <property name="ck_menu_styles" type="text">
-   &lt;Style name="Discreet text" element="span"&gt;
-     &lt;Attribute name="class" value="discreet" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Image on Left" element="img"&gt;
-     &lt;Attribute name="class" value="image-left" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Image on Right" element="img"&gt;
-     &lt;Attribute name="class" value="image-right" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Image on Top" element="img"&gt;
-     &lt;Attribute name="class" value="image-inline" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Listing table" element="table"&gt;
-     &lt;Attribute name="class" value="listing" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Even row" element="tr"&gt;
-     &lt;Attribute name="class" value="even" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Odd row" element="tr"&gt;
-     &lt;Attribute name="class" value="odd" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Even block" element="div"&gt;
-     &lt;Attribute name="class" value="even" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Odd block" element="div"&gt;
-     &lt;Attribute name="class" value="odd" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Link Plain" element="a"&gt;
-     &lt;Attribute name="class" value="link-plain" /&gt;
-   &lt;/Style&gt;
-   &lt;Style name="Red Ruler" element="hr"&gt;
-     &lt;Attribute name="style" value="color: #ff0000; width:1px;" /&gt;
-   &lt;/Style&gt;</property>
-  <property name="ck_default_r2l" type="boolean">False</property>
-  <property name="ck_unpublished_states" type="lines">
-   <element value="visible"/>
-   <element value="pending"/>
-   <element value="rejected"/>
-   <element value="waitreview"/>
-  </property>
-  <property name="ck_unpublished_view_roles" type="lines">
-   <element value="Manager"/>
-   <element value="Reviewer"/>
-   <element value="Owner"/>
-   <element value="Contributor"/>
-  </property>
  </object>
- -->
+
+
  <object name="site_properties" meta_type="Plone Property Sheet">
   <property name="available_editors" type="lines" purge="False">
    <element value="CKeditor"/>

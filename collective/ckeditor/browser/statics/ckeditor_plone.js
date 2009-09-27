@@ -76,8 +76,8 @@ launchCKInstances = function() {
             customConfig : CKEDITOR_PLONE_BASEPATH + '/ckeditor_plone_config.js',
             filebrowserBrowseUrl : portal_url + '/@@plone_finder',       
             filebrowserImageBrowseUrl :  portal_url + '/@@plone_finder?types:list=Image&types:list=News+Item&typeview=image',   
-            language : 'en',
-            uiColor : '#9AB8F3'     
+            language : 'fr',
+            uiColor : '#9AB8F3',
           });
 
     })

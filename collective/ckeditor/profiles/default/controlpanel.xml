@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel">
+ <configlet title="CKEditor" 
+            action_id="CKEditor" 
+            appId="collective.ckeditor"
+            category="Products"
+            condition_expr=""
+            url_expr="string:${portal_url}/@@ckeditor-controlpanel"
+            visible="True" >
+  <permission>Manage portal</permission>
+ </configlet>
+</object>

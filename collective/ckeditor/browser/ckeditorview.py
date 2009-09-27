@@ -59,6 +59,11 @@ class CKeditorView(BrowserView):
     def getCK_params(self) :
         """
         return CK Control Panel Settings or widget Settings
-        """            
+        """         
+
+    def getCK_basehref(self) :
+        """
+        return CK Control Panel Settings or widget Settings
+        """          
         
         
