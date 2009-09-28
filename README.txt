@@ -27,9 +27,20 @@ Run all ckeditor yui tests ::
   - http://yourplonesite/++resource++ckeditor/_tests/testall.html
  
 
+Configure your develop buildout for ckeditor
+============================================
 
-Install ckeditor
-================
+This information concerns the svn versions since there's no releases at this time
+
+  - checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.plonefinder/trunk, put it in your develop directory
+  - idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
+  - add http://products.ingeniweb.com/catalog/simple to your buildout find-links in buildout.cfg (for iw.resourcetraverser)
+  - add collective.ckeditor and collective.plonefinder in your develop section  in buildout.cfg
+  - add collective.ckeditor to your zcml section
+  - bin/buildout
+
+Install ckeditor in Plone
+=========================
 
   - using portal_quickinstaller
 
@@ -58,11 +69,11 @@ TODO
   
   - base config  for Plone
   
-  - control panel
+  - control panel improvements
   
   - ckeditor MediaWiki plugin integration 
   
-  - other old fckeditor plone plugins to make it compliant with ckeditor
+  - other old fckeditor plone plugins integration to make it compliant with ckeditor
 
 Dependencies
 ============
@@ -80,17 +91,20 @@ It will be released on pypi in future
 
 collective.plonefinder (always in progress at this time) is used for attached media browsing and upload 
 
+get it here https://svn.plone.org/svn/collective/collective.plonefinder/trunk
+
 
 More information
 ================
 
 It's a big work to redesign old FCKeditor.Plone features with zope3 and Plone 3.3
-technologies and new ckeditor javascript, but it's also a big pleasure, and i can only say one thing :
-
-it will be a blast.
+technologies and new ckeditor javascript, but it's also a big pleasure.
 
 My company (Alter Way / Ingeniweb) support myself of course, but
-any kind of external support is really welcome :
+any kind of external support is really welcome.
+
+
+- jeanmat.grimaldi@ingeniweb.com
 
 - support@ingeniweb.com
 

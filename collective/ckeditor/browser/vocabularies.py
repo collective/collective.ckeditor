@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+## Copyright (C) 2009 Ingeniweb - all rights reserved    
+
+""" Vocabularies used by control panel or widget
+"""
+
 from zope.app.schema.vocabulary import IVocabularyFactory
 from zope.interface import implements
 from zope.schema.vocabulary import SimpleVocabulary

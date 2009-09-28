@@ -28,7 +28,7 @@ var oTestCase = new YAHOO.tool.TestCase({
 // Add the tests
 YAHOO.tool.TestRunner.add(oTestCase);
 
-
+// Important : launch the test after all DOM elements are loaded
 jQuery(window).load( function(){
     //launch the test logger instance for displaying tests results
     var oLogger = new YAHOO.tool.TestLogger();  

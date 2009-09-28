@@ -10,6 +10,9 @@
     <include package=".browser" />
     <!-- iw.resourcetraverser to fix some bugs in resource directory -->
     <include package="iw.resourcetraverser" />
+    <!-- plonefinder dependency -->
+    <include package="collective.plonefinder" />
+    
     <include file="skins.zcml" />  
 
     <!-- Register the installation GenericSetup extension profile -->

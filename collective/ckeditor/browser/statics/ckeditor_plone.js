@@ -68,6 +68,7 @@ if ( window.CKEDITOR )
 /* Plone specific ckeditor launcher using jQuery */
 
 
+
 launchCKInstances = function() {
     jQuery('.ckeditor_plone').each(function(){
         ckid = jq(this).attr('id');
