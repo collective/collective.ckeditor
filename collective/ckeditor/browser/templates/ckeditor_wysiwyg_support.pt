@@ -20,7 +20,7 @@
                                id inputname;
                                onfocus onfocus|nothing;
                                onblur onblur|nothing;
-                               tabindex tabindex|nothing;" id="Textarea2"></textarea>
+                               tabindex tabindex|nothing;"></textarea>
     
     </tal:block>    
     <tal:block condition="not: usesCKeditor">
