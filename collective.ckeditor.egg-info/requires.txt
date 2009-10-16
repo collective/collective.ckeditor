@@ -1,2 +1,0 @@
-setuptools
-iw.resourcetraverser>=0.1.1
