@@ -5,13 +5,15 @@
     i18n_domain="collective.ckeditor">
 
     <five:registerPackage package="." initialize=".initialize" />
+    
+    <!-- iw.resourcetraverser to fix some bugs in resource directory -->
+    <include package="iw.resourcetraverser" />
+    
+    <!-- plonefinder dependency -->
+    <include package="collective.plonefinder" />
 
     <!-- Include the sub-packages that use their own configure.zcml files. -->
     <include package=".browser" />
-    <!-- iw.resourcetraverser to fix some bugs in resource directory -->
-    <include package="iw.resourcetraverser" />
-    <!-- plonefinder dependency -->
-    <include package="collective.plonefinder" />
     
     <include file="skins.zcml" />  
 
