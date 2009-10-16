@@ -8,23 +8,20 @@ Work in progress.
 when checked out from svn, run utils/base2zope.py at Python prompt.
 
 This will inject the ckeditor directory in a browser Resources directory accessible in line
-using this adress :
+using this adress::
 
   - http://yourplonesite/++resource++ckeditor/
   
-base2zope.py fix all tal compilation errors (zope.tal bugs), see also :
+base2zope.py fix some tal compilation errors (zope.tal bugs), see also::
 
   - https://bugs.launchpad.net/zope2/+bug/142333
   
-base2zope.py fix also some XHTML errors in ckeditor 
+base2zope.py fix also some XHTML errors in ckeditor tests pages.
 zope consider html files in browser resources as page templates and return a 404 http error
 in case of tal compilation error::
 
   - http://dev.fckeditor.net/ticket/4416
 
-Run all ckeditor yui tests ::
-  
-  - http://yourplonesite/++resource++ckeditor/_tests/testall.html
  
 
 Configure your develop buildout for ckeditor
@@ -34,10 +31,11 @@ This information concerns the svn versions since there's no releases at this tim
 
   - checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.plonefinder/trunk, put it in your develop directory
   - idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
-  - add http://products.ingeniweb.com/catalog/simple to your buildout find-links in buildout.cfg (for iw.resourcetraverser)
-  - add collective.ckeditor and collective.plonefinder in your develop section  in buildout.cfg
+  - idem for 'iw.resourcetraverser' https://ingeniweb.svn.sourceforge.net/svnroot/ingeniweb/iw.resourcetraverser/trunk
+  - add collective.ckeditor, collective.plonefinder and iw.resourcetraverser in your develop section  in buildout.cfg
   - add collective.ckeditor to your zcml section
-  - bin/buildout
+  - add the ckeditor section to run utils/base2zope.py (see buildout/dev.cfg for more information)
+  - bin/buildout -c dev.cfg
 
 Install ckeditor in Plone
 =========================
@@ -49,6 +47,12 @@ Check the samples
 =================
 
    - http://yourplonesite/++resource++ckeditor/_samples/index.html     
+   
+
+Run ckeditor yui tests
+======================
+  
+  - http://yourplonesite/++resource++ckeditor/_tests/testall.html   
    
 
 Run ckeditor for plone yui tests
@@ -71,8 +75,6 @@ TODO
   
   - control panel improvements
   
-  - ckeditor MediaWiki plugin integration 
-  
   - other old fckeditor plone plugins integration to make it compliant with ckeditor
 
 Dependencies
@@ -83,7 +85,7 @@ ckeditor browser directory (otherwise we get some 404 errors), see also :
 
   -  https://bugs.launchpad.net/bugs/428892
 
-iw.resourcetraverser can be found here http://products.ingeniweb.com/catalog/iw-resourcetraverser
+The released version of iw.resourcetraverser can be found here http://products.ingeniweb.com/catalog/iw-resourcetraverser
 
 Thanks to Youenn Boussard
 
