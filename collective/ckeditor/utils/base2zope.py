@@ -145,22 +145,7 @@ def makeSkinDirs(srcDir ,destDir):
                      fileObj = codecs.open( dest, "w", "utf-8" )
                      fileObj.write(u.lstrip(unicode( codecs.BOM_UTF8, "utf8" )))       
                      fileObj.close()
-                              
-              if ('_samples' in destpath or '_tests' in destpath) and  ext=='html' :                  
-                  fileObj = file(dest) 
-                  content = fileObj.read()   
-                  fileObj.close()  
-                  # put good base href + basehref IE fix for samples (bug ckeditor 3.0 http://dev.fckeditor.net/ticket/4405)
-                  fixbasehref="""
-  <script>
-  	//<![CDATA[
-        document.write('<base href="' + document.location.href.substring(0,document.location.href.lastIndexOf('/')+1) + '" /><!--[if lt IE 7]><\/base><![endif]-->');
-  	//]]>
-  </script>"""
-                  content = content.replace('<head>','<head>\n%s' %fixbasehref)
-                  fileObj = file(dest,"w")
-                  fileObj.write(content)
-                  fileObj.close()       
+                                   
               
               # fix xhtml compilation error
               if ext in ('html', 'xml', 'pt') :                           
