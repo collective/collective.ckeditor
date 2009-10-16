@@ -49,11 +49,21 @@
       component=".vocabularies.CKEditorImageTypesVocabularyFactory"
       name="collective.ckeditor.vocabularies.ImageTypes"
       />        
+      
+    <utility
+      component=".vocabularies.CKEditorUploadImageTypeVocabularyFactory"
+      name="collective.ckeditor.vocabularies.ImageTypeUpload"
+      />
         
     <utility
       component=".vocabularies.CKEditorFileTypesVocabularyFactory"
       name="collective.ckeditor.vocabularies.FileTypes"
-      />       
+      />        
+      
+    <utility
+      component=".vocabularies.CKEditorUploadFileTypeVocabularyFactory"
+      name="collective.ckeditor.vocabularies.FileTypeUpload"
+      /> 
         
     <utility
       component=".vocabularies.CKEditorFolderTypesVocabularyFactory"

@@ -67,7 +67,7 @@ class ICKEditorSchema(Interface):
                                description=_(u"Choose the portal type used for file upload"),
                                required=True,
                                default='File',
-                               vocabulary="collective.ckeditor.vocabularies.FileTypes")
+                               vocabulary="collective.ckeditor.vocabularies.FileTypeUpload")
 
     browse_images_portal_types = Tuple(title=_(u"Portal Types for images linking"),
                                        description=_(u"Choose the types used "
@@ -82,7 +82,7 @@ class ICKEditorSchema(Interface):
                                description=_(u"Choose the portal type used for image upload"),
                                required=True,
                                default='Image',
-                               vocabulary="collective.ckeditor.vocabularies.ImageTypes")
+                               vocabulary="collective.ckeditor.vocabularies.ImageTypeUpload")
 
     browse_flashs_portal_types = Tuple(title=_(u"Portal Types for flah contents linking"),
                                        description=_(u"Choose the types used "
@@ -97,7 +97,7 @@ class ICKEditorSchema(Interface):
                                 description=_(u"Choose the portal type used for flash content upload"),
                                 required=True,
                                 default='File',
-                                vocabulary="collective.ckeditor.vocabularies.FileTypes")
+                                vocabulary="collective.ckeditor.vocabularies.FileTypeUpload")
 
 
 

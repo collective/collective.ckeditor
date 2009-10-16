@@ -13,6 +13,8 @@ from Products.ATContentTypes.interfaces import IFileContent, IImageContent
 from Products.Archetypes.interfaces.base import IBaseFolder
 from Products.CMFCore.utils import getToolByName
 
+from collective.ckeditor import siteMessageFactory as _
+
 def _listTypesForInterface(portal, interface):
     """
     List of portal types that have File interface
@@ -64,8 +66,25 @@ class CKEditorFileTypesVocabulary(object):
         items = [ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
                   for t in flt ]
         return SimpleVocabulary(items)
+        
+CKEditorFileTypesVocabularyFactory = CKEditorFileTypesVocabulary()        
 
-CKEditorFileTypesVocabularyFactory = CKEditorFileTypesVocabulary()
+class CKEditorUploadFileTypeVocabulary(object):
+    """Vocabulary factory for ckeditor file type upload
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        context = getattr(context, 'context', context)
+        portal = getSite()
+        flt = _listTypesForInterface(portal, IFileContent)
+        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration'))]
+        items.extend([ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+                  for t in flt ])
+        return SimpleVocabulary(items)        
+        
+
+CKEditorUploadFileTypeVocabularyFactory = CKEditorUploadFileTypeVocabulary()
 
 class CKEditorImageTypesVocabulary(object):
     """Vocabulary factory for ckeditor image types
@@ -81,6 +100,23 @@ class CKEditorImageTypesVocabulary(object):
         return SimpleVocabulary(items)
 
 CKEditorImageTypesVocabularyFactory = CKEditorImageTypesVocabulary()
+
+class CKEditorUploadImageTypeVocabulary(object):
+    """Vocabulary factory for ckeditor image type upload
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        context = getattr(context, 'context', context)
+        portal = getSite()
+        flt = _listTypesForInterface(portal, IImageContent)
+        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration'))]
+        items.extend([ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+                  for t in flt ])
+        return SimpleVocabulary(items)        
+        
+
+CKEditorUploadImageTypeVocabularyFactory = CKEditorUploadImageTypeVocabulary()
 
 class CKEditorFolderTypesVocabulary(object):
     """Vocabulary factory for ckeditor folder types
