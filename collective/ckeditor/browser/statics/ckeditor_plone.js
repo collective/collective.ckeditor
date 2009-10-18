@@ -75,8 +75,8 @@ launchCKInstances = function() {
         CKEDITOR.replace( ckid,
           {
             customConfig : CKEDITOR_PLONE_BASEPATH + '/ckeditor_plone_config.js',
-            filebrowserBrowseUrl : portal_url + '/@@plone_finder',       
-            filebrowserImageBrowseUrl :  portal_url + '/@@plone_finder?types:list=Image&types:list=News+Item&typeview=image',   
+            filebrowserBrowseUrl : portal_url + '/@@plone_ckfinder',       
+            filebrowserImageBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=Image&types:list=News+Item&typeview=image',   
             language : 'fr',
             uiColor : '#9AB8F3',
           });

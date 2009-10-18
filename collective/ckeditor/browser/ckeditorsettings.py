@@ -11,6 +11,7 @@ from zope.schema import TextLine
 from zope.schema import SourceText
 from zope.schema import Choice
 from zope.schema import Tuple
+from zope.schema import List
 
 from Products.CMFDefault.formlib.schema import ProxyFieldProperty
 from Products.CMFDefault.formlib.schema import SchemaAdapterBase
@@ -68,6 +69,16 @@ class ICKEditorSchema(Interface):
                                required=True,
                                default='File',
                                vocabulary="collective.ckeditor.vocabularies.FileTypeUpload")
+                               
+    file_portal_type_custom = List( title=_(u"Custom File portal type for upload"),
+                                    description=_(u"Add list of pairs CONTAINER_TYPE|FILE_TYPE. "
+                                                   "The file portal type choosen for upload will depend on "
+                                                   "contextual container portal type. "
+                                                   "* means any portal type. "
+                                                   "Take care, no control is done over this field value."),
+                                    required=False,
+                                    value_type=TextLine(),
+                                    default=['*|File', 'Folder|File', ])           
 
     browse_images_portal_types = Tuple(title=_(u"Portal Types for images linking"),
                                        description=_(u"Choose the types used "
@@ -81,8 +92,18 @@ class ICKEditorSchema(Interface):
     image_portal_type = Choice( title=_(u"Image portal type"),
                                description=_(u"Choose the portal type used for image upload"),
                                required=True,
-                               default='Image',
+                               default='auto',
                                vocabulary="collective.ckeditor.vocabularies.ImageTypeUpload")
+                               
+    image_portal_type_custom = List( title=_(u"Custom Image portal type for upload"),
+                                     description=_(u"Add list of pairs CONTAINER_TYPE|IMAGE_TYPE. "
+                                                    "The image portal type choosen for upload will depend on "
+                                                    "contextual container portal type. "
+                                                   "* means any portal type. "
+                                                    "Take care, no control is done over this field value."),
+                                     required=False,
+                                     value_type=TextLine(),
+                                     default=['*|Image', 'Folder|Image', ])                               
 
     browse_flashs_portal_types = Tuple(title=_(u"Portal Types for flah contents linking"),
                                        description=_(u"Choose the types used "
@@ -98,6 +119,16 @@ class ICKEditorSchema(Interface):
                                 required=True,
                                 default='File',
                                 vocabulary="collective.ckeditor.vocabularies.FileTypeUpload")
+                               
+    flash_portal_type_custom = List( title=_(u"Custom Flash portal type for upload"),
+                                     description=_(u"Add list of pairs CONTAINER_TYPE|FLASH_TYPE. "
+                                                    "The flash portal type choosen for upload will depend on "
+                                                    "contextual container portal type. "
+                                                   "* means any portal type. "
+                                                    "Take care, no control is done over this field value."),
+                                     required=False,
+                                     value_type=TextLine(),
+                                     default=['*|File', 'Folder|File', ])           
 
 
 
@@ -170,6 +201,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     file_portal_type = property(get_file_portal_type, set_file_portal_type)
 
+    def get_file_portal_type_custom(self):
+        return self.context.file_portal_type_custom
+
+    def set_file_portal_type_custom(self, value):
+        self.context._updateProperty('file_portal_type_custom', value)
+
+    file_portal_type_custom = property(get_file_portal_type_custom, set_file_portal_type_custom)
+
     def get_browse_images_portal_types(self):
         return self.context.browse_images_portal_types
 
@@ -186,6 +225,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     image_portal_type = property(get_image_portal_type, set_image_portal_type)
 
+    def get_image_portal_type_custom(self):
+        return self.context.image_portal_type_custom
+
+    def set_image_portal_type_custom(self, value):
+        self.context._updateProperty('image_portal_type_custom', value)
+
+    image_portal_type_custom = property(get_image_portal_type_custom, set_image_portal_type_custom)
+
     def get_browse_flashs_portal_types(self):
         return self.context.browse_flashs_portal_types
 
@@ -201,6 +248,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('flash_portal_type', value)
 
     flash_portal_type = property(get_flash_portal_type, set_flash_portal_type)
+
+    def get_flash_portal_type_custom(self):
+        return self.context.flash_portal_type_custom
+
+    def set_flash_portal_type_custom(self, value):
+        self.context._updateProperty('flash_portal_type_custom', value)
+
+    flash_portal_type_custom = property(get_flash_portal_type_custom, set_flash_portal_type_custom)
 
 
 

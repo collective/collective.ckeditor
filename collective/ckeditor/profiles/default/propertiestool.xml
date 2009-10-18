@@ -9,12 +9,24 @@
   <property name="allow_image_upload" type="boolean">False</property>
   <property name="allow_flash_upload" type="boolean">False</property>
   <property name="file_portal_type" type="string">auto</property>
+  <property name="file_portal_type_custom" type="lines">
+    <element value="*|File"/>
+    <element value="Folder|File"/>
+  </property>
   <property name="image_portal_type" type="string">auto</property>
+  <property name="image_portal_type_custom" type="lines">
+    <element value="*|Image"/>
+    <element value="Folder|Image"/>
+  </property>
   <property name="browse_images_portal_types" type="lines">
    <element value="Image"/>
    <element value="News Item"/>
   </property>
   <property name="flash_portal_type" type="string">auto</property>
+  <property name="flash_portal_type_custom" type="lines">
+    <element value="*|File"/>
+    <element value="Folder|File"/>
+  </property>
   <property name="browse_flashs_portal_types" type="lines">
    <element value="File"/>
   </property>

@@ -70,4 +70,13 @@
       name="collective.ckeditor.vocabularies.FolderTypes"
       />       
 
+
+    <browser:page
+        for="*"
+        name="plone_ckfinder"
+        class=".ckeditorfinder.CKFinder"
+    	  permission="zope2.View"
+        />     
+        
+        
 </configure>

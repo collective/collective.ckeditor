@@ -16,6 +16,7 @@
                tabindex=""
                class="ckeditor_plone"
                tal:content="inputvalue"
+               style="display:none"
                tal:attributes="name inputname;
                                id inputname;
                                onfocus onfocus|nothing;
