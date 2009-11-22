@@ -78,7 +78,7 @@ launchCKInstances = function() {
             filebrowserBrowseUrl : portal_url + '/@@plone_ckfinder',       
             filebrowserImageBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=Image&types:list=News+Item&typeview=image',   
             language : 'fr',
-            uiColor : '#9AB8F3',
+            uiColor : '#9AB8F3'
           });
 
     })
