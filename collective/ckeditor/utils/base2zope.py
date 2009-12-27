@@ -131,6 +131,23 @@ def makeSkinDirs(srcDir ,destDir):
                           
                   inputfile.close()
                   outputfile.close()
+
+              # fix css bugs ckeditor 3.0.2 editor.css (remove in future)
+              # http://dev.fckeditor.net/ticket/4559
+              # http://dev.fckeditor.net/attachment/ticket/3494
+              elif filename=='editor.css':
+                  inputfile = file(src)
+                  outputfile = file(dest, 'w+')
+                  for line in inputfile.readlines():
+                      if '.cke_skin_kama .cke_fontSize .cke_text{width:25px;}' in line or '.cke_contextmenu{padding:2px;}' in line :
+                          newline = line.replace('.cke_skin_kama .cke_fontSize .cke_text{width:25px;}','')
+                          newline = newline.replace('.cke_contextmenu{padding:2px;}','.cke_contextmenu{padding:2px; width: 180px !important;}')
+                          outputfile.write(newline)                                
+                      else:
+                          outputfile.write(line)
+                          
+                  inputfile.close()
+                  outputfile.close()
      
   
               else:
