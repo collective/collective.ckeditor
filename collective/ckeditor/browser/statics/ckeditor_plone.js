@@ -75,11 +75,12 @@ launchCKInstances = function() {
         CKEDITOR.replace( ckid,
           {
             customConfig : CKEDITOR_PLONE_BASEPATH + 'ckeditor_plone_config.js',
-            filebrowserBrowseUrl : portal_url + '/@@plone_ckfinder',       
-            filebrowserImageBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=Image&types:list=News+Item&typeview=image',   
+            filebrowserBrowseUrl : portal_url + '/@@plone_ckfinder?typeview=file&media=file',       
+            filebrowserImageBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=Image&types:list=News+Item&typeview=image&media=image',       
+            filebrowserFlashBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=File&typeview=file&media=flash'  
           });
 
-    })
+    })    
 }
 
 jQuery(document).ready(launchCKInstances);

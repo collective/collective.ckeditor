@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xml:lang="en"
       lang="en"
-      i18n:domain="plone">
+      i18n:domain="collective.ckeditor">
 
  
  <!-- wysiwyg default widget -->
@@ -10,7 +10,7 @@
                        ckview context/@@ckeditor_view;
                        usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname)">  
     <tal:block condition="usesCKeditor">
-     <div id="alerts">&nbsp;</div>
+     <div id="alerts">&nbsp;</div>     
      <textarea cols="80"
                rows="25"
                tabindex=""

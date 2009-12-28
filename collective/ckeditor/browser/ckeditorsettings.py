@@ -64,6 +64,11 @@ class ICKEditorSchema(Interface):
                               default=False,
                               required=False)
 
+    allow_folder_creation = Bool(title=_(u"Allow folder creation"),
+                                 description=_(u"Check to allow folder creation in browser. "),
+                                 default=False,
+                                 required=False)
+
     file_portal_type = Choice( title=_(u"File portal type"),
                                description=_(u"Choose the portal type used for file upload"),
                                required=True,
@@ -128,7 +133,23 @@ class ICKEditorSchema(Interface):
                                                     "Take care, no control is done over this field value."),
                                      required=False,
                                      value_type=TextLine(),
-                                     default=['*|File', 'Folder|File', ])           
+                                     default=['*|File', 'Folder|File', ])  
+
+    folder_portal_type = Choice( title=_(u"Folder portal type"),
+                                 description=_(u"Choose the portal type used for folder creation"),
+                                 required=True,
+                                 default='Folder',
+                                 vocabulary="collective.ckeditor.vocabularies.FolderTypes")
+                               
+    folder_portal_type_custom = List( title=_(u"Custom portal type for folder creation"),
+                                      description=_(u"Add list of pairs CONTAINER_TYPE|FOLDER_TYPE. "
+                                                     "The folder portal type choosen for folders creation will depend on "
+                                                     "contextual container portal type. "
+                                                     "* means any portal type. "
+                                                     "Take care, no control is done over this field value."),
+                                     required=False,
+                                     value_type=TextLine(),
+                                     default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])         
 
 
 
@@ -193,6 +214,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     allow_flash_upload = property(get_allow_flash_upload, set_allow_flash_upload)
 
+    def get_allow_folder_creation(self):
+        return self.context.allow_folder_creation
+
+    def set_allow_folder_creation(self, value):
+        self.context._updateProperty('allow_folder_creation', value)
+
+    allow_folder_creation = property(get_allow_folder_creation, set_allow_folder_creation)
+
     def get_file_portal_type(self):
         return self.context.file_portal_type
 
@@ -256,6 +285,22 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('flash_portal_type_custom', value)
 
     flash_portal_type_custom = property(get_flash_portal_type_custom, set_flash_portal_type_custom)
+
+    def get_folder_portal_type(self):
+        return self.context.folder_portal_type
+
+    def set_folder_portal_type(self, value):
+        self.context._updateProperty('folder_portal_type', value)
+
+    folder_portal_type = property(get_folder_portal_type, set_folder_portal_type)
+
+    def get_folder_portal_type_custom(self):
+        return self.context.folder_portal_type_custom
+
+    def set_folder_portal_type_custom(self, value):
+        self.context._updateProperty('folder_portal_type_custom', value)
+
+    folder_portal_type_custom = property(get_folder_portal_type_custom, set_folder_portal_type_custom)
 
 
 

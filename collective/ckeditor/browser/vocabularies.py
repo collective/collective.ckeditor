@@ -129,8 +129,10 @@ class CKEditorFolderTypesVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IBaseFolder)
-        items = [ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
-                  for t in flt ]
+        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration')),
+                 SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
+        items.extend([ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+                  for t in flt ])
         return SimpleVocabulary(items)
 
 CKEditorFolderTypesVocabularyFactory = CKEditorFolderTypesVocabulary()

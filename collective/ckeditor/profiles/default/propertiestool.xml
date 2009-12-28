@@ -5,9 +5,10 @@
   <property name="allow_link_byuid" type="boolean">True</property>
   <property name="allow_relative_links" type="boolean">True</property>
   <property name="allow_server_browsing" type="boolean">True</property>
-  <property name="allow_file_upload" type="boolean">False</property>
-  <property name="allow_image_upload" type="boolean">False</property>
-  <property name="allow_flash_upload" type="boolean">False</property>
+  <property name="allow_file_upload" type="boolean">True</property>
+  <property name="allow_image_upload" type="boolean">True</property>
+  <property name="allow_flash_upload" type="boolean">True</property>
+  <property name="allow_folder_creation" type="boolean">True</property>
   <property name="file_portal_type" type="string">auto</property>
   <property name="file_portal_type_custom" type="lines">
     <element value="*|File"/>
@@ -30,7 +31,11 @@
   <property name="browse_flashs_portal_types" type="lines">
    <element value="File"/>
   </property>
-  <property name="folder_portal_type" type="string">Folder</property>
+  <property name="folder_portal_type" type="string">auto</property>
+  <property name="folder_portal_type_custom" type="lines">
+    <element value="*|Folder"/>
+    <element value="Large Plone Folder|Large Plone Folder"/>
+  </property>
   <property name="ck_force_path" type="boolean">False</property>
   <property name="ck_force_other_path" type="string"></property>
   <property name="ck_force_root" type="boolean">False</property>
