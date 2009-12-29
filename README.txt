@@ -115,14 +115,5 @@ get it here https://svn.plone.org/svn/collective/collective.plonefinder/trunk
 More information
 ================
 
-It's a big work to redesign old FCKeditor.Plone features with zope3 and Plone 3.3
-technologies and new ckeditor javascript, but it's also a big pleasure.
-
-My company (Alter Way / Ingeniweb) support myself of course, but
-any kind of external support is really welcome.
-
-
 - jeanmat.grimaldi@ingeniweb.com
-
-- support@ingeniweb.com
 
