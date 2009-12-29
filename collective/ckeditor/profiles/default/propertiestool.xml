@@ -31,7 +31,7 @@
   <property name="browse_flashs_portal_types" type="lines">
    <element value="File"/>
   </property>
-  <property name="folder_portal_type" type="string">auto</property>
+  <property name="folder_portal_type" type="string">custom</property>
   <property name="folder_portal_type_custom" type="lines">
     <element value="*|Folder"/>
     <element value="Large Plone Folder|Large Plone Folder"/>

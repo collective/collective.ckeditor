@@ -78,7 +78,7 @@ class CKEditorUploadFileTypeVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IFileContent)
-        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration')),
+        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration (recommanded)')),
                  SimpleTerm('custom', 'custom', _(u'Custom configuration fill next field'))]
         items.extend([ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
                   for t in flt ])
@@ -111,7 +111,7 @@ class CKEditorUploadImageTypeVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IImageContent)
-        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration')),
+        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration (recommanded)')),
                  SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
         items.extend([ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
                   for t in flt ])
@@ -129,8 +129,7 @@ class CKEditorFolderTypesVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IBaseFolder)
-        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration')),
-                 SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
+        items = [SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
         items.extend([ SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
                   for t in flt ])
         return SimpleVocabulary(items)
