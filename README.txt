@@ -69,13 +69,29 @@ Edit the Plone front-page
 TODO
 ====
 
-  - Browse and upload medias (collective.plonefinder in progress)
+  - Use control panel options in ckeditor_plone.js or ckeditor_ploneconfig.js
   
-  - base config  for Plone
+  - ckeditor control panel improvements :
   
-  - control panel improvements
+    - easy toolbar selection
+    
+    - different toolbars upon some options (roles, ...)
+    
+    - area styles and templates
+    
+    - other options (spellchecker, copy/paste options, keyboard options)
   
-  - other old fckeditor plone plugins integration to make it compliant with ckeditor
+  - plugins integration :
+     
+    - firefox spellchecker GeckoSpellChecker Plugin
+     
+    - adapt imgmap plugin for ckeditor
+     
+    - a new flv player plugin for ckeditor without javascript tags inside html area
+     
+    - a new flash plugin for ckeditor using swfobject but without javascript tags inside html area
+    
+  - quick upload without browser (directly from editor insert image dialog box)  
 
 Dependencies
 ============
