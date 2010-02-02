@@ -29,7 +29,7 @@ Configure your develop buildout for ckeditor
 
 This information concerns the svn versions since there's no releases at this time
 
-  - checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.plonefinder/trunk, put it in your develop directory
+  - checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.ckeditor/trunk, put it in your develop directory
   - idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
   - idem for 'iw.resourcetraverser' https://ingeniweb.svn.sourceforge.net/svnroot/ingeniweb/iw.resourcetraverser/trunk
   - add collective.ckeditor, collective.plonefinder and iw.resourcetraverser in your develop section  in buildout.cfg
@@ -115,5 +115,5 @@ get it here https://svn.plone.org/svn/collective/collective.plonefinder/trunk
 More information
 ================
 
-- jeanmat.grimaldi@ingeniweb.com
+- support@ingeniweb.com
 
