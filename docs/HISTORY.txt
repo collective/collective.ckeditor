@@ -1,6 +1,17 @@
 Changelog
 =========
 
+3.2.1 - Unreleased
+------------------
+
+* use ckeditor 3.2.1
+
+* plone 4 compliance :
+
+  - remove iw.resourcetraverser dependency
+
+  - remove wysiwyg_support (no more useful)
+
 3.0.2 - Unreleased
 ------------------
 

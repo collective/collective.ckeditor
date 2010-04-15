@@ -71,13 +71,14 @@ if ( window.CKEDITOR )
 
 launchCKInstances = function() {
     jQuery('.ckeditor_plone').each(function(){
-        ckid = jq(this).attr('id');
+        ckid = jQuery(this).attr('id');
+        ck_basehref = jQuery('.ck_basehref', jQuery(this).parent()).val();
         CKEDITOR.replace( ckid,
           {
-            customConfig : CKEDITOR_PLONE_BASEPATH + 'ckeditor_plone_config.js',
-            filebrowserBrowseUrl : portal_url + '/@@plone_ckfinder?typeview=file&media=file',       
-            filebrowserImageBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=Image&types:list=News+Item&typeview=image&media=image',       
-            filebrowserFlashBrowseUrl :  portal_url + '/@@plone_ckfinder?types:list=File&typeview=file&media=flash'  
+            customConfig : ck_basehref + '/ckeditor_plone_config.js',
+            filebrowserBrowseUrl : ck_basehref + '/@@plone_ckfinder?typeview=file&media=file',       
+            filebrowserImageBrowseUrl :  ck_basehref + '/@@plone_ckfinder?types:list=Image&types:list=News+Item&typeview=image&media=image',       
+            filebrowserFlashBrowseUrl :  ck_basehref + '/@@plone_ckfinder?types:list=File&typeview=file&media=flash'  
           });
 
     })    

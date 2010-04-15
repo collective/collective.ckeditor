@@ -11,6 +11,10 @@
                        usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname)">  
     <tal:block condition="usesCKeditor">
      <div id="alerts">&nbsp;</div>     
+     <input type="hidden"
+            name="ck_basehref"
+            class="ck_basehref"
+            tal:attributes="value ckview/getCK_basehref" />
      <textarea cols="80"
                rows="25"
                tabindex=""

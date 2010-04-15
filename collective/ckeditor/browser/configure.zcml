@@ -33,6 +33,15 @@
       permission="zope.Public"
     />      
     
+    <!-- ckeditor config view (return a javascript file) -->
+    <browser:page
+  	      for="*"
+   	      class=".ckeditorview.CKeditorView"
+   	      name="ckeditor_plone_config.js"
+  	      attribute="getCK_plone_config"
+  	      permission="zope.Public"
+   	      /> 	        
+    
     <!-- ckeditor control panel adapter -->    
     <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />
     
