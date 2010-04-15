@@ -31,8 +31,8 @@ This information concerns the svn versions since there's no releases at this tim
 
   - checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.ckeditor/trunk, put it in your develop directory
   - idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
-  - idem for 'iw.resourcetraverser' https://ingeniweb.svn.sourceforge.net/svnroot/ingeniweb/iw.resourcetraverser/trunk
-  - add collective.ckeditor, collective.plonefinder and iw.resourcetraverser in your develop section  in buildout.cfg
+  - if you are under plone3 'iw.resourcetraverser' https://ingeniweb.svn.sourceforge.net/svnroot/ingeniweb/iw.resourcetraverser/trunk
+  - add collective.ckeditor, collective.plonefinder (and iw.resourcetraverser with plone3.x) in your develop section  in buildout.cfg
   - add collective.ckeditor to your zcml section
   - add the ckeditor section to run utils/base2zope.py (see buildout/dev.cfg for more information)
   - bin/buildout -c dev.cfg
@@ -96,21 +96,27 @@ TODO
 Dependencies
 ============
 
-iw.resourcetraverser is necessary to permit access to all resources inside 
+collective.plonefinder (always in progress at this time) is used for attached media browsing and upload 
+
+get it here https://svn.plone.org/svn/collective/collective.plonefinder/trunk
+
+
+Plone 3.x only :
+----------------
+
+To use ckeditor in plone 3.x you must :
+
+- add http://products.ingeniweb.com/catalog/ as new eggs repository in your buildout
+
+- add iw.resourcetraverser in your buildout (in eggs and zcml sections)
+
+For plone 3.x, iw.resourcetraverser is necessary to permit access to all resources inside 
 ckeditor browser directory (otherwise we get some 404 errors), see also :
 
   -  https://bugs.launchpad.net/bugs/428892
 
 The released version of iw.resourcetraverser can be found here http://products.ingeniweb.com/catalog/iw-resourcetraverser
-
 Thanks to Youenn Boussard
-
-It will be released on pypi in future
-
-collective.plonefinder (always in progress at this time) is used for attached media browsing and upload 
-
-get it here https://svn.plone.org/svn/collective/collective.plonefinder/trunk
-
 
 More information
 ================

@@ -7,7 +7,7 @@
     <five:registerPackage package="." initialize=".initialize" />
     
     <!-- iw.resourcetraverser to fix some bugs in resource directory -->
-    <include package="iw.resourcetraverser" />
+    <!-- include package="iw.resourcetraverser" /-->
     
     <!-- plonefinder dependency -->
     <include package="collective.plonefinder" />
