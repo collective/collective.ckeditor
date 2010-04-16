@@ -56,9 +56,9 @@ class CKFinder(Finder):
                     folder = aq_inner(folder.aq_parent)    
                 self.scope = scope = folder 
                 
-        self.scopetitle = scope.Title()              
-        self.scopeicon = scope.getIcon()        
-        self.scopetype = scope.portal_type 
+        self.scopetitle = scope.Title()          
+        self.scopetype = scopetype = scope.portal_type 
+        self.scopeiconclass = 'contenttype-%s divicon' % scopetype.lower().replace(' ','-')
         
         # set browsedpath and browsed_url
         if not IPloneSiteRoot.providedBy(scope) : 
