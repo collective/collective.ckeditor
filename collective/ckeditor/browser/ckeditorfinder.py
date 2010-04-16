@@ -25,7 +25,7 @@ class CKFinder(Finder):
         session = request.get('SESSION', None)  
         self.showbreadcrumbs =  request.get('showbreadcrumbs', self.showbreadcrumbs)
         # scopeInfos must be set here because we need it in  set_session_props
-        self._newSetScopeInfos(context, request, self.showbreadcrumbs)     
+        self.setScopeInfos(context, request, self.showbreadcrumbs)     
         # store CKEditor function name in session for ajax calls
         session.set('CKEditorFuncNum', request.get('CKEditorFuncNum', ''))    
         # redefine some js methods (to select items ...)
@@ -34,60 +34,11 @@ class CKFinder(Finder):
         self.set_media_type()
         # store some properties in session (portal_type used for upload and folder creation ...)
         self.set_session_props()
-        return super(CKFinder, self).__call__()
-        
-    def _newSetScopeInfos(self, context, request, showbreadcrumbs):
-        """
-        set scope and all infos related to scope
-        setScopeInfos redefined to be called before super(CKFinder, self).__call__()
-        """
-        browsedpath = request.get('browsedpath', self.browsedpath)
-        # find scope if undefined
-        # by default scope = browsedpath or first parent folderish or context if context is a folder        
-        scope = self.scope
-        if scope is None  : 
-            if browsedpath :
-                self.scope = scope = aq_inner(self.portal.restrictedTraverse(browsedpath))   
-            else :
-                folder = aq_inner(context)
-                while not IPloneSiteRoot.providedBy(folder)  : 
-                    if bool(getattr(aq_base(folder), 'isPrincipiaFolderish', False)) :
-                        break
-                    folder = aq_inner(folder.aq_parent)    
-                self.scope = scope = folder 
-                
-        self.scopetitle = scope.Title()          
-        self.scopetype = scopetype = scope.portal_type 
-        self.scopeiconclass = 'contenttype-%s divicon' % scopetype.lower().replace(' ','-')
-        
-        # set browsedpath and browsed_url
-        if not IPloneSiteRoot.providedBy(scope) : 
-            self.browsedpath = '/'.join(scope.getPhysicalPath())        
-            self.browsed_url = scope.absolute_url()
-            parentscope = aq_inner(scope.aq_parent)
-            if not IPloneSiteRoot.providedBy(parentscope) :
-                self.parentpath = '/'.join(parentscope.getPhysicalPath()) 
-            else :
-                self.parentpath =  self.portalpath   
-        else :
-            self.browsedpath = self.portalpath
-            self.browsed_url = self.portal_url     
-        
-        # set breadcrumbs    
-        # TODO : use self.catalog                     
-        if showbreadcrumbs :
-            crumbs = []
-            item = scope
-            while not IPloneSiteRoot.providedBy(item) :
-                 crumb = {}
-                 crumb['path'] = '/'.join(item.getPhysicalPath())
-                 crumb['title'] = item.title_or_id()
-                 crumbs.append(crumb)
-                 item = aq_inner(item.aq_parent)
-            crumbs.reverse()
-            self.breadcrumbs = crumbs         
+        # the next call to setScopeInfos must be empty
+        self.setScopeInfos = self.empty_setScopeInfos
+        return super(CKFinder, self).__call__()       
     
-    def setScopeInfos(self, context, request, showbreadcrumbs):
+    def empty_setScopeInfos(self, context, request, showbreadcrumbs):
         """
         setScopeInfos redefined (the job is done before Finder.__call__() by __newSetScopeInfos )
         """
