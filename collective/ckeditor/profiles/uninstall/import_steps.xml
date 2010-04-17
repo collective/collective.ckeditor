@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<import-steps>
+
+ <import-step id="ckeditor-uninstall"
+              version="2010-04-17"
+              handler="collective.ckeditor.setuphandlers.uninstallSteps"
+              title="Uninstall CKeditor final steps">
+    Final ckeditor uninstall steps
+ </import-step>
+
+</import-steps>

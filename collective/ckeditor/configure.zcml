@@ -32,5 +32,14 @@
       <depends name="plone-final"/>
     </genericsetup:importStep>        
 
+    <!-- Register the installation GenericSetup extension profile -->
+    <genericsetup:registerProfile
+      name="uninstall"
+      title="CKeditor for Plone : Uninstall"
+      directory="profiles/uninstall"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 
 </configure>

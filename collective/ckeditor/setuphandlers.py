@@ -10,15 +10,16 @@ def importFinalSteps(context):
     site = context.getSite()
     registerTransform(site, 'ck_ruid_to_url', 'collective.ckeditor.transforms.ck_ruid_to_url')
     registerTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE, REQUIRED_TRANSFORM)
-    LOG.info('ckeditor for Plone installed')
+    LOG.info('CKEditor for Plone installed')
 
 def uninstallSteps(context) :
-    if context.readDataFile('collective.ckeditor.txt') is None:
+    if context.readDataFile('collective.ckeditor.uninstall.txt') is None:
         return
     site = context.getSite()
+    uninstallControlPanel(site)
     unregisterTransform(site, 'ck_ruid_to_url')
     unregisterTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE, REQUIRED_TRANSFORM)
-    LOG.info('ckeditor for Plone installed')
+    LOG.info('CKEditor for Plone uninstalled')
 
 def registerTransform(context, name, module):
     transforms = getToolByName(context, 'portal_transforms')
@@ -45,6 +46,15 @@ def registerTransformPolicy(context, output_mimetype, required_transform):
     if not mimetype_registered :
         transforms.manage_addPolicy(output_mimetype, [required_transform])
     LOG.info("Registered policy for '%s' mimetype" %output_mimetype) 
+
+def uninstallControlPanel(context):
+    """
+    Uninstall CKeditor control panel
+    Since the xml uninstall profile does not work
+    """
+    controlpanel = getToolByName(context, 'portal_controlpanel')
+    controlpanel.unregisterConfiglet(id='CKEditor')
+    LOG.info("CKEditor configlet removed") 
     
 def unregisterTransform(context, name):
     transforms = getToolByName(context, 'portal_transforms')
@@ -67,5 +77,5 @@ def unregisterTransformPolicy(context, output_mimetype, required_transform):
                 if policies :
                     transforms.manage_addPolicy(output_mimetype, policies)
             break
-    LOG.info("Removed transform policy for '%s' mimetype" %output_mimetypes)
+    LOG.info("Removed transform policy for '%s' mimetype" %output_mimetype)
 
