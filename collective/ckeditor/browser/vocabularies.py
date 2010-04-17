@@ -32,7 +32,7 @@ def _listTypesForInterface(portal, interface):
     all_types = archetype_tool.listRegisteredTypes(inProject=True)
     # Keep the ones that are klass like
     all_types = [tipe['portal_type'] for tipe in all_types
-                 if interface.isImplementedByInstancesOf(tipe['klass'])]
+                 if interface.providedBy(tipe['klass'])]
     return [_infoDictForType(tipe, portal_types, utranslate) for tipe in all_types]
     
 def _infoDictForType(ptype, portal_types, utranslate):
