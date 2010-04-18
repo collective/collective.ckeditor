@@ -1,42 +1,48 @@
-CKEditor Installation
-======================
-
-First just try to see if ckeditor properties sheet is installed:
+CKEditor Uninstall
+==================
 
     >>> self.loginAsManager()
     >>> from Products.CMFCore.utils import getToolByName
+    >>> qi = getToolByName(self.portal, 'portal_quickinstaller')
+    >>> qi.uninstallProducts(['collective.ckeditor'])
+
+
+ckeditor properties
+-------------------
+
+ckeditor properties sheet must stay here after uninstall :
+
     >>> ptool = self.ptool
     >>> 'ckeditor_properties' in ptool.objectIds()
     True
 
+Control the wysiwyg_editor property in memberdata
+-------------------------------------------------
+
+    >>> memberdata = self.portal.portal_memberdata
+    >>> memberdata.wysiwyg_editor
+    ''    
     
 Control the wysiwyg_editor property in site_properties
 ------------------------------------------------------
 
     >>> site_props = ptool.site_properties
     >>> 'CKeditor' in site_props.available_editors
-    True
-    
-Control the wysiwyg_editor property in memberdata
--------------------------------------------------
+    False
 
-    >>> memberdata = self.portal.portal_memberdata
-    >>> memberdata.wysiwyg_editor
-    'CKeditor'
-
-Control portal_transforms installation
---------------------------------------
+Control portal_transforms uninstalls
+------------------------------------
 
     >>> transforms = getToolByName(self.portal, 'portal_transforms')
     >>> output_mimetype = 'text/x-html-safe'
     >>> cke_transform = 'ck_ruid_to_url'
 
-Control if cke_transform is here
+Control if cke_transform is removed
 
     >>> cke_transform in transforms.objectIds()
-    True
+    False
 
-Control if ckeditor policies are registered
+Control if ckeditor policies are removed
     >>> tpolicies = transforms.listPolicies()
     >>> mimetype_registered = False
     >>> for p in tpolicies :
@@ -47,4 +53,4 @@ Control if ckeditor policies are registered
     ...             mimetype_registered = True
     ...             break
     >>> mimetype_registered
-    True
+    False

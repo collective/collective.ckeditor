@@ -30,10 +30,12 @@ def _listTypesForInterface(portal, interface):
     # all_types = [{'name': xx, 'package': xx, 'portal_type': xx, 'module': xx,
     #               'meta_type': xx, 'klass': xx, ...
     all_types = archetype_tool.listRegisteredTypes(inProject=True)
-    # Keep the ones that are klass like
     all_types = [tipe['portal_type'] for tipe in all_types
-                 if interface.providedBy(tipe['klass'])]
-    return [_infoDictForType(tipe, portal_types, utranslate) for tipe in all_types]
+                 if interface.implementedBy(tipe['klass'])]
+    # fix for bug in listRegisteredTypes which returns 2 'ATFolder'
+    # when asking for IBaseFolder interface
+    unik_types = dict.fromkeys(all_types).keys() 
+    return [_infoDictForType(tipe, portal_types, utranslate) for tipe in unik_types]
     
 def _infoDictForType(ptype, portal_types, utranslate):
     """

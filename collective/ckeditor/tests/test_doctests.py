@@ -14,6 +14,7 @@ OPTIONFLAGS = (doctest.ELLIPSIS |
 def test_suite():
     tests = [ 'installation.txt',
               'controlpanel.txt',
+              'uninstall.txt',
              ]
     suite = TestSuite()
     for test in tests:

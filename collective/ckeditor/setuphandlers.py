@@ -17,6 +17,7 @@ def uninstallSteps(context) :
         return
     site = context.getSite()
     uninstallControlPanel(site)
+    uninstallSiteProperties(site)
     unregisterTransform(site, 'ck_ruid_to_url')
     unregisterTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE, REQUIRED_TRANSFORM)
     LOG.info('CKEditor for Plone uninstalled')
@@ -55,6 +56,20 @@ def uninstallControlPanel(context):
     controlpanel = getToolByName(context, 'portal_controlpanel')
     controlpanel.unregisterConfiglet(id='CKEditor')
     LOG.info("CKEditor configlet removed") 
+
+def uninstallSiteProperties(context) :
+    """
+    Remove CKeditor as available editor
+    could not be done with GS
+    Remark : we don' t change the default editor
+    (the ckeditor installer do not change it)
+    """
+    ptool = getToolByName(context, 'portal_properties')
+    stp = ptool.site_properties
+    ae = list(stp.getProperty('available_editors'))
+    if 'CKeditor' in ae :
+        ae.remove('CKeditor')
+        stp.manage_changeProperties(REQUEST=None, available_editors = ae)
     
 def unregisterTransform(context, name):
     transforms = getToolByName(context, 'portal_transforms')
