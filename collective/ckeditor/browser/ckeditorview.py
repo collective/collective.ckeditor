@@ -31,6 +31,35 @@ class CKeditorView(BrowserView):
     def cke_properties(self) :
         pp = getToolByName(self.portal, 'portal_properties')
         return pp.ckeditor_properties
+        
+    @property
+    def cke_config_url(self) :
+        """"
+        return the dynamic configuration file url
+        """
+        context = aq_inner(self.context)
+        return '%s/ckeditor_plone_config.js' %context.absolute_url()
+
+    @property
+    def cke_basehref(self) :
+        """
+        return the base href used by ckeditor
+        used to calculate relative or absolute links
+        by default it's the global renderBase value
+        """           
+        context= aq_inner(self.context) 
+        plone_view = context.restrictedTraverse('@@plone')
+        return "'%s'" %plone_view.renderBase()
+
+    @ property
+    def ckfinder_basehref(self) :
+        """
+        return CK finder base href
+        TODO : improve it with control panel
+        (could be a specific place in site)
+        """           
+        context= aq_inner(self.context) 
+        return context.absolute_url()
 
     def _memberUsesCKeditor(self):
         """return True if member uses CKeditor"""
@@ -65,6 +94,7 @@ class CKeditorView(BrowserView):
         """
         return list of style sheets applied to ckeditor area
         the list is returned as a javascript string
+        by default portal_css mixin + plone_ckeditor_area.css
         TODO : improve it with a control panel
         """
         context= aq_inner(self.context) 
@@ -85,21 +115,13 @@ class CKeditorView(BrowserView):
         css_jsList += "'%s/++resource/ckeditor_for_plone/ckeditor_plone_area.css']" %portal_url  
         
         return css_jsList      
-
-    def getCK_basehref(self) :
-        """
-        return CK editor base href
-        TODO : improve it, depending if contex isfolderish or not
-        """           
-        context= aq_inner(self.context) 
-        return context.absolute_url()
         
         
     def getCK_finder_url(self, type) :
         """
         return browser url for a type
         """
-        base_url = '%s/@@plone_ckfinder?' % self.getCK_basehref()
+        base_url = '%s/@@plone_ckfinder?' % self.ckfinder_basehref
         if type == 'file' :
             base_url += 'typeview=file&media=file'
         elif type == 'flash' :
@@ -117,7 +139,7 @@ class CKeditorView(BrowserView):
     
     def getCK_params(self) :
         """
-        return CK Control Panel Settings or widget Settings
+        return CKEditor widget Settings
         """         
         params = {}
         params['contentsCss'] = self.getCK_contentsCss()
@@ -125,6 +147,7 @@ class CKeditorView(BrowserView):
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         params['filebrowserImageBrowseUrl'] = self.getCK_finder_url(type='image')
         params['filebrowserFlashBrowseUrl'] = self.getCK_finder_url(type='flash')
+        params['baseHref'] = self.cke_basehref
         
         return params 
 

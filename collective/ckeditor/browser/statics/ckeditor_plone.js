@@ -70,10 +70,10 @@ if ( window.CKEDITOR )
 launchCKInstances = function() {
     jQuery('.ckeditor_plone').each(function(){
         ckid = jQuery(this).attr('id');
-        ck_basehref = jQuery('.ck_basehref', jQuery(this).parent()).val();
+        cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
         CKEDITOR.replace( ckid,
           {
-            customConfig : ck_basehref + '/ckeditor_plone_config.js'
+            customConfig : cke_config_url
           });
 
     })    

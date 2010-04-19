@@ -12,9 +12,9 @@
     <tal:block condition="usesCKeditor">
      <div id="alerts">&nbsp;</div>     
      <input type="hidden"
-            name="ck_basehref"
-            class="ck_basehref"
-            tal:attributes="value ckview/getCK_basehref" />
+            name="cke_config_url"
+            class="cke_config_url"
+            tal:attributes="value ckview/cke_config_url" />
      <textarea cols="80"
                rows="25"
                tabindex=""
