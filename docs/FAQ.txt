@@ -1,0 +1,24 @@
+CKEditor for Plone : FAQ
+------------------------
+
+* How to completely remove any trace of ckeditor in Plone ?
+  Use the Plone control panel > Addons > remove the product
+  In ZMI > portal_properties remove 'ckeditor_properties', all your registered 
+  parameters for ckeditor will be destroyed.
+
+* How to install a new version of CKeditor for Plone ?
+  Always read this FAQ
+  From one version to another, it could be needed to run a migration 
+  Generic Setup upgrade step for ckeditor_properties sheet.
+
+* How to use a svn version of collective.ckeditor ?
+  Just take a  look at buildout/buildout.cfg and buildout/sources.cfg in this package
+  Checkout the standard plone4 buildout
+  Make a diff with standard plone4 buidout to see the parts you need to change
+  You need to add the svn adresses in sources.cfg for mr.developper,
+  'ckeditor' in egg and zcml sections, and the 'ckeditor' part ....
+
+* How to completly overload the ckeditor configuration 
+  with your own javascript config ?
+  Just create a javascript file called 'ckeditor_plone_config.js' in your ZMI
+  > portal_skins > Custom or in a skin product.

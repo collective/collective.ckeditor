@@ -10,7 +10,15 @@ Changelog
 
   - remove iw.resourcetraverser dependency
 
-  - remove wysiwyg_support (no more useful)
+  - remove wysiwyg_support in skin (no more useful)
+
+* control panel improvements
+
+* functional doctests added or improved
+
+* FAQ added
+
+* buildout examples added to help developers using svn product
 
 3.0.2 - Unreleased
 ------------------

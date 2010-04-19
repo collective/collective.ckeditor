@@ -1,0 +1,70 @@
+CKEditor configuration
+======================
+
+First just get ckeditor properties sheet :
+
+    >>> self.loginAsManager()
+    >>> ptool = self.ptool
+    >>> ckeditor_props = ptool.ckeditor_properties
+
+We will try to get javascript configuration using testbrowser
+The javascript code must depend on ckeditor_props.
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> browser = Browser()
+    >>> portal_url = self.portal.absolute_url()
+    >>> self.portal.error_log._ignored_exceptions = ()
+
+Test ckeditor finder configuration
+==================================
+
+    >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
+    >>> js_string = "config.filebrowserImageBrowseUrl = '" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image&types:list=News%20Item'"
+    >>> js_string in browser.contents
+    True
+
+Remove 'News Item' portal_type for browsing images in ckeditor_properties
+
+    >>> ckeditor_props.manage_changeProperties(REQUEST=None, browse_images_portal_types = ['Image'])
+
+Get the javascript config file
+
+    >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
+    >>> js_string = "config.filebrowserImageBrowseUrl = '" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image'"
+    >>> js_string in browser.contents
+    True
+
+Test Area style sheets configuration
+====================================
+
+We set first portal_css in debug mode 
+
+    >>> self.portal.portal_css.setDebugMode(True)
+
+    >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
+    >>> js_lines = browser.contents.split('\n')
+    >>> css_line  = js_lines [7]
+
+By default we must find all portal_css stylesheet in javascript configuration
+
+    >>> 'base.css' in css_line
+    True
+    >>> 'public.css' in css_line
+    True
+
+By default we must also find a specific css for plone ckeditor area
+
+    >>> 'ckeditor_plone_area.css' in css_line
+    True
+
+TODO : test ckeditor properties changes on area styles heets
+
+
+Test CKEditor area body ID
+==========================
+
+To get real wysiwyg by default editor area has the same id
+as Plone content. We must find it in javascript config file.
+
+    >>> "config.bodyId = 'content'" in browser.contents
+    True

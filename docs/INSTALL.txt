@@ -1,5 +1,5 @@
-collective.plonefinder Installation
------------------------------------
+collective.ckeditor Installation
+--------------------------------
 
 To install collective.ckeditor into the global Python environment (or a workingenv),
 using a traditional Zope 2 instance, you can do this:

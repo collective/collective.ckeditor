@@ -27,12 +27,15 @@ class CKeditorView(BrowserView):
         self.portal_url = self.portal.absolute_url()   
         request.set('ckLoaded',True)
         
+    @property
+    def cke_properties(self) :
+        pp = getToolByName(self.portal, 'portal_properties')
+        return pp.ckeditor_properties
+
     def _memberUsesCKeditor(self):
         """return True if member uses CKeditor"""
         pm = getToolByName(self.portal, 'portal_membership')
         return pm.getAuthenticatedMember().getProperty('wysiwyg_editor')=='CKeditor'
-        
- 
     
     def contentUsesCKeditor(self, fieldname=''):
         """
@@ -92,12 +95,36 @@ class CKeditorView(BrowserView):
         return context.absolute_url()
         
         
+    def getCK_finder_url(self, type) :
+        """
+        return browser url for a type
+        """
+        base_url = '%s/@@plone_ckfinder?' % self.getCK_basehref()
+        if type == 'file' :
+            base_url += 'typeview=file&media=file'
+        elif type == 'flash' :
+            flash_types = self.cke_properties.getProperty('browse_flashs_portal_types')
+            base_url += 'typeview=file&media=flash'
+            for type in flash_types :
+                base_url += '&types:list=%s' %url_quote(type)
+        elif type == 'image' :
+            image_types = self.cke_properties.getProperty('browse_images_portal_types')
+            base_url += 'typeview=image&media=image'
+            for type in image_types :
+                base_url += '&types:list=%s' %url_quote(type)
+        return "'%s'" %base_url
+        
+    
     def getCK_params(self) :
         """
         return CK Control Panel Settings or widget Settings
         """         
         params = {}
         params['contentsCss'] = self.getCK_contentsCss()
+        params['bodyId'] = "'content'"
+        params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
+        params['filebrowserImageBrowseUrl'] = self.getCK_finder_url(type='image')
+        params['filebrowserFlashBrowseUrl'] = self.getCK_finder_url(type='flash')
         
         return params 
 
@@ -118,7 +145,7 @@ CKEDITOR.editorConfig = function( config )
         params = self.getCK_params()
         for k, v in params.items() :
             params_js_string += """
-   config.%s = %s';
+   config.%s = %s;
             """ %(k, v)
         
         params_js_string +="""
