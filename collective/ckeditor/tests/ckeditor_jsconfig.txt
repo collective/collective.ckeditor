@@ -42,19 +42,17 @@ We set first portal_css in debug mode
     >>> self.portal.portal_css.setDebugMode(True)
 
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
-    >>> js_lines = browser.contents.split('\n')
-    >>> css_line  = js_lines [7]
 
 By default we must find all portal_css stylesheet in javascript configuration
 
-    >>> 'base.css' in css_line
+    >>> 'base.css' in browser.contents
     True
-    >>> 'public.css' in css_line
+    >>> 'public.css' in browser.contents
     True
 
 By default we must also find a specific css for plone ckeditor area
 
-    >>> 'ckeditor_plone_area.css' in css_line
+    >>> 'ckeditor_plone_area.css' in browser.contents
     True
 
 TODO : test ckeditor properties changes on area styles heets
@@ -67,4 +65,25 @@ To get real wysiwyg by default editor area has the same id
 as Plone content. We must find it in javascript config file.
 
     >>> "config.bodyId = 'content'" in browser.contents
+    True
+
+Test the ckeditor basehref
+==========================
+
+The basehref is used to calculate relative links
+
+On a simple page it must be absolute_url
+Try to get the config associated to front-page
+
+    >>> browser.open('%s/front-page/ckeditor_plone_config.js' %portal_url)
+    >>> js_basehref = "config.baseHref = '" + portal_url + "/front-page'"
+    >>> js_basehref in browser.contents
+    True
+
+On a folderish page basehref must be absolute_url + '/'
+Try to get the config associated to the 'news' folder
+
+    >>> browser.open('%s/news/ckeditor_plone_config.js' %portal_url)
+    >>> js_basehref = "config.baseHref = '" + portal_url + "/news/'"
+    >>> js_basehref in browser.contents
     True
