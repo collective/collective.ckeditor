@@ -20,6 +20,7 @@ from Products.CMFPlone.utils import safe_unicode
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
+from plone.fieldsets.fieldsets import FormFieldsets
 from plone.app.controlpanel.form import ControlPanelForm
 from plone.locking.interfaces import ILockSettings
 
@@ -27,8 +28,10 @@ from collective.ckeditor import siteMessageFactory as _
 from collective.ckeditor import LOG
 
 
-class ICKEditorSchema(Interface):
-
+class ICKEditorBrowserSchema(Interface):
+    """
+    CKEditor Browser fieldset schema
+    """
     allow_link_byuid = Bool(title=_(u"Allow link objects by UID"),
                             description =_(u"Check if you want url with Unique ID "
                                             "(no more 404 errors when moving objects). "
@@ -149,10 +152,11 @@ class ICKEditorSchema(Interface):
                                                      "Take care, no control is done over this field value."),
                                      required=False,
                                      value_type=TextLine(),
-                                     default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])         
+                                     default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
 
-
-
+class ICKEditorSchema(ICKEditorBrowserSchema,):
+    """Combined schema for the adapter lookup.
+    """
 
 class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
@@ -304,12 +308,16 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
 
 
+browserset = FormFieldsets(ICKEditorBrowserSchema)
+browserset.id = 'cke_browser'
+browserset.label = _(u'CKEditor Browser')
+
 class CKEditorControlPanel(ControlPanelForm):
 
-    form_fields = FormFields(ICKEditorSchema)
+    form_fields = FormFieldsets(browserset,)
 
     label = _("CKEditor settings")
-    description = _("CKEditor settings.")
+    description = _("Control all CKEditor settings for Plone.")
     form_name = _("CKEditor settings")
 
 
