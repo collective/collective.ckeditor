@@ -47,18 +47,6 @@ Check the samples
 =================
 
    - http://yourplonesite/++resource++ckeditor/_samples/index.html     
-   
-
-Run ckeditor yui tests
-======================
-  
-  - http://yourplonesite/++resource++ckeditor/_tests/testall.html   
-   
-
-Run ckeditor for plone yui tests
-================================
-  
-  - http://yourplonesite/++resource++ckeditor_for_plone/yuitests/ckeditor_plone.html    
 
 
 Edit the Plone front-page
