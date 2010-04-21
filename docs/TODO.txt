@@ -22,7 +22,13 @@ Depending on contributions  : motivation, time, money, bear, ... (*)
      
     - a new flash plugin for ckeditor using swfobject but without javascript tags inside html area
     
-  - quick upload without browser (directly from insert file/image/flash dialog box)
+  - upload improvements :
+    
+    - errors management : rename when always in use, don't upload bad content-type ...
+
+    - add metadata form fields to quick upload forms
+
+    - quick upload without browser (directly from insert file/image/flash dialog box)
   
   - specific AT widget or Dexterity Widget with all ckeditor params
 
