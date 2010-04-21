@@ -16,6 +16,7 @@ def test_suite():
               'controlpanel.txt',
               'ckeditor_jsconfig.txt',
               'uninstall.txt',
+              'widget.txt',
              ]
     suite = TestSuite()
     for test in tests:

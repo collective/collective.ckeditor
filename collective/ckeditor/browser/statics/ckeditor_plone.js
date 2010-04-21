@@ -71,11 +71,25 @@ launchCKInstances = function() {
     jQuery('.ckeditor_plone').each(function(){
         ckid = jQuery(this).attr('id');
         cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
-        CKEDITOR.replace( ckid,
-          {
-            customConfig : cke_config_url
-          });
-
+        /* Here starts the local js overload of settings by a field widget */
+        /* for now it only works with at rich widget : width and height are the only attributes */
+        /* TODO improve it for any possible widget settings with jQuery.each('',jQuery(this).parent()) ... */
+        if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
+            cke_width = jQuery('.cke_width', jQuery(this).parent()).val();
+            cke_height = jQuery('.cke_height', jQuery(this).parent()).val();
+            CKEDITOR.replace( ckid,
+              {
+                customConfig : cke_config_url,
+                width : cke_width,
+                height : cke_height
+              });
+            }
+        else  {
+            CKEDITOR.replace( ckid,
+              {
+                customConfig : cke_config_url
+              });
+            }
     })    
 }
 

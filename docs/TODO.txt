@@ -1,0 +1,29 @@
+TODO
+====
+Depending on contributions  : motivation, time, money, bear, ... (*)
+  
+  - ckeditor control panel improvements :
+  
+    - easy toolbar selection
+    
+    - different toolbars upon some options (roles, ...)
+    
+    - area templates
+    
+    - other options (spellchecker, copy/paste options, keyboard options)
+  
+  - plugins creation or integration :
+     
+    - GeckoSpellChecker Plugin
+     
+    - image map plugin for ckeditor
+     
+    - a new flv player plugin for ckeditor without javascript tags inside html area
+     
+    - a new flash plugin for ckeditor using swfobject but without javascript tags inside html area
+    
+  - quick upload without browser (directly from insert file/image/flash dialog box)
+  
+  - specific AT widget or Dexterity Widget with all ckeditor params
+
+(*) support@ingeniweb.com

@@ -19,7 +19,7 @@ Test ckeditor finder configuration
 ==================================
 
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
-    >>> js_string = "config.filebrowserImageBrowseUrl = '" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image&types:list=News%20Item'"
+    >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image&types:list=News%20Item'"
     >>> js_string in browser.contents
     True
 
@@ -30,7 +30,7 @@ Remove 'News Item' portal_type for browsing images in ckeditor_properties
 Get the javascript config file
 
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
-    >>> js_string = "config.filebrowserImageBrowseUrl = '" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image'"
+    >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image'"
     >>> js_string in browser.contents
     True
 
@@ -55,8 +55,6 @@ By default we must also find a specific css for plone ckeditor area
     >>> 'ckeditor_plone_area.css' in browser.contents
     True
 
-TODO : test ckeditor properties changes on area styles heets
-
 
 Test CKEditor area body ID
 ==========================
@@ -64,7 +62,7 @@ Test CKEditor area body ID
 To get real wysiwyg by default editor area has the same id
 as Plone content. We must find it in javascript config file.
 
-    >>> "config.bodyId = 'content'" in browser.contents
+    >>> "config.bodyId='content'" in browser.contents
     True
 
 Test the ckeditor basehref
@@ -76,7 +74,7 @@ On a simple page it must be absolute_url
 Try to get the config associated to front-page
 
     >>> browser.open('%s/front-page/ckeditor_plone_config.js' %portal_url)
-    >>> js_basehref = "config.baseHref = '" + portal_url + "/front-page'"
+    >>> js_basehref = "config.baseHref='" + portal_url + "/front-page'"
     >>> js_basehref in browser.contents
     True
 
@@ -84,6 +82,6 @@ On a folderish page basehref must be absolute_url + '/'
 Try to get the config associated to the 'news' folder
 
     >>> browser.open('%s/news/ckeditor_plone_config.js' %portal_url)
-    >>> js_basehref = "config.baseHref = '" + portal_url + "/news/'"
+    >>> js_basehref = "config.baseHref='" + portal_url + "/news/'"
     >>> js_basehref in browser.contents
     True

@@ -1,3 +1,4 @@
+
 from Acquisition import aq_inner
 from zope.interface import implements, Interface
 from zope.component import adapts
@@ -12,6 +13,7 @@ from zope.schema import SourceText
 from zope.schema import Choice
 from zope.schema import Tuple
 from zope.schema import List
+from zope.schema import Int
 
 from Products.CMFDefault.formlib.schema import ProxyFieldProperty
 from Products.CMFDefault.formlib.schema import SchemaAdapterBase
@@ -27,6 +29,27 @@ from plone.locking.interfaces import ILockSettings
 from collective.ckeditor import siteMessageFactory as _
 from collective.ckeditor import LOG
 
+
+class ICKEditorSkinSchema(Interface):
+    """
+    CKEditor Skin fieldset schema
+    """
+    width = TextLine (title=_(u"Editor width"),
+                      description =_(u"Enter the width of the editor in px % or em"),
+                      required = False)
+                      
+    height = TextLine (title=_(u"Editor height"),
+                       description =_(u"Enter the height of the editor in px % or em"),
+                       required = False)
+                      
+    bodyId = TextLine (title=_(u"Area Body Id"),
+                       description =_(u"Enter the css id applied to the body tag of the editor area"),
+                       default = u'content',
+                       required = False)
+                      
+    bodyClass = TextLine (title=_(u"Area Body Class"),
+                      description =_(u"Enter the css class name applied to the body tag of the editor area"),
+                      required = False)
 
 class ICKEditorBrowserSchema(Interface):
     """
@@ -154,7 +177,7 @@ class ICKEditorBrowserSchema(Interface):
                                      value_type=TextLine(),
                                      default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
 
-class ICKEditorSchema(ICKEditorBrowserSchema,):
+class ICKEditorSchema(ICKEditorSkinSchema, ICKEditorBrowserSchema, ):
     """Combined schema for the adapter lookup.
     """
 
@@ -169,6 +192,41 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         pprop = getToolByName(self.portal, 'portal_properties')
         self.context = pprop.ckeditor_properties
         self.encoding = pprop.site_properties.default_charset
+
+    def get_width(self):
+        return self.context.width
+
+    def set_width(self, value):
+        self.context._updateProperty('width', value)
+
+    width = property(get_width, set_width)
+
+    def get_height(self):
+        return self.context.height
+
+    def set_height(self, value):
+        self.context._updateProperty('height', value)
+
+    height = property(get_height, set_height)
+
+    def get_bodyId(self):
+        return self.context.bodyId
+
+    def set_bodyId(self, value):
+        self.context._updateProperty('bodyId', value)
+
+    bodyId = property(get_bodyId, set_bodyId)
+
+    def get_bodyClass(self):
+        return self.context.bodyClass
+
+    def set_bodyClass(self, value):
+        self.context._updateProperty('bodyClass', value)
+
+    bodyClass = property(get_bodyClass, set_bodyClass)
+
+
+
 
     def get_allow_link_byuid(self):
         return self.context.allow_link_byuid
@@ -307,6 +365,9 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
     folder_portal_type_custom = property(get_folder_portal_type_custom, set_folder_portal_type_custom)
 
 
+skinset = FormFieldsets(ICKEditorSkinSchema)
+skinset.id = 'cke_skin'
+skinset.label = _(u'CKEditor Skin')
 
 browserset = FormFieldsets(ICKEditorBrowserSchema)
 browserset.id = 'cke_browser'
@@ -314,7 +375,7 @@ browserset.label = _(u'CKEditor Browser')
 
 class CKEditorControlPanel(ControlPanelForm):
 
-    form_fields = FormFieldsets(browserset,)
+    form_fields = FormFieldsets( skinset, browserset, )
 
     label = _("CKEditor settings")
     description = _("Control all CKEditor settings for Plone.")

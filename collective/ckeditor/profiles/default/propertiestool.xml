@@ -2,6 +2,13 @@
 <object name="portal_properties" meta_type="Plone Properties Tool">
  <object name="ckeditor_properties" meta_type="Plone Property Sheet">
   <property name="title">CKEditor properties</property>
+  <!-- skin properties -->
+  <property name="width" type="string"></property>
+  <property name="height" type="string"></property>
+  <property name="bodyId" type="string">content</property>
+  <property name="bodyClass" type="string"></property>
+  
+  <!-- browser properties -->
   <property name="allow_link_byuid" type="boolean">True</property>
   <property name="allow_relative_links" type="boolean">True</property>
   <property name="allow_server_browsing" type="boolean">True</property>

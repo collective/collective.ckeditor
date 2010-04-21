@@ -1,0 +1,32 @@
+CKEditor widget
+===============
+
+The widget settings for a local field can overload the global ckeditor
+settings.
+
+We will test first the rich widget settings used by the default front-page
+
+Get the rows attribute for this widget
+
+    >>> self.loginAsManager()
+    >>> doc =self.portal['front-page']
+    >>> field = doc.Schema()['text']
+    >>> rows = field.widget.rows
+
+Calculate the widget height as done in ckeditorview
+
+    >>> height = str(int(rows)*25) + 'px'
+
+Get the ckeditor widget settings on front-page
+----------------------------------------------
+
+    >>> self.browser.open('http://nohost/plone/front-page/edit')
+
+See if widget_settings are in contents:
+
+    >>> '<div class="widget_settings">' in self.browser.contents
+    True
+    
+    >>> self.browser.getControl(name='cke_height').value== height
+    True
+
