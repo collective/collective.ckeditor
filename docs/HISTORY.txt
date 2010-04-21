@@ -20,6 +20,10 @@ Changelog
 
 * buildout examples added to help developers using svn product
 
+* javascript contextuel config is now packed
+
+* added local field widget settings overload
+
 3.0.2 - Unreleased
 ------------------
 
