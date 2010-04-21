@@ -142,16 +142,18 @@ class CKeditorView(BrowserView):
         return it as a javascript string
         """        
         cke_properties = self.cke_properties
-        if type(property).__name__ == 'str':
-            return "'%s'" %cke_properties.getProperty(property)
-        elif type(property).__name__ == 'bool' :
+        propValue = cke_properties.getProperty(property)
+        if type(propValue).__name__ in ('str', 'unicode'):
+            return "'%s'" %propValue
+        elif type(propValue).__name__ == 'bool' :
             if property :
                 return "true"
             else :
                 return "false"
-        elif type(property).__name__ == 'tuple' :
-            return str(list(cke_properties.getProperty(property)))
-        return str(cke_properties.getProperty(property))
+        elif type(propValue).__name__ == 'tuple' :
+            return str(list(propValue))
+        elif propValue is not None :
+            return str(cke_properties.getProperty(property))
     
     @property
     def cke_params(self) :
@@ -162,7 +164,9 @@ class CKeditorView(BrowserView):
 
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass')
         for p in unchangedProps :
-            params[p] = self.geCK_JSProperty(p)
+            jsProp = self.geCK_JSProperty(p)
+            if jsProp is not None :
+                params[p] = jsProp
 
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
@@ -180,9 +184,6 @@ class CKeditorView(BrowserView):
         request = self.request
         response = request.RESPONSE
         params_js_string = """
-browser_height = jQuery(window).height();
-browser_width = jQuery(window).width();
-
 CKEDITOR.editorConfig = function( config )
 {
         """
@@ -193,8 +194,8 @@ CKEDITOR.editorConfig = function( config )
             """ %(k, v)
         
         params_js_string +="""
-    config.filebrowserWindowWidth = parseInt(jQuery(window).width()*80/100);
-    config.filebrowserWindowHeight = parseInt(jQuery(window).height()*95/100);
+    config.filebrowserWindowWidth = parseInt(jQuery(window).width()*80/100) + 'px';
+    config.filebrowserWindowHeight = parseInt(jQuery(window).height()*95/100) + 'px';
 };
         """
         response.setHeader('Cache-control','pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
