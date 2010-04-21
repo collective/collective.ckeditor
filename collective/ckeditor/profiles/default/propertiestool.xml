@@ -47,6 +47,12 @@
   <property name="ck_force_other_path" type="string"></property>
   <property name="ck_force_root" type="boolean">False</property>
   <property name="ck_force_other_root" type="string"></property>
+
+  <!-- Widget overloads fieldset -->
+  <property name="properties_overloaded" type="lines">
+    <element value="width"/>
+  </property>
+  
  </object>
 
 

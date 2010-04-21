@@ -177,7 +177,22 @@ class ICKEditorBrowserSchema(Interface):
                                      value_type=TextLine(),
                                      default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
 
-class ICKEditorSchema(ICKEditorSkinSchema, ICKEditorBrowserSchema, ):
+class ICKEditorWidgetOverloadsSchema(Interface):
+    """
+    CKEditor Widget Overloads fieldset schema
+    """
+    properties_overloaded = List(title=_(u"Widget overload"),
+                                 description=_(u"If you want some cke control panel properties overload "
+                                                "local field widget properties, enter the properties "
+                                                "names list here. "
+                                                "Example, enter 'width' and 'height' to get always the same values. "
+                                                "Look at ZMI > portal_properties > ckeditor_properties "
+                                                "for all properties names."),
+                                 required=False,
+                                 value_type=TextLine(),
+                                 default=['width',],) 
+
+class ICKEditorSchema(ICKEditorSkinSchema, ICKEditorBrowserSchema, ICKEditorWidgetOverloadsSchema):
     """Combined schema for the adapter lookup.
     """
 
@@ -192,6 +207,8 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         pprop = getToolByName(self.portal, 'portal_properties')
         self.context = pprop.ckeditor_properties
         self.encoding = pprop.site_properties.default_charset
+
+    # 1st fieldset
 
     def get_width(self):
         return self.context.width
@@ -225,8 +242,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     bodyClass = property(get_bodyClass, set_bodyClass)
 
-
-
+    #2nd fieldset
 
     def get_allow_link_byuid(self):
         return self.context.allow_link_byuid
@@ -365,17 +381,32 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
     folder_portal_type_custom = property(get_folder_portal_type_custom, set_folder_portal_type_custom)
 
 
+    # 3rd fieldset
+
+    def get_properties_overloaded(self):
+        return self.context.properties_overloaded
+
+    def set_properties_overloaded(self, value):
+        self.context._updateProperty('properties_overloaded', value)
+
+    properties_overloaded = property(get_properties_overloaded, set_properties_overloaded)
+
+
 skinset = FormFieldsets(ICKEditorSkinSchema)
 skinset.id = 'cke_skin'
-skinset.label = _(u'CKEditor Skin')
+skinset.label = _(u'Skin')
 
 browserset = FormFieldsets(ICKEditorBrowserSchema)
 browserset.id = 'cke_browser'
-browserset.label = _(u'CKEditor Browser')
+browserset.label = _(u'Resources Browser')
+
+widgetoverloadset = FormFieldsets(ICKEditorWidgetOverloadsSchema)
+widgetoverloadset.id = 'cke_widgetoverload'
+widgetoverloadset.label = _(u'Widget overload')
 
 class CKEditorControlPanel(ControlPanelForm):
 
-    form_fields = FormFieldsets( skinset, browserset, )
+    form_fields = FormFieldsets( skinset, browserset, widgetoverloadset)
 
     label = _("CKEditor settings")
     description = _("Control all CKEditor settings for Plone.")

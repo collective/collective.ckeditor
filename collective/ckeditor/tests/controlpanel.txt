@@ -68,3 +68,6 @@ Test the fieldsets
     >>> 'fieldset-cke_browser' in self.browser.contents
     True
 
+    >>> 'fieldset-cke_widgetoverload' in self.browser.contents
+    True
+

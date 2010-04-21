@@ -212,17 +212,19 @@ CKEDITOR.editorConfig = function( config )
         TODO : specific AT widget or Dexterity Widget with all ckeditor params
         """
         params = self.cke_params
+        cke_properties = self.cke_properties
+        properties_overloaded = cke_properties.getProperty('properties_overloaded', [])
         if widget is not None :
             widget_settings = {}
             for k, v in  params.items() :
-                if hasattr(widget, k) :
+                if hasattr(widget, k) and not k in properties_overloaded :
                     widget_settings[k] = v
 
             # specific for cols and rows rich widget settings
-            if hasattr(widget, 'cols') :
+            if hasattr(widget, 'cols') and not 'width' in properties_overloaded :
                 if widget.cols :
                     widget_settings['width'] = str(int(int(widget.cols)*100/40)) + '%'
-            if hasattr(widget, 'rows') :
+            if hasattr(widget, 'rows') and not 'height' in properties_overloaded :
                 if widget.rows :
                     widget_settings['height'] = str(int(widget.rows)*25) + 'px'
             

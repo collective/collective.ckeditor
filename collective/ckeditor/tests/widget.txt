@@ -30,3 +30,22 @@ See if widget_settings are in contents:
     >>> self.browser.getControl(name='cke_height').value== height
     True
 
+Choose to overload some widget properties in control panel
+----------------------------------------------------------
+
+    >>> self.browser.open('http://nohost/plone/@@ckeditor-controlpanel')
+
+Choose to overload the 'height' widget property by the control panel 'height' value    
+
+    >>> self.browser.getControl(name='form.properties_overloaded.add').click()
+    >>> self.browser.getControl(name='form.properties_overloaded.1.').value = 'height'
+
+Fix the height property to any value
+    >>> self.browser.getControl(name='form.height').value = '600px'
+    >>> self.browser.getControl("Save").click()
+
+Control that the local field widget setting 'height' is no more here
+
+    >>> self.browser.open('http://nohost/plone/front-page/edit')
+    >>> 'name="cke_height"' in self.browser.contents
+    False
