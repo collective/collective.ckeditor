@@ -194,8 +194,8 @@ CKEDITOR.editorConfig = function( config )
             """ %(k, v)
         
         params_js_string +="""
-    config.filebrowserWindowWidth = parseInt(jQuery(window).width()*80/100) + 'px';
-    config.filebrowserWindowHeight = parseInt(jQuery(window).height()*95/100) + 'px';
+    config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
+    config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
 };
         """
         response.setHeader('Cache-control','pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
