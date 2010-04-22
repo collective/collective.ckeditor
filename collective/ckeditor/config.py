@@ -12,4 +12,4 @@ RUID_URL_PATTERN = 'resolveuid'
 DOCUMENT_DEFAULT_OUTPUT_TYPE = "text/x-html-safe"
 REQUIRED_TRANSFORM = "ck_ruid_to_url"
 TAG_PATTERN = r'(\<(img|a|embed)[^>]*>)'
-UID_PATTERN = r'[^"]*\./%s/(?P<uid>[^/"#? ]*)' %RUID_URL_PATTERN
+UID_PATTERN = r'(?P<uid_url>[^\"\']*%s/(?P<uid>[^\/\"\'#? ]*))' %RUID_URL_PATTERN

@@ -1,0 +1,45 @@
+Transforms url uids
+-------------------
+
+each urls like './resolveuid/abcdef' or 'http://localhost/plone/resolveUID/'
+or 'http://localhost/plone/resolveuid/download'
+must be transformed on page view by absolute url of each objects resolved uid.
+
+Create a document used to be linked
+-----------------------------------
+
+    >>> from Products.CMFPlone import utils as ploneutils
+    >>> self.loginAsManager()
+    >>> ploneutils._createObjectByType('Document', self.portal, 'abcd')
+    <ATDocument at /plone/abcd>
+
+Get its uid
+
+    >>> uid = self.portal['abcd'].UID()
+
+Create a document with resolveuid urls
+--------------------------------------
+
+    >>> portal_url = self.portal.absolute_url()
+    >>> browser = self.browser
+    >>> browser.open('%s/createObject?type_name=Document' %portal_url)
+    >>> browser.getControl(name='title').value = 'Test Doc'
+    >>> html_text = '''
+    ... <p><a href="./resolveuid/%s/view">Test</a></p>
+    ... <p><a href="http://nohost/plone/resolveUid/%s#aaa">Test</a></p>
+    ... ''' % (uid, uid)
+    >>> browser.getControl(name='text').value = html_text
+    >>> browser.getControl('Save').click()
+    >>> 'Changes saved' in browser.contents
+    True
+
+
+Browse document
+---------------
+    >>> browser.open('http://nohost/plone/test-doc/view')
+    >>> 'resolveuid' in browser.contents
+    False
+    >>> '<a href="http://nohost/plone/abcd/view">' in browser.contents
+    True
+    >>> '<a href="http://nohost/plone/abcd#aaa">' in browser.contents
+    True

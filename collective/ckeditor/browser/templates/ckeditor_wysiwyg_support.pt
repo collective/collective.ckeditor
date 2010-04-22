@@ -22,6 +22,10 @@
                 class="cke_iswidget"
                 tal:attributes="value python: True" />
          <div class="widget_settings">
+           <input type="hidden"
+                  class="cke_baseHref"
+                  name="cke_baseHref"
+                  tal:attributes="value ckview/cke_basehref" />
            <tal:block repeat="item cke_widget/items">
              <input type="hidden"
                     tal:define="k python: item[0];

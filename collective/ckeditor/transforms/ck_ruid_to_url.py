@@ -33,15 +33,15 @@ class ck_ruid_to_url:
 
     def name(self):
         return self.__name__
-   
+
     def find_ruid(self, data):
         tags_ruid = []
         unique_ruid = []
         for m in self.tag_regexp.finditer(data):
             ruid = re.search(self.ruid_regexp, m.group(0))
             if ruid:
-                tags_ruid.append({m.group(0):ruid.group('uid')})
-        [unique_ruid.append(tu.values()[0]) for tu in tags_ruid if tu.values()[0] not in unique_ruid]
+                tags_ruid.append((m.group(0), ruid.group('uid'), ruid.group('uid_url')))
+        [unique_ruid.append(tu[1]) for tu in tags_ruid if tu[1] not in unique_ruid]
         return tags_ruid, unique_ruid
 
     def mapRUID_URL(self, unique_ruid, portal):
@@ -59,9 +59,9 @@ class ck_ruid_to_url:
         if unique_ruid:
             ruid_url = self.mapRUID_URL(unique_ruid, kwargs['context'])
             for tag_ruid in tags_ruid:
-                t, uid = tag_ruid.items()[0]
-                if ruid_url.has_key(uid):
-                    text = text.replace(t, t.lower().replace('./%s/%s'%(RUID_URL_PATTERN, uid), ruid_url[uid]))
+                t, uid, uid_url = tag_ruid
+                if ruid_url.has_key(uid):                   
+                    text = text.replace(t, t.replace(uid_url, ruid_url[uid]))
         
         data.setData(text)
         return data

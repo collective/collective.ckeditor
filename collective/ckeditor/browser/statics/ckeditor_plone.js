@@ -77,11 +77,13 @@ launchCKInstances = function() {
         if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
             cke_width = jQuery('.cke_width', jQuery(this).parent()).val();
             cke_height = jQuery('.cke_height', jQuery(this).parent()).val();
+            cke_baseHref = jQuery('.cke_baseHref', jQuery(this).parent()).val();
             CKEDITOR.replace( ckid,
               {
                 customConfig : cke_config_url,
                 width : cke_width,
-                height : cke_height
+                height : cke_height,
+                baseHref : cke_baseHref
               });
             }
         else  {

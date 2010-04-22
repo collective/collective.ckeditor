@@ -44,7 +44,19 @@ class CKeditorView(BrowserView):
     def cke_basehref(self) :
         """
         return the base href used by ckeditor
+        to calculate relative or absolute links
+        during edition (when copy pasting urls)
+        by default it's the actual url
+        """           
+        request = self.request
+        return "%s" %request['ACTUAL_URL']
+
+    @property
+    def cke_result_basehref(self) :
+        """
+        return the base href
         used to calculate relative or absolute links
+        after edition
         by default it's the global renderBase value
         """           
         context= aq_inner(self.context) 
@@ -172,7 +184,8 @@ class CKeditorView(BrowserView):
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         params['filebrowserImageBrowseUrl'] = self.getCK_finder_url(type='image')
         params['filebrowserFlashBrowseUrl'] = self.getCK_finder_url(type='flash')
-        params['baseHref'] = self.cke_basehref
+        # the basehref must be set in wysiwyg template
+        # params['baseHref'] = self.cke_basehref
         
         return params
 

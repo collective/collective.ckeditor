@@ -116,7 +116,7 @@ class CKFinder(Finder):
         
         jsstring = """
 selectCKEditorItem = function (UID) {
-	window.opener.CKEDITOR.tools.callFunction( %s, './resolveuid/' + UID );
+	window.opener.CKEDITOR.tools.callFunction( %s, 'resolveuid/' + UID );
 	window.close();
 };
 Browser.selectItem = selectCKEditorItem;
