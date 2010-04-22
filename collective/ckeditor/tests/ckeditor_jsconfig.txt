@@ -65,23 +65,3 @@ as Plone content. We must find it in javascript config file.
     >>> "config.bodyId='content'" in browser.contents
     True
 
-Test the ckeditor basehref
-==========================
-
-The basehref is used to calculate relative links
-
-On a simple page it must be absolute_url
-Try to get the config associated to front-page
-
-    >>> browser.open('%s/front-page/ckeditor_plone_config.js' %portal_url)
-    >>> js_basehref = "config.baseHref='" + portal_url + "/front-page'"
-    >>> js_basehref in browser.contents
-    True
-
-On a folderish page basehref must be absolute_url + '/'
-Try to get the config associated to the 'news' folder
-
-    >>> browser.open('%s/news/ckeditor_plone_config.js' %portal_url)
-    >>> js_basehref = "config.baseHref='" + portal_url + "/news/'"
-    >>> js_basehref in browser.contents
-    True
