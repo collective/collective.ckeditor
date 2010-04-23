@@ -28,6 +28,10 @@ Changelog
 
 * all basehref problems fixed
 
+* menu styles through control panel finished
+
+* toolbar through control panel finished 
+
 3.0.2 - Unreleased
 ------------------
 
