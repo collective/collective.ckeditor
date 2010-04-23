@@ -46,7 +46,10 @@
   /* Objects styles */ 
   { name : 'Image on right'	, element : 'img', attributes : { 'class' : 'image-right' } },
   { name : 'Image on left'	, element : 'img', attributes : { 'class' : 'image-left' } },
-  { name : 'Image centered'	, element : 'img', attributes : { 'class' : 'image-inline' } }
+  { name : 'Image centered'	, element : 'img', attributes : { 'class' : 'image-inline' } },
+	{ name : 'Borderless Table', element : 'table', styles: { 'border-style': 'hidden', 'background-color' : '#E6E6FA' } },
+  { name : 'Square Bulleted List', element : 'ul', styles : { 'list-style-type' : 'square' } }
+
 ]
   </property> 
   <property name="bodyId" type="string">content</property>
