@@ -6,7 +6,7 @@ from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor import siteMessageFactory as _
-
+from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 from collective.ckeditor import LOG
 
 class ICKeditorView(Interface):
@@ -158,7 +158,7 @@ class CKeditorView(BrowserView):
         if type(propValue).__name__ in ('str', 'unicode'):
             return "'%s'" %propValue
         elif type(propValue).__name__ == 'bool' :
-            if property :
+            if propValue :
                 return "true"
             else :
                 return "false"
@@ -173,13 +173,16 @@ class CKeditorView(BrowserView):
         return CKEditor widget Settings
         """         
         params = {}
-
-        unchangedProps = ('width', 'height', 'bodyId', 'bodyClass')
+        cke_properties = self.cke_properties
+        unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
+                          'entities_greek', 'entities_latin', 'forcePasteAsPlainText',
+                          'toolbar')
         for p in unchangedProps :
             jsProp = self.geCK_JSProperty(p)
             if jsProp is not None :
                 params[p] = jsProp
 
+        params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         params['filebrowserImageBrowseUrl'] = self.getCK_finder_url(type='image')
@@ -209,12 +212,30 @@ CKEDITOR.editorConfig = function( config )
         params_js_string +="""
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
+    config.toolbar_Plone = %s;
+    config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
 };
-        """
+        """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
         response.setHeader('Cache-control','pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
         
         return JavascriptPacker('safe').pack(params_js_string)
+
+    def getCK_plone_menu_styles(self) :
+        """
+        return javascript for ckeditor
+        plone menu styles
+        """
+        request = self.request
+        response = request.RESPONSE
+        cke_properties = self.cke_properties
+        menu_styles_js_string = """
+CKEDITOR.stylesSet.add('plone',
+%s );""" % str(cke_properties.getProperty('menuStyles', []))
+        response.setHeader('Cache-control','pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
+        response.setHeader('Content-Type', 'application/x-javascript')
+        
+        return JavascriptPacker('safe').pack(menu_styles_js_string)
 
     def getCK_widget_settings(self, widget) :
         """

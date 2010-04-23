@@ -1,10 +1,14 @@
+TODO QUICKLY
+============
+  - ckeditor control panel improvements :
+    
+    - flag Language : portal_languages settings or lang cookie value
+
 TODO
 ====
 Depending on contributions  : motivation, time, money, bear, ... (*)
   
   - ckeditor control panel improvements :
-  
-    - easy toolbar selection
     
     - different toolbars upon some options (roles, ...)
     

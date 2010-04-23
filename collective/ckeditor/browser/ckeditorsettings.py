@@ -30,6 +30,48 @@ from collective.ckeditor import siteMessageFactory as _
 from collective.ckeditor import LOG
 
 
+class ICKEditorBaseSchema(Interface):
+    """
+    CKEditor Base fieldset schema
+    """
+                      
+    forcePasteAsPlainText = Bool (title=_(u"Force paste as plain text"),
+                                  description =_(u"Choose if you want to remove format on copy/paste, and paste only text and CR/LF"),
+                                  default = False,
+                                  required = False)
+
+    toolbar = Choice( title=_(u"Toolbar"),
+                                description=_(u"Choose the editor toolbar, "
+                                               "Edit the next field if you choose a Custom toolbar'."),
+                                required=True,
+                                default='Plone',
+                                vocabulary="collective.ckeditor.vocabularies.toolbar")
+
+    toolbar_Custom = Text (title=_(u"Customized Toolbar"),
+                       description =_(u"Build your own CKEditor Toolbar."
+                                       "Take care with the javascript syntax. "
+                                       "If you want to add new plugins, "
+                                       "add new buttons here if needed."
+                                       ),
+                       required = False)
+
+    menuStyles = Text (title=_(u"Menu styles"),
+                       description =_(u"Build your own CKEditor menu styles Combo box."
+                                       "Take care with the javascript syntax. "
+                                       "If you want to use css classes or ids, "
+                                       "the attributes must exists in your css."
+                                       ),
+                       required = True)
+                      
+    bodyId = TextLine (title=_(u"Area Body Id"),
+                       description =_(u"Enter the css id applied to the body tag of the editor area"),
+                       default = u'content',
+                       required = False)
+                      
+    bodyClass = TextLine (title=_(u"Area Body Class"),
+                      description =_(u"Enter the css class name applied to the body tag of the editor area"),
+                      required = False)
+
 class ICKEditorSkinSchema(Interface):
     """
     CKEditor Skin fieldset schema
@@ -41,15 +83,6 @@ class ICKEditorSkinSchema(Interface):
     height = TextLine (title=_(u"Editor height"),
                        description =_(u"Enter the height of the editor in px % or em"),
                        required = False)
-                      
-    bodyId = TextLine (title=_(u"Area Body Id"),
-                       description =_(u"Enter the css id applied to the body tag of the editor area"),
-                       default = u'content',
-                       required = False)
-                      
-    bodyClass = TextLine (title=_(u"Area Body Class"),
-                      description =_(u"Enter the css class name applied to the body tag of the editor area"),
-                      required = False)
 
 class ICKEditorBrowserSchema(Interface):
     """
@@ -177,9 +210,9 @@ class ICKEditorBrowserSchema(Interface):
                                      value_type=TextLine(),
                                      default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
 
-class ICKEditorWidgetOverloadsSchema(Interface):
+class ICKEditorAdvancedSchema(Interface):
     """
-    CKEditor Widget Overloads fieldset schema
+    CKEditor Advanced schema
     """
     properties_overloaded = List(title=_(u"Widget overload"),
                                  description=_(u"If you want some cke control panel properties overload "
@@ -192,7 +225,22 @@ class ICKEditorWidgetOverloadsSchema(Interface):
                                  value_type=TextLine(),
                                  default=['width',],) 
 
-class ICKEditorSchema(ICKEditorSkinSchema, ICKEditorBrowserSchema, ICKEditorWidgetOverloadsSchema):
+    entities = Bool(title=_(u"Html Entities"),
+                    description=_(u"Whether to use Html entities in the editor."),
+                    default=False,
+                    required=False)
+
+    entities_greek = Bool(title=_(u"Greek Html Entities"),
+                          description=_(u"Whether to convert some symbols, mathematical symbols, and Greek letters to Html entities."),
+                          default=False,
+                          required=False)
+
+    entities_latin = Bool(title=_(u"Latin Html Entities"),
+                          description=_(u"Whether to convert some Latin characters (Latin alphabet No. 1, ISO 8859-1) to Html entities."),
+                          default=False,
+                          required=False)
+
+class ICKEditorSchema(ICKEditorBaseSchema, ICKEditorSkinSchema, ICKEditorBrowserSchema, ICKEditorAdvancedSchema):
     """Combined schema for the adapter lookup.
     """
 
@@ -208,7 +256,57 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context = pprop.ckeditor_properties
         self.encoding = pprop.site_properties.default_charset
 
-    # 1st fieldset
+    # base fieldset
+
+    def get_forcePasteAsPlainText(self):
+        return self.context.forcePasteAsPlainText
+
+    def set_forcePasteAsPlainText(self, value):
+        self.context._updateProperty('forcePasteAsPlainText', value)
+
+    forcePasteAsPlainText = property(get_forcePasteAsPlainText, set_forcePasteAsPlainText)
+
+    def get_toolbar(self):
+        return self.context.toolbar
+
+    def set_toolbar(self, value):
+        self.context._updateProperty('toolbar', value)
+
+    toolbar = property(get_toolbar, set_toolbar)
+
+    def get_toolbar_Custom(self):
+        return self.context.toolbar_Custom
+
+    def set_toolbar_Custom(self, value):
+        self.context._updateProperty('toolbar_Custom', value)
+
+    toolbar_Custom = property(get_toolbar_Custom, set_toolbar_Custom)
+
+    def get_menuStyles(self):
+        return self.context.menuStyles
+
+    def set_menuStyles(self, value):
+        self.context._updateProperty('menuStyles', value)
+
+    menuStyles = property(get_menuStyles, set_menuStyles)
+
+    def get_bodyId(self):
+        return self.context.bodyId
+
+    def set_bodyId(self, value):
+        self.context._updateProperty('bodyId', value)
+
+    bodyId = property(get_bodyId, set_bodyId)
+
+    def get_bodyClass(self):
+        return self.context.bodyClass
+
+    def set_bodyClass(self, value):
+        self.context._updateProperty('bodyClass', value)
+
+    bodyClass = property(get_bodyClass, set_bodyClass)
+    
+    # skin fieldset
 
     def get_width(self):
         return self.context.width
@@ -226,23 +324,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     height = property(get_height, set_height)
 
-    def get_bodyId(self):
-        return self.context.bodyId
-
-    def set_bodyId(self, value):
-        self.context._updateProperty('bodyId', value)
-
-    bodyId = property(get_bodyId, set_bodyId)
-
-    def get_bodyClass(self):
-        return self.context.bodyClass
-
-    def set_bodyClass(self, value):
-        self.context._updateProperty('bodyClass', value)
-
-    bodyClass = property(get_bodyClass, set_bodyClass)
-
-    #2nd fieldset
+    #browser fieldset
 
     def get_allow_link_byuid(self):
         return self.context.allow_link_byuid
@@ -381,7 +463,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
     folder_portal_type_custom = property(get_folder_portal_type_custom, set_folder_portal_type_custom)
 
 
-    # 3rd fieldset
+    # advanced fieldset
 
     def get_properties_overloaded(self):
         return self.context.properties_overloaded
@@ -391,25 +473,53 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     properties_overloaded = property(get_properties_overloaded, set_properties_overloaded)
 
+    def get_entities(self):
+        return self.context.entities
+
+    def set_entities(self, value):
+        self.context._updateProperty('entities', value)
+
+    entities = property(get_entities, set_entities)
+
+    def get_entities_greek(self):
+        return self.context.entities_greek
+
+    def set_entities_greek(self, value):
+        self.context._updateProperty('entities_greek', value)
+
+    entities_greek = property(get_entities_greek, set_entities_greek)
+
+    def get_entities_latin(self):
+        return self.context.entities_latin
+
+    def set_entities_latin(self, value):
+        self.context._updateProperty('entities_latin', value)
+
+    entities_latin = property(get_entities_latin, set_entities_latin)
+
+
+basicset = FormFieldsets(ICKEditorBaseSchema)
+basicset.id = 'cke_base'
+basicset.label = _(u'Basic settings')
 
 skinset = FormFieldsets(ICKEditorSkinSchema)
 skinset.id = 'cke_skin'
-skinset.label = _(u'Skin')
+skinset.label = _(u'Editor Skin')
 
 browserset = FormFieldsets(ICKEditorBrowserSchema)
 browserset.id = 'cke_browser'
 browserset.label = _(u'Resources Browser')
 
-widgetoverloadset = FormFieldsets(ICKEditorWidgetOverloadsSchema)
-widgetoverloadset.id = 'cke_widgetoverload'
-widgetoverloadset.label = _(u'Widget overload')
+advancedset = FormFieldsets(ICKEditorAdvancedSchema)
+advancedset.id = 'cke_advanced'
+advancedset.label = _(u'Advanced Configuration')
 
 class CKEditorControlPanel(ControlPanelForm):
 
-    form_fields = FormFieldsets( skinset, browserset, widgetoverloadset)
+    form_fields = FormFieldsets( basicset, skinset, browserset, advancedset)
 
     label = _("CKEditor settings")
-    description = _("Control all CKEditor settings for Plone.")
+    description = _("Control CKEditor settings for Plone.")
     form_name = _("CKEditor settings")
 
 

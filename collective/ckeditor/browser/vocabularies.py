@@ -56,6 +56,20 @@ def _infoDictForType(ptype, portal_types, utranslate):
         'type_ui_info': type_ui_info
         }    
 
+class CKEditorToolBarVocabulary(object):
+    """Vocabulary factory for ckeditor toolbar
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        items = [SimpleTerm('Basic', 'Basic', _(u'Minimal toolbar')),
+                 SimpleTerm('Plone', 'Plone', _(u'Standard Plone toolbar (recommanded)')),
+                 SimpleTerm('Custom', 'Custom', _(u'Custom Toolbar fill next field'))]
+        return SimpleVocabulary(items)        
+
+
+CKEditorToolBarVocabularyFactory = CKEditorToolBarVocabulary()
+
 class CKEditorFileTypesVocabulary(object):
     """Vocabulary factory for ckeditor file types
     """

@@ -72,7 +72,7 @@ launchCKInstances = function() {
         ckid = jQuery(this).attr('id');
         cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
         /* Here starts the local js overload of settings by a field widget */
-        /* for now it only works with at rich widget : width and height are the only attributes */
+        /* for now it only works with at rich widget : basehref width and height are the only attributes */
         /* TODO improve it for any possible widget settings with jQuery.each('',jQuery(this).parent()) ... */
         if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
             cke_width = jQuery('.cke_width', jQuery(this).parent()).val();

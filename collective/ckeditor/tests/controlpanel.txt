@@ -62,12 +62,15 @@ Make sure the changes have been applied correctly to the ckeditor properties she
 Test the fieldsets
 ------------------
 
+    >>> 'fieldset-cke_base' in self.browser.contents
+    True
+
     >>> 'fieldset-cke_skin' in self.browser.contents
     True
 
     >>> 'fieldset-cke_browser' in self.browser.contents
     True
 
-    >>> 'fieldset-cke_widgetoverload' in self.browser.contents
+    >>> 'fieldset-cke_advanced' in self.browser.contents
     True
 

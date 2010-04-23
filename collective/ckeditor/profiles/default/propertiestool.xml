@@ -2,12 +2,60 @@
 <object name="portal_properties" meta_type="Plone Properties Tool">
  <object name="ckeditor_properties" meta_type="Plone Property Sheet">
   <property name="title">CKEditor properties</property>
+  <!-- base properties -->
+  <property name="forcePasteAsPlainText" type="boolean">False</property>
+  <property name="toolbar" type="string">Plone</property>
+  <property name="toolbar_Custom" type="text">
+[
+    ['Source','-','Save','Preview','-','Templates'],
+    ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+    ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+    '/',
+    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+    ['Link','Unlink','Anchor'],
+    ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+    '/',
+    ['Styles','Format','Font','FontSize'],
+    ['TextColor','BGColor'],
+    ['Maximize', 'ShowBlocks','-','About']
+]
+  </property>  
+  <property name="menuStyles" type="text">
+[ 
+  /* Block Styles */
+  { name : 'Grey Title'		, element : 'h2', styles : { 'color' : '#888' } },
+  { name : 'Grey Sub Title'		, element : 'h3', styles : { 'color' : '#888' } },
+  { name : 'Discreet bloc'		, element : 'p', attributes : { 'class' : 'discreet' } },
+  /* Inline styles */
+  { name : 'Discreet text'		, element : 'span', attributes : { 'class' : 'discreet' } },
+  { name : 'Marker: Yellow'	, element : 'span', styles : { 'background-color' : 'Yellow' } },
+  { name : 'Typewriter'		, element : 'tt' },
+  { name : 'Computer Code'	, element : 'code' },
+  { name : 'Keyboard Phrase'	, element : 'kbd' },
+  { name : 'Sample Text'		, element : 'samp' },
+  { name : 'Variable'			, element : 'var' },
+  { name : 'Deleted Text'		, element : 'del' },
+  { name : 'Inserted Text'	, element : 'ins' },
+  { name : 'Cited Work'		, element : 'cite' },
+  { name : 'Inline Quotation'	, element : 'q' },
+  { name : 'Language: RTL'	, element : 'span', attributes : { 'dir' : 'rtl' } },
+  { name : 'Language: LTR'	, element : 'span', attributes : { 'dir' : 'ltr' } },
+  /* Objects styles */ 
+  { name : 'Image on right'	, element : 'img', attributes : { 'class' : 'image-right' } },
+  { name : 'Image on left'	, element : 'img', attributes : { 'class' : 'image-left' } },
+  { name : 'Image centered'	, element : 'img', attributes : { 'class' : 'image-inline' } }
+]
+  </property> 
+  <property name="bodyId" type="string">content</property>
+  <property name="bodyClass" type="string"></property>
+
   <!-- skin properties -->
   <property name="width" type="string"></property>
   <property name="height" type="string"></property>
-  <property name="bodyId" type="string">content</property>
-  <property name="bodyClass" type="string"></property>
-  
+
   <!-- browser properties -->
   <property name="allow_link_byuid" type="boolean">True</property>
   <property name="allow_relative_links" type="boolean">True</property>
@@ -28,7 +76,6 @@
   </property>
   <property name="browse_images_portal_types" type="lines">
    <element value="Image"/>
-   <element value="News Item"/>
   </property>
   <property name="flash_portal_type" type="string">auto</property>
   <property name="flash_portal_type_custom" type="lines">
@@ -48,10 +95,13 @@
   <property name="ck_force_root" type="boolean">False</property>
   <property name="ck_force_other_root" type="string"></property>
 
-  <!-- Widget overloads fieldset -->
+  <!-- Advanced properties -->
   <property name="properties_overloaded" type="lines">
     <element value="width"/>
   </property>
+  <property name="entities" type="boolean">False</property>
+  <property name="entities_greek" type="boolean">False</property>
+  <property name="entities_latin" type="boolean">False</property>
   
  </object>
 

@@ -19,18 +19,18 @@ Test ckeditor finder configuration
 ==================================
 
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
-    >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image&types:list=News%20Item'"
+    >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image'"
     >>> js_string in browser.contents
     True
 
 Remove 'News Item' portal_type for browsing images in ckeditor_properties
 
-    >>> ckeditor_props.manage_changeProperties(REQUEST=None, browse_images_portal_types = ['Image'])
+    >>> ckeditor_props.manage_changeProperties(REQUEST=None, browse_images_portal_types = ['Image', 'News Item'])
 
 Get the javascript config file
 
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
-    >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image'"
+    >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image&types:list=News%20Item'"
     >>> js_string in browser.contents
     True
 
@@ -65,3 +65,12 @@ as Plone content. We must find it in javascript config file.
     >>> "config.bodyId='content'" in browser.contents
     True
 
+Test Combo Menu Styles
+======================
+
+A specific style menu must be set in javascript which
+depends on ckeditor control panel config.
+
+    >>> global_styles_config = "config.stylesSet='plone:%s/ckeditor_plone_menu_styles.js'" %portal_url
+    >>> global_styles_config in browser.contents
+    True

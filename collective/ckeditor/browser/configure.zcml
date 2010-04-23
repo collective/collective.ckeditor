@@ -40,7 +40,16 @@
    	      name="ckeditor_plone_config.js"
   	      attribute="getCK_plone_config"
   	      permission="zope.Public"
-   	      /> 	        
+   	      /> 	  
+    
+    <!-- ckeditor menu styles view (return a javascript file) -->
+    <browser:page
+  	      for="*"
+   	      class=".ckeditorview.CKeditorView"
+   	      name="ckeditor_plone_menu_styles.js"
+  	      attribute="getCK_plone_menu_styles"
+  	      permission="zope.Public"
+   	      />        
     
     <!-- ckeditor control panel adapter -->    
     <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />
@@ -53,7 +62,12 @@
         permission="cmf.ManagePortal"
         />    
         
-    <!-- vocabularies -->
+    <!-- vocabularies -->       
+    <utility
+      component=".vocabularies.CKEditorToolBarVocabularyFactory"
+      name="collective.ckeditor.vocabularies.toolbar"
+      />
+
     <utility
       component=".vocabularies.CKEditorImageTypesVocabularyFactory"
       name="collective.ckeditor.vocabularies.ImageTypes"
