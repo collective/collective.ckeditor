@@ -1,39 +1,43 @@
 TODO QUICKLY
 ============
-  - ckeditor control panel improvements :
-    
-    - flag Language : portal_languages settings or lang cookie value
+
+- internationalization
+
+- ckeditor control panel improvements :
+  
+  - flag Language : portal_languages settings or lang cookie value
 
 TODO
 ====
-Depending on contributions  : motivation, time, money, bear, ... (*)
+Depending on contributions  : motivation, time, money, bear, ... (contact support@ingeniweb.com)
   
-  - ckeditor control panel improvements :
-    
-    - different toolbars upon some options (roles, ...)
-    
-    - area templates
-    
-    - other options (spellchecker, copy/paste options, keyboard options)
+- ckeditor control panel improvements :
   
-  - plugins creation or integration :
-     
-    - GeckoSpellChecker Plugin
-     
-    - image map plugin for ckeditor
-     
-    - a new flv player plugin for ckeditor without javascript tags inside html area
-     
-    - a new flash plugin for ckeditor using swfobject but without javascript tags inside html area
-    
-  - upload improvements :
-    
-    - errors management : rename when always in use, don't upload bad content-type ...
-
-    - add metadata form fields to quick upload forms
-
-    - quick upload without browser (directly from insert file/image/flash dialog box)
+  - different toolbars upon some options (roles, ...)
   
-  - specific AT widget or Dexterity Widget with all ckeditor params
+  - area templates
+  
+  - other options (spellchecker, copy/paste options, keyboard options)
+  
+  - different toolbars upon some options (roles, ...)
 
-(*) support@ingeniweb.com
+- plugins creation or integration :
+   
+  - GeckoSpellChecker Plugin
+   
+  - image map plugin for ckeditor
+   
+  - a new flv player plugin for ckeditor without javascript tags inside html area
+   
+  - a new flash plugin for ckeditor using swfobject but without javascript tags inside html area
+  
+- upload improvements :
+  
+  - errors management : rename when always in use, don't upload bad content-type ...
+
+  - add metadata form fields to quick upload forms
+
+  - quick upload without browser (directly from insert file/image/flash dialog box)
+
+- specific AT widget or Dexterity Widget with all ckeditor params
+

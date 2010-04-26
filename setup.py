@@ -13,16 +13,17 @@ version = str(version).strip()
 
 setup(name='collective.ckeditor',
       version=version,
-      description="CKeditor for Plone",
+      description="CKEditor for Plone",
       long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open(os.path.join("docs", "HISTORY.txt")).read(),+
+                       open(os.path.join("docs", "FAQ.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='Plone CKeditor WYSIWYG',
-      author='Ingeniweb - Alterway Solutions',
+      author='Alterway Solutions',
       author_email='support@ingeniweb.com',
       url='https://svn.plone.org/svn/collective/collective.ckeditor',
       license='GPL',

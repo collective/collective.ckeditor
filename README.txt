@@ -1,9 +1,45 @@
 Introduction
 ============
 
-ckeditor for Plone
+ckeditor, another wysiwyg editor for Plone 4 and more.
 
-Work in progress.
+Dependencies
+============
+
+Plone4 and more.
+
+collective.plonefinder is used for attached media browsing and upload 
+when using buildout or easy_install, the dependencies are installed.
+
+Install collective.ckeditor in your zope instance
+=================================================
+
+two options :
+
+- add "collective.ckeditor" in your eggs and zcml sections of your plone 4 buildout
+
+- >>> easy_install collective.ckeditor
+
+Read docs/INSTALL.txt for more information
+
+Install ckeditor in Plone
+=========================
+
+Use portal_quickinstaller
+
+
+Plone 3 :
+---------
+
+No support is provided for Plone3.
+
+If you really need ckeditor for Plone3 contact us support@ingeniweb.com
+
+You can always use FCKeditor for Plone.
+
+
+Developement
+============
 
 when checked out from svn, run utils/base2zope.py at Python prompt.
 
@@ -25,52 +61,21 @@ in case of tal compilation error::
  
 
 Configure your develop buildout for ckeditor
-============================================
+--------------------------------------------
 
 This information concerns the svn versions since there's no releases at this time
 
-  - checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.ckeditor/trunk, put it in your develop directory
-  - idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
-  - add collective.ckeditor, collective.plonefinder in your develop section  in buildout.cfg
-  - add collective.ckeditor to your zcml section
-  - add the ckeditor section to run utils/base2zope.py (see buildout/dev.cfg for more information)
-  - bin/buildout -c dev.cfg
+- checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.ckeditor/trunk, put it in your develop directory
 
-Install ckeditor in Plone
-=========================
+- idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
 
-  - using portal_quickinstaller
+- add collective.ckeditor, collective.plonefinder in your develop section  in buildout.cfg
 
+- add collective.ckeditor to your zcml section
 
-Check the samples
-=================
+- add the ckeditor section to run utils/base2zope.py (see buildout/dev.cfg for more information)
 
-   - http://yourplonesite/++resource++ckeditor/_samples/index.html     
-
-
-Edit the Plone front-page
-=========================
-
-  - It works fine  
-
-Dependencies
-============
-
-Plone4 and more.
-
-collective.plonefinder (always in progress at this time) is used for attached media browsing and upload 
-
-get it here https://svn.plone.org/svn/collective/collective.plonefinder/trunk
-
-
-Plone 3 :
----------
-
-No more support is provided for Plone3.
-
-If you really need ckeditor for Plone contact us support@ingeniweb.com
-
-Otherwise you can always use FCKeditor for Plone.
+- bin/buildout -c dev.cfg
 
 More information
 ================
