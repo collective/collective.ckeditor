@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-## Copyright (C) 2009 Ingeniweb - all rights reserved    
 
 """Base class for ckeditor test cases.
 """
