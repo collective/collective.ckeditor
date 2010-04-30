@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-## Copyright (C) 2009 Ingeniweb - all rights reserved    
+# -*- coding: utf-8 -*-  
 
 from zope.testing import doctest
 from unittest import TestSuite, main
