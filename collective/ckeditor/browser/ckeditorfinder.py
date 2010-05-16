@@ -40,7 +40,7 @@ class CKFinder(Finder):
     
     def empty_setScopeInfos(self, context, request, showbreadcrumbs):
         """
-        setScopeInfos redefined (the job is done before Finder.__call__() by __newSetScopeInfos )
+        setScopeInfos redefined (the job is done before Finder.__call__() )
         """
         pass
 
