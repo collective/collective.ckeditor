@@ -1,15 +1,16 @@
 Introduction
 ============
 
-ckeditor, another wysiwyg editor for Plone 4 and more.
+ckeditor, a wysiwyg editor for Plone 4 and more.
 
 Dependencies
 ============
 
 Plone4 and more.
 
-collective.plonefinder is used for attached media browsing and upload 
-when using buildout or easy_install, the dependencies are installed.
+collective.plonefinder is used for attached media browsing and upload.
+
+when using buildout or easy_install, collective.plonefinder is installed.
 
 Install collective.ckeditor in your zope instance
 =================================================
@@ -59,23 +60,6 @@ in case of tal compilation error::
   - http://dev.fckeditor.net/ticket/4416
 
  
-
-Configure your develop buildout for ckeditor
---------------------------------------------
-
-This information concerns the svn versions since there's no releases at this time
-
-- checkout from svn 'collective.ckeditor' https://svn.plone.org/svn/collective/collective.ckeditor/trunk, put it in your develop directory
-
-- idem for 'collective.plonefinder' https://svn.plone.org/svn/collective/collective.plonefinder/trunk
-
-- add collective.ckeditor, collective.plonefinder in your develop section  in buildout.cfg
-
-- add collective.ckeditor to your zcml section
-
-- add the ckeditor section to run utils/base2zope.py (see buildout/dev.cfg for more information)
-
-- bin/buildout -c dev.cfg
 
 More information
 ================

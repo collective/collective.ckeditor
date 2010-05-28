@@ -1,6 +1,13 @@
 Changelog
 =========
 
+3.2.1b
+------
+
+* image sizes selection added (use this new option provided by collective.plonefinder)
+
+* some fixes for last collective.plonefinder usage.
+
 3.2.1a
 ------
 
