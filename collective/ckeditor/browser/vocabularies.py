@@ -21,17 +21,11 @@ def _listTypesForInterface(portal, interface):
     @param interface: Zope 2 inteface
     @return: [{'portal_type': xx, 'type_ui_info': UI type info}, ...]
     """
- 
     archetype_tool = getToolByName(portal, 'archetype_tool')
     portal_types = getToolByName(portal, 'portal_types')
     utranslate = portal.utranslate
-    
-    # all_types = [{'name': xx, 'package': xx, 'portal_type': xx, 'module': xx,
-    #               'meta_type': xx, 'klass': xx, ...
-    all_types = archetype_tool.listRegisteredTypes(inProject=True)
-    all_types = [tipe['portal_type'] for tipe in all_types
-                 if interface.implementedBy(tipe['klass'])]
-    # fix for bug in listRegisteredTypes which returns 2 'ATFolder'
+    all_types = [tipe.getId() for tipe in archetype_tool.listPortalTypesWithInterfaces([interface])]
+    # fix for bug in listPortalTypesWithInterfaces which returns 2 'ATFolder'
     # when asking for IBaseFolder interface
     unik_types = dict.fromkeys(all_types).keys() 
     return [_infoDictForType(tipe, portal_types, utranslate) for tipe in unik_types]

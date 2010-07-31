@@ -28,8 +28,10 @@ Read docs/INSTALL.txt for more information
 Install ckeditor in Plone
 =========================
 
-Use portal_quickinstaller or the Plone "Add Products" Control Panel.
-Choose "CKeditor for Plone".
+Use the Plone "Add Products" Control Panel.
+Choose "CKeditor for Plone 3.x"
+Click on Activate
+It will also install collective.plonefinder
 
 
 Plone 3 :
