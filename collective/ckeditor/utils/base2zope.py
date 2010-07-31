@@ -3,7 +3,7 @@
 #!/usr/bin/env python
 #BOILERPLATE###################################################################
 #                                                                             #
-#  This package wraps FCKeditor for use in the Zope web application server.   #
+#  This package wraps CKeditor for use in the Zope web application server.   #
 #  Copyright (C) 2005 Chad Whitacre < http://www.zetadev.com/ >               #
 #                                                                             #
 #  This library is free software; you can redistribute it and/or modify it    #
@@ -23,8 +23,8 @@
 #                                                                             #
 ###################################################################BOILERPLATE#
 
-""" This script takes the FCKeditor base distribution in ../src/ and massages it
-for use in Zope, outputting to ../skins/fckeditor/. Usage:
+""" This script takes the CKeditor base distribution in ../src/ and massages it
+for use in Zope, outputting to ../browser/ckeditor/. Usage:
 
     $ ./base2zope.py
     $
@@ -180,11 +180,7 @@ def makeSkinDirs(srcDir ,destDir):
                   content = Badtags.sub(replace_bad_tags, content)
                   
                   # replace empty frame tags by an open frame tag (another tal compilation error)                   
-                  content = content.replace("></frame>"," />")
-                  
-                  # fix ckeditor specific xhtml errors (http://dev.fckeditor.net/ticket/4416)
-                  if filename=='range.html' :
-                      content = content.replace("<br/ >","<br />")                
+                  content = content.replace("></frame>"," />")             
                   
                   fileObj = file(dest,"w")
                   fileObj.write(content)
