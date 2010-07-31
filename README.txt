@@ -18,6 +18,8 @@ Install collective.ckeditor in your zope instance
 two options :
 
 - add "collective.ckeditor" in your eggs and zcml sections of your plone 4 buildout
+  then run "bin/buildout" or "bin\buildout" under win32
+  look at ckeditor.cfg if you are using plone 4 core dev buildout
 
 - >>> easy_install collective.ckeditor
 
@@ -26,7 +28,8 @@ Read docs/INSTALL.txt for more information
 Install ckeditor in Plone
 =========================
 
-Use portal_quickinstaller
+Use portal_quickinstaller or the Plone "Add Products" Control Panel.
+Choose "CKeditor for Plone".
 
 
 Plone 3 :
