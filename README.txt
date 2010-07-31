@@ -52,13 +52,6 @@ using this adress::
 base2zope.py fix some tal compilation errors (zope.tal bugs), see also::
 
   - https://bugs.launchpad.net/zope2/+bug/142333
-  
-base2zope.py fix also some XHTML errors in ckeditor tests pages.
-zope consider html files in browser resources as page templates and return a 404 http error
-in case of tal compilation error::
-
-  - http://dev.fckeditor.net/ticket/4416
-
  
 
 More information
