@@ -10,6 +10,10 @@ Changelog
 * icon for control panel is now in controlpanel.xml
   macadames 10/07/31
 
+* Make control panel (and tests) running without errors with last Plone4 version ... 
+  The listTypesForInterface method was broken.
+  macadames 10/07/31
+
 3.2.1b
 ------
 
