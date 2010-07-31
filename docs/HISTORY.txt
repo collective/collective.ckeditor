@@ -5,6 +5,10 @@ Changelog
 -----
 
 * use ckeditor 3.3.1
+  macadames 10/07/31
+
+* icon for control panel is now in controlpanel.xml
+  macadames 10/07/31
 
 3.2.1b
 ------
