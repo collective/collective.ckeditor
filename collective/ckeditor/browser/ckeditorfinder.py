@@ -61,16 +61,25 @@ class CKFinder(Finder):
         
         session.set('media', self.media)
         
-        # typeupload
-        self.typeupload = self.get_type_for_media(self.media)
+        # typeupload (portal_type used for upload)
+        self.typeupload = self.get_type_for_upload(self.media)
         session.set('typeupload', self.typeupload)
         
+        # mediaupload
+        # the mediaupload force the content-type selection in jquery.uploadify
+        # see finder_upload.py in collective.plonefinder
+        # example (*.jpg, *.gif, ...) when media='image'
+        if self.media != 'file' :
+            session.set('mediaupload', self.media)
+        else :
+            session.set('mediaupload', '')
+        
         # typefolder
-        self.typefolder = self.get_type_for_media('folder')
+        self.typefolder = self.get_type_for_upload('folder')
         session.set('typefolder', self.typefolder)        
             
         
-    def get_type_for_media(self, media) :
+    def get_type_for_upload(self, media) :
         """
         return CKeditor settings for unik media_portal_type
         """
