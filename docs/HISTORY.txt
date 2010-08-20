@@ -18,6 +18,8 @@ Changelog
   (Force the selection of content-type in jquery.uploadify)
   macadames 10/07/31
 
+* Added support for z3c.autoinclude so no zcml slugs will be needed for this package. 
+  sneridagh 10/08/05
 
 3.2.1b
 ------
