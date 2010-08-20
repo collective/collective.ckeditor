@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <metadata>
   <!-- Following ckeditor versions + ckeditorplone infos if necessary (alpha, beta, etc) -->
-  <version>3.3.1</version>   
+  <version>3.3.1-b</version>   
   <dependencies>
     <dependency>profile-collective.plonefinder:default</dependency>
   </dependencies>      
