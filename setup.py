@@ -33,6 +33,7 @@ setup(name='collective.ckeditor',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'collective.quickupload',
           'collective.plonefinder',
           # -*- Extra requirements: -*-
       ],

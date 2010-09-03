@@ -23,7 +23,8 @@ def setup_product():
     import collective.ckeditor
     zcml.load_config('configure.zcml',collective.ckeditor)
     #fiveconfigure.debug_mode = False    
-    ztc.installPackage('collective.plonefinder')   
+    ztc.installPackage('collective.quickupload')  
+    ztc.installPackage('collective.plonefinder') 
     ztc.installPackage('collective.ckeditor')    
 
 setup_product()
