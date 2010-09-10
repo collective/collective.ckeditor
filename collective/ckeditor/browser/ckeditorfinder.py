@@ -22,12 +22,13 @@ class CKFinder(Finder):
     
         context = aq_inner(self.context)
         request = aq_inner(self.request)                                       
-        session = request.get('SESSION', None)  
+        session = request.get('SESSION', {})  
         self.showbreadcrumbs =  request.get('showbreadcrumbs', self.showbreadcrumbs)
         # scopeInfos must be set here because we need it in  set_session_props
         self.setScopeInfos(context, request, self.showbreadcrumbs)     
         # store CKEditor function name in session for ajax calls
-        session.set('CKEditorFuncNum', request.get('CKEditorFuncNum', ''))    
+        if session :
+            session.set('CKEditorFuncNum', request.get('CKEditorFuncNum', ''))    
         # redefine some js methods (to select items ...)
         self.jsaddons = self.get_jsaddons()
         # set media type
@@ -49,7 +50,7 @@ class CKFinder(Finder):
         set media type used for ckeditor
         """
         request = self.request                                       
-        session = request.get('SESSION', None)
+        session = request.get('SESSION', {})
         self.media = session.get('media', request.get('media', 'file'))
     
     def set_session_props(self):
@@ -57,26 +58,29 @@ class CKFinder(Finder):
         Take some properties from ckeditor to store in session
         """   
         request = self.request                                       
-        session = request.get('SESSION', None)
+        session = request.get('SESSION', {})
         
         session.set('media', self.media)
         
         # typeupload (portal_type used for upload)
         self.typeupload = self.get_type_for_upload(self.media)
-        session.set('typeupload', self.typeupload)
+        if session :
+            session.set('typeupload', self.typeupload)
         
         # mediaupload
         # the mediaupload force the content-type selection in jquery.uploadify
         # see finder_upload.py in collective.plonefinder
         # example (*.jpg, *.gif, ...) when media='image'
-        if self.media != 'file' :
-            session.set('mediaupload', self.media)
-        else :
-            session.set('mediaupload', '')
+        if session :
+            if self.media != 'file' :
+                session.set('mediaupload', self.media)
+            else :
+                session.set('mediaupload', '')
         
         # typefolder
         self.typefolder = self.get_type_for_upload('folder')
-        session.set('typefolder', self.typefolder)        
+        if session :
+            session.set('typefolder', self.typefolder)        
             
         
     def get_type_for_upload(self, media) :
@@ -85,7 +89,7 @@ class CKFinder(Finder):
         """
         context = aq_inner(self.context)
         request = self.request                                       
-        session = request.get('SESSION', None)
+        session = request.get('SESSION', {})
         
         pprops = getToolByName(context, 'portal_properties')
         ckprops = pprops.ckeditor_properties
@@ -119,7 +123,7 @@ class CKFinder(Finder):
         """    
         context = aq_inner(self.context)
         request = aq_inner(self.request)                                       
-        session = request.get('SESSION', None)
+        session = request.get('SESSION', {})
         CKEditor = session.get('CKEditor', '')
         CKEditorFuncNum = session.get('CKEditorFuncNum', '')
         
