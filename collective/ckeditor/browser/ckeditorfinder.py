@@ -51,7 +51,7 @@ class CKFinder(Finder):
         """
         request = self.request                                       
         session = request.get('SESSION', {})
-        self.media = session.get('media', request.get('media', 'file'))
+        self.media = request.get('media', 'file')
     
     def set_session_props(self):
         """
@@ -68,14 +68,14 @@ class CKFinder(Finder):
             session.set('typeupload', self.typeupload)
         
         # mediaupload
-        # the mediaupload force the content-type selection in jquery.uploadify
-        # see finder_upload.py in collective.plonefinder
+        # the mediaupload force the content-type selection in fileupload
+        # see quick_upload.py in collective.quickupload
         # example (*.jpg, *.gif, ...) when media='image'
         if session :
             if self.media != 'file' :
                 session.set('mediaupload', self.media)
             else :
-                session.set('mediaupload', '')
+                session.set('mediaupload', '*.*')
         
         # typefolder
         self.typefolder = self.get_type_for_upload('folder')

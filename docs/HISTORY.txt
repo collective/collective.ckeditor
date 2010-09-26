@@ -7,6 +7,13 @@ Changelog
 * use ckeditor 3.4.1
   macadames 10/09/26
 
+* fix an error in set_media_type
+  macadames 10/09/26
+
+* fix an error in mediaupload session
+  macadames 10/09/26
+
+
 3.4
 ---
 
