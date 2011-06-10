@@ -44,7 +44,7 @@ If you really need ckeditor for Plone3 contact us support@ingeniweb.com
 You can always use FCKeditor for Plone.
 
 
-Developement
+Development
 ============
 
 when checked out from svn, run utils/base2zope.py at Python prompt.
