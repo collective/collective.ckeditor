@@ -4,102 +4,100 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.ckeditor">
 
-    
     <!-- Resource directory for ckeditor files -->
     <browser:resourceDirectory
         name="ckeditor"
         directory="ckeditor"
-        />    
-    
+        />
+
     <!-- Resource directory for static files -->
     <browser:resourceDirectory
         name="ckeditor_for_plone"
         directory="statics"
-        />     
+        />
 
     <!-- main ckeditor template macros -->
     <browser:page
-      for="*"
-      name="ckeditor_wysiwyg_support"
-      template="templates/ckeditor_wysiwyg_support.pt"
-      permission="zope.Public"
-    />  
-    
+        name="ckeditor_wysiwyg_support"
+        for="*"
+        template="templates/ckeditor_wysiwyg_support.pt"
+        permission="zope.Public"
+        />
+
     <!-- main ckeditor view -->
     <browser:page
-      for="*"
-      name="ckeditor_view"
-      class=".ckeditorview.CKeditorView"
-      permission="zope.Public"
-    />      
-    
+        name="ckeditor_view"
+        for="*"
+        class=".ckeditorview.CKeditorView"
+        permission="zope.Public"
+        />
+
     <!-- ckeditor config view (return a javascript file) -->
     <browser:page
-  	      for="*"
-   	      class=".ckeditorview.CKeditorView"
-   	      name="ckeditor_plone_config.js"
-  	      attribute="getCK_plone_config"
-  	      permission="zope.Public"
-   	      /> 	  
-    
+        name="ckeditor_plone_config.js"
+        for="*"
+        class=".ckeditorview.CKeditorView"
+        attribute="getCK_plone_config"
+        permission="zope.Public"
+        />
+
     <!-- ckeditor menu styles view (return a javascript file) -->
     <browser:page
-  	      for="*"
-   	      class=".ckeditorview.CKeditorView"
-   	      name="ckeditor_plone_menu_styles.js"
-  	      attribute="getCK_plone_menu_styles"
-  	      permission="zope.Public"
-   	      />        
-    
-    <!-- ckeditor control panel adapter -->    
+        name="ckeditor_plone_menu_styles.js"
+        for="*"
+        class=".ckeditorview.CKeditorView"
+        attribute="getCK_plone_menu_styles"
+        permission="zope.Public"
+        />
+
+    <!-- ckeditor control panel adapter -->
     <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />
-    
-    <!-- ckeditor control panel form view -->    
+
+    <!-- ckeditor control panel form view -->
     <browser:page
         name="ckeditor-controlpanel"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".ckeditorsettings.CKEditorControlPanel"
         permission="cmf.ManagePortal"
-        />    
-        
-    <!-- vocabularies -->       
-    <utility
-      component=".vocabularies.CKEditorToolBarVocabularyFactory"
-      name="collective.ckeditor.vocabularies.toolbar"
-      />
+        />
 
-    <utility
-      component=".vocabularies.CKEditorImageTypesVocabularyFactory"
-      name="collective.ckeditor.vocabularies.ImageTypes"
-      />        
-      
-    <utility
-      component=".vocabularies.CKEditorUploadImageTypeVocabularyFactory"
-      name="collective.ckeditor.vocabularies.ImageTypeUpload"
-      />
-        
-    <utility
-      component=".vocabularies.CKEditorFileTypesVocabularyFactory"
-      name="collective.ckeditor.vocabularies.FileTypes"
-      />        
-      
-    <utility
-      component=".vocabularies.CKEditorUploadFileTypeVocabularyFactory"
-      name="collective.ckeditor.vocabularies.FileTypeUpload"
-      /> 
-        
-    <utility
-      component=".vocabularies.CKEditorFolderTypesVocabularyFactory"
-      name="collective.ckeditor.vocabularies.FolderTypes"
-      />       
-
-
+    <!-- ckeditor browser -->
     <browser:page
-        for="*"
         name="plone_ckfinder"
+        for="*"
         class=".ckeditorfinder.CKFinder"
-    	  permission="zope2.View"
-        />     
-        
-        
+        permission="zope2.View"
+        />
+
+    <!-- vocabularies -->
+    <utility
+        name="collective.ckeditor.vocabularies.toolbar"
+        component=".vocabularies.CKEditorToolBarVocabularyFactory"
+        />
+
+    <utility
+        name="collective.ckeditor.vocabularies.ImageTypes"
+        component=".vocabularies.CKEditorImageTypesVocabularyFactory"
+        />
+
+    <utility
+        name="collective.ckeditor.vocabularies.ImageTypeUpload"
+        component=".vocabularies.CKEditorUploadImageTypeVocabularyFactory"
+        />
+
+    <utility
+        name="collective.ckeditor.vocabularies.FileTypes"
+        component=".vocabularies.CKEditorFileTypesVocabularyFactory"
+        />
+
+    <utility
+        name="collective.ckeditor.vocabularies.FileTypeUpload"
+        component=".vocabularies.CKEditorUploadFileTypeVocabularyFactory"
+        />
+
+    <utility
+        name="collective.ckeditor.vocabularies.FolderTypes"
+        component=".vocabularies.CKEditorFolderTypesVocabularyFactory"
+        />
+
 </configure>
