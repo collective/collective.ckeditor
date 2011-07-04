@@ -7,4 +7,5 @@
 
 var CKEDITOR_BASEPATH = '&dtml-portal_url;/++resource++ckeditor/';
 var CKEDITOR_PLONE_BASEPATH = '&dtml-portal_url;/++resource++ckeditor_for_plone/';
+var CKEDITOR_PLONE_PORTALPATH = '&dtml-portal_url;';
 
