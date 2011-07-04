@@ -226,7 +226,7 @@ CKEDITOR.editorConfig = function( config )
         return JavascriptPacker('safe').pack(params_js_string)
 
     def getCustomTemplatesConfig(self, customTemplates):
-        templates = ["'%s/%s,'" % (self.portal_url, template) for template in
+        templates = ["'%s/%s'," % (self.portal_url, template) for template in
                 customTemplates]
         result = """
     config.templates_files = [
