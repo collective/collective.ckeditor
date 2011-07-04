@@ -52,6 +52,8 @@
 
 ]
   </property> 
+  <property name="customTemplates" type="text">
+  </property>  
   <property name="bodyId" type="string">content</property>
   <property name="bodyClass" type="string"></property>
 

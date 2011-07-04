@@ -118,12 +118,12 @@ class CKeditorView(BrowserView):
         skinname = url_quote(current_skin)
         css_res= portal_css.getEvaluatedResources(context)
         for css in css_res :
-           if css.getMedia() not in ('print', 'projection') and css.getRel()=='stylesheet' :
-             cssPloneId = css.getId()
-             cssPlone= '%s/portal_css/%s/%s' %(portal_url, skinname, cssPloneId)
-             css_jsList += "'%s', " %cssPlone  
-        
-        
+            if css.getMedia() not in ('print', 'projection') and css.getRel()=='stylesheet' :
+                cssPloneId = css.getId()
+                cssPlone= '%s/portal_css/%s/%s' %(portal_url, skinname, cssPloneId)
+                css_jsList += "'%s', " %cssPlone  
+           
+           
         css_jsList += "'%s/++resource++ckeditor_for_plone/ckeditor_plone_area.css']" %portal_url  
         
         return css_jsList      
@@ -216,10 +216,24 @@ CKEDITOR.editorConfig = function( config )
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
 };
         """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
+        cke_properties = self.cke_properties
+        customTemplates = cke_properties.getProperty('customTemplates')
+        if customTemplates:
+            params_js_string += self.getCustomTemplatesConfig(customTemplates)
         response.setHeader('Cache-control','pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
         
         return JavascriptPacker('safe').pack(params_js_string)
+
+    def getCustomTemplatesConfig(self, customTemplates):
+        templates = ["'%s/%s,'" % (self.portal_url, template) for template in
+                customTemplates]
+        result = """
+    config.templates_files = [
+        %s
+        ];
+""" % '\n'.join(templates)
+        return result
 
     def getCK_plone_menu_styles(self) :
         """

@@ -34,7 +34,7 @@ class ICKEditorBaseSchema(Interface):
     """
     CKEditor Base fieldset schema
     """
-                      
+
     forcePasteAsPlainText = Bool (title=_(u"Force paste as plain text"),
                                   description =_(u"Choose if you want to remove format on copy/paste, and paste only text and CR/LF"),
                                   default = False,
@@ -62,15 +62,22 @@ class ICKEditorBaseSchema(Interface):
                                        "the attributes must exists in your css."
                                        ),
                        required = True)
-                      
+
     bodyId = TextLine (title=_(u"Area Body Id"),
                        description =_(u"Enter the css id applied to the body tag of the editor area"),
                        default = u'content',
                        required = False)
-                      
+
     bodyClass = TextLine (title=_(u"Area Body Class"),
                       description =_(u"Enter the css class name applied to the body tag of the editor area"),
                       required = False)
+
+    customTemplates =  List(title=_(u"Custom templates"),
+                       description =_(u"URLs of Javascript "
+                           "files that register custom templates."
+                                       ),
+                       value_type = TextLine(),
+                       required = False)
 
 class ICKEditorSkinSchema(Interface):
     """
@@ -79,7 +86,7 @@ class ICKEditorSkinSchema(Interface):
     width = TextLine (title=_(u"Editor width"),
                       description =_(u"Enter the width of the editor in px % or em"),
                       required = False)
-                      
+
     height = TextLine (title=_(u"Editor height"),
                        description =_(u"Enter the height of the editor in px % or em"),
                        required = False)
@@ -133,7 +140,7 @@ class ICKEditorBrowserSchema(Interface):
                                required=True,
                                default='File',
                                vocabulary="collective.ckeditor.vocabularies.FileTypeUpload")
-                               
+
     file_portal_type_custom = List( title=_(u"Custom File portal type for upload"),
                                     description=_(u"Add list of pairs CONTAINER_TYPE|FILE_TYPE. "
                                                    "The file portal type choosen for upload will depend on "
@@ -142,7 +149,7 @@ class ICKEditorBrowserSchema(Interface):
                                                    "Take care, no control is done over this field value."),
                                     required=False,
                                     value_type=TextLine(),
-                                    default=['*|File', 'Folder|File', ])           
+                                    default=['*|File', 'Folder|File', ])
 
     browse_images_portal_types = Tuple(title=_(u"Portal Types for images linking"),
                                        description=_(u"Choose the types used "
@@ -158,7 +165,7 @@ class ICKEditorBrowserSchema(Interface):
                                required=True,
                                default='auto',
                                vocabulary="collective.ckeditor.vocabularies.ImageTypeUpload")
-                               
+
     image_portal_type_custom = List( title=_(u"Custom Image portal type for upload"),
                                      description=_(u"Add list of pairs CONTAINER_TYPE|IMAGE_TYPE. "
                                                     "The image portal type choosen for upload will depend on "
@@ -167,7 +174,7 @@ class ICKEditorBrowserSchema(Interface):
                                                     "Take care, no control is done over this field value."),
                                      required=False,
                                      value_type=TextLine(),
-                                     default=['*|Image', 'Folder|Image', ])                               
+                                     default=['*|Image', 'Folder|Image', ])
 
     browse_flashs_portal_types = Tuple(title=_(u"Portal Types for flah contents linking"),
                                        description=_(u"Choose the types used "
@@ -183,7 +190,7 @@ class ICKEditorBrowserSchema(Interface):
                                 required=True,
                                 default='File',
                                 vocabulary="collective.ckeditor.vocabularies.FileTypeUpload")
-                               
+
     flash_portal_type_custom = List( title=_(u"Custom Flash portal type for upload"),
                                      description=_(u"Add list of pairs CONTAINER_TYPE|FLASH_TYPE. "
                                                     "The flash portal type choosen for upload will depend on "
@@ -192,14 +199,14 @@ class ICKEditorBrowserSchema(Interface):
                                                     "Take care, no control is done over this field value."),
                                      required=False,
                                      value_type=TextLine(),
-                                     default=['*|File', 'Folder|File', ])  
+                                     default=['*|File', 'Folder|File', ])
 
     folder_portal_type = Choice( title=_(u"Folder portal type"),
                                  description=_(u"Choose the portal type used for folder creation"),
                                  required=True,
                                  default='Folder',
                                  vocabulary="collective.ckeditor.vocabularies.FolderTypes")
-                               
+
     folder_portal_type_custom = List( title=_(u"Custom portal type for folder creation"),
                                       description=_(u"Add list of pairs CONTAINER_TYPE|FOLDER_TYPE. "
                                                      "The folder portal type choosen for folders creation will depend on "
@@ -223,7 +230,7 @@ class ICKEditorAdvancedSchema(Interface):
                                                 "for all properties names."),
                                  required=False,
                                  value_type=TextLine(),
-                                 default=['width',],) 
+                                 default=['width',],)
 
     entities = Bool(title=_(u"Html Entities"),
                     description=_(u"Whether to use Html entities in the editor."),
@@ -248,7 +255,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     implements(ICKEditorSchema)
     adapts(IPloneSiteRoot)
-    
+
     def __init__(self, context):
         super(CKEditorControlPanelAdapter, self).__init__(context)
         self.portal = getSite()
@@ -305,7 +312,15 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('bodyClass', value)
 
     bodyClass = property(get_bodyClass, set_bodyClass)
-    
+
+    def get_customTemplates(self):
+        return self.context.customTemplates
+
+    def set_customTemplates(self, value):
+        self.context._updateProperty('customTemplates', value)
+
+    customTemplates = property(get_customTemplates, set_customTemplates)
+
     # skin fieldset
 
     def get_width(self):
@@ -521,6 +536,3 @@ class CKEditorControlPanel(ControlPanelForm):
     label = _("CKEditor settings")
     description = _("Control CKEditor settings for Plone.")
     form_name = _("CKEditor settings")
-
-
-
