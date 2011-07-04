@@ -214,12 +214,14 @@ CKEDITOR.editorConfig = function( config )
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
     config.toolbar_Plone = %s;
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
-};
         """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
         cke_properties = self.cke_properties
         customTemplates = cke_properties.getProperty('customTemplates')
         if customTemplates:
             params_js_string += self.getCustomTemplatesConfig(customTemplates)
+        params_js_string +="""
+};
+        """
         response.setHeader('Cache-control','pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
         
