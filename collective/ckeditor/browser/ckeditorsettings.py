@@ -78,6 +78,11 @@ class ICKEditorBaseSchema(Interface):
                                        ),
                        value_type = TextLine(),
                        required = False)
+    
+    templatesReplaceContent = Bool (title=_(u"Templates will replace the current contents of the visual editor window"),
+                                    description =_(u"Choose if you want templates to replace the contents when inserted"),
+                                    default = False,
+                                    required = False)
 
 class ICKEditorSkinSchema(Interface):
     """
@@ -320,6 +325,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('customTemplates', value)
 
     customTemplates = property(get_customTemplates, set_customTemplates)
+
+    def get_templatesReplaceContent(self):
+        return self.context.templatesReplaceContent
+
+    def set_templatesReplaceContent(self, value):
+        self.context._updateProperty('templatesReplaceContent', value)
+
+    templatesReplaceContent = property(get_templatesReplaceContent, set_templatesReplaceContent)
 
     # skin fieldset
 

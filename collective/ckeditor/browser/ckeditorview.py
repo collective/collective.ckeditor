@@ -216,6 +216,11 @@ CKEDITOR.editorConfig = function( config )
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
         cke_properties = self.cke_properties
+        templatesReplaceContent = cke_properties.getProperty('templatesReplaceContent')
+        if templatesReplaceContent:
+            params_js_string += """config.templates_replaceContent = true;"""
+        else:
+            params_js_string += """config.templates_replaceContent = false;"""
         customTemplates = cke_properties.getProperty('customTemplates')
         if customTemplates:
             params_js_string += self.getCustomTemplatesConfig(customTemplates)
