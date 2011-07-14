@@ -1,6 +1,25 @@
 Changelog
 =========
 
+3.6.1 (unreleased)
+------------------
+
+* use ckeditor 3.6.1
+  spereverde 11/07/13
+
+* some pep8 and pyflakes
+  spereverde 11/07/13
+
+* added control panel setting for templates_replaceContent
+  spereverde 11/07/13
+
+* add control panel setting for registration of custom templates
+  gotcha 11/07/04
+
+* Plone4.1 support - fix IVocabularyFactory import
+  msmith64
+
+
 3.4.1
 -----
 
