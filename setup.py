@@ -2,7 +2,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '3.6.1.1dev'
+version = '3.6.1.1rc'
 
 setup(name='collective.ckeditor',
       version=version,
@@ -29,9 +29,10 @@ setup(name='collective.ckeditor',
           'collective.plonefinder',
           # -*- Extra requirements: -*-
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      [z3c.autoinclude.plugin]
-      target = plone
-      """,
+      entry_points={
+        # ALSO grab jquerytools in the separate tag checkout...
+        'zest.releaser.releaser.after_checkout': [
+            'prepare = collective.ckeditor.utils:tag_entrypoint',
+            ],
+      },
       )

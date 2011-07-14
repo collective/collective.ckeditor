@@ -1,10 +1,10 @@
 Changelog
 =========
 
-3.6.1.1 (unreleased)
---------------------
+3.6.1.1rc (2011-07-14)
+----------------------
 
-- Nothing changed yet.
+- Use zest.releaser entry point to bundle ckeditor code
 
 
 3.6.1 (2011-07-14)
