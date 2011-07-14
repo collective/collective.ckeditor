@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.1.1rc2 (2011-07-14)
+3.6.1.1rc3 (2011-07-14)
 -----------------------
 
 - Use zest.releaser entry point to bundle ckeditor code
