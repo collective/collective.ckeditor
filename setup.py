@@ -25,6 +25,7 @@ setup(name='collective.ckeditor',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'zope.i18nmessageid',
           'collective.quickupload',
           'collective.plonefinder',
           # -*- Extra requirements: -*-
