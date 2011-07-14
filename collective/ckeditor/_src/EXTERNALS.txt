@@ -1,3 +1,0 @@
-# used with : svn propset svn:externals -F ./EXTERNALS.txt .
-#
-ckeditor -r 5896 http://svn.fckeditor.net/CKEditor/releases/stable
