@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.1 (unreleased)
+3.6.1 (2011-07-14)
 ------------------
 
 - Nothing changed yet.
