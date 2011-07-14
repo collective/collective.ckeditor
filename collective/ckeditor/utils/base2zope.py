@@ -188,7 +188,7 @@ def makeSkinDirs(srcDir, destDir):
             dirs.remove('.svn')
 
 
-def main(root):
+def copy_ckeditor(root):
     SRC_ROOT = os.path.join(root, '_src', 'ckeditor')
     DEST_ROOT = os.path.join(root, 'browser', 'ckeditor')
     check_dirs(DEST_ROOT)
@@ -207,9 +207,8 @@ def tag_entrypoint(data):
         return
     root = os.path.join(data['tagdir'], 'collective', 'ckeditor')
     print "Copying to %s" % root
-    main(root)
+    copy_ckeditor(root)
 
-
-if __name__ == "__main__":
+def main():
     PRODUCT_ROOT = os.path.realpath(os.path.join(base2zope.__file__, '..', '..'))
-    main(PRODUCT_ROOT)
+    copy_ckeditor(PRODUCT_ROOT)

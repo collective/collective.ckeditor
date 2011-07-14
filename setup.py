@@ -31,7 +31,9 @@ setup(name='collective.ckeditor',
           # -*- Extra requirements: -*-
       ],
       entry_points={
-        # ALSO grab jquerytools in the separate tag checkout...
+        'console_scripts': [
+               'copy_ckeditor_code = collective.ckeditor.utils.base2zope:main',
+               ],
         'zest.releaser.releaser.after_checkout': [
             'prepare = collective.ckeditor.utils.base2zope:tag_entrypoint',
             ],
