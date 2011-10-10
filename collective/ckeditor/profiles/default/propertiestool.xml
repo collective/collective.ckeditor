@@ -7,7 +7,7 @@
   <property name="toolbar" type="string">Plone</property>
   <property name="toolbar_Custom" type="text">
 [
-    ['Source','-','Save','Preview','-','Templates'],
+    ['Source','-','AjaxSave','Preview','-','Templates'],
     ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],

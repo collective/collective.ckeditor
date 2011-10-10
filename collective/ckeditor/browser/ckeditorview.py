@@ -199,9 +199,10 @@ class CKeditorView(BrowserView):
         request = self.request
         response = request.RESPONSE
         params_js_string = """
+CKEDITOR.plugins.addExternal( 'ajaxsave', '%s/++resource++cke_ajaxsave/plugin.js' );
 CKEDITOR.editorConfig = function( config )
 {
-        """
+        """ % self.portal_url
         params = self.cke_params
         for k, v in params.items():
             params_js_string += """
@@ -209,6 +210,7 @@ CKEDITOR.editorConfig = function( config )
             """ % (k, v)
 
         params_js_string += """
+    config.extraPlugins = "ajaxsave";
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
     config.toolbar_Plone = %s;
@@ -283,3 +285,7 @@ CKEDITOR.stylesSet.add('plone',
                     widget_settings['height'] = str(int(widget.rows) * 25) + 'px'
 
             return widget_settings
+
+    def ajaxsave(self, fieldname, text):
+        self.context.getField(fieldname).set(self.context, text, mimetype='text/html')
+        return "saved"

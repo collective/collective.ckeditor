@@ -1,0 +1,20 @@
+.cke_msg {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  background: red;
+  color: white;
+  margin: .25em;
+  padding: .5em;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.cke_discrete {
+  float: right;
+  background: red;
+  color: white;
+  padding: 1em .3em .3em;
+  font-size: 60%;
+  display: block;
+
+}

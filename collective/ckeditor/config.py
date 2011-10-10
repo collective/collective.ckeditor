@@ -9,7 +9,7 @@ I18NDOMAIN = 'collective.ckeditor'
 
 # the default toolbar used by CKEditor
 CKEDITOR_PLONE_DEFAULT_TOOLBAR = """[
-    ['Source','-','Save','Preview','-','Templates'],
+    ['Source','-','AjaxSave','Preview','-','Templates'],
     ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Styles','Format','Font','FontSize'],

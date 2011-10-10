@@ -10,6 +10,12 @@
         directory="ckeditor"
         />
 
+    <!-- Resource directory for ajaxsave plugin -->
+    <browser:resourceDirectory
+        name="cke_ajaxsave"
+        directory="ajaxsave"
+        />
+
     <!-- Resource directory for static files -->
     <browser:resourceDirectory
         name="ckeditor_for_plone"
@@ -30,6 +36,15 @@
         for="*"
         class=".ckeditorview.CKeditorView"
         permission="zope.Public"
+        />
+
+    <!-- ckeditor ajax save view -->
+    <browser:page
+        name="cke-save"
+        for="Products.Archetypes.interfaces.IBaseObject"
+        class=".ckeditorview.CKeditorView"
+        attribute="ajaxsave" 
+        permission="cmf.ModifyPortalContent"
         />
 
     <!-- ckeditor config view (return a javascript file) -->
