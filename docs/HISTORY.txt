@@ -4,6 +4,9 @@ Changelog
 3.6.1.1dev (Unreleased)
 -----------------------
 
+- use ckeditor 3.6.2
+  [spereverde]
+
 - Add ``ajaxsave`` plugin to allow asynchronous save.
   [gotcha]
 
