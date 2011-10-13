@@ -11,7 +11,6 @@
         var editorbody = jq("#cke_top_text", editor.container.$);
         editorbody.prepend('<div class="cke_msg">' + body + '</div>');
         var message = jq(".cke_msg", editorbody);
-        console.log(message);
         if (effect == 'in') {
             message.fadeIn(400).delay(400);
         }
@@ -35,7 +34,6 @@
         editor.updateElement();
         var url = jq('base').attr('href') + '/cke-save';
         var name = editor.element.$.name;
-        console.log(name);
         var data = {
             fieldname: name,
             text: editor.getData(),
