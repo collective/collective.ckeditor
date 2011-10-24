@@ -36,7 +36,7 @@
         var name = editor.element.$.name;
         var data = {
             fieldname: name,
-            text: editor.getData(),
+            text: editor.getData()
         };
         var settings = {
             url: url,
@@ -48,7 +48,7 @@
             },
             error: function(xhr, status, error){
                 showMessage(editor, 'Error : content not saved.', 'keep');
-            },
+            }
         };
         jq.ajax(settings); 
         }
@@ -61,7 +61,7 @@
             editor.ui.addButton( 'AjaxSave', {
                 label: editor.lang.save,
                 command: pluginName,
-                className: 'cke_button_save',
+                className: 'cke_button_save'
                 });
             editor.element.getDocument().appendStyleSheet(
                 CKEDITOR.getUrl('../++resource++cke_ajaxsave/message.css')); }
