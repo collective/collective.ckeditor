@@ -4,7 +4,9 @@ Changelog
 3.6.2b3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Describe in README how to release to ensure ``ckeditor`` code is included in
+  the egg.
+  [gotcha]
 
 
 3.6.2b2 (2011-12-12)

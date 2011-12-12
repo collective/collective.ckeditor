@@ -45,19 +45,39 @@ You can always use FCKeditor for Plone.
 
 
 Development
-============
+===========
 
-when checked out from svn, run utils/base2zope.py at Python prompt.
+After checking out from svn, run the buildout included in the checkout.
 
-This will inject the ckeditor directory in a browser Resources directory accessible in line
-using this adress::
+This installs ``copy_ckeditor_code`` script. This script takes care of copying
+ckeditor code in the appropriate ``browser/ckeditor`` directory.
 
-  - http://yourplonesite/++resource++ckeditor/
+The ``browser/ckeditor`` directory makes ckeditor javascript code available to
+the browser at::
+
+  http://yourplonesite/++resource++ckeditor/
+
+You need to run ``bin/copy_ckeditor_code`` prior to run ``bin/instance``.
+Anyway, if you forget, ``bin/instance`` will break with a
+``ConfigurationError``::
   
-base2zope.py fix some tal compilation errors (zope.tal bugs), see also::
+  Directory .../browser/ckeditor does not exist.
+  
+Release
+=======
 
-  - https://bugs.launchpad.net/zope2/+bug/142333
- 
+Obviously, the ckeditor code also needs to be included in the released eggs.
+
+``collective.ckeditor`` registers an entry point for ``zest.releaser`` that (if
+called properly) takes care of copying the code when preparing the release.
+
+However, in order to take advantage of the entry point, you have to use the 
+``bin/fullrelease`` locally installed by the development buildout instead of 
+a globally installed ``fullrelease``. 
+
+Only the local ``bin/fullrelease`` script can see the entry_point registered by
+``collective.ckeditor``. 
+
 
 More information
 ================
