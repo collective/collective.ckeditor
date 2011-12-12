@@ -57,9 +57,9 @@ the browser at::
 
   http://yourplonesite/++resource++ckeditor/
 
-You need to run ``bin/copy_ckeditor_code`` prior to run ``bin/instance``.
-Anyway, if you forget, ``bin/instance`` will break with a
-``ConfigurationError``::
+You need to run ``bin/copy_ckeditor_code`` prior to run any Zope/Plone instance
+with your development ``collective.ckeditor``.
+Anyway, if you forget, your instance will break with a ``ConfigurationError``::
   
   Directory .../browser/ckeditor does not exist.
   
