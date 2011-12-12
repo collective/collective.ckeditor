@@ -2,7 +2,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '3.6.2'
+version = '3.6.3dev'
 
 setup(name='collective.ckeditor',
       version=version,
