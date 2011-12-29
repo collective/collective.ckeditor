@@ -96,7 +96,7 @@ class CKEditorUploadFileTypeVocabulary(object):
         portal = getSite()
         flt = _listTypesForInterface(portal, IFileContent)
         items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration (recommanded)')),
-                 SimpleTerm('custom', 'custom', _(u'Custom configuration fill next field'))]
+                 SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
         items.extend([SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
                       for t in flt])
         return SimpleVocabulary(items)
