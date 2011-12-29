@@ -4,7 +4,11 @@ Changelog
 3.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Added i18n support
+  [giacomos]
+
+- Added Italian translation
+  [giacomos]
 
 
 3.6.2 (2011-12-12)
