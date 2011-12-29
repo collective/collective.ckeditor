@@ -200,7 +200,7 @@ class ICKEditorBrowserSchema(Interface):
         default=['*|Image', 'Folder|Image', ])
 
     browse_flashs_portal_types = Tuple(
-        title=_(u"Portal Types for flah contents linking"),
+        title=_(u"Portal Types for flash contents linking"),
         description=_(u"Choose the types used "
                        "for flash contents selection in browser."),
         required=True,
