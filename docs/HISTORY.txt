@@ -4,6 +4,9 @@ Changelog
 3.6.3 (unreleased)
 ------------------
 
+- Fixed the finder to honor the "Allow folder creation" option.
+  [dokai]
+
 - Added i18n support
   [giacomos]
 
@@ -89,7 +92,7 @@ Changelog
 - icon for control panel is now in controlpanel.xml
   [macadames]
 
-- Make control panel (and tests) running without errors with last Plone4 version ... 
+- Make control panel (and tests) running without errors with last Plone4 version ...
   The listTypesForInterface method was broken.
   [macadames]
 
@@ -97,7 +100,7 @@ Changelog
   (Force the selection of content-type in jquery.uploadify)
   [macadames]
 
-- Added support for z3c.autoinclude so no zcml slugs will be needed for this package. 
+- Added support for z3c.autoinclude so no zcml slugs will be needed for this package.
   [sneridagh]
 
 3.2.1b
@@ -136,7 +139,7 @@ Changelog
 
 - menu styles through control panel finished
 
-- toolbar through control panel finished 
+- toolbar through control panel finished
 
 3.0.2
 -----
