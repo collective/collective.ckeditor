@@ -36,7 +36,9 @@ import re
 import shutil
 import sys
 import codecs
-import base2zope
+
+from collective import ckeditor
+ROOT =  os.path.dirname(ckeditor.__file__)
 
 
 def rm_rf(path):
@@ -210,5 +212,10 @@ def tag_entrypoint(data):
     copy_ckeditor(root)
 
 def main():
-    PRODUCT_ROOT = os.path.realpath(os.path.join(base2zope.__file__, '..', '..'))
+    PRODUCT_ROOT = os.path.realpath(os.path.join(ROOT))
     copy_ckeditor(PRODUCT_ROOT)
+
+
+if __name__ == '__main__':
+    main()
+
