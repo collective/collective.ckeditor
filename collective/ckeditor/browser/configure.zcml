@@ -8,7 +8,7 @@
     <browser:resourceDirectory
         name="ckeditor"
         directory="ckeditor"
-        />
+      />
 
     <!-- Resource directory for ajaxsave plugin -->
     <browser:resourceDirectory
@@ -26,7 +26,7 @@
     <browser:page
         name="ckeditor_wysiwyg_support"
         for="*"
-        template="templates/ckeditor_wysiwyg_support.pt"
+        class=".ckeditorview.ckeditor_wysiwyg_support"
         permission="zope.Public"
         />
 

@@ -289,3 +289,23 @@ CKEDITOR.stylesSet.add('plone',
     def ajaxsave(self, fieldname, text):
         self.context.getField(fieldname).set(self.context, text, mimetype='text/html')
         return "saved"
+
+
+
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+class ckeditor_wysiwyg_support(BrowserView):
+    index = ViewPageTemplateFile("templates/ckeditor_wysiwyg_support.pt")
+    def __call__(self):
+        return self.index()
+
+    @property
+    def macros(self):
+        return self.index.macros
+
+
+
+
+
+
