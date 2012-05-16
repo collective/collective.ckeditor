@@ -1,6 +1,6 @@
 # Author: Melnychuk Taras
 # Contact: fenix@quintagroup.com
-# Date: $Date: 2006-08-11 
+# Date: $Date: 2006-08-11
 # Copyright: quintagroup.com
 
 from Products.PortalTransforms.libtransforms.utils import MissingBinary
@@ -21,6 +21,7 @@ for m in modules:
     except:
         import traceback
         traceback.print_exc()
+
 
 def initialize(engine):
     for transform in transforms:

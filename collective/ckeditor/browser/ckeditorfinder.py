@@ -22,8 +22,10 @@ class CKFinder(Finder):
         request = aq_inner(self.request)
         session = request.get('SESSION', {})
 
-        ckprops = getToolByName(context, 'portal_properties').ckeditor_properties
-        self.allowaddfolder = ckprops.getProperty('allow_folder_creation', self.allowaddfolder)
+        pp = getToolByName(context, 'portal_properties')
+        ckprops = pp.ckeditor_properties
+        self.allowaddfolder = ckprops.getProperty('allow_folder_creation',
+                                                  self.allowaddfolder)
 
         self.showbreadcrumbs = request.get('showbreadcrumbs',
             self.showbreadcrumbs)

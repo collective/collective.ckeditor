@@ -38,7 +38,7 @@ import sys
 import codecs
 
 from collective import ckeditor
-ROOT =  os.path.dirname(ckeditor.__file__)
+ROOT = os.path.dirname(ckeditor.__file__)
 
 
 def rm_rf(path):
@@ -82,6 +82,16 @@ files_unwanted = ()
 # files changed
 files_changed = {}
 
+REPLACE = {'.cke_skin_kama .cke_fontSize .cke_text{width:25px;}':
+               '',
+           '.cke_contextmenu{padding:2px;}':
+              '.cke_contextmenu{padding:2px; width: 180px !important;}'
+          }
+
+# use regexp to fix xhtml errors in tal parser
+#(https://bugs.launchpad.net/zope2/+bug/142333)
+BADRE = '(?P<start>\/\/\<\!\[CDATA\[[?!\<]*)(?P<tags>.*?)(?P<end>\/\/\]\]\>)'
+
 
 def makeSkinDirs(srcDir, destDir):
     """
@@ -118,7 +128,9 @@ def makeSkinDirs(srcDir, destDir):
                     outputfile = file(dest, 'w+')
                     for line in inputfile.readlines():
                         if "parseInt( oParams.thirdframeh, 10 )" in line:
-                            newline = '    sFramesetRows = "27,*," + ( parseInt( oParams.thirdframeh, 10 ) || "150" ) + ",0" ;\r'
+                            newline = '    sFramesetRows = "27,*," + \
+                            ( parseInt( oParams.thirdframeh, 10 ) || "150" ) +\
+                            ",0" ;\r'
                             outputfile.write(newline)
                         else:
                             outputfile.write(line)
@@ -133,17 +145,9 @@ def makeSkinDirs(srcDir, destDir):
                     inputfile = file(src)
                     outputfile = file(dest, 'w+')
                     for line in inputfile.readlines():
-                        if ('.cke_skin_kama .cke_fontSize .cke_text{width:25px;}'
-                                in line or '.cke_contextmenu{padding:2px;}'
-                                in line):
-                            newline = line.replace(
-                                '.cke_skin_kama .cke_fontSize .cke_text{width:25px;}',
-                                '')
-                            newline = newline.replace('.cke_contextmenu{padding:2px;}',
-                                '.cke_contextmenu{padding:2px; width: 180px !important;}')
-                            outputfile.write(newline)
-                        else:
-                            outputfile.write(line)
+                        for replace in REPLACE:
+                            line = line.replace(replace, REPLACE[replace])
+                        outputfile.write(line)
 
                     inputfile.close()
                     outputfile.close()
@@ -151,14 +155,16 @@ def makeSkinDirs(srcDir, destDir):
                     shutil.copy(src, dest)
 
                 #remove BOM, a known bug on some fckeditor versions
-                # (ex: http://sourceforge.net/tracker/index.php?func=detail&aid=1685547&group_id=75348&atid=543653)
+                # (ex: http://sourceforge.net/tracker/index.php?
+                # func=detail&aid=1685547&group_id=75348&atid=543653)
                 if filename.endswith('.html'):
                     fileObj = codecs.open(dest, "r", "utf-8")
                     u = fileObj.read()
                     fileObj.close()
                     if u.startswith(unicode(codecs.BOM_UTF8, "utf8")):
                         fileObj = codecs.open(dest, "w", "utf-8")
-                        fileObj.write(u.lstrip(unicode(codecs.BOM_UTF8, "utf8")))
+                        content = u.lstrip(unicode(codecs.BOM_UTF8, "utf8"))
+                        fileObj.write(content)
                         fileObj.close()
 
                 # fix xhtml compilation error
@@ -167,9 +173,7 @@ def makeSkinDirs(srcDir, destDir):
                     content = fileObj.read()
                     fileObj.close()
 
-                    # use regexp to fix xhtml errors in tal parser (https://bugs.launchpad.net/zope2/+bug/142333)
-                    regxp = '(?P<start>\/\/\<\!\[CDATA\[[?!\<]*)(?P<tags>.*?)(?P<end>\/\/\]\]\>)'
-                    Badtags = re.compile(regxp, re.IGNORECASE | re.DOTALL)
+                    Badtags = re.compile(BADRE, re.IGNORECASE | re.DOTALL)
 
                     def replace_bad_tags(match):
                         bad = match.group('tags')
@@ -178,7 +182,8 @@ def makeSkinDirs(srcDir, destDir):
 
                     content = Badtags.sub(replace_bad_tags, content)
 
-                    # replace empty frame tags by an open frame tag (another tal compilation error)
+                    # replace empty frame tags by an open frame tag
+                    # (another tal compilation error)
                     content = content.replace("></frame>", " />")
 
                     fileObj = file(dest, "w")
@@ -200,9 +205,11 @@ def copy_ckeditor(root):
     # SRC_SKINS_ADDONS_ROOT = os.path.join(root, '_addons','skins')
     # DEST_SKINS_ADDONS_ROOT = os.path.join(root, 'browser','ckeditor','skins')
     # SRC_PLUGINS_ADDONS_ROOT = os.path.join(root, '_addons','plugins')
-    # DEST_PLUGINS_ADDONS_ROOT = os.path.join(root, 'browser','ckeditor','plugins')
+    # DEST_PLUGINS_ADDONS_ROOT = os.path.join(root, 'browser','ckeditor',
+    #     'plugins')
     # makeSkinDirs(SRC_SKINS_ADDONS_ROOT,DEST_SKINS_ADDONS_ROOT)
     # makeSkinDirs(SRC_PLUGINS_ADDONS_ROOT,DEST_PLUGINS_ADDONS_ROOT)
+
 
 def tag_entrypoint(data):
     if data['name'] != 'collective.ckeditor':
@@ -211,6 +218,7 @@ def tag_entrypoint(data):
     print "Copying CKEditor code to %s" % root
     copy_ckeditor(root)
 
+
 def main():
     PRODUCT_ROOT = os.path.realpath(os.path.join(ROOT))
     copy_ckeditor(PRODUCT_ROOT)
@@ -218,4 +226,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

@@ -13,56 +13,57 @@ from Products.Five import zcml
 from Products.Five import fiveconfigure
 from Products.PloneTestCase.layer import onsetup
 
+
 @onsetup
 def setup_product():
     """
     Set up the package and its dependencies.
-    """    
-    
+    """
+
     fiveconfigure.debug_mode = True
     import collective.ckeditor
-    zcml.load_config('configure.zcml',collective.ckeditor)
-    #fiveconfigure.debug_mode = False    
-    ztc.installPackage('collective.quickupload')  
-    ztc.installPackage('collective.plonefinder') 
-    ztc.installPackage('collective.ckeditor')    
+    zcml.load_config('configure.zcml', collective.ckeditor)
+    #fiveconfigure.debug_mode = False
+    ztc.installPackage('collective.quickupload')
+    ztc.installPackage('collective.plonefinder')
+    ztc.installPackage('collective.ckeditor')
 
 setup_product()
 ptc.setupPloneSite(products=['collective.ckeditor'])
 
 
 class CKEditorTestCase(ptc.FunctionalTestCase):
-    """base test case with convenience methods for all ckeditor tests""" 
-    
+    """base test case with convenience methods for all ckeditor tests"""
+
     def afterSetUp(self):
-        super(CKEditorTestCase, self).afterSetUp()        
-        self.browser = Browser()        
+        super(CKEditorTestCase, self).afterSetUp()
+        self.browser = Browser()
         self.uf = self.portal.acl_users
-        self.uf.userFolderAddUser('root', 'secret', ['Manager'], [])        
-        self.ptool = getToolByName(self.portal, 'portal_properties')    
-    
+        self.uf.userFolderAddUser('root', 'secret', ['Manager'], [])
+        self.ptool = getToolByName(self.portal, 'portal_properties')
+
     def loginAsManager(self, user='root', pwd='secret'):
-        """points the browser to the login screen and logs in as user root with Manager role."""
+        """points the browser to the login screen and logs in as user root with
+           Manager role."""
         self.browser.open('http://nohost/plone/')
         self.browser.getLink('Log in').click()
         self.browser.getControl('Login Name').value = user
         self.browser.getControl('Password').value = pwd
         self.browser.getControl('Log in').click()
-    
+
     class layer(PloneSite):
         @classmethod
         def setUp(cls):
             # doctests don't play nicely with ipython
-            try :
+            try:
                 iphook = sys.displayhook
                 sys.displayhook = sys.__displayhook__
             except:
-                pass    
+                pass
 
         @classmethod
         def tearDown(cls):
-            try :
-                 sys.displayhook = iphook
+            try:
+                sys.displayhook = iphook
             except:
-                pass    
-
+                pass

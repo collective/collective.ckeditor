@@ -29,11 +29,13 @@ def _listTypesForInterface(portal, interface):
     archetype_tool = getToolByName(portal, 'archetype_tool')
     portal_types = getToolByName(portal, 'portal_types')
     utranslate = portal.utranslate
-    all_types = [tipe.getId() for tipe in archetype_tool.listPortalTypesWithInterfaces([interface])]
+    types = archetype_tool.listPortalTypesWithInterfaces([interface])
+    all_types = [tipe.getId() for tipe in types]
     # fix for bug in listPortalTypesWithInterfaces which returns 2 'ATFolder'
     # when asking for IBaseFolder interface
     unik_types = dict.fromkeys(all_types).keys()
-    return [_infoDictForType(tipe, portal_types, utranslate) for tipe in unik_types]
+    return [_infoDictForType(tipe, portal_types, utranslate) \
+            for tipe in unik_types]
 
 
 def _infoDictForType(ptype, portal_types, utranslate):
@@ -48,7 +50,7 @@ def _infoDictForType(ptype, portal_types, utranslate):
     type_info = getattr(portal_types, ptype)
     title = type_info.Title()
     product = type_info.product
-    type_ui_info = ("%s (portal type: %s, product: %s)" % 
+    type_ui_info = ("%s (portal type: %s, product: %s)" % \
                     (utranslate(title, default=title), ptype, product))
     return {
         'portal_type': ptype,
@@ -62,9 +64,12 @@ class CKEditorToolBarVocabulary(object):
     implements(IVocabularyFactory)
 
     def __call__(self, context):
-        items = [SimpleTerm('Basic', 'Basic', _(u'Minimal toolbar')),
-                 SimpleTerm('Plone', 'Plone', _(u'Standard Plone toolbar (recommanded)')),
-                 SimpleTerm('Custom', 'Custom', _(u'Custom Toolbar fill next field'))]
+        items = [SimpleTerm('Basic', 'Basic',
+                            _(u'Minimal toolbar')),
+                 SimpleTerm('Plone', 'Plone',
+                            _(u'Standard Plone toolbar (recommanded)')),
+                 SimpleTerm('Custom', 'Custom',
+                            _(u'Custom Toolbar fill next field'))]
         return SimpleVocabulary(items)
 
 CKEditorToolBarVocabularyFactory = CKEditorToolBarVocabulary()
@@ -79,7 +84,8 @@ class CKEditorFileTypesVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IFileContent)
-        items = [SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+        items = [SimpleTerm(t['portal_type'], t['portal_type'],
+                            t['type_ui_info'])
                  for t in flt]
         return SimpleVocabulary(items)
 
@@ -95,9 +101,12 @@ class CKEditorUploadFileTypeVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IFileContent)
-        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration (recommanded)')),
-                 SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
-        items.extend([SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+        msg1 = _(u'Content Type Registry default configuration (recommanded)')
+        msg2 = _(u'Custom configuration, fill next field')
+        items = [SimpleTerm('auto', 'auto', msg1),
+                 SimpleTerm('custom', 'custom', msg2)]
+        items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
+                                 t['type_ui_info'])
                       for t in flt])
         return SimpleVocabulary(items)
 
@@ -113,7 +122,8 @@ class CKEditorImageTypesVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IImageContent)
-        items = [SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+        items = [SimpleTerm(t['portal_type'], t['portal_type'],
+                            t['type_ui_info'])
                  for t in flt]
         return SimpleVocabulary(items)
 
@@ -129,9 +139,12 @@ class CKEditorUploadImageTypeVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IImageContent)
-        items = [SimpleTerm('auto', 'auto', _(u'Content Type Registry default configuration (recommanded)')),
-                 SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
-        items.extend([SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+        msg1 = _(u'Content Type Registry default configuration (recommanded)')
+        msg2 = _(u'Custom configuration, fill next field')
+        items = [SimpleTerm('auto', 'auto', msg1),
+                 SimpleTerm('custom', 'custom', msg2)]
+        items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
+                                 t['type_ui_info'])
                       for t in flt])
         return SimpleVocabulary(items)
 
@@ -147,8 +160,10 @@ class CKEditorFolderTypesVocabulary(object):
         context = getattr(context, 'context', context)
         portal = getSite()
         flt = _listTypesForInterface(portal, IBaseFolder)
-        items = [SimpleTerm('custom', 'custom', _(u'Custom configuration, fill next field'))]
-        items.extend([SimpleTerm(t['portal_type'], t['portal_type'], t['type_ui_info'])
+        items = [SimpleTerm('custom', 'custom',
+                            _(u'Custom configuration, fill next field'))]
+        items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
+                                 t['type_ui_info'])
                       for t in flt])
         return SimpleVocabulary(items)
 

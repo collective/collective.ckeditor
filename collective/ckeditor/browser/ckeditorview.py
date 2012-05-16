@@ -3,6 +3,7 @@ from zope.interface import implements, Interface
 from zope.app.component.hooks import getSite
 from Products.PythonScripts.standard import url_quote
 from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
@@ -76,7 +77,8 @@ class CKeditorView(BrowserView):
     def _memberUsesCKeditor(self):
         """return True if member uses CKeditor"""
         pm = getToolByName(self.portal, 'portal_membership')
-        return pm.getAuthenticatedMember().getProperty('wysiwyg_editor') == 'CKeditor'
+        member = pm.getAuthenticatedMember()
+        return member.getProperty('wysiwyg_editor') == 'CKeditor'
 
     def contentUsesCKeditor(self, fieldname=''):
         """
@@ -119,41 +121,49 @@ class CKeditorView(BrowserView):
         skinname = url_quote(current_skin)
         css_res = portal_css.getEvaluatedResources(context)
         for css in css_res:
-            if css.getMedia() not in ('print', 'projection') and css.getRel() == 'stylesheet':
+            media = css.getMedia()
+            rel = css.getRel()
+            if media not in ('print', 'projection') and rel == 'stylesheet':
                 cssPloneId = css.getId()
-                cssPlone = '%s/portal_css/%s/%s' % (portal_url, skinname, cssPloneId)
+                cssPlone = '%s/portal_css/%s/%s' % (portal_url,
+                                                    skinname,
+                                                    cssPloneId)
                 css_jsList += "'%s', " % cssPlone
 
-        css_jsList += "'%s/++resource++ckeditor_for_plone/ckeditor_plone_area.css']" % portal_url
+        baseres = '++resource++ckeditor_for_plone'
+        css_jsList += "'%s/%s/ckeditor_plone_area.css']" % (portal_url,
+                                                            baseres)
 
         return css_jsList
 
-    def getCK_finder_url(self, type):
+    def getCK_finder_url(self, ctype):
         """
         return browser url for a type
         """
         base_url = '%s/@@plone_ckfinder?' % self.ckfinder_basehref
-        if type == 'file':
+        if ctype == 'file':
             base_url += 'typeview=file&media=file'
-        elif type == 'flash':
-            flash_types = self.cke_properties.getProperty('browse_flashs_portal_types')
+        elif ctype == 'flash':
+            pid = 'browse_flashs_portal_types'
+            flash_types = self.cke_properties.getProperty(pid)
             base_url += 'typeview=file&media=flash'
-            for type in flash_types:
-                base_url += '&types:list=%s' % url_quote(type)
-        elif type == 'image':
-            image_types = self.cke_properties.getProperty('browse_images_portal_types')
+            for ftype in flash_types:
+                base_url += '&types:list=%s' % url_quote(ftype)
+        elif ctype == 'image':
+            pid = 'browse_images_portal_types'
+            image_types = self.cke_properties.getProperty(pid)
             base_url += 'typeview=image&media=image'
-            for type in image_types:
-                base_url += '&types:list=%s' % url_quote(type)
+            for itype in image_types:
+                base_url += '&types:list=%s' % url_quote(itype)
         return "'%s'" % base_url
 
-    def geCK_JSProperty(self, property):
+    def geCK_JSProperty(self, prop):
         """
         just get property from ckeditor_properties sheet
         return it as a javascript string
         """
         cke_properties = self.cke_properties
-        propValue = cke_properties.getProperty(property)
+        propValue = cke_properties.getProperty(prop)
         if type(propValue).__name__ in ('str', 'unicode'):
             return "'%s'" % propValue
         elif type(propValue).__name__ == 'bool':
@@ -164,7 +174,7 @@ class CKeditorView(BrowserView):
         elif type(propValue).__name__ == 'tuple':
             return str(list(propValue))
         elif propValue is not None:
-            return str(cke_properties.getProperty(property))
+            return str(cke_properties.getProperty(prop))
 
     @property
     def cke_params(self):
@@ -184,8 +194,10 @@ class CKeditorView(BrowserView):
         params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
-        params['filebrowserImageBrowseUrl'] = self.getCK_finder_url(type='image')
-        params['filebrowserFlashBrowseUrl'] = self.getCK_finder_url(type='flash')
+        img_url = self.getCK_finder_url(type='image')
+        params['filebrowserImageBrowseUrl'] = img_url
+        flash_url = self.getCK_finder_url(type='flash')
+        params['filebrowserFlashBrowseUrl'] = flash_url
         # the basehref must be set in wysiwyg template
         # params['baseHref'] = self.cke_basehref
 
@@ -228,7 +240,8 @@ CKEDITOR.editorConfig = function( config )
         params_js_string += """
 };
         """
-        response.setHeader('Cache-control', 'pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
+        response.setHeader('Cache-control',
+          'pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
 
         return JavascriptPacker('safe').pack(params_js_string)
@@ -254,7 +267,8 @@ CKEDITOR.editorConfig = function( config )
         menu_styles_js_string = """
 CKEDITOR.stylesSet.add('plone',
 %s );""" % str(cke_properties.getProperty('menuStyles', []))
-        response.setHeader('Cache-control', 'pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
+        response.setHeader('Cache-control',
+                           'pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
 
         return JavascriptPacker('safe').pack(menu_styles_js_string)
@@ -269,43 +283,38 @@ CKEDITOR.stylesSet.add('plone',
         """
         params = self.cke_params
         cke_properties = self.cke_properties
-        properties_overloaded = cke_properties.getProperty('properties_overloaded', [])
+        p_overloaded = cke_properties.getProperty('properties_overloaded', [])
         if widget is not None:
             widget_settings = {}
             for k, v in  params.items():
-                if hasattr(widget, k) and not k in properties_overloaded:
+                if hasattr(widget, k) and not k in p_overloaded:
                     widget_settings[k] = v
 
             # specific for cols and rows rich widget settings
-            if hasattr(widget, 'cols') and not 'width' in properties_overloaded:
+            if hasattr(widget, 'cols') and not 'width' in p_overloaded:
                 if widget.cols:
-                    widget_settings['width'] = str(int(int(widget.cols) * 100 / 40)) + '%'
-            if hasattr(widget, 'rows') and not 'height' in properties_overloaded:
+                    width = str(int(int(widget.cols) * 100 / 40)) + '%'
+                    widget_settings['width'] = width
+            if hasattr(widget, 'rows') and not 'height' in p_overloaded:
                 if widget.rows:
-                    widget_settings['height'] = str(int(widget.rows) * 25) + 'px'
+                    height = str(int(widget.rows) * 25) + 'px'
+                    widget_settings['height'] = height
 
             return widget_settings
 
     def ajaxsave(self, fieldname, text):
-        self.context.getField(fieldname).set(self.context, text, mimetype='text/html')
+        self.context.getField(fieldname).set(self.context,
+                                             text,
+                                             mimetype='text/html')
         return "saved"
 
 
-
-
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
 class ckeditor_wysiwyg_support(BrowserView):
     index = ViewPageTemplateFile("templates/ckeditor_wysiwyg_support.pt")
+
     def __call__(self):
         return self.index()
 
     @property
     def macros(self):
         return self.index.macros
-
-
-
-
-
-
