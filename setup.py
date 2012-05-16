@@ -7,7 +7,7 @@ version = '3.6.3dev'
 setup(name='collective.ckeditor',
       version=version,
       description="CKEditor for Plone",
-      long_description=open("README.txt").read() + "\n" +
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read() + "\n"
                        + open(os.path.join("docs", "FAQ.txt")).read(),
       classifiers=[
