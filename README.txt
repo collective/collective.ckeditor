@@ -3,51 +3,25 @@ Introduction
 
 ckeditor, a wysiwyg editor for Plone 4 and more.
 
-Dependencies
-============
+How to install
+==============
 
-Plone4 and more.
-
-collective.plonefinder is used for attached media browsing and upload.
-
-when using buildout or easy_install, collective.plonefinder is installed.
-
-Install collective.ckeditor in your zope instance
-=================================================
-
-two options :
-
-- add "collective.ckeditor" in your eggs and zcml sections of your plone 4 buildout
-  then run "bin/buildout" or "bin\buildout" under win32
-  look at ckeditor.cfg if you are using plone 4 core dev buildout
-
-- >>> easy_install collective.ckeditor
-
-Read docs/INSTALL.txt for more information
-
-Install ckeditor in Plone
-=========================
-
-Use the Plone "Add Products" Control Panel.
-Choose "CKeditor for Plone 3.x"
-Click on Activate
-It will also install collective.plonefinder
-
-
-Plone 3 :
----------
+You can install it as any Plone addon. Please follow official documentation_.
 
 No support is provided for Plone3.
-
 If you really need ckeditor for Plone3 contact us support@ingeniweb.com
+You can always use FCKeditor_ for Plone.
 
-You can always use FCKeditor for Plone.
+Dependencies
+------------
 
+* Plone >= 4
+* collective.plonefinder_
 
 Development
-===========
+-----------
 
-After checking out from svn, run the buildout included in the checkout.
+After checking out sources, run the included buildout.
 
 This installs ``copy_ckeditor_code`` script. This script takes care of copying
 ckeditor code in the appropriate ``browser/ckeditor`` directory.
@@ -63,8 +37,8 @@ Anyway, if you forget, your instance will break with a ``ConfigurationError``::
   
   Directory .../browser/ckeditor does not exist.
   
-Release
-=======
+How to Release
+--------------
 
 Obviously, the ckeditor code also needs to be included in the released eggs.
 
@@ -82,8 +56,31 @@ Only the local ``bin/fullrelease`` script can see the entry_point registered by
 More information
 ================
 
-If you need more support, if you need new plugins for Plone or more generic plugins for ckeditor,
-contact us :
+If you need more support, if you need new plugins for Plone or more generic
+plugins for ckeditor, please contact us at support@ingeniweb.com
 
-- support@ingeniweb.com
+Credits
+=======
 
+Companies
+---------
+
+Ingéniweb
+
+- `Contact us <mailto:support@ingeniweb.com>`_
+
+Contributors
+------------
+
+- Kai Lautaportti <kai.lautaportti@hexagonit.fi>
+- Giacomo Spettoli <giacomo.spettoli@gmail.com>
+- Godefroid Chapelle <gotcha@bubblenet.be>
+- Mathieu Le Marec - Pasquet <kiorky@cryptelium.net>
+- Jean-Mat Grimaldi <jeanmat.grimaldi@gmail.com>
+- Michael Smith <msmith64@naz.edu>
+- Victor Fernandez de Alba <sneridagh@gmail.com>
+- Kim Paulissen <spereverde@gmail.com>
+- JeanMichel FRANCOIS aka toutpt <toutpt@gmail.com>
+
+.. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
+.. _FCKEditor: http://plone.org/fckeditor
