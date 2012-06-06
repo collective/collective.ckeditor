@@ -1,4 +1,5 @@
 from Acquisition import aq_inner
+from zope import component
 from zope.interface import implements, Interface
 from zope.app.component.hooks import getSite
 from Products.PythonScripts.standard import url_quote
@@ -136,20 +137,20 @@ class CKeditorView(BrowserView):
 
         return css_jsList
 
-    def getCK_finder_url(self, ctype):
+    def getCK_finder_url(self, type=None):
         """
         return browser url for a type
         """
         base_url = '%s/@@plone_ckfinder?' % self.ckfinder_basehref
-        if ctype == 'file':
+        if type == 'file':
             base_url += 'typeview=file&media=file'
-        elif ctype == 'flash':
+        elif type == 'flash':
             pid = 'browse_flashs_portal_types'
             flash_types = self.cke_properties.getProperty(pid)
             base_url += 'typeview=file&media=flash'
             for ftype in flash_types:
                 base_url += '&types:list=%s' % url_quote(ftype)
-        elif ctype == 'image':
+        elif type == 'image':
             pid = 'browse_images_portal_types'
             image_types = self.cke_properties.getProperty(pid)
             base_url += 'typeview=image&media=image'
@@ -240,8 +241,15 @@ CKEDITOR.editorConfig = function( config )
         params_js_string += """
 };
         """
-        response.setHeader('Cache-control',
-          'pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
+
+        pstate = component.getMultiAdapter((self.context, self.request),
+                                           name="plone_portal_state")
+        language = pstate.language()
+        params_js_string += "CKEDITOR.config.language = '%s';" % language
+
+        cache_header = 'pre-check=0,post-check=0,must-revalidate,s-maxage=0,\
+          max-age=0,no-cache'
+        response.setHeader('Cache-control', cache_header)
         response.setHeader('Content-Type', 'application/x-javascript')
 
         return JavascriptPacker('safe').pack(params_js_string)

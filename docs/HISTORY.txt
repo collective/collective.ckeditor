@@ -13,6 +13,9 @@ Changelog
 - Added Italian translation
   [giacomos]
 
+- Fix language configuration according to plone_portal_state.language()
+  [toutpt]
+
 
 3.6.2 (2011-12-12)
 ------------------
