@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.ckeditor">
+
+    <upgradeStep
+        source="*"
+        destination="3410"
+        title="Common Upgrade"
+        description="apply default profile"
+        profile="collective.ckeditor:default"
+        handler=".upgrades.common_upgrade"
+        />
+
+</configure>

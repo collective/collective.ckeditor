@@ -9,6 +9,17 @@ from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 
+CK_VARS_TEMPLATE = """
+// set the good base path for the editor because
+// portal_javascripts loose it
+// otherwise ckeditor linked urls are bad
+// important : this script must be called before ckeditor.js
+
+var CKEDITOR_BASEPATH = '%(portal_url)s/++resource++ckeditor/';
+var CKEDITOR_PLONE_BASEPATH = '%(portal_url)s/++resource++ckeditor_for_plone/';
+var CKEDITOR_PLONE_PORTALPATH = '%(portal_url)s';
+"""
+
 
 class ICKeditorView(Interface):
     """
@@ -253,6 +264,9 @@ CKEDITOR.editorConfig = function( config )
         response.setHeader('Content-Type', 'application/x-javascript')
 
         return JavascriptPacker('safe').pack(params_js_string)
+
+    def getCK_vars(self):
+        return CK_VARS_TEMPLATE % {'portal_url': self.portal_url}
 
     def getCustomTemplatesConfig(self, customTemplates):
         templates = ["'%s/%s'," % (self.portal_url, template) for template in
