@@ -5,19 +5,13 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="collective.ckeditor">
 
-    <five:registerPackage package="." initialize=".initialize" />
-
-    <i18n:registerTranslations directory="locales" />
-    
-    <!-- plonefinder dependency -->
     <include package="collective.plonefinder" />
 
-    <!-- Include the sub-packages that use their own configure.zcml files. -->
+    <five:registerPackage package="." initialize=".initialize" />
+    <i18n:registerTranslations directory="locales" />
     <include package=".browser" />
-    
-    <include file="skins.zcml" />  
+    <include file="upgrades.zcml" />
 
-    <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
       name="default"
       title="CKeditor for Plone"
@@ -25,8 +19,7 @@
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-      
-    <!-- import steps -->
+
     <genericsetup:importStep
         name="collective.ckeditor-import"
         title="CKeditor for Plone - final import steps"
@@ -35,7 +28,6 @@
       <depends name="plone-final"/>
     </genericsetup:importStep>        
 
-    <!-- Register the installation GenericSetup extension profile -->
     <genericsetup:registerProfile
       name="uninstall"
       title="CKeditor for Plone : Uninstall"
@@ -43,6 +35,5 @@
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-
 
 </configure>
