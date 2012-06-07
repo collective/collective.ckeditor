@@ -4,19 +4,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-12-29 00:26+0000\n"
-"PO-Revision-Date: 2011-12-29 01:26+0100\n"
-"Last-Translator: Giacomo Spettoli <giacomo.spettoli@gmail.com>\n"
-"Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
+"POT-Creation-Date: 2012-06-06 00:26+0000\n"
+"PO-Revision-Date: 2012-06-07 01:26+0100\n"
+"Last-Translator: JeanMichel FRANCOIS <toutpt@gmail.com>\n"
+"Language-Team: Plone i18n <plone-fr@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n!=1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language-Code: fr\n"
 "Language-Name: French\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.ckeditor\n"
-"X-Is-Fallback-For: it-ch it-it\n"
+"X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
 #: ./browser/ckeditorsettings.py:165
 msgid "Add list of pairs CONTAINER_TYPE|FILE_TYPE. The file portal type choosen for upload will depend on contextual container portal type. * means any portal type.Take care, no control is done over this field value."
@@ -236,7 +236,7 @@ msgstr "Type de contenu Dossier"
 
 #: ./browser/ckeditorsettings.py:28
 msgid "Force paste as plain text"
-msgstr "Forcer coller en plain text"
+msgstr "Forcer coller en text brut"
 
 #: ./browser/ckeditorsettings.py:273
 msgid "Greek Html Entities"
@@ -313,7 +313,7 @@ msgstr "Surcharge widget"
 #. Default: "Select which format you want to type the contents of this document in. If you are unsure of which format to use, just select Plain Text and type the document as you usually do."
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:81
 msgid "help_format"
-msgstr "Sélectionnez le format que vous voulez pour saisir le contenu de ce document. Si vous n'êtes pas sûr de choisir le bon format à utiliser, il suffit de sélectionner Plain Text et de saisir le document comme vous le faites habituellement."
+msgstr "Sélectionnez le format que vous voulez pour saisir le contenu de ce document. Si vous n'êtes pas sûr de choisir le bon format à utiliser, il suffit de sélectionner Texte brut et de saisir le document comme vous le faites habituellement."
 
 #. Default: "HTML"
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:118
