@@ -8,9 +8,7 @@ How to install
 
 You can install it as any Plone addon. Please follow official documentation_.
 
-No support is provided for Plone3.
-If you really need ckeditor for Plone3 contact us support@ingeniweb.com
-You can always use FCKeditor_ for Plone.
+No support is provided for Plone3. You can always use FCKeditor_ for Plone 3.
 
 Dependencies
 ------------
@@ -53,21 +51,16 @@ Only the local ``bin/fullrelease`` script can see the entry_point registered by
 ``collective.ckeditor``. 
 
 
-More information
-================
-
-If you need more support, if you need new plugins for Plone or more generic
-plugins for ckeditor, please contact us at support@ingeniweb.com
-
 Credits
 =======
 
 Companies
 ---------
 
-Ingéniweb
-
-- `Contact us <mailto:support@ingeniweb.com>`_
+* `Makina Corpus <http://www.makina-corpus.com>`_  `Contact us <mailto:python@makina-corpus.org>`_
+* `Ecreall <http://www.ecreall.com>`_
+* `BubbleNet <http://bubblenet.be>`_
+* `Hexagonit <http://www.hexagonit.fi>`_
 
 Contributors
 ------------
@@ -84,3 +77,5 @@ Contributors
 
 .. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
 .. _FCKEditor: http://plone.org/fckeditor
+.. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
+.. _makinacom:  http://www.makina-corpus.com

@@ -9,7 +9,7 @@ TODO QUICKLY
 
 TODO
 ====
-Depending on contributions  : motivation, time, money, bear, ... (contact support@ingeniweb.com)
+Depending on contributions  : motivation, time, money, bear, ...
   
 - ckeditor control panel improvements :
   
