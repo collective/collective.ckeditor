@@ -16,6 +16,8 @@ Changelog
 - Fix language configuration according to plone_portal_state.language()
   [toutpt]
 
+- Add French trnanslation
+  [toutpt]
 
 3.6.2 (2011-12-12)
 ------------------
