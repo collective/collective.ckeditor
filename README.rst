@@ -10,6 +10,10 @@ You can install it as any Plone addon. Please follow official documentation_.
 
 No support is provided for Plone3. You can always use FCKeditor_ for Plone 3.
 
+The code source can be found at https://github.com/collective/collective.ckeditor
+
+Please report issues at https://github.com/collective/collective.ckeditor/issues
+
 Dependencies
 ------------
 
