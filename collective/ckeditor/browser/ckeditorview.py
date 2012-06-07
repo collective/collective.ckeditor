@@ -103,7 +103,7 @@ class CKeditorView(BrowserView):
                     return False
             except:
                 return False
-            return len(content) == 0 or 'html' in text_format.lower()
+            return 'html' in text_format.lower()
         return False
 
     def getCK_contentsCss(self):

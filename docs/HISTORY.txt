@@ -4,6 +4,11 @@ Changelog
 3.6.3 (unreleased)
 ------------------
 
+- Don't show ckeditor if html is not in the allowable content types of the field.
+  This fixes integration with Products.Poi where the details field of a
+  PoiIssue allows only text/x-web-intelligent by default.
+  [vincentfretin]
+
 - Fixed the finder to honor the "Allow folder creation" option.
   [dokai]
 
