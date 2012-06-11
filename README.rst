@@ -1,14 +1,14 @@
 Introduction
 ============
 
-ckeditor, a wysiwyg editor for Plone 4 and more.
+This addon is a ckeditor_ integration for Plone.
 
 How to install
 ==============
 
 You can install it as any Plone addon. Please follow official documentation_.
 
-No support is provided for Plone3. You can always use FCKeditor_ for Plone 3.
+Please use FCKeditor_ for Plone < 4.
 
 The code source can be found at https://github.com/collective/collective.ckeditor
 
@@ -83,3 +83,4 @@ Contributors
 .. _FCKEditor: http://plone.org/fckeditor
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com
+.. _ckeditor: http://ckeditor.com/
