@@ -24,6 +24,9 @@ Changelog
 - Add French trnanslation
   [toutpt]
 
+- Add z3c.autoinclude targeted to Plone
+  [toutpt]
+
 3.6.2 (2011-12-12)
 ------------------
 

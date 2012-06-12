@@ -40,9 +40,12 @@ setup(name='collective.ckeditor',
       entry_points={
         'console_scripts': [
                'copy_ckeditor_code = collective.ckeditor.utils.base2zope:main',
-               ],
+        ],
         'zest.releaser.releaser.after_checkout': [
             'prepare = collective.ckeditor.utils.base2zope:tag_entrypoint',
-            ],
+        ],
+        'z3c.autoinclude.plugin': [
+            'target = plone',
+        ],
       },
       )
