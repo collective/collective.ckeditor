@@ -222,19 +222,24 @@ class CKeditorView(BrowserView):
         """
         request = self.request
         response = request.RESPONSE
-        params_js_string = """
-CKEDITOR.plugins.addExternal( 'ajaxsave', '%s/++resource++cke_ajaxsave/plugin.js' );
-CKEDITOR.editorConfig = function( config )
-{
-        """ % self.portal_url
+        params_js_string = """CKEDITOR.editorConfig = function( config ) {"""
         params = self.cke_params
         for k, v in params.items():
             params_js_string += """
     config.%s = %s;
             """ % (k, v)
 
+        ids=[]
+        for line in self.cke_properties.getProperty('plugins','').split('\n'):
+            #ignore the rest so we get no error
+            if len(line.split(';'))==2:
+                id,url=line.split(';')
+                abs_url=self.portal_url+url
+                ids.append(id)
+                params_js_string+="""CKEDITOR.plugins.addExternal( '%s', '%s' );"""%(id,abs_url)
+        params_js_string+= '''config.extraPlugins = "%s";'''%','.join(ids)
+
         params_js_string += """
-    config.extraPlugins = "ajaxsave";
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
     config.toolbar_Plone = %s;

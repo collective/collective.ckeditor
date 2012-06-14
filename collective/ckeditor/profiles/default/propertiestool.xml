@@ -22,9 +22,9 @@
     ['TextColor','BGColor'],
     ['Maximize', 'ShowBlocks','-','About']
 ]
-  </property>  
+  </property>
   <property name="menuStyles" type="text">
-[ 
+[
   /* Block Styles */
   { name : 'Grey Title'		, element : 'h2', styles : { 'color' : '#888' } },
   { name : 'Grey Sub Title'		, element : 'h3', styles : { 'color' : '#888' } },
@@ -43,7 +43,7 @@
   { name : 'Inline Quotation'	, element : 'q' },
   { name : 'Language: RTL'	, element : 'span', attributes : { 'dir' : 'rtl' } },
   { name : 'Language: LTR'	, element : 'span', attributes : { 'dir' : 'ltr' } },
-  /* Objects styles */ 
+  /* Objects styles */
   { name : 'Image on right'	, element : 'img', attributes : { 'class' : 'image-right' } },
   { name : 'Image on left'	, element : 'img', attributes : { 'class' : 'image-left' } },
   { name : 'Image centered'	, element : 'img', attributes : { 'class' : 'image-inline' } },
@@ -51,9 +51,10 @@
   { name : 'Square Bulleted List', element : 'ul', styles : { 'list-style-type' : 'square' } }
 
 ]
-  </property> 
+  </property>
+  <property name="plugins" type="text">ajaxsave;/++resource++cke_ajaxsave/plugin.js</property>
   <property name="customTemplates" type="lines">
-  </property>  
+  </property>
   <property name="templatesReplaceContent" type="boolean">False</property>
   <property name="bodyId" type="string">content</property>
   <property name="bodyClass" type="string"></property>
@@ -108,7 +109,7 @@
   <property name="entities" type="boolean">False</property>
   <property name="entities_greek" type="boolean">False</property>
   <property name="entities_latin" type="boolean">False</property>
-  
+
  </object>
 
 
@@ -116,5 +117,5 @@
   <property name="available_editors" type="lines" purge="False">
    <element value="CKeditor"/>
   </property>
- </object>  
+ </object>
 </object>

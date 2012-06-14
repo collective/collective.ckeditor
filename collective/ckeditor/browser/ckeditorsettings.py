@@ -64,6 +64,13 @@ class ICKEditorBaseSchema(Interface):
         default=u'content',
         required=False)
 
+    plugins = Text(
+        title=_(u"Plugins"),
+        description=_(u"Plugin format is 'id;relative path'. Every plugin has his own line.\n"
+                       "Example: customlink;/++resource++customlink/plugin.js"
+                        ),
+        required=False)
+
     bodyClass = TextLine(
         title=_(u"Area Body Class"),
         description=_(u"Enter the css class name applied to the "
@@ -84,7 +91,6 @@ class ICKEditorBaseSchema(Interface):
                        "the contents when inserted"),
         default=False,
         required=False)
-
 
 class ICKEditorSkinSchema(Interface):
     """
@@ -336,6 +342,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('menuStyles', value)
 
     menuStyles = property(get_menuStyles, set_menuStyles)
+
+    def get_plugins(self):
+        return self.context.plugins
+
+    def set_plugins(self, value):
+        self.context._updateProperty('plugins', value)
+
+    plugins = property(get_plugins, set_plugins)
 
     def get_bodyId(self):
         return self.context.bodyId
