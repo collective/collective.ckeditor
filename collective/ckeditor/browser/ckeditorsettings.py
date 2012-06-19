@@ -64,11 +64,11 @@ class ICKEditorBaseSchema(Interface):
         default=u'content',
         required=False)
 
-    plugins = Text(
+    plugins = List(
         title=_(u"Plugins"),
-        description=_(u"Plugin format is 'id;relative path'. Every plugin has his own line.\n"
-                       "Example: customlink;/++resource++customlink/plugin.js"
+        description=_(u"Plugin format is 'id;relative path'."
                         ),
+        value_type=TextLine(),
         required=False)
 
     bodyClass = TextLine(

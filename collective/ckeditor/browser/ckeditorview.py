@@ -230,7 +230,7 @@ class CKeditorView(BrowserView):
             """ % (k, v)
 
         ids=[]
-        for line in self.cke_properties.getProperty('plugins','').split('\n'):
+        for line in self.cke_properties.getProperty('plugins',''):
             #ignore the rest so we get no error
             if len(line.split(';'))==2:
                 id,url=line.split(';')
