@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.3 (unreleased)
+3.6.3 (2012-07-03)
 ------------------
 
 - Don't show ckeditor if html is not in the allowable content types of the field.
