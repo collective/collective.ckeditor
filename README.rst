@@ -8,7 +8,7 @@ How to install
 
 You can install it as any Plone addon. Please follow official documentation_.
 
-Please use FCKeditor_ for Plone < 4.
+Please use CKeditor_ for Plone > 4.
 
 The code source can be found at https://github.com/collective/collective.ckeditor
 
