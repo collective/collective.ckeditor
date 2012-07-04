@@ -216,6 +216,7 @@ def tag_entrypoint(data):
         return
     root = os.path.join(data['tagdir'], 'collective', 'ckeditor')
     print "Copying CKEditor code to %s" % root
+    print data
     copy_ckeditor(root)
 
 
