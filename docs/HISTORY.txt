@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+3.6.4 (2012-07-03)
+------------------
+
+- Fix missing include for rst files in the manifest
+  [encolpe]
+
 3.6.3 (2012-07-03)
 ------------------
 
@@ -21,7 +28,7 @@ Changelog
 - Fix language configuration according to plone_portal_state.language()
   [toutpt]
 
-- Add French trnanslation
+- Add French translation
   [toutpt]
 
 - Add z3c.autoinclude targeted to Plone
