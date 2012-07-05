@@ -55,7 +55,7 @@ def rm_rf(path):
                 os.rmdir(os.path.join(root, name))
 
 
-def check_dirs(dest_root, src_root)
+def check_dirs(dest_root, src_root):
     """ Decide what to do if source is mùissing or destination is already there
     """
 
