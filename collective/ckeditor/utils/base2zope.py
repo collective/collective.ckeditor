@@ -55,10 +55,13 @@ def rm_rf(path):
                 os.rmdir(os.path.join(root, name))
 
 
-def check_dirs(dest_root):
-##
-# Decide what to do if dest_root is already there.
-##
+def check_dirs(dest_root, src_root)
+    """ Decide what to do if source is mùissing or destination is already there
+    """
+
+    if not os.path.exists(src_root):
+        print "Source directory missing: " + src_root
+        exit(2)
 
     if os.path.exists(dest_root):
         force = sys.argv[1:2] == ['--force']
@@ -198,7 +201,7 @@ def makeSkinDirs(srcDir, destDir):
 def copy_ckeditor(root):
     SRC_ROOT = os.path.join(root, '_src', 'ckeditor')
     DEST_ROOT = os.path.join(root, 'browser', 'ckeditor')
-    check_dirs(DEST_ROOT)
+    check_dirs(DEST_ROOT, SRC_ROOT)
     #Add base skin directory
     makeSkinDirs(SRC_ROOT, DEST_ROOT)
     # TODO :  Add new skins and plugins
@@ -216,7 +219,6 @@ def tag_entrypoint(data):
         return
     root = os.path.join(data['tagdir'], 'collective', 'ckeditor')
     print "Copying CKEditor code to %s" % root
-    print data
     copy_ckeditor(root)
 
 
