@@ -8,7 +8,7 @@ Changelog
 - Fix missing include for rst files in the manifest
   [encolpe]
 
-- Version the latpet known working ckeditor commited in browser/ckeditor
+- Version the latest known working ckeditor commited in browser/ckeditor
   [kiorky]
 
 3.6.3 (2012-07-03)
