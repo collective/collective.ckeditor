@@ -1,6 +1,21 @@
 Changelog
 =========
 
+3.6.6 (2012-07-05)
+------------------
+
+- Fix default value for images
+  [kai.hoppert@tomcom.de]
+
+- Add a duplicate directory for ckeditor sources: it needs a more ambitious 
+  patch but fix a development installation
+  [kiorky]
+
+3.6.5 (2012-07-04)
+------------------
+
+- Fix missing directory in 3.6.4 release
+  [encolpe]
 
 3.6.4 (2012-07-03)
 ------------------
