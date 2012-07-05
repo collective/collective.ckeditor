@@ -19,6 +19,7 @@ var
 .svn
 *.pyc
 *.pyo
+*~
 *.tmp*
 src
 .project
