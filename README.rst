@@ -84,3 +84,5 @@ Contributors
 .. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  http://www.makina-corpus.com
 .. _ckeditor: http://ckeditor.com/
+.. _collective.plonefinder: http://plone.org/products/collective.plonefinder
+
