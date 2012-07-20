@@ -18,5 +18,14 @@ msgstr ""
 "Domain: collective.ckeditor\n"
 
 msgid "Pull-quote"
-msgstr ""
+msgstr "Mise en exergue"
+
+msgid "Pull-quote bloc"
+msgstr "Mise en exergue"
+
+msgid "Call-out"
+msgstr "Citation"
+
+msgid "Call-out bloc"
+msgstr "Citation"
 

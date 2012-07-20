@@ -35,6 +35,7 @@ setup(name='collective.ckeditor',
           'zope.i18nmessageid',
           'collective.quickupload',
           'collective.plonefinder',
+          'demjson',
           # -*- Extra requirements: -*-
       ],
       entry_points={

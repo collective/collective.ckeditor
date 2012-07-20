@@ -8,6 +8,11 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
+from collective.ckeditor import siteMessageFactory as _
+
+import demjson
+demjson.dumps = demjson.encode
+demjson.loads = demjson.decode
 
 CK_VARS_TEMPLATE = """
 // set the good base path for the editor because
@@ -291,11 +296,17 @@ class CKeditorView(BrowserView):
         request = self.request
         response = request.RESPONSE
         cke_properties = self.cke_properties
+        styles = demjson.loads(cke_properties.getProperty('menuStyles', '[]'))
+        for style in styles:
+            if 'name' in style:
+                style['name'] = self.context.translate(_(style['name']))
         menu_styles_js_string = """
-CKEDITOR.stylesSet.add('plone',
-%s );""" % str(cke_properties.getProperty('menuStyles', []))
-        response.setHeader('Cache-control',
-                           'pre-check=0,post-check=0,must-revalidate,s-maxage=0,max-age=0,no-cache')
+styles = jQuery.parseJSON('%s');
+CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
+        response.setHeader(
+            'Cache-control',
+            'pre-check=0,post-check=0,must-revalidate,'
+            's-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
 
         return JavascriptPacker('safe').pack(menu_styles_js_string)

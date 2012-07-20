@@ -1,6 +1,15 @@
 Changelog
 =========
 
+3.6.7 (unreleased)
+------------------ 
+- fix plugins (add migration) 
+  [kiorky]
+- refresh translations 
+  [kiorky]
+- translate styles menu 
+  [kiorky]
+
 3.6.6 (2012-07-05)
 ------------------
 
