@@ -10,5 +10,13 @@
         profile="collective.ckeditor:default"
         handler=".upgrades.common_upgrade"
         />
+    <upgradeStep
+        source="3410"
+        destination="3411"
+        title="Upgrade for plugins"
+        description="Do things"
+        profile="collective.ckeditor:default"
+        handler=".upgrades.up3411"
+        />
 
 </configure>
