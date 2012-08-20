@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.7 (unreleased)
+3.6.7 (2012-08-20)
 ------------------ 
 
 - take care of external stylesheets registered with an absolute URL.
