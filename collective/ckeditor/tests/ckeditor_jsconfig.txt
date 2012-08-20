@@ -74,3 +74,17 @@ depends on ckeditor control panel config.
     >>> global_styles_config = "config.stylesSet='plone:%s/ckeditor_plone_menu_styles.js'" %portal_url
     >>> global_styles_config in browser.contents
     True
+
+
+Absolute URL stylesheets
+========================
+
+If an external stylesheet is registered with an absolute URL,
+it should be left alone (portal_url should not be concatenated).
+
+    >>> ABSOLUTE_URL = 'http://style.plone.org/external.css'
+    >>> self.portal.portal_css.registerStylesheet(ABSOLUTE_URL)
+    >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
+    >>> (",\'%s\'," % ABSOLUTE_URL) in browser.contents
+    True
+
