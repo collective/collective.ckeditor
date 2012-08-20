@@ -1,3 +1,4 @@
+import re
 from Acquisition import aq_inner
 from zope import component
 from zope.interface import implements, Interface
@@ -24,6 +25,8 @@ var CKEDITOR_BASEPATH = '%(portal_url)s/++resource++ckeditor/';
 var CKEDITOR_PLONE_BASEPATH = '%(portal_url)s/++resource++ckeditor_for_plone/';
 var CKEDITOR_PLONE_PORTALPATH = '%(portal_url)s';
 """
+
+ABSOLUTE_URL = re.compile("^https?://")
 
 
 class ICKeditorView(Interface):
@@ -142,10 +145,13 @@ class CKeditorView(BrowserView):
             rel = css.getRel()
             if media not in ('print', 'projection') and rel == 'stylesheet':
                 cssPloneId = css.getId()
-                cssPlone = '%s/portal_css/%s/%s' % (portal_url,
-                                                    skinname,
-                                                    cssPloneId)
-                css_jsList += "'%s', " % cssPlone
+                if ABSOLUTE_URL.match(cssPloneId):
+                    css_jsList += "'%s', " % cssPloneId
+                else:
+                    cssPlone = '%s/portal_css/%s/%s' % (portal_url,
+                                                        skinname,
+                                                        cssPloneId)
+                    css_jsList += "'%s', " % cssPlone
 
         baseres = '++resource++ckeditor_for_plone'
         css_jsList += "'%s/%s/ckeditor_plone_area.css']" % (portal_url,

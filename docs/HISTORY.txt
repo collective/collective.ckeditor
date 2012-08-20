@@ -3,10 +3,16 @@ Changelog
 
 3.6.7 (unreleased)
 ------------------ 
+
+- take care of external stylesheets registered with an absolute URL.
+  [gotcha]
+
 - fix plugins (add migration) 
   [kiorky]
+
 - refresh translations 
   [kiorky]
+
 - translate styles menu 
   [kiorky]
 
