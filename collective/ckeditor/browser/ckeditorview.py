@@ -240,15 +240,17 @@ class CKeditorView(BrowserView):
     config.%s = %s;
             """ % (k, v)
 
-        ids=[]
-        for line in self.cke_properties.getProperty('plugins',[]):
-            #ignore the rest so we get no error
-            if len(line.split(';'))==2:
-                id,url=line.split(';')
-                abs_url=self.portal_url+url
+        ids = []
+        for line in self.cke_properties.getProperty('plugins', []):
+            # ignore the rest so we get no error
+            if len(line.split(';')) == 2:
+                id, url = line.split(';')
+                abs_url = self.portal_url + url
                 ids.append(id)
-                params_js_string+="""CKEDITOR.plugins.addExternal( '%s', '%s' );"""%(id,abs_url)
-        params_js_string+= '''config.extraPlugins = "%s";'''%','.join(ids)
+                params_js_string += (
+                        """CKEDITOR.plugins.addExternal('%s', '%s');"""
+                        % (id, abs_url))
+        params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
         params_js_string += """
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
@@ -257,7 +259,8 @@ class CKeditorView(BrowserView):
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
         cke_properties = self.cke_properties
-        templatesReplaceContent = cke_properties.getProperty('templatesReplaceContent')
+        templatesReplaceContent = cke_properties.getProperty(
+                'templatesReplaceContent')
         if templatesReplaceContent:
             params_js_string += """config.templates_replaceContent = true;"""
         else:
