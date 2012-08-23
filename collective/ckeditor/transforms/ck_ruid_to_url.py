@@ -14,6 +14,7 @@ except ImportError:
 #from Products.PortalTransforms.interfaces import itransform
 
 from collective.ckeditor.config import TAG_PATTERN, UID_PATTERN
+from plone.app.uuid.utils import uuidToURL
 
 
 class ck_ruid_to_url:
@@ -53,11 +54,10 @@ class ck_ruid_to_url:
 
     def mapRUID_URL(self, unique_ruid, portal):
         ruid_url = {}
-        rc = getToolByName(portal, 'reference_catalog')
         for uid in unique_ruid:
-            obj = rc.lookupObject(uid)
-            if obj is not None:
-                ruid_url[uid] = obj.absolute_url()
+            url = uuidToURL(uid)
+            if url is not None:
+                ruid_url[uid] = url
         return ruid_url
 
     def convert(self, orig, data, **kwargs):

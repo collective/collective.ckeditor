@@ -1,19 +1,28 @@
 Changelog
 =========
 
+3.6.8 (unreleased)
+------------------
+
+- Refactored the ``ck_ruid_to_url`` transform to use plone.app.uuid to transform
+  UIDs to URLs. This avoids using reference_catalog in favor of portal_catalog
+  and appears to fix issues with Dexterity types not available through the
+  reference_catalog.
+  [dokai]
+
 3.6.7 (2012-08-20)
------------------- 
+------------------
 
 - take care of external stylesheets registered with an absolute URL.
   [gotcha]
 
-- fix plugins (add migration) 
+- fix plugins (add migration)
   [kiorky]
 
-- refresh translations 
+- refresh translations
   [kiorky]
 
-- translate styles menu 
+- translate styles menu
   [kiorky]
 
 3.6.6 (2012-07-05)
@@ -22,7 +31,7 @@ Changelog
 - Fix default value for images
   [kai.hoppert@tomcom.de]
 
-- Add a duplicate directory for ckeditor sources: it needs a more ambitious 
+- Add a duplicate directory for ckeditor sources: it needs a more ambitious
   patch but fix a development installation
   [kiorky]
 

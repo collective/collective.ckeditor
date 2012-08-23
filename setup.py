@@ -35,6 +35,7 @@ setup(name='collective.ckeditor',
           'zope.i18nmessageid',
           'collective.quickupload',
           'collective.plonefinder',
+          'plone.app.uuid',
           'demjson',
           # -*- Extra requirements: -*-
       ],
