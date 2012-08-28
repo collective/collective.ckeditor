@@ -2,7 +2,6 @@ import re
 from Acquisition import aq_inner
 from zope import component
 from zope.interface import implements, Interface
-from zope.app.component.hooks import getSite
 from Products.PythonScripts.standard import url_quote
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -44,7 +43,7 @@ class CKeditorView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.portal = getSite()
+        self.portal = getToolByName(self.context, 'portal_url').getPortalObject()
         self.portal_url = self.portal.absolute_url()
         request.set('ckLoaded', True)
 
