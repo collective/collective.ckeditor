@@ -78,6 +78,11 @@ launchCKInstances = function() {
             cke_width = jQuery('.cke_width', jQuery(this).parent()).val();
             cke_height = jQuery('.cke_height', jQuery(this).parent()).val();
             cke_baseHref = jQuery('.cke_baseHref', jQuery(this).parent()).val();
+	    /* Destroy instance if it exists because an existing instance can not be managed twice */
+	    if (typeof CKEDITOR.instances != 'undefined') {
+	        var instance = CKEDITOR.instances[ckid];
+                if (instance) { instance.destroy(true); }
+	    };
             CKEDITOR.replace( ckid,
               {
                 customConfig : cke_config_url,
