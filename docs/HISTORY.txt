@@ -4,6 +4,14 @@ Changelog
 3.6.8 (unreleased)
 ------------------
 
+- Changed the way external plugins are registered. It's better to use the three
+  parameter variant of ``CKEDITOR.plugins.addExternal`` because this will make
+  the base URL for the plugin resources available within the plugin code as
+  ``this.path`` correctly. Otherwise ``this.path`` contains the full URL to the
+  plugin script itself which consequently breaks loading of related resources
+  (images, translations, etc).
+  [dokai]
+
 - Refactored the ``ck_ruid_to_url`` transform to use plone.app.uuid to transform
   UIDs to URLs. This avoids using reference_catalog in favor of portal_catalog
   and appears to fix issues with Dexterity types not available through the

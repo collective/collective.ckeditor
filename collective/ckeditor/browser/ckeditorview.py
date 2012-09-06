@@ -245,10 +245,11 @@ class CKeditorView(BrowserView):
             if len(line.split(';')) == 2:
                 id, url = line.split(';')
                 abs_url = self.portal_url + url
+                base_url, plugin = abs_url.rsplit('/', 1)
                 ids.append(id)
                 params_js_string += (
-                        """CKEDITOR.plugins.addExternal('%s', '%s');"""
-                        % (id, abs_url))
+                        """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
+                        % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
         params_js_string += """
