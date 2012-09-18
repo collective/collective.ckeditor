@@ -67,9 +67,12 @@ if ( window.CKEDITOR )
 
 /* Plone specific ckeditor launcher using jQuery */
 
-launchCKInstances = function() {
+launchCKInstances = function (ids_to_launch) {
     jQuery('.ckeditor_plone').each(function(){
         ckid = jQuery(this).attr('id');
+	/* we can specify an array of ids for wich CKeditor has to be launched */
+	/* if no ids is provided or if the current id is in the array of given ids, we proceed */
+	if ((typeof(ids_to_launch[0]) == 'undefined') || (ids_to_launch.indexOf(ckid) >= 0)) {
         cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
         /* Here starts the local js overload of settings by a field widget */
         /* for now it only works with at rich widget : basehref width and height are the only attributes */
@@ -97,7 +100,8 @@ launchCKInstances = function() {
                 customConfig : cke_config_url
               });
             }
-    })    
+	};
+    })
 }
 
 jQuery(document).ready(launchCKInstances);
