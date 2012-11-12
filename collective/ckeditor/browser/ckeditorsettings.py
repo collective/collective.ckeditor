@@ -92,6 +92,7 @@ class ICKEditorBaseSchema(Interface):
         default=False,
         required=False)
 
+
 class ICKEditorSkinSchema(Interface):
     """
     CKEditor Skin fieldset schema

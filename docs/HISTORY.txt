@@ -18,6 +18,9 @@ Changelog
   reference_catalog.
   [dokai]
 
+- Limited string length to be searched under 3000 characters by re.search method.
+  [taito]
+
 3.6.7 (2012-08-20)
 ------------------
 
