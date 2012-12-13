@@ -97,7 +97,15 @@ class CKeditorView(BrowserView):
         """return True if member uses CKeditor"""
         pm = getToolByName(self.portal, 'portal_membership')
         member = pm.getAuthenticatedMember()
-        return member.getProperty('wysiwyg_editor') == 'CKeditor'
+        editor = member.getProperty('wysiwyg_editor')
+        if editor == 'CKeditor':
+            return True
+        if editor != '':
+            return False
+        # The member wants the default editor of the site.
+        pprops = getToolByName(self.portal, 'portal_properties')
+        editor = pprops.site_properties.getProperty('default_editor')
+        return editor == 'CKeditor'
 
     def contentUsesCKeditor(self, fieldname=''):
         """

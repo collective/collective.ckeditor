@@ -4,6 +4,10 @@ Changelog
 3.6.8 (unreleased)
 ------------------
 
+- Also check the default_editor site property when determining whether
+  the member wants to use CKeditor.
+  [maurits]
+
 - Changed the way external plugins are registered. It's better to use the three
   parameter variant of ``CKEDITOR.plugins.addExternal`` because this will make
   the base URL for the plugin resources available within the plugin code as
