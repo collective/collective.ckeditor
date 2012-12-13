@@ -17,12 +17,22 @@ Control the wysiwyg_editor property in site_properties
     >>> 'CKeditor' in site_props.available_editors
     True
     
+Control the default_editor property in site_properties
+------------------------------------------------------
+
+    >>> site_props.default_editor
+    'CKeditor'
+
 Control the wysiwyg_editor property in memberdata
 -------------------------------------------------
 
+We used to set CKeditor here, but in Plone 4 it is better to use the
+new default_editor site property and leave the wysiwyg_editor member
+property alone.
+
     >>> memberdata = self.portal.portal_memberdata
     >>> memberdata.wysiwyg_editor
-    'CKeditor'
+    ''
 
 Control portal_transforms installation
 --------------------------------------

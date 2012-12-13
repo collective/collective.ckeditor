@@ -4,6 +4,10 @@ Changelog
 3.6.8 (unreleased)
 ------------------
 
+- Update install and uninstall to change the default_editor site
+  property instead of the wysiwyg_editor memberdata property.
+  [maurits]
+
 - Also check the default_editor site property when determining whether
   the member wants to use CKeditor.
   [maurits]

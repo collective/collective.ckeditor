@@ -22,6 +22,7 @@ def uninstallSteps(context):
     site = context.getSite()
     uninstallControlPanel(site)
     uninstallSiteProperties(site)
+    uninstallMemberProperties(site)
     unregisterTransform(site, 'ck_ruid_to_url')
     unregisterTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE,
                               REQUIRED_TRANSFORM)
@@ -68,10 +69,10 @@ def uninstallControlPanel(context):
 
 def uninstallSiteProperties(context):
     """
-    Remove CKeditor as available editor
-    could not be done with GS
-    Remark : we don' t change the default editor
-    (the ckeditor installer do not change it)
+    Remove CKeditor as available editor.
+    Could not be done with GS.
+    If default editor is CKeditor, we change it to TinyMCE
+    or the basic html area.
     """
     ptool = getToolByName(context, 'portal_properties')
     stp = ptool.site_properties
@@ -79,6 +80,28 @@ def uninstallSiteProperties(context):
     if 'CKeditor' in ae:
         ae.remove('CKeditor')
         stp.manage_changeProperties(REQUEST=None, available_editors=ae)
+    default_editor = stp.getProperty('default_editor', '')
+    if default_editor == 'CKeditor':
+        if 'TinyMCE' in ae:
+            stp.manage_changeProperties(REQUEST=None, default_editor='TinyMCE')
+        else:
+            # Basic HTML area
+            stp.manage_changeProperties(REQUEST=None, default_editor='None')
+
+
+def uninstallMemberProperties(context):
+    """
+    Remove CKeditor as wysiwyg_editor for new members.
+
+    We used to set this, but stopped doing so, in favour of the
+    default_editor site property.  But we should undo it if this value
+    is still used.
+    """
+    memberdata = getToolByName(context, 'portal_memberdata')
+    wysiwyg_editor = memberdata.getProperty('wysiwyg_editor', '')
+    if wysiwyg_editor == 'CKeditor':
+        # Use the site default editor.
+        memberdata.manage_changeProperties(REQUEST=None, wysiwyg_editor='')
 
 
 def unregisterTransform(context, name):
