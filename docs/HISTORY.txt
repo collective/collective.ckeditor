@@ -4,7 +4,8 @@ Changelog
 3.6.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Works under Plone 4.3.
+  [thomasdesvenain]
 
 
 3.6.8 (2012-12-13)
