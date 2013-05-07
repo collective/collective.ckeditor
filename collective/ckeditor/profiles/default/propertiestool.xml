@@ -119,5 +119,6 @@
   <property name="available_editors" type="lines" purge="False">
    <element value="CKeditor"/>
   </property>
+  <property name="default_editor" type="string">CKeditor</property>
  </object>
 </object>

@@ -1,6 +1,9 @@
 from zope.interface import implements, Interface
 from zope.component import adapts
-from zope.app.component.hooks import getSite
+try:
+    from zope.component.hooks import getSite
+except: # Plone < 4.3
+    from zope.app.component.hooks import getSite
 
 from zope.schema import Bool
 from zope.schema import Text
@@ -91,6 +94,7 @@ class ICKEditorBaseSchema(Interface):
                        "the contents when inserted"),
         default=False,
         required=False)
+
 
 class ICKEditorSkinSchema(Interface):
     """

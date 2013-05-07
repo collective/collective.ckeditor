@@ -1,4 +1,4 @@
-/* Standard CKeditor tips for non compatible browsers 
+/* Standard CKeditor tips for non compatible browsers
    Must be i18nized */
 
 
@@ -70,6 +70,7 @@ if ( window.CKEDITOR )
 launchCKInstances = function (ids_to_launch) {
     jQuery('.ckeditor_plone').each(function(){
         ckid = jQuery(this).attr('id');
+        ids_to_launch = ids_to_launch || [];
 	/* we can specify an array of ids for wich CKeditor has to be launched */
 	/* if no ids is provided or if the current id is in the array of given ids, we proceed */
 	if ((typeof(ids_to_launch[0]) == 'undefined') || (jQuery.inArray(ckid, ids_to_launch) >= 0)) {
@@ -105,4 +106,3 @@ launchCKInstances = function (ids_to_launch) {
 }
 
 jQuery(document).ready(launchCKInstances);
-

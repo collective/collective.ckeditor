@@ -30,6 +30,12 @@ Control the wysiwyg_editor property in site_properties
     >>> 'CKeditor' in site_props.available_editors
     False
 
+Control the default_editor property in site_properties
+------------------------------------------------------
+
+   >>> 'CKeditor' == site_props.default_editor
+    False
+
 Control portal_transforms uninstalls
 ------------------------------------
 

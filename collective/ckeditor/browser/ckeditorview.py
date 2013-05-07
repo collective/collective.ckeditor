@@ -97,7 +97,15 @@ class CKeditorView(BrowserView):
         """return True if member uses CKeditor"""
         pm = getToolByName(self.portal, 'portal_membership')
         member = pm.getAuthenticatedMember()
-        return member.getProperty('wysiwyg_editor') == 'CKeditor'
+        editor = member.getProperty('wysiwyg_editor')
+        if editor == 'CKeditor':
+            return True
+        if editor != '':
+            return False
+        # The member wants the default editor of the site.
+        pprops = getToolByName(self.portal, 'portal_properties')
+        editor = pprops.site_properties.getProperty('default_editor')
+        return editor == 'CKeditor'
 
     def contentUsesCKeditor(self, fieldname=''):
         """
@@ -245,10 +253,11 @@ class CKeditorView(BrowserView):
             if len(line.split(';')) == 2:
                 id, url = line.split(';')
                 abs_url = self.portal_url + url
+                base_url, plugin = abs_url.rsplit('/', 1)
                 ids.append(id)
                 params_js_string += (
-                        """CKEDITOR.plugins.addExternal('%s', '%s');"""
-                        % (id, abs_url))
+                        """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
+                        % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
         params_js_string += """

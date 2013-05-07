@@ -5,7 +5,6 @@
 
 from zope.interface import implements
 import re
-from Products.CMFCore.utils import getToolByName
 try:
     from Products.PortalTransforms.interfaces import ITransform
 except ImportError:
@@ -41,12 +40,13 @@ class ck_ruid_to_url:
         unique_ruid = []
 
         for m in self.tag_regexp.finditer(data):
-            ruid = re.search(self.ruid_regexp, m.group(0))
+            ruid = re.search(self.ruid_regexp, m.group(0)[:3000])
             if ruid:
                 tags_ruid.append((m.group(0),
                                   ruid.group('uid'),
                                   ruid.group('uid_url')))
-        for  tu in tags_ruid:
+
+        for tu in tags_ruid:
             if tu[1] not in unique_ruid:
                 unique_ruid.append(tu[1])
 
