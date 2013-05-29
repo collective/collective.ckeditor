@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.9 (unreleased)
+3.6.9 (2013-05-29)
 ------------------
 
 - Works under Plone 4.3.
