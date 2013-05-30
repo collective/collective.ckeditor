@@ -217,7 +217,7 @@ def copy_ckeditor(root):
 def tag_entrypoint(data):
     if data['name'] != 'collective.ckeditor':
         return
-    root = os.path.join(data['tagdir'], 'collective', 'ckeditor')
+    root = os.path.join(data['tagdir'], 'src', 'collective', 'ckeditor')
     print "Copying CKEditor code to %s" % root
     copy_ckeditor(root)
 
