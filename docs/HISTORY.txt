@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.11(unreleased)
+3.6.11 (unreleased)
 -------------------
 
 - Stay compatible with IE<9, do not use indexOf in JS
