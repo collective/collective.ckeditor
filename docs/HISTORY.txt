@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.10 (unreleased)
+3.6.10 (2013-05-30)
 -------------------
 
 - Updated ckeditor to 3.6.6.1
