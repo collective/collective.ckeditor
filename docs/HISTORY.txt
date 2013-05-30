@@ -1,10 +1,11 @@
 Changelog
 =========
 
- (unreleased)
---------------
+3.6.11(unreleased)
+-------------------
 
-- Nothing changed yet.
+- Stay compatible with IE<9, do not use indexOf in JS
+  [gbastien]
 
 
 3.6.10 (2013-05-30)
