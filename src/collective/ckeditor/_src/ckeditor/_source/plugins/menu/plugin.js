@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -175,17 +175,13 @@ CKEDITOR.plugins.add( 'menu',
 
 			onHide : function()
 			{
-				this._.unlockSelection();
-				this.onHide && this.onHide();
-			},
-
-			unlockSelection : function() {
-				// Unlock the selection upon first panel closing.
-				if ( CKEDITOR.env.ie && !this.parent )
+				if ( CKEDITOR.env.ie )
 				{
 					var selection = this.editor.getSelection();
-					selection && selection.unlock( true );
+					selection && selection.unlock();
 				}
+
+				this.onHide && this.onHide();
 			},
 
 			showSubMenu : function( index )
@@ -262,10 +258,8 @@ CKEDITOR.plugins.add( 'menu',
 				{
 					this._.onShow();
 					// Don't menu with zero items.
-					if ( ! this.items.length ) {
-						this._.unlockSelection();
+					if ( ! this.items.length )
 						return;
-					}
 				}
 
 				corner = corner || ( this.editor.lang.dir == 'rtl' ? 2 : 1 );

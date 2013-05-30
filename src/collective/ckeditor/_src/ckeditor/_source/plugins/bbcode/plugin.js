@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -566,33 +566,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						this.lineBreak( 1 );
 
 					this.write( '[', tag );
-				}
-			},
-
-			openTagClose : function( tag )
-			{
-
-				if ( tag == 'br' )
-					this._.output.push( '\n' );
-				else if ( tag in bbcodeMap )
-				{
+					var option = attributes.option;
+					option && this.write( '=', option );
 					this.write( ']' );
+
 					if ( this.getRule( tag, 'breakAfterOpen' ) )
 						this.lineBreak( 1 );
 				}
+				else if ( tag == 'br' )
+					this._.output.push( '\n' );
 			},
 
-			attribute : function( name, val )
-			{
-				if ( name == 'option' )
-				{
-					// Force simply ampersand in attributes.
-					if ( typeof val == 'string' )
-						val = val.replace( /&amp;/g, '&' );
-
-					this.write( '=', val );
-				}
-			},
+			openTagClose : function() { },
+			attribute : function() { },
 
 			closeTag : function( tag )
 			{

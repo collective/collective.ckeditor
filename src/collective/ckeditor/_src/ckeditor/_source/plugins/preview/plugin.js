@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -9,8 +9,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 (function()
 {
-	var pluginPath;
-
 	var previewCmd =
 	{
 		modes : { wysiwyg:1, source:1 },
@@ -81,18 +79,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					'})() )';
 			}
 
-			// With Firefox only, we need to open a special preview page, so
-			// anchors will work properly on it. (#9047)
-			if ( CKEDITOR.env.gecko )
-			{
-				window._cke_htmlToLoad = sHTML;
-				sOpenUrl = pluginPath + 'preview.html';
-			}
-
 			var oWindow = window.open( sOpenUrl, null, 'toolbar=yes,location=no,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=' +
 				iWidth + ',height=' + iHeight + ',left=' + iLeft );
 
-			if ( !isCustomDomain && !CKEDITOR.env.gecko )
+			if ( !isCustomDomain )
 			{
 				var doc = oWindow.document;
 				doc.open();
@@ -112,8 +102,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	{
 		init : function( editor )
 		{
-			pluginPath = this.path;
-
 			editor.addCommand( pluginName, previewCmd );
 			editor.ui.addButton( 'Preview',
 				{

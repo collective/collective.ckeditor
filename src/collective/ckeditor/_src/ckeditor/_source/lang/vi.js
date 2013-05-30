@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -31,11 +31,10 @@ CKEDITOR.lang['vi'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Trình soạn thảo phong phú, %1',
-	editorHelp : 'Nhấn ALT + 0 để được giúp đỡ',
+	editorTitle : 'Bộ soạn thảo, %1, nhấn ALT + 0 để xem hướng dẫn.',
 
 	// ARIA descriptions.
-	toolbars	: 'Thanh công cụ',
+	toolbars	: 'Editor toolbars', // MISSING
 	editor		: 'Bộ soạn thảo',
 
 	// Toolbar buttons without dialogs.
@@ -57,7 +56,7 @@ CKEDITOR.lang['vi'] =
 	superscript		: 'Chỉ số trên',
 	horizontalrule	: 'Chèn đường phân cách ngang',
 	pagebreak		: 'Chèn ngắt trang',
-	pagebreakAlt		: 'Ngắt trang',
+	pagebreakAlt		: 'Page Break', // MISSING
 	unlink			: 'Xoá liên kết',
 	undo			: 'Khôi phục thao tác',
 	redo			: 'Làm lại thao tác',
@@ -107,10 +106,10 @@ CKEDITOR.lang['vi'] =
 		targetTop		: 'Cửa sổ trên cùng (_top)',
 		targetSelf		: 'Tại trang (_self)',
 		targetParent	: 'Cửa sổ cha (_parent)',
-		langDirLTR		: 'Trái sang phải (LTR)',
-		langDirRTL		: 'Phải sang trái (RTL)',
-		styles			: 'Kiểu',
-		cssClasses		: 'Lớp CSS',
+		langDirLTR		: 'Left to Right (LTR)', // MISSING
+		langDirRTL		: 'Right to Left (RTL)', // MISSING
+		styles			: 'Style', // MISSING
+		cssClasses		: 'Stylesheet Classes', // MISSING
 		width			: 'Chiều rộng',
 		height			: 'chiều cao',
 		align			: 'Vị trí',
@@ -120,13 +119,12 @@ CKEDITOR.lang['vi'] =
 		alignTop		: 'Trên',
 		alignMiddle		: 'Giữa',
 		alignBottom		: 'Dưới',
-		invalidValue	: 'Invalid value.', // MISSING
 		invalidHeight	: 'Chiều cao phải là số nguyên.',
 		invalidWidth	: 'Chiều rộng phải là số nguyên.',
-		invalidCssLength	: 'Giá trị quy định cho trường "%1" phải là một số dương có hoặc không có một đơn vị đo CSS hợp lệ (px, %, in, cm, mm, em, ex, pt, hoặc pc).',
-		invalidHtmlLength	: 'Giá trị quy định cho trường "%1" phải là một số dương có hoặc không có một đơn vị đo HTML hợp lệ (px hoặc %).',
-		invalidInlineStyle	: 'Giá trị quy định cho kiểu nội tuyến phải bao gồm một hoặc nhiều dữ liệu với định dạng "tên:giá trị", cách nhau bằng dấu chấm phẩy.',
-		cssLengthTooltip	: 'Nhập một giá trị theo pixel hoặc một số với một đơn vị CSS hợp lệ (px, %, in, cm, mm, em, ex, pt, hoặc pc).',
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
+		invalidInlineStyle	: 'Value specified for the inline style must consist of one or more tuples with the format of "name : value", separated by semi-colons.', // MISSING
+		cssLengthTooltip	: 'Enter a number for a value in pixels or a number with a valid CSS unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
 
 		// Put the voice-only part of the label in the span.
 		unavailable		: '%1<span class="cke_accessibility">, không có</span>'
@@ -188,7 +186,7 @@ CKEDITOR.lang['vi'] =
 		cssClasses		: 'Lớp Stylesheet',
 		charset			: 'Bảng mã của tài nguyên được liên kết đến',
 		styles			: 'Kiểu (style)',
-		rel			: 'Quan hệ',
+		rel			: 'Relationship', // MISSING
 		selectAnchor		: 'Chọn một điểm neo',
 		anchorName		: 'Theo tên điểm neo',
 		anchorId			: 'Theo định danh thành phần',
@@ -208,7 +206,7 @@ CKEDITOR.lang['vi'] =
 		title		: 'Thuộc tính điểm neo',
 		name		: 'Tên của điểm neo',
 		errorName	: 'Hãy nhập vào tên của điểm neo',
-		remove		: 'Xóa neo'
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
@@ -218,7 +216,7 @@ CKEDITOR.lang['vi'] =
 		bulletedTitle		: 'Thuộc tính danh sách không thứ tự',
 		type				: 'Kiểu loại',
 		start				: 'Bắt đầu',
-		validateStartNumber				:'Số bắt đầu danh sách phải là một số nguyên.',
+		validateStartNumber				:'List start number must be a whole number.', // MISSING
 		circle				: 'Khuyên tròn',
 		disc				: 'Hình đĩa',
 		square				: 'Hình vuông',
@@ -244,7 +242,7 @@ CKEDITOR.lang['vi'] =
 		findWhat			: 'Tìm chuỗi:',
 		replaceWith			: 'Thay bằng:',
 		notFoundMsg			: 'Không tìm thấy chuỗi cần tìm.',
-		findOptions			: 'Tìm tùy chọn',
+		findOptions			: 'Find Options', // MISSING
 		matchCase			: 'Phân biệt chữ hoa/thường',
 		matchWord			: 'Giống toàn bộ từ',
 		matchCyclic			: 'Giống một phần',
@@ -513,8 +511,8 @@ CKEDITOR.lang['vi'] =
 		eleTitle : '%1 thành phần'
 	},
 
-	numberedlist	: 'Chèn/Xoá Danh sách có thứ tự',
-	bulletedlist	: 'Chèn/Xoá Danh sách không thứ tự',
+	numberedlist	: 'Danh sách có thứ tự',
+	bulletedlist	: 'Danh sách không thứ tự',
 	indent			: 'Dịch vào trong',
 	outdent			: 'Dịch ra ngoài',
 
@@ -543,7 +541,7 @@ CKEDITOR.lang['vi'] =
 		confirmCleanup	: 'Văn bản bạn muốn dán có kèm định dạng của Word. Bạn có muốn loại bỏ định dạng Word trước khi dán?',
 		toolbar			: 'Dán với định dạng Word',
 		title			: 'Dán với định dạng Word',
-		error			: 'Không thể để làm sạch các dữ liệu dán do một lỗi nội bộ'
+		error			: 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
 	pasteText :
@@ -609,11 +607,11 @@ CKEDITOR.lang['vi'] =
 
 	iframe :
 	{
-		title		: 'Thuộc tính iframe',
-		toolbar		: 'Iframe',
-		noUrl		: 'Vui lòng nhập địa chỉ iframe',
-		scrolling	: 'Kích hoạt thanh cuộn',
-		border		: 'Hiển thị viền khung'
+		title		: 'IFrame Properties', // MISSING
+		toolbar		: 'IFrame', // MISSING
+		noUrl		: 'Please type the iframe URL', // MISSING
+		scrolling	: 'Enable scrollbars', // MISSING
+		border		: 'Show frame border' // MISSING
 	},
 
 	font :
@@ -641,46 +639,46 @@ CKEDITOR.lang['vi'] =
 
 	colors :
 	{
-		'000' : 'Đen',
-		'800000' : 'Maroon',
-		'8B4513' : 'Saddle Brown',
-		'2F4F4F' : 'Dark Slate Gray',
-		'008080' : 'Teal',
-		'000080' : 'Navy',
-		'4B0082' : 'Indigo',
-		'696969' : 'Dark Gray',
-		'B22222' : 'Fire Brick',
-		'A52A2A' : 'Nâu',
-		'DAA520' : 'Golden Rod',
-		'006400' : 'Dark Green',
-		'40E0D0' : 'Turquoise',
-		'0000CD' : 'Medium Blue',
-		'800080' : 'Purple',
-		'808080' : 'Xám',
-		'F00' : 'Đỏ',
-		'FF8C00' : 'Dark Orange',
-		'FFD700' : 'Vàng',
-		'008000' : 'Xanh lá cây',
-		'0FF' : 'Cyan',
-		'00F' : 'Xanh da trời',
-		'EE82EE' : 'Tím',
-		'A9A9A9' : 'Xám tối',
-		'FFA07A' : 'Light Salmon',
-		'FFA500' : 'Màu cam',
-		'FFFF00' : 'Vàng',
-		'00FF00' : 'Lime',
-		'AFEEEE' : 'Pale Turquoise',
-		'ADD8E6' : 'Light Blue',
-		'DDA0DD' : 'Plum',
-		'D3D3D3' : 'Light Grey',
-		'FFF0F5' : 'Lavender Blush',
-		'FAEBD7' : 'Antique White',
-		'FFFFE0' : 'Light Yellow',
-		'F0FFF0' : 'Honeydew',
-		'F0FFFF' : 'Azure',
-		'F0F8FF' : 'Alice Blue',
-		'E6E6FA' : 'Lavender',
-		'FFF' : 'Trắng'
+		'000' : 'Black', // MISSING
+		'800000' : 'Maroon', // MISSING
+		'8B4513' : 'Saddle Brown', // MISSING
+		'2F4F4F' : 'Dark Slate Gray', // MISSING
+		'008080' : 'Teal', // MISSING
+		'000080' : 'Navy', // MISSING
+		'4B0082' : 'Indigo', // MISSING
+		'696969' : 'Dark Gray', // MISSING
+		'B22222' : 'Fire Brick', // MISSING
+		'A52A2A' : 'Brown', // MISSING
+		'DAA520' : 'Golden Rod', // MISSING
+		'006400' : 'Dark Green', // MISSING
+		'40E0D0' : 'Turquoise', // MISSING
+		'0000CD' : 'Medium Blue', // MISSING
+		'800080' : 'Purple', // MISSING
+		'808080' : 'Gray', // MISSING
+		'F00' : 'Red', // MISSING
+		'FF8C00' : 'Dark Orange', // MISSING
+		'FFD700' : 'Gold', // MISSING
+		'008000' : 'Green', // MISSING
+		'0FF' : 'Cyan', // MISSING
+		'00F' : 'Blue', // MISSING
+		'EE82EE' : 'Violet', // MISSING
+		'A9A9A9' : 'Dim Gray', // MISSING
+		'FFA07A' : 'Light Salmon', // MISSING
+		'FFA500' : 'Orange', // MISSING
+		'FFFF00' : 'Yellow', // MISSING
+		'00FF00' : 'Lime', // MISSING
+		'AFEEEE' : 'Pale Turquoise', // MISSING
+		'ADD8E6' : 'Light Blue', // MISSING
+		'DDA0DD' : 'Plum', // MISSING
+		'D3D3D3' : 'Light Grey', // MISSING
+		'FFF0F5' : 'Lavender Blush', // MISSING
+		'FAEBD7' : 'Antique White', // MISSING
+		'FFFFE0' : 'Light Yellow', // MISSING
+		'F0FFF0' : 'Honeydew', // MISSING
+		'F0FFFF' : 'Azure', // MISSING
+		'F0F8FF' : 'Alice Blue', // MISSING
+		'E6E6FA' : 'Lavender', // MISSING
+		'FFF' : 'White' // MISSING
 	},
 
 	scayt :
@@ -698,7 +696,7 @@ CKEDITOR.lang['vi'] =
 		ignoreAll		: 'Bỏ qua tất cả',
 		addWord			: 'Thêm từ',
 		emptyDic		: 'Tên của từ điển không được để trống.',
-		noSuggestions	: 'Không đưa ra gợi ý về từ',
+
 		optionsTab		: 'Tùy chọn',
 		allCaps			: 'Không phân biệt chữ HOA chữ thường',
 		ignoreDomainNames : 'Bỏ qua tên miền',
@@ -713,7 +711,7 @@ CKEDITOR.lang['vi'] =
 		dic_restore		: 'Phục hồi',
 		dic_delete		: 'Xóa',
 		dic_rename		: 'Thay tên',
-		dic_info		: 'Ban đầu, từ điển người dùng được lưu trữ trong một cookie. Tuy nhiên, kích thước cookie bị giới hạn. Khi người sử dụng từ điển phát triển đến điểm không thể được lưu trữ trong cookie, từ điển sẽ được lưu trữ trên máy chủ của chúng tôi. Để lưu trữ từ điển cá nhân của bạn trên máy chủ của chúng tôi, bạn nên xác định một tên cho từ điển của bạn. Nếu bạn đã có một cuốn từ điển được lưu trữ, xin vui lòng gõ tên của nó và nhấn vào nút Khôi phục.',
+		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type its name and click the Restore button.', // MISSING
 
 		aboutTab		: 'Thông tin'
 	},
@@ -722,8 +720,8 @@ CKEDITOR.lang['vi'] =
 	{
 		title		: 'Thông tin về CKEditor',
 		dlgTitle	: 'Thông tin về CKEditor',
-		help	: 'Kiểm tra $1 để được giúp đỡ.',
-		userGuide : 'Hướng dẫn sử dụng CKEditor',
+		help	: 'Check $1 for help.', // MISSING
+		userGuide : 'CKEditor User\'s Guide', // MISSING
 		moreInfo	: 'Vui lòng ghé thăm trang web của chúng tôi để có thông tin về giấy phép:',
 		copy		: 'Bản quyền &copy; $1. Giữ toàn quyền.'
 	},
@@ -735,8 +733,8 @@ CKEDITOR.lang['vi'] =
 	{
 		anchor		: 'Điểm neo',
 		flash		: 'Flash',
-		iframe		: 'IFrame',
-		hiddenfield	: 'Trường ẩn',
+		iframe		: 'IFrame', // MISSING
+		hiddenfield	: 'Hidden Field', // MISSING
 		unknown		: 'Đối tượng không rõ ràng'
 	},
 
@@ -745,7 +743,7 @@ CKEDITOR.lang['vi'] =
 	colordialog :
 	{
 		title		: 'Chọn màu',
-		options	:	'Tùy chọn màu',
+		options	:	'Color Options', // MISSING
 		highlight	: 'Màu chọn',
 		selected	: 'Màu đã chọn',
 		clear		: 'Xóa bỏ'
@@ -756,37 +754,37 @@ CKEDITOR.lang['vi'] =
 
 	toolbarGroups :
 	{
-		document : 'Tài liệu',
-		clipboard : 'Clipboard/Undo',
-		editing : 'Chỉnh sửa',
-		forms : 'Bảng biểu',
-		basicstyles : 'Kiểu cơ bản',
-		paragraph : 'Đoạn',
-		links : 'Liên kết',
-		insert : 'Chèn',
-		styles : 'Kiểu',
-		colors : 'Màu sắc',
-		tools : 'Công cụ'
+		document : 'Document', // MISSING
+		clipboard : 'Clipboard/Undo', // MISSING
+		editing : 'Editing', // MISSING
+		forms : 'Forms', // MISSING
+		basicstyles : 'Basic Styles', // MISSING
+		paragraph : 'Paragraph', // MISSING
+		links : 'Links', // MISSING
+		insert : 'Insert', // MISSING
+		styles : 'Styles', // MISSING
+		colors : 'Colors', // MISSING
+		tools : 'Tools' // MISSING
 	},
 
 	bidi :
 	{
-		ltr : 'Văn bản hướng từ trái sang phải',
-		rtl : 'Văn bản hướng từ phải sang trái'
+		ltr : 'Text direction from left to right', // MISSING
+		rtl : 'Text direction from right to left' // MISSING
 	},
 
 	docprops :
 	{
 		label : 'Thuộc tính Tài liệu',
 		title : 'Thuộc tính Tài liệu',
-		design : 'Thiết kế',
+		design : 'Design', // MISSING
 		meta : 'Siêu dữ liệu',
 		chooseColor : 'Chọn màu',
 		other : '<khác>',
 		docTitle :	'Tiêu đề Trang',
 		charset : 	'Bảng mã ký tự',
 		charsetOther : 'Bảng mã ký tự khác',
-		charsetASCII : 'ASCII',
+		charsetASCII : 'ASCII', // MISSING
 		charsetCE : 'Trung Âu',
 		charsetCT : 'Tiếng Trung Quốc (Big5)',
 		charsetCR : 'Tiếng Kirin',
@@ -794,7 +792,7 @@ CKEDITOR.lang['vi'] =
 		charsetJP : 'Tiếng Nhật',
 		charsetKR : 'Tiếng Hàn',
 		charsetTR : 'Tiếng Thổ Nhĩ Kỳ',
-		charsetUN : 'Unicode (UTF-8)',
+		charsetUN : 'Unicode (UTF-8)', // MISSING
 		charsetWE : 'Tây Âu',
 		docType : 'Kiểu Đề mục Tài liệu',
 		docTypeOther : 'Kiểu Đề mục Tài liệu khác',
@@ -812,6 +810,6 @@ CKEDITOR.lang['vi'] =
 		metaDescription : 'Mô tả tài liệu',
 		metaAuthor : 'Tác giả',
 		metaCopyright : 'Bản quyền',
-		previewHtml : '<p>Đây là một số <strong>văn bản mẫu</strong>. Bạn đang sử dụng <a href="javascript:void(0)">CKEditor</a>.</p>'
+		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };

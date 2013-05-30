@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -49,13 +49,8 @@ CKEDITOR.tools.extend( CKEDITOR.editor.prototype,
 
 		try
 		{
-			// Chrome is problematic with moveTo/resizeTo, but it's not really needed here (#8855).
-			var ua = navigator.userAgent.toLowerCase();
-			if ( ua.indexOf( ' chrome/' ) == -1 )
-			{
-				popupWindow.moveTo( left, top );
-				popupWindow.resizeTo( width, height );
-			}
+			popupWindow.moveTo( left, top );
+			popupWindow.resizeTo( width, height );
 			popupWindow.focus();
 			popupWindow.location.href = url;
 		}

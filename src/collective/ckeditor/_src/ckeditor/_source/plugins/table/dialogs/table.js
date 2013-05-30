@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -31,25 +31,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		}
 
 		return maxCols;
-	}
-
-
-	// Whole-positive-integer validator.
-	function validatorNum( msg )
-	{
-		return function()
-		{
-			var value = this.getValue(),
-				pass = !!( CKEDITOR.dialog.validate.integer()( value ) && value > 0 );
-
-			if ( !pass )
-			{
-				alert( msg );
-				this.select();
-			}
-
-			return pass;
-		};
 	}
 
 	function tableDialog( editor, command )
@@ -300,7 +281,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											label : editor.lang.table.rows,
 											required : true,
 											controlStyle : 'width:5em',
-											validate : validatorNum( editor.lang.table.invalidRows ),
+											validate : function()
+											{
+												var pass = true,
+													value = this.getValue();
+												pass = pass && CKEDITOR.dialog.validate.integer()( value )
+													&& value > 0;
+												if ( !pass )
+												{
+													alert( editor.lang.table.invalidRows );
+													this.select();
+												}
+												return pass;
+											},
 											setup : function( selectedElement )
 											{
 												this.setValue( selectedElement.$.rows.length );
@@ -314,7 +307,19 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											label : editor.lang.table.columns,
 											required : true,
 											controlStyle : 'width:5em',
-											validate : validatorNum( editor.lang.table.invalidCols ),
+											validate : function()
+											{
+												var pass = true,
+													value = this.getValue();
+												pass = pass && CKEDITOR.dialog.validate.integer()( value )
+													&& value > 0;
+												if ( !pass )
+												{
+													alert( editor.lang.table.invalidCols );
+													this.select();
+												}
+												return pass;
+											},
 											setup : function( selectedTable )
 											{
 												this.setValue( tableColumns( selectedTable ) );
@@ -463,7 +468,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 													setup : function( selectedTable )
 													{
-														var val = selectedTable.getStyle( 'height' );
+														var val = selectedTable.getStyle( 'width' );
 														val && this.setValue( val );
 													},
 													commit : commitValue

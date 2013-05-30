@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -31,33 +31,32 @@ CKEDITOR.lang['lv'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Bagātinātā teksta redaktors, %1',
-	editorHelp : 'Palīdzībai, nospiediet ALT 0 ',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
 
 	// ARIA descriptions.
-	toolbars	: 'Redaktora rīkjoslas',
-	editor		: 'Bagātinātā teksta redaktors',
+	toolbars	: 'Editor toolbars', // MISSING
+	editor		: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: 'HTML kods',
 	newPage			: 'Jauna lapa',
 	save			: 'Saglabāt',
-	preview			: 'Priekšskatīt',
+	preview			: 'Pārskatīt',
 	cut				: 'Izgriezt',
 	copy			: 'Kopēt',
-	paste			: 'Ielīmēt',
+	paste			: 'Ievietot',
 	print			: 'Drukāt',
-	underline		: 'Pasvītrots',
-	bold			: 'Treknināts',
-	italic			: 'Kursīvs',
+	underline		: 'Apakšsvītra',
+	bold			: 'Treknu šriftu',
+	italic			: 'Slīprakstā',
 	selectAll		: 'Iezīmēt visu',
 	removeFormat	: 'Noņemt stilus',
 	strike			: 'Pārsvītrots',
-	subscript		: 'Apakšrakstā',
+	subscript		: 'Zemrakstā',
 	superscript		: 'Augšrakstā',
 	horizontalrule	: 'Ievietot horizontālu Atdalītājsvītru',
-	pagebreak		: 'Ievietot lapas pārtraukumu drukai',
-	pagebreakAlt		: 'Lapas pārnesums',
+	pagebreak		: 'Ievietot lapas pārtraukumu',
+	pagebreakAlt		: 'Page Break', // MISSING
 	unlink			: 'Noņemt hipersaiti',
 	undo			: 'Atcelt',
 	redo			: 'Atkārtot',
@@ -73,11 +72,11 @@ CKEDITOR.lang['lv'] =
 		image			: 'Attēls',
 		flash			: 'Flash',
 		form			: 'Forma',
-		checkbox		: 'Izvēles rūtiņa',
-		radio			: 'Radio poga',
+		checkbox		: 'Atzīmēšanas kastīte',
+		radio			: 'Izvēles poga',
 		textField		: 'Teksta rinda',
 		textarea		: 'Teksta laukums',
-		hiddenField		: 'Paslēpts lauks',
+		hiddenField		: 'Paslēpta teksta rinda',
 		button			: 'Poga',
 		select			: 'Iezīmēšanas lauks',
 		imageButton		: 'Attēlpoga',
@@ -92,49 +91,48 @@ CKEDITOR.lang['lv'] =
 		cssClass		: 'Stilu saraksta klases',
 		advisoryTitle	: 'Konsultatīvs virsraksts',
 		cssStyle		: 'Stils',
-		ok				: 'Apstiprināt',
+		ok				: 'Darīts!',
 		cancel			: 'Atcelt',
-		close			: 'Aizvērt',
-		preview			: 'Priekšskatījums',
-		generalTab		: 'Vispārīgi',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
+		generalTab		: 'General', // MISSING
 		advancedTab		: 'Izvērstais',
-		validateNumberFailed : 'Šī vērtība nav skaitlis',
-		confirmNewPage	: 'Jebkuras nesaglabātās izmaiņas tiks zaudētas. Vai tiešām vēlaties atvērt jaunu lapu?',
-		confirmCancel	: 'Daži no uzstādījumiem ir mainīti. Vai tiešām vēlaties aizvērt šo dialogu?',
-		options			: 'Uzstādījumi',
-		target			: 'Mērķis',
-		targetNew		: 'Jauns logs (_blank)',
-		targetTop		: 'Virsējais logs (_top)',
-		targetSelf		: 'Tas pats logs (_self)',
-		targetParent	: 'Avota logs (_parent)',
-		langDirLTR		: 'Kreisais uz Labo (LTR)',
-		langDirRTL		: 'Labais uz Kreiso (RTL)',
-		styles			: 'Stils',
-		cssClasses		: 'Stilu klases',
+		validateNumberFailed : 'This value is not a number.', // MISSING
+		confirmNewPage	: 'Any unsaved changes to this content will be lost. Are you sure you want to load new page?', // MISSING
+		confirmCancel	: 'Some of the options have been changed. Are you sure to close the dialog?', // MISSING
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
+		langDirLTR		: 'Left to Right (LTR)', // MISSING
+		langDirRTL		: 'Right to Left (RTL)', // MISSING
+		styles			: 'Style', // MISSING
+		cssClasses		: 'Stylesheet Classes', // MISSING
 		width			: 'Platums',
 		height			: 'Augstums',
-		align			: 'Līdzinājums',
+		align			: 'Nolīdzināt',
 		alignLeft		: 'Pa kreisi',
 		alignRight		: 'Pa labi',
 		alignCenter		: 'Centrēti',
 		alignTop		: 'Augšā',
-		alignMiddle		: 'Pa vidu',
+		alignMiddle		: 'Vertikāli centrēts',
 		alignBottom		: 'Apakšā',
-		invalidValue	: 'Nekorekta vērtība',
-		invalidHeight	: 'Augstumam jābūt skaitlim.',
-		invalidWidth	: 'Platumam jābūt skaitlim',
-		invalidCssLength	: 'Laukam "%1" norādītajai vērtībai jābūt pozitīvam skaitlim ar vai bez korektām CSS mērvienībām (px, %, in, cm, mm, em, ex, pt, vai pc).',
-		invalidHtmlLength	: 'Laukam "%1" norādītajai vērtībai jābūt pozitīvam skaitlim ar vai bez korektām HTML mērvienībām (px vai %).',
-		invalidInlineStyle	: 'Iekļautajā stilā norādītajai vērtībai jāsastāv no viena vai vairākiem pāriem pēc forma\'ta "nosaukums: vērtība", atdalītiem ar semikolu.',
-		cssLengthTooltip	: 'Ievadiet vērtību pikseļos vai skaitli ar derīgu CSS mērvienību (px, %, in, cm, mm, em, ex, pt, vai pc).',
+		invalidHeight	: 'Height must be a number.', // MISSING
+		invalidWidth	: 'Width must be a number.', // MISSING
+		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
+		invalidHtmlLength	: 'Value specified for the "%1" field must be a positive number with or without a valid HTML measurement unit (px or %).', // MISSING
+		invalidInlineStyle	: 'Value specified for the inline style must consist of one or more tuples with the format of "name : value", separated by semi-colons.', // MISSING
+		cssLengthTooltip	: 'Enter a number for a value in pixels or a number with a valid CSS unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
 
 		// Put the voice-only part of the label in the span.
-		unavailable		: '%1<span class="cke_accessibility">, nav pieejams</span>'
+		unavailable		: '%1<span class="cke_accessibility">, unavailable</span>' // MISSING
 	},
 
 	contextmenu :
 	{
-		options : 'Uznirstošās izvēlnes uzstādījumi'
+		options : 'Context Menu Options' // MISSING
 	},
 
 	// Special char dialog.
@@ -142,7 +140,7 @@ CKEDITOR.lang['lv'] =
 	{
 		toolbar		: 'Ievietot speciālo simbolu',
 		title		: 'Ievietot īpašu simbolu',
-		options : 'Speciālo simbolu uzstādījumi'
+		options : 'Special Character Options' // MISSING
 	},
 
 	// Link dialog.
@@ -157,7 +155,7 @@ CKEDITOR.lang['lv'] =
 		upload		: 'Augšupielādēt',
 		advanced	: 'Izvērstais',
 		type		: 'Hipersaites tips',
-		toUrl		: 'Adrese',
+		toUrl		: 'URL', // MISSING
 		toAnchor	: 'Iezīme šajā lapā',
 		toEmail		: 'E-pasts',
 		targetFrame		: '<ietvars>',
@@ -165,7 +163,7 @@ CKEDITOR.lang['lv'] =
 		targetFrameName	: 'Mērķa ietvara nosaukums',
 		targetPopupName	: 'Uznirstošā loga nosaukums',
 		popupFeatures	: 'Uznirstošā loga nosaukums īpašības',
-		popupResizable	: 'Mērogojams',
+		popupResizable	: 'Resizable', // MISSING
 		popupStatusBar	: 'Statusa josla',
 		popupLocationBar: 'Atrašanās vietas josla',
 		popupToolbar	: 'Rīku josla',
@@ -175,20 +173,20 @@ CKEDITOR.lang['lv'] =
 		popupDependent	: 'Atkarīgs (Netscape)',
 		popupLeft		: 'Kreisā koordināte',
 		popupTop		: 'Augšējā koordināte',
-		id				: 'ID',
+		id				: 'Id', // MISSING
 		langDir			: 'Valodas lasīšanas virziens',
 		langDirLTR		: 'No kreisās uz labo (LTR)',
 		langDirRTL		: 'No labās uz kreiso (RTL)',
-		acccessKey		: 'Pieejas taustiņš',
+		acccessKey		: 'Pieejas kods',
 		name			: 'Nosaukums',
-		langCode			: 'Valodas kods',
+		langCode			: 'Valodas lasīšanas virziens',
 		tabIndex			: 'Ciļņu indekss',
 		advisoryTitle		: 'Konsultatīvs virsraksts',
 		advisoryContentType	: 'Konsultatīvs satura tips',
 		cssClasses		: 'Stilu saraksta klases',
-		charset			: 'Pievienotā resursa kodējums',
+		charset			: 'Pievienotā resursa kodu tabula',
 		styles			: 'Stils',
-		rel			: 'Relācija',
+		rel			: 'Relationship', // MISSING
 		selectAnchor		: 'Izvēlēties iezīmi',
 		anchorName		: 'Pēc iezīmes nosaukuma',
 		anchorId			: 'Pēc elementa ID',
@@ -204,52 +202,52 @@ CKEDITOR.lang['lv'] =
 	anchor :
 	{
 		toolbar		: 'Ievietot/Labot iezīmi',
-		menu		: 'Labot iezīmi',
-		title		: 'Iezīmes uzstādījumi',
+		menu		: 'Iezīmes īpašības',
+		title		: 'Iezīmes īpašības',
 		name		: 'Iezīmes nosaukums',
 		errorName	: 'Lūdzu norādiet iezīmes nosaukumu',
-		remove		: 'Noņemt iezīmi'
+		remove		: 'Remove Anchor' // MISSING
 	},
 
 	// List style dialog
 	list:
 	{
-		numberedTitle		: 'Numurēta saraksta uzstādījumi',
-		bulletedTitle		: 'Vienkārša saraksta uzstādījumi',
-		type				: 'Tips',
-		start				: 'Sākt',
-		validateStartNumber				:'Saraksta sākuma numuram jābūt veselam skaitlim',
-		circle				: 'Aplis',
-		disc				: 'Disks',
-		square				: 'Kvadrāts',
-		none				: 'Nekas',
-		notset				: '<nav norādīts>',
-		armenian			: 'Armēņu skaitļi',
-		georgian			: 'Gruzīņu skaitļi (an, ban, gan, utt)',
-		lowerRoman			: 'Mazie romāņu (i, ii, iii, iv, v, utt)',
-		upperRoman			: 'Lielie romāņu (I, II, III, IV, V, utt)',
-		lowerAlpha			: 'Mazie alfabēta (a, b, c, d, e, utt)',
-		upperAlpha			: 'Lielie alfabēta (A, B, C, D, E, utt)',
-		lowerGreek			: 'Mazie grieķu (alfa, beta, gamma, utt)',
-		decimal				: 'Decimālie (1, 2, 3, utt)',
-		decimalLeadingZero	: 'Decimālie ar nulli (01, 02, 03, utt)'
+		numberedTitle		: 'Numbered List Properties', // MISSING
+		bulletedTitle		: 'Bulleted List Properties', // MISSING
+		type				: 'Type', // MISSING
+		start				: 'Start', // MISSING
+		validateStartNumber				:'List start number must be a whole number.', // MISSING
+		circle				: 'Circle', // MISSING
+		disc				: 'Disc', // MISSING
+		square				: 'Square', // MISSING
+		none				: 'None', // MISSING
+		notset				: '<not set>', // MISSING
+		armenian			: 'Armenian numbering', // MISSING
+		georgian			: 'Georgian numbering (an, ban, gan, etc.)', // MISSING
+		lowerRoman			: 'Lower Roman (i, ii, iii, iv, v, etc.)', // MISSING
+		upperRoman			: 'Upper Roman (I, II, III, IV, V, etc.)', // MISSING
+		lowerAlpha			: 'Lower Alpha (a, b, c, d, e, etc.)', // MISSING
+		upperAlpha			: 'Upper Alpha (A, B, C, D, E, etc.)', // MISSING
+		lowerGreek			: 'Lower Greek (alpha, beta, gamma, etc.)', // MISSING
+		decimal				: 'Decimal (1, 2, 3, etc.)', // MISSING
+		decimalLeadingZero	: 'Decimal leading zero (01, 02, 03, etc.)' // MISSING
 	},
 
 	// Find And Replace Dialog
 	findAndReplace :
 	{
-		title				: 'Meklēt un aizvietot',
+		title				: 'Find and Replace', // MISSING
 		find				: 'Meklēt',
 		replace				: 'Nomainīt',
 		findWhat			: 'Meklēt:',
 		replaceWith			: 'Nomainīt uz:',
 		notFoundMsg			: 'Norādītā frāze netika atrasta.',
-		findOptions			: 'Meklēt uzstādījumi',
+		findOptions			: 'Find Options', // MISSING
 		matchCase			: 'Reģistrjūtīgs',
 		matchWord			: 'Jāsakrīt pilnībā',
-		matchCyclic			: 'Sakrist cikliski',
+		matchCyclic			: 'Match cyclic', // MISSING
 		replaceAll			: 'Aizvietot visu',
-		replaceSuccessMsg	: '%1 gadījums(i) aizvietoti'
+		replaceSuccessMsg	: '%1 occurrence(s) replaced.' // MISSING
 	},
 
 	// Table Dialog
@@ -264,69 +262,69 @@ CKEDITOR.lang['lv'] =
 		border		: 'Rāmja izmērs',
 		widthPx		: 'pikseļos',
 		widthPc		: 'procentuāli',
-		widthUnit	: 'platuma mērvienība',
+		widthUnit	: 'width unit', // MISSING
 		cellSpace	: 'Rūtiņu atstatums',
 		cellPad		: 'Rūtiņu nobīde',
 		caption		: 'Leģenda',
 		summary		: 'Anotācija',
-		headers		: 'Virsraksti',
-		headersNone		: 'Nekas',
-		headersColumn	: 'Pirmā kolona',
-		headersRow		: 'Pirmā rinda',
-		headersBoth		: 'Abi',
-		invalidRows		: 'Rindu skaitam jābūt lielākam par 0',
-		invalidCols		: 'Kolonu skaitam jābūt lielākam par 0',
-		invalidBorder	: 'Rāmju izmēram jābūt skaitlim',
-		invalidWidth	: 'Tabulas platumam jābūt skaitlim',
-		invalidHeight	: 'Tabulas augstumam jābūt skaitlim',
-		invalidCellSpacing	: 'Šūnu atstarpēm jābūt pozitīvam skaitlim',
-		invalidCellPadding	: 'Šūnu atkāpēm jābūt pozitīvam skaitlim',
+		headers		: 'Headers', // MISSING
+		headersNone		: 'None', // MISSING
+		headersColumn	: 'First column', // MISSING
+		headersRow		: 'First Row', // MISSING
+		headersBoth		: 'Both', // MISSING
+		invalidRows		: 'Number of rows must be a number greater than 0.', // MISSING
+		invalidCols		: 'Number of columns must be a number greater than 0.', // MISSING
+		invalidBorder	: 'Border size must be a number.', // MISSING
+		invalidWidth	: 'Table width must be a number.', // MISSING
+		invalidHeight	: 'Table height must be a number.', // MISSING
+		invalidCellSpacing	: 'Cell spacing must be a positive number.', // MISSING
+		invalidCellPadding	: 'Cell padding must be a positive number.', // MISSING
 
 		cell :
 		{
 			menu			: 'Šūna',
-			insertBefore	: 'Pievienot šūnu pirms',
-			insertAfter		: 'Pievienot šūnu pēc',
+			insertBefore	: 'Insert Cell Before', // MISSING
+			insertAfter		: 'Insert Cell After', // MISSING
 			deleteCell		: 'Dzēst rūtiņas',
 			merge			: 'Apvienot rūtiņas',
-			mergeRight		: 'Apvieno pa labi',
-			mergeDown		: 'Apvienot uz leju',
-			splitHorizontal	: 'Sadalīt šūnu horizontāli',
-			splitVertical	: 'Sadalīt šūnu vertikāli',
-			title			: 'Šūnas uzstādījumi',
-			cellType		: 'Šūnas tips',
-			rowSpan			: 'Apvienotas rindas',
-			colSpan			: 'Apvienotas kolonas',
-			wordWrap		: 'Vārdu pārnese',
-			hAlign			: 'Horizontālais novietojums',
-			vAlign			: 'Vertikālais novietojums',
-			alignBaseline	: 'Pamatrinda',
-			bgColor			: 'Fona krāsa',
-			borderColor		: 'Rāmja krāsa',
-			data			: 'Dati',
-			header			: 'Virsraksts',
-			yes				: 'Jā',
-			no				: 'Nē',
-			invalidWidth	: 'Šūnas platumam jābūt skaitlim',
-			invalidHeight	: 'Šūnas augstumam jābūt skaitlim',
-			invalidRowSpan	: 'Apvienojamo rindu skaitam jābūt veselam skaitlim',
-			invalidColSpan	: 'Apvienojamo kolonu skaitam jābūt veselam skaitlim',
-			chooseColor		: 'Izvēlēties'
+			mergeRight		: 'Merge Right', // MISSING
+			mergeDown		: 'Merge Down', // MISSING
+			splitHorizontal	: 'Split Cell Horizontally', // MISSING
+			splitVertical	: 'Split Cell Vertically', // MISSING
+			title			: 'Cell Properties', // MISSING
+			cellType		: 'Cell Type', // MISSING
+			rowSpan			: 'Rows Span', // MISSING
+			colSpan			: 'Columns Span', // MISSING
+			wordWrap		: 'Word Wrap', // MISSING
+			hAlign			: 'Horizontal Alignment', // MISSING
+			vAlign			: 'Vertical Alignment', // MISSING
+			alignBaseline	: 'Baseline', // MISSING
+			bgColor			: 'Background Color', // MISSING
+			borderColor		: 'Border Color', // MISSING
+			data			: 'Data', // MISSING
+			header			: 'Header', // MISSING
+			yes				: 'Yes', // MISSING
+			no				: 'No', // MISSING
+			invalidWidth	: 'Cell width must be a number.', // MISSING
+			invalidHeight	: 'Cell height must be a number.', // MISSING
+			invalidRowSpan	: 'Rows span must be a whole number.', // MISSING
+			invalidColSpan	: 'Columns span must be a whole number.', // MISSING
+			chooseColor		: 'Choose' // MISSING
 		},
 
 		row :
 		{
 			menu			: 'Rinda',
-			insertBefore	: 'Ievietot rindu pirms',
-			insertAfter		: 'Ievietot rindu pēc',
+			insertBefore	: 'Insert Row Before', // MISSING
+			insertAfter		: 'Insert Row After', // MISSING
 			deleteRow		: 'Dzēst rindas'
 		},
 
 		column :
 		{
 			menu			: 'Kolonna',
-			insertBefore	: 'Ievietot kolonu pirms',
-			insertAfter		: 'Ievieto kolonu pēc',
+			insertBefore	: 'Insert Column Before', // MISSING
+			insertAfter		: 'Insert Column After', // MISSING
 			deleteColumn	: 'Dzēst kolonnas'
 		}
 	},
@@ -337,9 +335,9 @@ CKEDITOR.lang['lv'] =
 		title		: 'Pogas īpašības',
 		text		: 'Teksts (vērtība)',
 		type		: 'Tips',
-		typeBtn		: 'Poga',
-		typeSbm		: 'Nosūtīt',
-		typeRst		: 'Atcelt'
+		typeBtn		: 'Button', // MISSING
+		typeSbm		: 'Submit', // MISSING
+		typeRst		: 'Reset' // MISSING
 	},
 
 	// Checkbox and Radio Button Dialogs.
@@ -358,7 +356,7 @@ CKEDITOR.lang['lv'] =
 		menu		: 'Formas īpašības',
 		action		: 'Darbība',
 		method		: 'Metode',
-		encoding	: 'Kodējums'
+		encoding	: 'Encoding' // MISSING
 	},
 
 	// Select Field Dialog.
@@ -427,63 +425,63 @@ CKEDITOR.lang['lv'] =
 		vSpace		: 'Vertikālā telpa',
 		alertUrl	: 'Lūdzu norādīt attēla hipersaiti',
 		linkTab		: 'Hipersaite',
-		button2Img	: 'Vai vēlaties pārveidot izvēlēto attēla pogu uz attēla?',
-		img2Button	: 'Vai vēlaties pārveidot izvēlēto attēlu uz attēla pogas?',
-		urlMissing	: 'Trūkst attēla atrašanās adrese.',
-		validateBorder	: 'Apmalei jābūt veselam skaitlim',
-		validateHSpace	: 'HSpace jābūt veselam skaitlim',
-		validateVSpace	: 'VSpace jābūt veselam skaitlim'
+		button2Img	: 'Do you want to transform the selected image button on a simple image?', // MISSING
+		img2Button	: 'Do you want to transform the selected image on a image button?', // MISSING
+		urlMissing	: 'Image source URL is missing.', // MISSING
+		validateBorder	: 'Border must be a whole number.', // MISSING
+		validateHSpace	: 'HSpace must be a whole number.', // MISSING
+		validateVSpace	: 'VSpace must be a whole number.' // MISSING
 	},
 
 	// Flash Dialog
 	flash :
 	{
 		properties		: 'Flash īpašības',
-		propertiesTab	: 'Uzstādījumi',
+		propertiesTab	: 'Properties', // MISSING
 		title			: 'Flash īpašības',
 		chkPlay			: 'Automātiska atskaņošana',
 		chkLoop			: 'Nepārtraukti',
 		chkMenu			: 'Atļaut Flash izvēlni',
-		chkFull			: 'Pilnekrāns',
+		chkFull			: 'Allow Fullscreen', // MISSING
  		scale			: 'Mainīt izmēru',
 		scaleAll		: 'Rādīt visu',
 		scaleNoBorder	: 'Bez rāmja',
 		scaleFit		: 'Precīzs izmērs',
-		access			: 'Skripta pieeja',
-		accessAlways	: 'Vienmēr',
-		accessSameDomain: 'Tas pats domēns',
-		accessNever		: 'Nekad',
+		access			: 'Script Access', // MISSING
+		accessAlways	: 'Always', // MISSING
+		accessSameDomain: 'Same domain', // MISSING
+		accessNever		: 'Never', // MISSING
 		alignAbsBottom	: 'Absolūti apakšā',
 		alignAbsMiddle	: 'Absolūti vertikāli centrēts',
 		alignBaseline	: 'Pamatrindā',
 		alignTextTop	: 'Teksta augšā',
-		quality			: 'Kvalitāte',
-		qualityBest		: 'Labākā',
-		qualityHigh		: 'Augsta',
-		qualityAutoHigh	: 'Automātiski Augsta',
-		qualityMedium	: 'Vidēja',
-		qualityAutoLow	: 'Automātiski Zema',
-		qualityLow		: 'Zema',
-		windowModeWindow: 'Logs',
-		windowModeOpaque: 'Necaurspīdīgs',
-		windowModeTransparent : 'Caurspīdīgs',
-		windowMode		: 'Loga režīms',
-		flashvars		: 'Flash mainīgie',
+		quality			: 'Quality', // MISSING
+		qualityBest		: 'Best', // MISSING
+		qualityHigh		: 'High', // MISSING
+		qualityAutoHigh	: 'Auto High', // MISSING
+		qualityMedium	: 'Medium', // MISSING
+		qualityAutoLow	: 'Auto Low', // MISSING
+		qualityLow		: 'Low', // MISSING
+		windowModeWindow: 'Window', // MISSING
+		windowModeOpaque: 'Opaque', // MISSING
+		windowModeTransparent : 'Transparent', // MISSING
+		windowMode		: 'Window mode', // MISSING
+		flashvars		: 'Variables for Flash', // MISSING
 		bgcolor			: 'Fona krāsa',
 		hSpace			: 'Horizontālā telpa',
 		vSpace			: 'Vertikālā telpa',
 		validateSrc		: 'Lūdzu norādi hipersaiti',
-		validateHSpace	: 'Hspace jābūt skaitlim',
-		validateVSpace	: 'Vspace jābūt skaitlim'
+		validateHSpace	: 'HSpace must be a number.', // MISSING
+		validateVSpace	: 'VSpace must be a number.' // MISSING
 	},
 
 	// Speller Pages Dialog
 	spellCheck :
 	{
 		toolbar			: 'Pareizrakstības pārbaude',
-		title			: 'Pārbaudīt gramatiku',
-		notAvailable	: 'Atvainojiet, bet serviss šobrīd nav pieejams.',
-		errorLoading	: 'Kļūda ielādējot aplikācijas servisa adresi: %s.',
+		title			: 'Spell Check', // MISSING
+		notAvailable	: 'Sorry, but service is unavailable now.', // MISSING
+		errorLoading	: 'Error loading application service host: %s.', // MISSING
 		notInDic		: 'Netika atrasts vārdnīcā',
 		changeTo		: 'Nomainīt uz',
 		btnIgnore		: 'Ignorēt',
@@ -504,17 +502,17 @@ CKEDITOR.lang['lv'] =
 	{
 		toolbar	: 'Smaidiņi',
 		title	: 'Ievietot smaidiņu',
-		options : 'Smaidiņu uzstādījumi'
+		options : 'Smiley Options' // MISSING
 	},
 
 	elementsPath :
 	{
-		eleLabel : 'Elementa ceļš',
-		eleTitle : '%1 elements'
+		eleLabel : 'Elements path', // MISSING
+		eleTitle : '%1 element' // MISSING
 	},
 
 	numberedlist	: 'Numurēts saraksts',
-	bulletedlist	: 'Pievienot/Noņemt vienkāršu sarakstu',
+	bulletedlist	: 'Izcelts saraksts',
 	indent			: 'Palielināt atkāpi',
 	outdent			: 'Samazināt atkāpi',
 
@@ -526,24 +524,24 @@ CKEDITOR.lang['lv'] =
 		block	: 'Izlīdzināt malas'
 	},
 
-	blockquote : 'Bloka citāts',
+	blockquote : 'Block Quote', // MISSING
 
 	clipboard :
 	{
 		title		: 'Ievietot',
-		cutError	: 'Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj redaktoram automātiski veikt izgriezšanas darbību.  Lūdzu, izmantojiet (Ctrl/Cmd+X), lai veiktu šo darbību.',
-		copyError	: 'Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj redaktoram automātiski veikt kopēšanas darbību.  Lūdzu, izmantojiet (Ctrl/Cmd+C), lai veiktu šo darbību.',
+		cutError	: 'Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj editoram automātiski veikt izgriešanas darbību.  Lūdzu, izmantojiet (Ctrl/Cmd+X, lai veiktu šo darbību.',
+		copyError	: 'Jūsu pārlūkprogrammas drošības iestatījumi nepieļauj editoram automātiski veikt kopēšanas darbību.  Lūdzu, izmantojiet (Ctrl/Cmd+C), lai veiktu šo darbību.',
 		pasteMsg	: 'Lūdzu, ievietojiet tekstu šajā laukumā, izmantojot klaviatūru (<STRONG>Ctrl/Cmd+V</STRONG>) un apstipriniet ar <STRONG>Darīts!</STRONG>.',
-		securityMsg	: 'Jūsu pārlūka drošības uzstādījumu dēļ, nav iespējams tieši piekļūt jūsu starpliktuvei. Jums jāielīmē atkārtoti šajā logā.',
-		pasteArea	: 'Ielīmēšanas zona'
+		securityMsg	: 'Because of your browser security settings, the editor is not able to access your clipboard data directly. You are required to paste it again in this window.', // MISSING
+		pasteArea	: 'Paste Area' // MISSING
 	},
 
 	pastefromword :
 	{
-		confirmCleanup	: 'Teksts, kuru vēlaties ielīmēt, izskatās ir nokopēts no Word. Vai vēlaties to iztīrīt pirms ielīmēšanas?',
+		confirmCleanup	: 'The text you want to paste seems to be copied from Word. Do you want to clean it before pasting?', // MISSING
 		toolbar			: 'Ievietot no Worda',
 		title			: 'Ievietot no Worda',
-		error			: 'Iekšējas kļūdas dēļ, neizdevās iztīrīt ielīmētos datus.'
+		error			: 'It was not possible to clean up the pasted data due to an internal error' // MISSING
 	},
 
 	pasteText :
@@ -556,21 +554,21 @@ CKEDITOR.lang['lv'] =
 	{
 		button			: 'Sagataves',
 		title			: 'Satura sagataves',
-		options : 'Sagataves uzstādījumi',
-		insertOption	: 'Aizvietot pašreizējo saturu',
+		options : 'Template Options', // MISSING
+		insertOption	: 'Replace actual contents', // MISSING
 		selectPromptMsg	: 'Lūdzu, norādiet sagatavi, ko atvērt editorā<br>(patreizējie dati tiks zaudēti):',
 		emptyListMsg	: '(Nav norādītas sagataves)'
 	},
 
-	showBlocks : 'Parādīt blokus',
+	showBlocks : 'Show Blocks', // MISSING
 
 	stylesCombo :
 	{
 		label		: 'Stils',
-		panelTitle	: 'Formatēšanas stili',
-		panelTitle1	: 'Bloka stili',
-		panelTitle2	: 'iekļautie stili',
-		panelTitle3	: 'Objekta stili'
+		panelTitle	: 'Formatting Styles', // MISSING
+		panelTitle1	: 'Block Styles', // MISSING
+		panelTitle2	: 'Inline Styles', // MISSING
+		panelTitle3	: 'Object Styles' // MISSING
 	},
 
 	format :
@@ -592,41 +590,41 @@ CKEDITOR.lang['lv'] =
 
 	div :
 	{
-		title				: 'Izveidot div konteineri',
-		toolbar				: 'Izveidot div konteineri',
-		cssClassInputLabel	: 'Stilu klases',
-		styleSelectLabel	: 'Stils',
-		IdInputLabel		: 'Id',
-		languageCodeInputLabel	: 'Valodas kods',
-		inlineStyleInputLabel	: 'Iekļautais stils',
-		advisoryTitleInputLabel	: 'Konsultatīvs virsraksts',
-		langDirLabel		: 'Valodas virziens',
-		langDirLTRLabel		: 'Kreisais uz Labo (LTR)',
-		langDirRTLLabel		: 'Labais uz kreiso (RTL)',
-		edit				: 'Labot Div',
-		remove				: 'Noņemt Div'
+		title				: 'Create Div Container', // MISSING
+		toolbar				: 'Create Div Container', // MISSING
+		cssClassInputLabel	: 'Stylesheet Classes', // MISSING
+		styleSelectLabel	: 'Style', // MISSING
+		IdInputLabel		: 'Id', // MISSING
+		languageCodeInputLabel	: ' Language Code', // MISSING
+		inlineStyleInputLabel	: 'Inline Style', // MISSING
+		advisoryTitleInputLabel	: 'Advisory Title', // MISSING
+		langDirLabel		: 'Language Direction', // MISSING
+		langDirLTRLabel		: 'Left to Right (LTR)', // MISSING
+		langDirRTLLabel		: 'Right to Left (RTL)', // MISSING
+		edit				: 'Edit Div', // MISSING
+		remove				: 'Remove Div' // MISSING
   	},
 
 	iframe :
 	{
-		title		: 'IFrame uzstādījumi',
-		toolbar		: 'IFrame',
-		noUrl		: 'Norādiet iframe adresi',
-		scrolling	: 'Atļaut ritjoslas',
-		border		: 'Rādīt rāmi'
+		title		: 'IFrame Properties', // MISSING
+		toolbar		: 'IFrame', // MISSING
+		noUrl		: 'Please type the iframe URL', // MISSING
+		scrolling	: 'Enable scrollbars', // MISSING
+		border		: 'Show frame border' // MISSING
 	},
 
 	font :
 	{
 		label		: 'Šrifts',
-		voiceLabel	: 'Fonts',
+		voiceLabel	: 'Font', // MISSING
 		panelTitle	: 'Šrifts'
 	},
 
 	fontSize :
 	{
 		label		: 'Izmērs',
-		voiceLabel	: 'Fonta izmeŗs',
+		voiceLabel	: 'Font Size', // MISSING
 		panelTitle	: 'Izmērs'
 	},
 
@@ -634,168 +632,168 @@ CKEDITOR.lang['lv'] =
 	{
 		textColorTitle	: 'Teksta krāsa',
 		bgColorTitle	: 'Fona krāsa',
-		panelTitle		: 'Krāsa',
+		panelTitle		: 'Colors', // MISSING
 		auto			: 'Automātiska',
 		more			: 'Plašāka palete...'
 	},
 
 	colors :
 	{
-		'000' : 'Melns',
-		'800000' : 'Sarkanbrūns',
-		'8B4513' : 'Sedlu brūns',
-		'2F4F4F' : 'Tumšas tāfeles pelēks',
-		'008080' : 'Zili-zaļš',
-		'000080' : 'Jūras',
-		'4B0082' : 'Indigo',
-		'696969' : 'Tumši pelēks',
-		'B22222' : 'Ķieģeļsarkans',
-		'A52A2A' : 'Brūns',
-		'DAA520' : 'Zelta',
-		'006400' : 'Tumši zaļš',
-		'40E0D0' : 'Tirkīzs',
-		'0000CD' : 'Vidēji zils',
-		'800080' : 'Purpurs',
-		'808080' : 'Pelēks',
-		'F00' : 'Sarkans',
-		'FF8C00' : 'Tumši oranžs',
-		'FFD700' : 'Zelta',
-		'008000' : 'Zaļš',
-		'0FF' : 'Tumšzils',
-		'00F' : 'Zils',
-		'EE82EE' : 'Violets',
-		'A9A9A9' : 'Pelēks',
-		'FFA07A' : 'Gaiši laškrāsas',
-		'FFA500' : 'Oranžs',
-		'FFFF00' : 'Dzeltens',
-		'00FF00' : 'Laima',
-		'AFEEEE' : 'Gaiši tirkīza',
-		'ADD8E6' : 'Gaiši zils',
-		'DDA0DD' : 'Plūmju',
-		'D3D3D3' : 'Gaiši pelēks',
-		'FFF0F5' : 'Lavandas sārts',
-		'FAEBD7' : 'Antīki balts',
-		'FFFFE0' : 'Gaiši dzeltens',
-		'F0FFF0' : 'Meduspile',
-		'F0FFFF' : 'Debesszils',
-		'F0F8FF' : 'Alises zils',
-		'E6E6FA' : 'Lavanda',
-		'FFF' : 'Balts'
+		'000' : 'Black', // MISSING
+		'800000' : 'Maroon', // MISSING
+		'8B4513' : 'Saddle Brown', // MISSING
+		'2F4F4F' : 'Dark Slate Gray', // MISSING
+		'008080' : 'Teal', // MISSING
+		'000080' : 'Navy', // MISSING
+		'4B0082' : 'Indigo', // MISSING
+		'696969' : 'Dark Gray', // MISSING
+		'B22222' : 'Fire Brick', // MISSING
+		'A52A2A' : 'Brown', // MISSING
+		'DAA520' : 'Golden Rod', // MISSING
+		'006400' : 'Dark Green', // MISSING
+		'40E0D0' : 'Turquoise', // MISSING
+		'0000CD' : 'Medium Blue', // MISSING
+		'800080' : 'Purple', // MISSING
+		'808080' : 'Gray', // MISSING
+		'F00' : 'Red', // MISSING
+		'FF8C00' : 'Dark Orange', // MISSING
+		'FFD700' : 'Gold', // MISSING
+		'008000' : 'Green', // MISSING
+		'0FF' : 'Cyan', // MISSING
+		'00F' : 'Blue', // MISSING
+		'EE82EE' : 'Violet', // MISSING
+		'A9A9A9' : 'Dim Gray', // MISSING
+		'FFA07A' : 'Light Salmon', // MISSING
+		'FFA500' : 'Orange', // MISSING
+		'FFFF00' : 'Yellow', // MISSING
+		'00FF00' : 'Lime', // MISSING
+		'AFEEEE' : 'Pale Turquoise', // MISSING
+		'ADD8E6' : 'Light Blue', // MISSING
+		'DDA0DD' : 'Plum', // MISSING
+		'D3D3D3' : 'Light Grey', // MISSING
+		'FFF0F5' : 'Lavender Blush', // MISSING
+		'FAEBD7' : 'Antique White', // MISSING
+		'FFFFE0' : 'Light Yellow', // MISSING
+		'F0FFF0' : 'Honeydew', // MISSING
+		'F0FFFF' : 'Azure', // MISSING
+		'F0F8FF' : 'Alice Blue', // MISSING
+		'E6E6FA' : 'Lavender', // MISSING
+		'FFF' : 'White' // MISSING
 	},
 
 	scayt :
 	{
-		title			: 'Pārbaudīt gramatiku rakstot',
-		opera_title		: 'Opera neatbalsta',
-		enable			: 'Ieslēgt SCAYT',
-		disable			: 'Atslēgt SCAYT',
-		about			: 'Par SCAYT',
-		toggle			: 'Pārslēgt SCAYT',
-		options			: 'Uzstādījumi',
-		langs			: 'Valodas',
-		moreSuggestions	: 'Vairāk ieteikumi',
-		ignore			: 'Ignorēt',
-		ignoreAll		: 'Ignorēt visu',
-		addWord			: 'Pievienot vārdu',
-		emptyDic		: 'Vārdnīcas nosaukums nevar būt tukšs.',
-		noSuggestions	: 'No suggestions', // MISSING
-		optionsTab		: 'Uzstādījumi',
-		allCaps			: 'Ignorēt vārdus ar lielajiem burtiem',
-		ignoreDomainNames : 'Ignorēt domēnu nosaukumus',
-		mixedCase		: 'Ignorēt vārdus ar jauktu reģistru burtiem',
-		mixedWithDigits	: 'Ignorēt vārdus ar skaitļiem',
+		title			: 'Spell Check As You Type', // MISSING
+		opera_title		: 'Not supported by Opera', // MISSING
+		enable			: 'Enable SCAYT', // MISSING
+		disable			: 'Disable SCAYT', // MISSING
+		about			: 'About SCAYT', // MISSING
+		toggle			: 'Toggle SCAYT', // MISSING
+		options			: 'Options', // MISSING
+		langs			: 'Languages', // MISSING
+		moreSuggestions	: 'More suggestions', // MISSING
+		ignore			: 'Ignore', // MISSING
+		ignoreAll		: 'Ignore All', // MISSING
+		addWord			: 'Add Word', // MISSING
+		emptyDic		: 'Dictionary name should not be empty.', // MISSING
 
-		languagesTab	: 'Valodas',
+		optionsTab		: 'Options', // MISSING
+		allCaps			: 'Ignore All-Caps Words', // MISSING
+		ignoreDomainNames : 'Ignore Domain Names', // MISSING
+		mixedCase		: 'Ignore Words with Mixed Case', // MISSING
+		mixedWithDigits	: 'Ignore Words with Numbers', // MISSING
 
-		dictionariesTab	: 'Vārdnīcas',
-		dic_field_name	: 'Vārdnīcas nosaukums',
-		dic_create		: 'Izveidot',
-		dic_restore		: 'Atjaunot',
-		dic_delete		: 'Dzēst',
-		dic_rename		: 'Pārsaukt',
-		dic_info		: 'Sākumā lietotāja vārdnīca tiek glabāta Cookie. Diemžēl, Cookie ir ierobežots izmērs. Kad vārdnīca sasniegs izmēru, ka to vairs nevar glabāt Cookie, tā tiks noglabāta uz servera. Lai saglabātu personīgo vārdnīcu uz jūsu servera, jums jānorāda tās nosaukums. Ja jūs jau esiet noglabājuši vārdnīcu, lūdzu ierakstiet tās nosaukum un nospiediet Atjaunot pogu.',
+		languagesTab	: 'Languages', // MISSING
 
-		aboutTab		: 'Par'
+		dictionariesTab	: 'Dictionaries', // MISSING
+		dic_field_name	: 'Dictionary name', // MISSING
+		dic_create		: 'Create', // MISSING
+		dic_restore		: 'Restore', // MISSING
+		dic_delete		: 'Delete', // MISSING
+		dic_rename		: 'Rename', // MISSING
+		dic_info		: 'Initially the User Dictionary is stored in a Cookie. However, Cookies are limited in size. When the User Dictionary grows to a point where it cannot be stored in a Cookie, then the dictionary may be stored on our server. To store your personal dictionary on our server you should specify a name for your dictionary. If you already have a stored dictionary, please type its name and click the Restore button.', // MISSING
+
+		aboutTab		: 'About' // MISSING
 	},
 
 	about :
 	{
-		title		: 'Par CKEditor',
-		dlgTitle	: 'Par CKEditor',
-		help	: 'Pārbaudiet $1 palīdzībai.',
-		userGuide : 'CKEditor Lietotāja pamācība',
-		moreInfo	: 'Informācijai par licenzēšanu apmeklējiet mūsu mājas lapu:',
-		copy		: 'Kopēšanas tiesības &copy; $1. Visas tiesības rezervētas.'
+		title		: 'About CKEditor', // MISSING
+		dlgTitle	: 'About CKEditor', // MISSING
+		help	: 'Check $1 for help.', // MISSING
+		userGuide : 'CKEditor User\'s Guide', // MISSING
+		moreInfo	: 'For licensing information please visit our web site:', // MISSING
+		copy		: 'Copyright &copy; $1. All rights reserved.' // MISSING
 	},
 
-	maximize : 'Maksimizēt',
-	minimize : 'Minimizēt',
+	maximize : 'Maximize', // MISSING
+	minimize : 'Minimize', // MISSING
 
 	fakeobjects :
 	{
-		anchor		: 'Iezīme',
-		flash		: 'Flash animācija',
-		iframe		: 'Iframe',
-		hiddenfield	: 'Slēpts lauks',
-		unknown		: 'Nezināms objekts'
+		anchor		: 'Anchor', // MISSING
+		flash		: 'Flash Animation', // MISSING
+		iframe		: 'IFrame', // MISSING
+		hiddenfield	: 'Hidden Field', // MISSING
+		unknown		: 'Unknown Object' // MISSING
 	},
 
-	resize : 'Velciet lai mērogotu',
+	resize : 'Drag to resize', // MISSING
 
 	colordialog :
 	{
-		title		: 'Izvēlies krāsu',
-		options	:	'Krāsas uzstādījumi',
-		highlight	: 'Paraugs',
-		selected	: 'Izvēlētā krāsa',
-		clear		: 'Notīrīt'
+		title		: 'Select color', // MISSING
+		options	:	'Color Options', // MISSING
+		highlight	: 'Highlight', // MISSING
+		selected	: 'Selected Color', // MISSING
+		clear		: 'Clear' // MISSING
 	},
 
-	toolbarCollapse	: 'Aizvērt rīkjoslu',
-	toolbarExpand	: 'Atvērt rīkjoslu',
+	toolbarCollapse	: 'Collapse Toolbar', // MISSING
+	toolbarExpand	: 'Expand Toolbar', // MISSING
 
 	toolbarGroups :
 	{
-		document : 'Dokuments',
-		clipboard : 'Starpliktuve/Atcelt',
-		editing : 'Labošana',
-		forms : 'Formas',
-		basicstyles : 'Pamata stili',
-		paragraph : 'Paragrāfs',
-		links : 'Saites',
-		insert : 'Ievietot',
-		styles : 'Stili',
-		colors : 'Krāsas',
-		tools : 'Rīki'
+		document : 'Document', // MISSING
+		clipboard : 'Clipboard/Undo', // MISSING
+		editing : 'Editing', // MISSING
+		forms : 'Forms', // MISSING
+		basicstyles : 'Basic Styles', // MISSING
+		paragraph : 'Paragraph', // MISSING
+		links : 'Links', // MISSING
+		insert : 'Insert', // MISSING
+		styles : 'Styles', // MISSING
+		colors : 'Colors', // MISSING
+		tools : 'Tools' // MISSING
 	},
 
 	bidi :
 	{
-		ltr : 'Teksta virziens no kreisās uz labo',
-		rtl : 'Teksta virziens no labās uz kreiso'
+		ltr : 'Text direction from left to right', // MISSING
+		rtl : 'Text direction from right to left' // MISSING
 	},
 
 	docprops :
 	{
 		label : 'Dokumenta īpašības',
 		title : 'Dokumenta īpašības',
-		design : 'Dizains',
+		design : 'Design', // MISSING
 		meta : 'META dati',
-		chooseColor : 'Izvēlēties',
+		chooseColor : 'Choose', // MISSING
 		other : '<cits>',
 		docTitle :	'Dokumenta virsraksts <Title>',
 		charset : 	'Simbolu kodējums',
 		charsetOther : 'Cits simbolu kodējums',
-		charsetASCII : 'ASCII',
-		charsetCE : 'Centrāleiropas',
-		charsetCT : 'Ķīniešu tradicionālā (Big5)',
-		charsetCR : 'Kirilica',
-		charsetGR : 'Grieķu',
-		charsetJP : 'Japāņu',
-		charsetKR : 'Korejiešu',
-		charsetTR : 'Turku',
-		charsetUN : 'Unikods (UTF-8)',
-		charsetWE : 'Rietumeiropas',
+		charsetASCII : 'ASCII', // MISSING
+		charsetCE : 'Central European', // MISSING
+		charsetCT : 'Chinese Traditional (Big5)', // MISSING
+		charsetCR : 'Cyrillic', // MISSING
+		charsetGR : 'Greek', // MISSING
+		charsetJP : 'Japanese', // MISSING
+		charsetKR : 'Korean', // MISSING
+		charsetTR : 'Turkish', // MISSING
+		charsetUN : 'Unicode (UTF-8)', // MISSING
+		charsetWE : 'Western European', // MISSING
 		docType : 'Dokumenta tips',
 		docTypeOther : 'Cits dokumenta tips',
 		xhtmlDec : 'Ietvert XHTML deklarācijas',
@@ -812,6 +810,6 @@ CKEDITOR.lang['lv'] =
 		metaDescription : 'Dokumenta apraksts',
 		metaAuthor : 'Autors',
 		metaCopyright : 'Autortiesības',
-		previewHtml : '<p>Šis ir <strong>parauga teksts</strong>. Jūs izmantojiet <a href="javascript:void(0)">CKEditor</a>.</p>'
+		previewHtml : '<p>This is some <strong>sample text</strong>. You are using <a href="javascript:void(0)">CKEditor</a>.</p>' // MISSING
 	}
 };
