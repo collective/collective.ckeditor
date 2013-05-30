@@ -4,7 +4,11 @@ Changelog
 3.6.10 (unreleased)
 -------------------
 
+- Updated ckeditor to 3.6.6.1.
+  [vincentfretin]
+
 - travis setup / buildout infra [kiorky]
+
 
 3.6.9 (2013-05-29)
 ------------------
