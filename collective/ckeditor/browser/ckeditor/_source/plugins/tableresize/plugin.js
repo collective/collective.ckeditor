@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -287,7 +287,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 		function onMouseMove( evt )
 		{
-			move( evt.data.getPageOffset().x );
+			move( evt.data.$.clientX );
 		}
 
 		document = editor.document;
@@ -403,11 +403,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					{
 						evt = evt.data;
 
-						var pageX = evt.getPageOffset().x;
-
 						// If we're already attached to a pillar, simply move the
 						// resizer.
-						if ( resizer && resizer.move( pageX ) )
+						if ( resizer && resizer.move( evt.$.clientX ) )
 						{
 							cancel( evt );
 							return;
@@ -431,7 +429,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 							table.on( 'mousedown', clearPillarsCache );
 						}
 
-						var pillar = getPillarAtPosition( pillars, pageX );
+						var pillar = getPillarAtPosition( pillars, evt.$.clientX );
 						if ( pillar )
 						{
 							!resizer && ( resizer = new columnResizer( editor ) );

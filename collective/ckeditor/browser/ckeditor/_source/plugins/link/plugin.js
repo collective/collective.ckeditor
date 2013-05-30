@@ -1,11 +1,10 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 CKEDITOR.plugins.add( 'link',
 {
-	requires : [ 'fakeobjects', 'dialog' ],
 	init : function( editor )
 	{
 		// Add the link and unlink buttons.
@@ -241,7 +240,9 @@ CKEDITOR.plugins.add( 'link',
 					}
 				});
 		}
-	}
+	},
+
+	requires : [ 'fakeobjects' ]
 } );
 
 CKEDITOR.plugins.link =

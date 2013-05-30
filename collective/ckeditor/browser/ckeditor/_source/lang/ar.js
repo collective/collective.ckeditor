@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -31,8 +31,7 @@ CKEDITOR.lang['ar'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : 'Rich text editor, %1', // MISSING
-	editorHelp : 'Press ALT 0 for help', // MISSING
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
 
 	// ARIA descriptions.
 	toolbars	: 'Editor toolbars', // MISSING
@@ -94,14 +93,14 @@ CKEDITOR.lang['ar'] =
 		cssStyle		: 'نمط',
 		ok				: 'موافق',
 		cancel			: 'إلغاء الأمر',
-		close			: 'أغلق',
-		preview			: 'استعراض',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: 'عام',
 		advancedTab		: 'متقدم',
 		validateNumberFailed : 'لايوجد نتيجة',
 		confirmNewPage	: 'ستفقد أي متغييرات اذا لم تقم بحفظها اولا. هل أنت متأكد أنك تريد صفحة جديدة؟',
 		confirmCancel	: 'بعض الخيارات قد تغيرت. هل أنت متأكد من إغلاق مربع النص؟',
-		options			: 'خيارات',
+		options			: 'Options', // MISSING
 		target			: 'Target', // MISSING
 		targetNew		: 'New Window (_blank)', // MISSING
 		targetTop		: 'Topmost Window (_top)', // MISSING
@@ -120,7 +119,6 @@ CKEDITOR.lang['ar'] =
 		alignTop		: 'أعلى',
 		alignMiddle		: 'وسط',
 		alignBottom		: 'أسفل',
-		invalidValue	: 'Invalid value.', // MISSING
 		invalidHeight	: 'الارتفاع يجب أن يكون عدداً.',
 		invalidWidth	: 'العرض يجب أن يكون عدداً.',
 		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
@@ -698,7 +696,7 @@ CKEDITOR.lang['ar'] =
 		ignoreAll		: 'تجاهل الكل',
 		addWord			: 'إضافة كلمة',
 		emptyDic		: 'اسم القاموس يجب ألا يكون فارغاً.',
-		noSuggestions	: 'لا توجد إقتراحات',
+
 		optionsTab		: 'خيارات',
 		allCaps			: 'Ignore All-Caps Words', // MISSING
 		ignoreDomainNames : 'Ignore Domain Names', // MISSING

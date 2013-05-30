@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -31,12 +31,11 @@ CKEDITOR.lang['zh'] =
 	 * Screenreader titles. Please note that screenreaders are not always capable
 	 * of reading non-English words. So be careful while translating it.
 	 */
-	editorTitle : '富文本編輯器，%1',
-	editorHelp : '按 ALT+0 以獲得幫助',
+	editorTitle : 'Rich text editor, %1, press ALT 0 for help.', // MISSING
 
 	// ARIA descriptions.
-	toolbars	: '編輯器工具欄',
-	editor		: '富文本編輯器',
+	toolbars	: 'Editor toolbars', // MISSING
+	editor		: 'Rich Text Editor', // MISSING
 
 	// Toolbar buttons without dialogs.
 	source			: '原始碼',
@@ -57,7 +56,7 @@ CKEDITOR.lang['zh'] =
 	superscript		: '上標',
 	horizontalrule	: '插入水平線',
 	pagebreak		: '插入分頁符號',
-	pagebreakAlt		: '分頁符號',
+	pagebreakAlt		: 'Page Break', // MISSING
 	unlink			: '移除超連結',
 	undo			: '復原',
 	redo			: '重複',
@@ -94,19 +93,19 @@ CKEDITOR.lang['zh'] =
 		cssStyle		: '樣式',
 		ok				: '確定',
 		cancel			: '取消',
-		close			: '关闭',
-		preview			: '预览',
+		close			: 'Close', // MISSING
+		preview			: 'Preview', // MISSING
 		generalTab		: '一般',
 		advancedTab		: '進階',
 		validateNumberFailed : '需要輸入數字格式',
 		confirmNewPage	: '現存的修改尚未儲存，要開新檔案？',
 		confirmCancel	: '部份選項尚未儲存，要關閉對話盒？',
-		options			: '选项',
-		target			: '目标',
-		targetNew		: '新窗口(_blank)',
-		targetTop		: '整页(_top)',
-		targetSelf		: '本窗口(_self)',
-		targetParent	: '父窗口(_parent)',
+		options			: 'Options', // MISSING
+		target			: 'Target', // MISSING
+		targetNew		: 'New Window (_blank)', // MISSING
+		targetTop		: 'Topmost Window (_top)', // MISSING
+		targetSelf		: 'Same Window (_self)', // MISSING
+		targetParent	: 'Parent Window (_parent)', // MISSING
 		langDirLTR		: 'Left to Right (LTR)', // MISSING
 		langDirRTL		: 'Right to Left (RTL)', // MISSING
 		styles			: 'Style', // MISSING
@@ -120,7 +119,6 @@ CKEDITOR.lang['zh'] =
 		alignTop		: '靠上對齊',
 		alignMiddle		: '置中對齊',
 		alignBottom		: '靠下對齊',
-		invalidValue	: 'Invalid value.', // MISSING
 		invalidHeight	: '高度必須為數字格式',
 		invalidWidth	: '寬度必須為數字格式',
 		invalidCssLength	: 'Value specified for the "%1" field must be a positive number with or without a valid CSS measurement unit (px, %, in, cm, mm, em, ex, pt, or pc).', // MISSING
@@ -698,7 +696,7 @@ CKEDITOR.lang['zh'] =
 		ignoreAll		: '全部忽略',
 		addWord			: '添加單詞',
 		emptyDic		: '字典名不應為空.',
-		noSuggestions	: '無建議值',
+
 		optionsTab		: '選項',
 		allCaps			: 'Ignore All-Caps Words', // MISSING
 		ignoreDomainNames : 'Ignore Domain Names', // MISSING
@@ -729,7 +727,7 @@ CKEDITOR.lang['zh'] =
 	},
 
 	maximize : '最大化',
-	minimize : '最小化',
+	minimize : 'Minimize', // MISSING
 
 	fakeobjects :
 	{
@@ -751,8 +749,8 @@ CKEDITOR.lang['zh'] =
 		clear		: 'Clear' // MISSING
 	},
 
-	toolbarCollapse	: '折叠工具栏',
-	toolbarExpand	: '展开工具栏',
+	toolbarCollapse	: 'Collapse Toolbar', // MISSING
+	toolbarExpand	: 'Expand Toolbar', // MISSING
 
 	toolbarGroups :
 	{
