@@ -29,7 +29,6 @@ setup(name='collective.ckeditor',
       author_email='toutpt@gmail.com',
       url='https://github.com/collective/collective.ckeditor',
       license='GPL',
-      packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
       include_package_data=True,
       zip_safe=False,
@@ -42,6 +41,11 @@ setup(name='collective.ckeditor',
           'demjson',
           # -*- Extra requirements: -*-
       ],
+      packages = find_packages('src'),
+      package_dir = {'': 'src'}, 
+      extras_require={
+          'test': ['plone.app.testing', 'Products.PloneTestCase', ],
+      }, 
       entry_points={
         'console_scripts': [
                'copy_ckeditor_code = collective.ckeditor.utils.base2zope:main',

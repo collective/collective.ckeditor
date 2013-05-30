@@ -1,4 +1,13 @@
+minitage.*
 *.mo
+src.mrdeveloper/*
+src/collective.plonefinder/
+src/collective.quickupload/
+tags
+tags.python
+plone.env
+t
+.minitage*
 *.egg-info
 *.egg
 *.EGG
@@ -11,7 +20,6 @@ eggs
 fake-eggs
 parts
 dist
-var
 .installed.cfg
 .mr.developer.cfg
 .hg
@@ -19,9 +27,6 @@ var
 .svn
 *.pyc
 *.pyo
-*~
 *.tmp*
-src
-.project
-.pydevproject
-.settings
+var
+sys

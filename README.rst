@@ -3,6 +3,11 @@ Introduction
 
 This addon is a ckeditor_ integration for Plone.
 
+.. contents::
+
+.. image:: https://secure.travis-ci.org/collective/collective.ckeditor.png
+    :target: http://travis-ci.org/collective/collective.ckeditor  
+
 How to install
 ==============
 

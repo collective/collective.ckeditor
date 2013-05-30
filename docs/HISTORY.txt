@@ -4,8 +4,7 @@ Changelog
 3.6.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- travis setup / buildout infra [kiorky]
 
 3.6.9 (2013-05-29)
 ------------------
