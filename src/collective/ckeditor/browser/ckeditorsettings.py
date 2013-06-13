@@ -2,7 +2,7 @@ from zope.interface import implements, Interface
 from zope.component import adapts
 try:
     from zope.component.hooks import getSite
-except: # Plone < 4.3
+except:  # Plone < 4.3
     from zope.app.component.hooks import getSite
 
 from zope.schema import Bool
@@ -30,14 +30,14 @@ class ICKEditorBaseSchema(Interface):
     forcePasteAsPlainText = Bool(
         title=_(u"Force paste as plain text"),
         description=_(u"Choose if you want to remove format on copy/paste, "
-                        "and paste only text and CR/LF"),
+                      "and paste only text and CR/LF"),
         default=False,
         required=False)
 
     toolbar = Choice(
         title=_(u"Toolbar"),
         description=_(u"Choose the editor toolbar, "
-                       "edit the next field if you choose a Custom toolbar'."),
+                      "edit the next field if you choose a Custom toolbar'."),
         required=True,
         default='Plone',
         vocabulary="collective.ckeditor.vocabularies.toolbar")
@@ -45,53 +45,57 @@ class ICKEditorBaseSchema(Interface):
     toolbar_Custom = Text(
         title=_(u"Customized Toolbar"),
         description=_(u"Build your own CKEditor Toolbar. "
-                       "Take care with the javascript syntax. "
-                       "If you want to add new plugins, "
-                       "add new buttons here if needed."
-                       ),
+                      "Take care with the javascript syntax. "
+                      "If you want to add new plugins, "
+                      "add new buttons here if needed."),
         required=False)
 
     menuStyles = Text(
         title=_(u"Menu styles"),
         description=_(u"Build your own CKEditor menu styles Combo box. "
-                       "Take care with the javascript syntax. "
-                       "If you want to use css classes or ids, "
-                       "the attributes must exist in your css."
-                        ),
+                      "Take care with the javascript syntax. "
+                      "If you want to use css classes or ids, "
+                      "the attributes must exist in your css."),
         required=True)
 
     bodyId = TextLine(
         title=_(u"Area Body Id"),
         description=_(u"Enter the css id applied to the "
-                       "body tag of the editor area"),
+                      "body tag of the editor area"),
         default=u'content',
         required=False)
 
     plugins = List(
         title=_(u"Plugins"),
-        description=_(u"Plugin format is 'id;relative path'."
-                        ),
+        description=_(u"Plugin format is 'id;relative path'."),
         value_type=TextLine(),
         required=False)
 
     bodyClass = TextLine(
         title=_(u"Area Body Class"),
         description=_(u"Enter the css class name applied to the "
-                       "body tag of the editor area"),
+                      "body tag of the editor area"),
         required=False)
 
     customTemplates = List(
         title=_(u"Custom templates"),
         description=_(u"URLs of Javascript "
-                       "files that register custom templates"),
+                      "files that register custom templates"),
         value_type=TextLine(),
         required=False)
 
     templatesReplaceContent = Bool(
         title=_(u"Templates will replace the current contents "
-                 "of the visual editor window"),
+                "of the visual editor window"),
         description=_(u"Choose if you want templates to replace "
-                       "the contents when inserted"),
+                      "the contents when inserted"),
+        default=False,
+        required=False)
+
+    enableScaytOnStartup = Bool(
+        title=_(u"Enable SCAYT on startup"),
+        description=_(u"Choose if you want SCAYT to be automatically "
+                      "enabled while the editor is loaded"),
         default=False,
         required=False)
 
@@ -118,24 +122,24 @@ class ICKEditorBrowserSchema(Interface):
     allow_link_byuid = Bool(
         title=_(u"Allow link objects by UID"),
         description=_(u"Check if you want url with Unique ID "
-                        "(no more 404 errors when moving objects). "
-                        "Notice that portal_transforms in standard "
-                        "configuration transforms uid links in absolute urls "
-                        "in view displays."),
+                      "(no more 404 errors when moving objects). "
+                      "Notice that portal_transforms in standard "
+                      "configuration transforms uid links in absolute urls "
+                      "in view displays."),
         default=True,
         required=False)
 
     allow_relative_links = Bool(
         title=_(u"Allow relative urls transformation"),
         description=_(u"Check if you want relative urls after saving forms. "
-                       "Useful when link by uid is not checked."),
+                      "Useful when link by uid is not checked."),
         default=False,
         required=False)
 
     allow_server_browsing = Bool(
         title=_(u"Allow browsing for links"),
         description=_(u"Check to allow server browsing"
-                       "used for medias linking."),
+                      "used for medias linking."),
         default=True,
         required=False)
 
@@ -173,10 +177,10 @@ class ICKEditorBrowserSchema(Interface):
     file_portal_type_custom = List(
         title=_(u"Custom File portal type for upload"),
         description=_(u"Add list of pairs CONTAINER_TYPE|FILE_TYPE. "
-                       "The file portal type choosen for upload will depend "
-                       "on contextual container portal type. "
-                       "* means any portal type."
-                       "Take care, no control is done over this field value."),
+                      "The file portal type choosen for upload will depend "
+                      "on contextual container portal type. "
+                      "* means any portal type."
+                      "Take care, no control is done over this field value."),
         required=False,
         value_type=TextLine(),
         default=['*|File', 'Folder|File', ])
@@ -184,12 +188,12 @@ class ICKEditorBrowserSchema(Interface):
     browse_images_portal_types = Tuple(
         title=_(u"Portal Types for images linking"),
         description=_(u"Choose the types used "
-                       "for images selection in browser."),
+                      "for images selection in browser."),
         required=True,
         missing_value=tuple(),
         default=('Image', 'News Item',),
         value_type=Choice(
-                   vocabulary="collective.ckeditor.vocabularies.ImageTypes"))
+            vocabulary="collective.ckeditor.vocabularies.ImageTypes"))
 
     image_portal_type = Choice(
         title=_(u"Image portal type"),
@@ -201,10 +205,10 @@ class ICKEditorBrowserSchema(Interface):
     image_portal_type_custom = List(
         title=_(u"Custom Image portal type for upload"),
         description=_(u"Add list of pairs CONTAINER_TYPE|IMAGE_TYPE. "
-                       "The image portal type choosen for upload will depend "
-                       "on contextual container portal type. "
-                       "* means any portal type."
-                       "Take care, no control is done over this field value."),
+                      "The image portal type choosen for upload will depend "
+                      "on contextual container portal type. "
+                      "* means any portal type."
+                      "Take care, no control is done over this field value."),
         required=False,
         value_type=TextLine(),
         default=['*|Image', 'Folder|Image', ])
@@ -212,12 +216,12 @@ class ICKEditorBrowserSchema(Interface):
     browse_flashs_portal_types = Tuple(
         title=_(u"Portal Types for flash contents linking"),
         description=_(u"Choose the types used "
-                       "for flash contents selection in browser."),
+                      "for flash contents selection in browser."),
         required=True,
         missing_value=tuple(),
         default=('File',),
         value_type=Choice(
-                   vocabulary="collective.ckeditor.vocabularies.FileTypes"))
+            vocabulary="collective.ckeditor.vocabularies.FileTypes"))
 
     flash_portal_type = Choice(
         title=_(u"Flash portal type"),
@@ -229,10 +233,10 @@ class ICKEditorBrowserSchema(Interface):
     flash_portal_type_custom = List(
         title=_(u"Custom Flash portal type for upload"),
         description=_(u"Add list of pairs CONTAINER_TYPE|FLASH_TYPE. "
-                       "The flash portal type choosen for upload will depend "
-                       "on contextual container portal type. "
-                       "* means any portal type. "
-                       "Take care, no control is done over this field value."),
+                      "The flash portal type choosen for upload will depend "
+                      "on contextual container portal type. "
+                      "* means any portal type. "
+                      "Take care, no control is done over this field value."),
         required=False,
         value_type=TextLine(),
         default=['*|File', 'Folder|File', ])
@@ -247,13 +251,13 @@ class ICKEditorBrowserSchema(Interface):
     folder_portal_type_custom = List(
         title=_(u"Custom portal type for folder creation"),
         description=_(u"Add list of pairs CONTAINER_TYPE|FOLDER_TYPE. "
-                       "The folder portal type choosen for folders creation "
-                       "will depend on contextual container portal type. "
-                       "* means any portal type. "
-                       "Take care, no control is done over this field value."),
-       required=False,
-       value_type=TextLine(),
-       default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
+                      "The folder portal type choosen for folders creation "
+                      "will depend on contextual container portal type. "
+                      "* means any portal type. "
+                      "Take care, no control is done over this field value."),
+        required=False,
+        value_type=TextLine(),
+        default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
 
 
 class ICKEditorAdvancedSchema(Interface):
@@ -263,12 +267,12 @@ class ICKEditorAdvancedSchema(Interface):
     properties_overloaded = List(
         title=_(u"Widget overload"),
         description=_(u"If you want some cke control panel properties "
-                       "overload local field widget properties, enter the "
-                       "properties names list here. "
-                       "Example, enter 'width' and 'height' to get always "
-                       "the same values. Look at "
-                       "ZMI > portal_properties > ckeditor_properties "
-                       "for all properties names."),
+                      "overload local field widget properties, enter the "
+                      "properties names list here. "
+                      "Example, enter 'width' and 'height' to get always "
+                      "the same values. Look at "
+                      "ZMI > portal_properties > ckeditor_properties "
+                      "for all properties names."),
         required=False,
         value_type=TextLine(),
         default=['width', ],)
@@ -282,20 +286,20 @@ class ICKEditorAdvancedSchema(Interface):
     entities_greek = Bool(
         title=_(u"Greek Html Entities"),
         description=_(u"Whether to convert some symbols, mathematical "
-                       "symbols, and Greek letters to Html entities."),
+                      "symbols, and Greek letters to Html entities."),
         default=False,
         required=False)
 
     entities_latin = Bool(
         title=_(u"Latin Html Entities"),
         description=_(u"Whether to convert some Latin characters "
-                       "Latin alphabet No. 1, ISO 8859-1) to Html entities."),
+                      "Latin alphabet No. 1, ISO 8859-1) to Html entities."),
         default=False,
         required=False)
 
 
 class ICKEditorSchema(ICKEditorBaseSchema, ICKEditorSkinSchema,
-    ICKEditorBrowserSchema, ICKEditorAdvancedSchema):
+                      ICKEditorBrowserSchema, ICKEditorAdvancedSchema):
         """Combined schema for the adapter lookup.
         """
 
@@ -321,7 +325,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('forcePasteAsPlainText', value)
 
     forcePasteAsPlainText = property(get_forcePasteAsPlainText,
-        set_forcePasteAsPlainText)
+                                     set_forcePasteAsPlainText)
 
     def get_toolbar(self):
         return self.context.toolbar
@@ -386,7 +390,16 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('templatesReplaceContent', value)
 
     templatesReplaceContent = property(get_templatesReplaceContent,
-        set_templatesReplaceContent)
+                                       set_templatesReplaceContent)
+
+    def get_enableScaytOnStartup(self):
+        return self.context.enableScaytOnStartup
+
+    def set_enableScaytOnStartup(self, value):
+        self.context._updateProperty('enableScaytOnStartup', value)
+
+    enableScaytOnStartup = property(get_enableScaytOnStartup,
+                                    set_enableScaytOnStartup)
 
     # skin fieldset
 
@@ -423,7 +436,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('allow_relative_links', value)
 
     allow_relative_links = property(get_allow_relative_links,
-        set_allow_relative_links)
+                                    set_allow_relative_links)
 
     def get_allow_server_browsing(self):
         return self.context.allow_server_browsing
@@ -432,7 +445,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('allow_server_browsing', value)
 
     allow_server_browsing = property(get_allow_server_browsing,
-        set_allow_server_browsing)
+                                     set_allow_server_browsing)
 
     def get_allow_file_upload(self):
         return self.context.allow_file_upload
@@ -449,7 +462,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('allow_image_upload', value)
 
     allow_image_upload = property(get_allow_image_upload,
-        set_allow_image_upload)
+                                  set_allow_image_upload)
 
     def get_allow_flash_upload(self):
         return self.context.allow_flash_upload
@@ -458,7 +471,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('allow_flash_upload', value)
 
     allow_flash_upload = property(get_allow_flash_upload,
-        set_allow_flash_upload)
+                                  set_allow_flash_upload)
 
     def get_allow_folder_creation(self):
         return self.context.allow_folder_creation
@@ -467,7 +480,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('allow_folder_creation', value)
 
     allow_folder_creation = property(get_allow_folder_creation,
-        set_allow_folder_creation)
+                                     set_allow_folder_creation)
 
     def get_file_portal_type(self):
         return self.context.file_portal_type
@@ -484,7 +497,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('file_portal_type_custom', value)
 
     file_portal_type_custom = property(get_file_portal_type_custom,
-        set_file_portal_type_custom)
+                                       set_file_portal_type_custom)
 
     def get_browse_images_portal_types(self):
         return self.context.browse_images_portal_types
@@ -493,7 +506,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('browse_images_portal_types', value)
 
     browse_images_portal_types = property(get_browse_images_portal_types,
-        set_browse_images_portal_types)
+                                          set_browse_images_portal_types)
 
     def get_image_portal_type(self):
         return self.context.image_portal_type
@@ -510,7 +523,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('image_portal_type_custom', value)
 
     image_portal_type_custom = property(get_image_portal_type_custom,
-        set_image_portal_type_custom)
+                                        set_image_portal_type_custom)
 
     def get_browse_flashs_portal_types(self):
         return self.context.browse_flashs_portal_types
@@ -519,7 +532,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('browse_flashs_portal_types', value)
 
     browse_flashs_portal_types = property(get_browse_flashs_portal_types,
-        set_browse_flashs_portal_types)
+                                          set_browse_flashs_portal_types)
 
     def get_flash_portal_type(self):
         return self.context.flash_portal_type
@@ -536,7 +549,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('flash_portal_type_custom', value)
 
     flash_portal_type_custom = property(get_flash_portal_type_custom,
-        set_flash_portal_type_custom)
+                                        set_flash_portal_type_custom)
 
     def get_folder_portal_type(self):
         return self.context.folder_portal_type
@@ -545,7 +558,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('folder_portal_type', value)
 
     folder_portal_type = property(get_folder_portal_type,
-        set_folder_portal_type)
+                                  set_folder_portal_type)
 
     def get_folder_portal_type_custom(self):
         return self.context.folder_portal_type_custom
@@ -554,7 +567,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('folder_portal_type_custom', value)
 
     folder_portal_type_custom = property(get_folder_portal_type_custom,
-        set_folder_portal_type_custom)
+                                         set_folder_portal_type_custom)
 
     # advanced fieldset
 
@@ -565,7 +578,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('properties_overloaded', value)
 
     properties_overloaded = property(get_properties_overloaded,
-        set_properties_overloaded)
+                                     set_properties_overloaded)
 
     def get_entities(self):
         return self.context.entities

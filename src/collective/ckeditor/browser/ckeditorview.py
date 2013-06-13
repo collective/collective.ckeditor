@@ -8,6 +8,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
+from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
 
 import demjson
@@ -122,7 +123,8 @@ class CKeditorView(BrowserView):
             if not field:
                 return True
             text_format = request.get('%s_text_format' %
-                fieldname, context.getContentType(fieldname))
+                                      fieldname,
+                                      context.getContentType(fieldname))
             content = field.getEditAccessor(context)()
             try:
                 if content.startswith('<!--'):
@@ -256,8 +258,8 @@ class CKeditorView(BrowserView):
                 base_url, plugin = abs_url.rsplit('/', 1)
                 ids.append(id)
                 params_js_string += (
-                        """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
-                        % (id, base_url.rstrip('/'), plugin))
+                    """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
+                    % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
         params_js_string += """
@@ -267,12 +269,42 @@ class CKeditorView(BrowserView):
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
         cke_properties = self.cke_properties
+
         templatesReplaceContent = cke_properties.getProperty(
-                'templatesReplaceContent')
+            'templatesReplaceContent')
         if templatesReplaceContent:
             params_js_string += """config.templates_replaceContent = true;"""
         else:
             params_js_string += """config.templates_replaceContent = false;"""
+
+        # enable SCAYT on startup if necessary
+        enableScaytOnStartup = cke_properties.getProperty(
+            'enableScaytOnStartup')
+        if enableScaytOnStartup:
+            params_js_string += """config.scayt_autoStartup = true;"""
+            # if SCAYT is enabled, try to select right default language
+            # CKeditor language code is like 'fr_FR', try to find out
+            # a corresponding language from the REQUEST
+            def_language = self.context.portal_languages.getDefaultLanguage()
+            http_accept_language = self.request.get('HTTP_ACCEPT_LANGUAGE',
+                                                    '%s-%s,%s;q=0.5' %
+                                                    (def_language,
+                                                     def_language,
+                                                     def_language))
+            language_code = http_accept_language.split(',')[0]
+            # make it compatible with CKeditor language code format
+            language_code = "%s_%s" % (language_code[0:2], language_code[3:5].upper())
+            if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+                # try to fallback to an available CKeditor language code
+                language_code = self.request.get('LANGUAGE', def_language)
+                language_code = "%s_%s" % (language_code, language_code.upper())
+                if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+                    # if not at all, then fallback to en_US
+                    language_code = 'en_US'
+            params_js_string += """config.scayt_sLang = '%s';""" % language_code
+        else:
+            params_js_string += """config.scayt_autoStartup = false;"""
+
         customTemplates = cke_properties.getProperty('customTemplates')
         if customTemplates:
             params_js_string += self.getCustomTemplatesConfig(customTemplates)
@@ -341,7 +373,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         p_overloaded = cke_properties.getProperty('properties_overloaded', [])
         if widget is not None:
             widget_settings = {}
-            for k, v in  params.items():
+            for k, v in params.items():
                 if hasattr(widget, k) and not k in p_overloaded:
                     widget_settings[k] = v
 

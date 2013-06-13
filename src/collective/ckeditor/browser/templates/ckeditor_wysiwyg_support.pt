@@ -1,16 +1,16 @@
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="en"
       lang="en"
       i18n:domain="collective.ckeditor">
 
- 
+
  <!-- wysiwyg default widget -->
  <div metal:define-macro="wysiwygEditorBox">
   <tal:defines define="fname fieldName|inputname|nothing;
                        ckview context/@@ckeditor_view;
-                       usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname);">  
+                       usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname);">
     <tal:block condition="usesCKeditor">
-     <div id="alerts"><!-- --></div>     
+     <div id="alerts"><!-- --></div>
      <input type="hidden"
             name="cke_config_url"
             class="cke_config_url"
@@ -48,8 +48,8 @@
                                onfocus onfocus|nothing;
                                onblur onblur|nothing;
                                tabindex tabindex|nothing;"></textarea>
-    
-    </tal:block>    
+
+    </tal:block>
     <tal:block condition="not: usesCKeditor">
      <textarea cols="80"
                rows="25"
@@ -68,12 +68,12 @@
  <div metal:define-macro="textFormatSelector">
   <tal:defines define="fname fieldName|inputname|nothing;
                        ckview context/@@ckeditor_view;
-                       usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname)"> 
+                       usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname)">
     <tal:block condition="usesCKeditor">
           <input type="hidden"
                  name="text_format"
                  value="html" id="Hidden1"/>
-    </tal:block>  
+    </tal:block>
     <tal:block condition="not: usesCKeditor">
       <div class="row">
         <div class="label">
@@ -103,7 +103,7 @@
                                  tabindex tabindex;"
                  />
           <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
-  
+
           <input class="noborder"
                  type="radio"
                  name="text_format"
@@ -116,7 +116,7 @@
                  onblur="formtooltip('format_help',0)"
                  />
           <label for="cb_html" i18n:translate="html">HTML</label> <br />
-  
+
           <input class="noborder"
                  type="radio"
                  name="text_format"
