@@ -282,26 +282,8 @@ class CKeditorView(BrowserView):
             'enableScaytOnStartup')
         if enableScaytOnStartup:
             params_js_string += """config.scayt_autoStartup = true;"""
-            # if SCAYT is enabled, try to select right default language
-            # CKeditor language code is like 'fr_FR', try to find out
-            # a corresponding language from the REQUEST
-            def_language = self.context.portal_languages.getDefaultLanguage()
-            http_accept_language = self.request.get('HTTP_ACCEPT_LANGUAGE',
-                                                    '%s-%s,%s;q=0.5' %
-                                                    (def_language,
-                                                     def_language,
-                                                     def_language))
-            language_code = http_accept_language.split(',')[0]
-            # make it compatible with CKeditor language code format
-            language_code = "%s_%s" % (language_code[0:2], language_code[3:5].upper())
-            if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
-                # try to fallback to an available CKeditor language code
-                language_code = self.request.get('LANGUAGE', def_language)
-                language_code = "%s_%s" % (language_code, language_code.upper())
-                if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
-                    # if not at all, then fallback to en_US
-                    language_code = 'en_US'
-            params_js_string += """config.scayt_sLang = '%s';""" % language_code
+            scayt_lang = self._determinateScaytLanguageToUse()
+            params_js_string += """config.scayt_sLang = '%s';""" % scayt_lang
         else:
             params_js_string += """config.scayt_autoStartup = false;"""
 
@@ -394,6 +376,30 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                                              text,
                                              mimetype='text/html')
         return "saved"
+
+    def _determinateScaytLanguageToUse(self):
+        """
+        If SCAYT is enabled, try to select right default language
+        CKeditor language code is like 'fr_FR' or 'fr_CA', try to find out
+        a corresponding language from the REQUEST
+        """
+        def_language = self.context.portal_languages.getDefaultLanguage()
+        http_accept_language = self.request.get('HTTP_ACCEPT_LANGUAGE',
+                                                '%s-%s,%s;q=0.5' %
+                                                (def_language,
+                                                 def_language,
+                                                 def_language))
+        language_code = http_accept_language.split(',')[0]
+        # make it compatible with CKeditor language code format
+        language_code = "%s_%s" % (language_code[0:2], language_code[3:5].upper())
+        if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+            # try to fallback to an available CKeditor language code
+            language_code = self.request.get('LANGUAGE', def_language)
+            language_code = "%s_%s" % (language_code, language_code.upper())
+            if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+                # if not at all, then fallback to en_US
+                language_code = 'en_US'
+        return language_code
 
 
 class ckeditor_wysiwyg_support(BrowserView):
