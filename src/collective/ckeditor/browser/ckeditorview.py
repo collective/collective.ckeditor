@@ -379,25 +379,32 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
 
     def _determinateScaytLanguageToUse(self):
         """
-        If SCAYT is enabled, try to select right default language
-        CKeditor language code is like 'fr_FR' or 'fr_CA', try to find out
-        a corresponding language from the REQUEST
+        If SCAYT is enabled, try to select right default language.
+        SCAYT language code is like 'fr_FR' or 'fr_CA', try to find out
+        a corresponding language from the HTTP_ACCEPT_LANGUAGE value in the REQUEST.
+        If the member use a different sub language (for example fr_BE) that is
+        not managed by SCAYT, fallback to the closest language, fr_FR.
+        Finally, fallback to en_US if no mapping could be found.
         """
         def_language = self.context.portal_languages.getDefaultLanguage()
-        http_accept_language = self.request.get('HTTP_ACCEPT_LANGUAGE',
-                                                '%s-%s,%s;q=0.5' %
-                                                (def_language,
-                                                 def_language,
-                                                 def_language))
+        # in case request.HTTP_ACCEPT_LANGUAGE is None, use a default language
+        default_http_accept_language = '%s-%s' % (def_language, def_language)
+        http_accept_language = self.request.get('HTTP_ACCEPT_LANGUAGE') or \
+            default_http_accept_language
+        # http_accept_language is like 'fr-be' or 'fr-be,fr;q=0.5'
+        # keep the first part, for example 'fr-be'
         language_code = http_accept_language.split(',')[0]
         # make it compatible with CKeditor language code format
+        # SCAYT language is like fr_CA
         language_code = "%s_%s" % (language_code[0:2], language_code[3:5].upper())
         if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
-            # try to fallback to an available CKeditor language code
-            language_code = self.request.get('LANGUAGE', def_language)
+            # try to fallback to an available SCAYT language code
+            # as fr_BE is not managed, try to see if fr_FR is managed...
+            # most of times, "mainLanguageCode_MAINLANGUAGECODE" format is supported by SCAYT...
+            language_code = language_code[0:2]
             language_code = "%s_%s" % (language_code, language_code.upper())
             if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
-                # if not at all, then fallback to en_US
+                # if the language code is not found again, then fallback to en_US
                 language_code = 'en_US'
         return language_code
 
