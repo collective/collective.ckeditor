@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 
-"""Base class for ckeditor test cases.
-"""
-
 from zope.component import getMultiAdapter
 from collective.ckeditor.tests.base import CKEditorTestCase
 
@@ -12,6 +9,7 @@ class TestCKeditorViewTestCase(CKEditorTestCase):
 
     def test_determinateScaytLanguageToUse(self):
         """
+          Test the ckeditor_view._determinateScaytLanguageToUse method.
           This method will try to find out the SCAYT language to use in case
           SCAYT is enabled on CKeditor widget startup.
           It tries to map the current member used language with languages codes
