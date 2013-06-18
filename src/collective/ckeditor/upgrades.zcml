@@ -19,4 +19,13 @@
         handler=".upgrades.up3411"
         />
 
+    <upgradeStep
+        source="3411"
+        destination="3612"
+        title="Upgrade for enableScaytOnStartup property"
+        description="Add the enableScaytOnStartup property to ckeditor_properties if it does not exists"
+        profile="collective.ckeditor:default"
+        handler=".upgrades.up3612"
+        />
+
 </configure>
