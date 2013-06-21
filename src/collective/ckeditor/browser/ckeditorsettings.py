@@ -95,7 +95,9 @@ class ICKEditorBaseSchema(Interface):
     enableScaytOnStartup = Bool(
         title=_(u"Enable SCAYT on startup"),
         description=_(u"Choose if you want SCAYT to be automatically "
-                      "enabled while the editor is loaded"),
+                      "enabled while the editor is loaded.  This will only "
+                      "be the case if a relevant language can be used "
+                      "in SCAYT availble ones."),
         default=False,
         required=False)
 

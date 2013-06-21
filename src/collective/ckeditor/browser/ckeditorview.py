@@ -281,9 +281,11 @@ class CKeditorView(BrowserView):
         enableScaytOnStartup = cke_properties.getProperty(
             'enableScaytOnStartup')
         if enableScaytOnStartup:
-            params_js_string += """config.scayt_autoStartup = true;"""
             scayt_lang = self._determinateScaytLanguageToUse()
-            params_js_string += """config.scayt_sLang = '%s';""" % scayt_lang
+            # if no relevant language could be found, do not activate SCAYT
+            if scayt_lang:
+                params_js_string += """config.scayt_autoStartup = true;"""
+                params_js_string += """config.scayt_sLang = '%s';""" % scayt_lang
         else:
             params_js_string += """config.scayt_autoStartup = false;"""
 
@@ -381,32 +383,33 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         """
         If SCAYT is enabled, try to select right default language.
         SCAYT language code is like 'fr_FR' or 'fr_CA', try to find out
-        a corresponding language from the HTTP_ACCEPT_LANGUAGE value in the REQUEST.
-        If the member use a different sub language (for example fr_BE) that is
-        not managed by SCAYT, fallback to the closest language, fr_FR.
-        Finally, fallback to en_US if no mapping could be found.
+        a corresponding language from the current content used language.
+        If the current content language is not available in SCAYT languages,
+        use the default site language.
+        If it is not available neither, return None.
         """
-        def_language = self.context.portal_languages.getDefaultLanguage()
-        # in case request.HTTP_ACCEPT_LANGUAGE is None, use a default language
-        default_http_accept_language = '%s-%s' % (def_language, def_language)
-        http_accept_language = self.request.get('HTTP_ACCEPT_LANGUAGE') or \
-            default_http_accept_language
-        # http_accept_language is like 'fr-be' or 'fr-be,fr;q=0.5'
-        # keep the first part, for example 'fr-be'
-        language_code = http_accept_language.split(',')[0]
-        # make it compatible with CKeditor language code format
-        # SCAYT language is like fr_CA
-        language_code = "%s_%s" % (language_code[0:2], language_code[3:5].upper())
+        languageCodeToUse = None
+        # get current content language or default site language
+        default_language = self.context.portal_languages.getDefaultLanguage()
+        content_language = self.context.Language() or default_language
+        # content language can be like 'fr' or 'fr-be'...
+        # be smart, compute language_code with 2 first values and 2 last values...
+        language_code = "%s_%s" % (content_language[0:2],
+                                   content_language.upper()[-2:5])
         if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
-            # try to fallback to an available SCAYT language code
-            # as fr_BE is not managed, try to see if fr_FR is managed...
-            # most of times, "mainLanguageCode_MAINLANGUAGECODE" format is supported by SCAYT...
-            language_code = language_code[0:2]
-            language_code = "%s_%s" % (language_code, language_code.upper())
-            if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
-                # if the language code is not found again, then fallback to en_US
-                language_code = 'en_US'
-        return language_code
+            # try to find a fallback in available languages.
+            # the fallback is the first language found with relevant
+            # first part main language code.
+            # So if we currently use 'fr-be' that has no corresponding
+            # supported language in SCAYT, we will find the fallback for 'fr'
+            # that is the first 'fr_xx' code found in SCAYT supported languages...
+            for supported_language in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+                if supported_language.startswith(content_language[0:2]):
+                    languageCodeToUse = supported_language
+                    break
+        else:
+            languageCodeToUse = language_code
+        return languageCodeToUse
 
 
 class ckeditor_wysiwyg_support(BrowserView):

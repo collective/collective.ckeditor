@@ -12,28 +12,23 @@ class TestCKeditorViewTestCase(CKEditorTestCase):
           Test the ckeditor_view._determinateScaytLanguageToUse method.
           This method will try to find out the SCAYT language to use in case
           SCAYT is enabled on CKeditor widget startup.
-          It tries to map the current member used language with languages codes
+          It tries to map the current content used language with languages codes
           supported by SCAYT.
         """
-        req = self.portal.REQUEST
-        view = getMultiAdapter((self.portal, req), name='ckeditor_view')
-        # by default, nothing in the REQUEST.HTTP_ACCEPT_LANGUAGE,
-        # the default portal language is used
-        defaultPortalLanguage = self.portal.portal_languages.getDefaultLanguage()
-        self.assertEquals(defaultPortalLanguage, 'en')
-        self.assertEquals(req.get('HTTP_ACCEPT_LANGUAGE'), '')
+        view = getMultiAdapter((self.portal, self.portal.REQUEST), name='ckeditor_view')
+        # by default, self.portal language is 'en'
+        self.assertEquals(self.portal.Language(), 'en')
         self.assertEquals(view._determinateScaytLanguageToUse(), 'en_US')
-        # define another portal default_language
-        self.portal.portal_languages.setDefaultLanguage('fr')
+        # define another language for portal
+        self.portal.setLanguage('fr')
         # used language will now be fr_FR
-        self.assertEquals(req.get('HTTP_ACCEPT_LANGUAGE'), '')
         self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_FR')
-        # now play with HTTP_ACCEPT_LANGUAGE
-        req.set('HTTP_ACCEPT_LANGUAGE', 'pt')
-        self.assertEquals(view._determinateScaytLanguageToUse(), 'pt_PT')
-        req.set('HTTP_ACCEPT_LANGUAGE', 'fr-be,en;q=0.5')
-        self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_FR')
-        req.set('HTTP_ACCEPT_LANGUAGE', 'fr-ca,en;q=0.5')
+        # define a language with sub language
+        self.portal.setLanguage('fr-ca')
+        # if supported, the relevant language is used
         self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_CA')
-        req.set('HTTP_ACCEPT_LANGUAGE', 'ru,uk;q=0.5')
-        self.assertEquals(view._determinateScaytLanguageToUse(), 'en_US')
+        # if NOT supported, the relevant fallback language is used
+        self.portal.setLanguage('ru')
+        self.failIf(view._determinateScaytLanguageToUse())
+        self.portal.setLanguage('ru-ru')
+        self.failIf(view._determinateScaytLanguageToUse())
