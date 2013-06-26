@@ -25,9 +25,9 @@ class TestCKeditorViewTestCase(CKEditorTestCase):
         self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_FR')
         # define a language with sub language
         self.portal.setLanguage('fr-ca')
-        # if supported, the relevant language is used
+        # as fr-ca is supported, it will be used
         self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_CA')
-        # if NOT supported, the relevant fallback language is used
+        # if NOT supported, the language can not be determined, it returns None
         self.portal.setLanguage('ru')
         self.failIf(view._determinateScaytLanguageToUse())
         self.portal.setLanguage('ru-ru')
