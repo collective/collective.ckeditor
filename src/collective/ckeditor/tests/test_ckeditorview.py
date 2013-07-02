@@ -15,20 +15,21 @@ class TestCKeditorViewTestCase(CKEditorTestCase):
           It tries to map the current content used language with languages codes
           supported by SCAYT.
         """
-        view = getMultiAdapter((self.portal, self.portal.REQUEST), name='ckeditor_view')
-        # by default, self.portal language is 'en'
-        self.assertEquals(self.portal.Language(), 'en')
+        frontPage = getattr(self.portal, 'front-page')
+        view = getMultiAdapter((frontPage, frontPage.REQUEST), name='ckeditor_view')
+        # by default, frontPage language is 'en'
+        self.assertEquals(frontPage.Language(), 'en')
         self.assertEquals(view._determinateScaytLanguageToUse(), 'en_US')
-        # define another language for portal
-        self.portal.setLanguage('fr')
+        # define another language for frontPage
+        frontPage.setLanguage('fr')
         # used language will now be fr_FR
         self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_FR')
         # define a language with sub language
-        self.portal.setLanguage('fr-ca')
+        frontPage.setLanguage('fr-ca')
         # as fr-ca is supported, it will be used
         self.assertEquals(view._determinateScaytLanguageToUse(), 'fr_CA')
         # if NOT supported, the language can not be determined, it returns None
-        self.portal.setLanguage('ru')
+        frontPage.setLanguage('ru')
         self.failIf(view._determinateScaytLanguageToUse())
-        self.portal.setLanguage('ru-ru')
+        frontPage.setLanguage('ru-ru')
         self.failIf(view._determinateScaytLanguageToUse())
