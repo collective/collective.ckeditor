@@ -8,6 +8,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
+from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
 
 import demjson
@@ -122,7 +123,8 @@ class CKeditorView(BrowserView):
             if not field:
                 return True
             text_format = request.get('%s_text_format' %
-                fieldname, context.getContentType(fieldname))
+                                      fieldname,
+                                      context.getContentType(fieldname))
             content = field.getEditAccessor(context)()
             try:
                 if content.startswith('<!--'):
@@ -256,8 +258,8 @@ class CKeditorView(BrowserView):
                 base_url, plugin = abs_url.rsplit('/', 1)
                 ids.append(id)
                 params_js_string += (
-                        """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
-                        % (id, base_url.rstrip('/'), plugin))
+                    """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
+                    % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
         params_js_string += """
@@ -267,12 +269,26 @@ class CKeditorView(BrowserView):
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
         cke_properties = self.cke_properties
+
         templatesReplaceContent = cke_properties.getProperty(
-                'templatesReplaceContent')
+            'templatesReplaceContent')
         if templatesReplaceContent:
             params_js_string += """config.templates_replaceContent = true;"""
         else:
             params_js_string += """config.templates_replaceContent = false;"""
+
+        # enable SCAYT on startup if necessary
+        enableScaytOnStartup = cke_properties.getProperty(
+            'enableScaytOnStartup')
+        if enableScaytOnStartup:
+            scayt_lang = self._determinateScaytLanguageToUse()
+            # if no relevant language could be found, do not activate SCAYT
+            if scayt_lang:
+                params_js_string += """config.scayt_autoStartup = true;"""
+                params_js_string += """config.scayt_sLang = '%s';""" % scayt_lang
+        else:
+            params_js_string += """config.scayt_autoStartup = false;"""
+
         customTemplates = cke_properties.getProperty('customTemplates')
         if customTemplates:
             params_js_string += self.getCustomTemplatesConfig(customTemplates)
@@ -341,7 +357,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         p_overloaded = cke_properties.getProperty('properties_overloaded', [])
         if widget is not None:
             widget_settings = {}
-            for k, v in  params.items():
+            for k, v in params.items():
                 if hasattr(widget, k) and not k in p_overloaded:
                     widget_settings[k] = v
 
@@ -362,6 +378,38 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                                              text,
                                              mimetype='text/html')
         return "saved"
+
+    def _determinateScaytLanguageToUse(self):
+        """
+        If SCAYT is enabled, try to select right default language.
+        SCAYT language code is like 'fr_FR' or 'fr_CA', try to find out
+        a corresponding language from the current content used language.
+        If the current content language is not available in SCAYT languages,
+        use the default site language.
+        If it is not available neither, return None.
+        """
+        languageCodeToUse = None
+        # get current content language or default site language
+        default_language = self.context.portal_languages.getDefaultLanguage()
+        content_language = self.context.Language() or default_language
+        # content language can be like 'fr' or 'fr-be'...
+        # be smart, compute language_code with 2 first values and 2 last values...
+        language_code = "%s_%s" % (content_language[0:2],
+                                   content_language.upper()[-2:5])
+        if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+            # try to find a fallback in available languages.
+            # the fallback is the first language found with relevant
+            # first part main language code.
+            # So if we currently use 'fr-be' that has no corresponding
+            # supported language in SCAYT, we will find the fallback for 'fr'
+            # that is the first 'fr_xx' code found in SCAYT supported languages...
+            for supported_language in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+                if supported_language.startswith(content_language[0:2]):
+                    languageCodeToUse = supported_language
+                    break
+        else:
+            languageCodeToUse = language_code
+        return languageCodeToUse
 
 
 class ckeditor_wysiwyg_support(BrowserView):

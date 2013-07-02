@@ -10,7 +10,6 @@ def common_upgrade(context):
 
 
 def up3411(context):
-    setup = getToolByName(context, 'portal_setup')
     ptool = getToolByName(context, 'portal_properties')
     props = ptool.ckeditor_properties
     if not props.hasProperty('plugins'):
@@ -18,3 +17,13 @@ def up3411(context):
             'plugins',
             ["ajaxsave;/++resource++cke_ajaxsave/plugin.js"],
             'list')
+
+
+def up3612(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if not props.hasProperty('enableScaytOnStartup'):
+        props.manage_addProperty(
+            'enableScaytOnStartup',
+            False,
+            'boolean')

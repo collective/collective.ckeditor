@@ -4,15 +4,14 @@ Changelog
 3.6.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Make it possible to enable/disable SCAYT by default
+  [gbastien]
 
 3.6.11 (2013-05-30)
 -------------------
 
 - Stay compatible with IE<9, do not use indexOf in JS
   [gbastien]
-
 
 3.6.10 (2013-05-30)
 -------------------
@@ -261,4 +260,3 @@ Changelog
 ---
 
 - Initial release
-
