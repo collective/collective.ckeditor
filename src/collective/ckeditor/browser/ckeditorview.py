@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*- äöü
 import re
 from Acquisition import aq_inner
 from zope import component
@@ -99,12 +100,17 @@ class CKeditorView(BrowserView):
         pm = getToolByName(self.portal, 'portal_membership')
         member = pm.getAuthenticatedMember()
         editor = member.getProperty('wysiwyg_editor')
+        print '***   _memberUsesCKeditor() ...: editor = %r' % editor
         if editor == 'CKeditor':
             return True
-        if editor != '':
-            return False
-        # The member wants the default editor of the site.
+        if editor == 'FCKeditor':
+            print '***   _memberUsesCKeditor(): fuer member noch %r konfiguriert!' % editor
+            return True
         pprops = getToolByName(self.portal, 'portal_properties')
+        available_editors = pprops.site_properties.getProperty('available_editors')
+        if editor:
+            return editor not in available_editors
+        # The member wants/gets the default editor of the site.
         editor = pprops.site_properties.getProperty('default_editor')
         print '*** ] _memberUsesCKeditor() ] -->', editor == 'CKeditor'
         return editor == 'CKeditor'
