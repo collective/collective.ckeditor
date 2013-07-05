@@ -96,15 +96,12 @@ class CKeditorView(BrowserView):
 
     def _memberUsesCKeditor(self):
         """return True if member uses CKeditor"""
-        print '*** [ _memberUsesCKeditor() ... ['
         pm = getToolByName(self.portal, 'portal_membership')
         member = pm.getAuthenticatedMember()
         editor = member.getProperty('wysiwyg_editor')
-        print '***   _memberUsesCKeditor() ...: editor = %r' % editor
         if editor == 'CKeditor':
             return True
         if editor == 'FCKeditor':
-            print '***   _memberUsesCKeditor(): fuer member noch %r konfiguriert!' % editor
             return True
         pprops = getToolByName(self.portal, 'portal_properties')
         available_editors = pprops.site_properties.getProperty('available_editors')
@@ -112,40 +109,31 @@ class CKeditorView(BrowserView):
             return editor not in available_editors
         # The member wants/gets the default editor of the site.
         editor = pprops.site_properties.getProperty('default_editor')
-        print '*** ] _memberUsesCKeditor() ] -->', editor == 'CKeditor'
         return editor == 'CKeditor'
 
     def contentUsesCKeditor(self, fieldname=''):
         """
         return True if content uses CKeditor
         """
-        print '*** [ contentUsesCKeditor(fieldname=%r) ... [' % fieldname
         context = aq_inner(self.context)
         request = self.request
         if self. _memberUsesCKeditor():
             if not fieldname:
-                print '*** ... contentUsesCKeditor (1)'
                 return True
             if not hasattr(context, 'getField'):
-                print '*** ... contentUsesCKeditor (2)'
                 return True
             field = context.getField(fieldname)
             if not field:
-                print '*** ... contentUsesCKeditor (3)'
                 return True
             text_format = request.get('%s_text_format' %
                 fieldname, context.getContentType(fieldname))
             content = field.getEditAccessor(context)()
             try:
                 if content.startswith('<!--'):
-                    print '*** ... contentUsesCKeditor (4)'
                     return False
             except:
-                print '*** ... contentUsesCKeditor (5)'
                 return False
-            print '*** ... contentUsesCKeditor (6); text_format =', text_format
             return 'html' in text_format.lower()
-        print '*** ... contentUsesCKeditor (7)'
         return False
 
     def getCK_contentsCss(self):
