@@ -1,7 +1,7 @@
 Changelog
 =========
 
-3.6.12 (unreleased)
+3.6.12 (2013-09-05)
 -------------------
 
 - Make it possible to enable/disable SCAYT by default
