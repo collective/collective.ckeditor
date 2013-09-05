@@ -58,6 +58,7 @@
   <property name="customTemplates" type="lines">
   </property>
   <property name="templatesReplaceContent" type="boolean">False</property>
+  <property name="enableScaytOnStartup" type="boolean">False</property>
   <property name="bodyId" type="string">content</property>
   <property name="bodyClass" type="string"></property>
 

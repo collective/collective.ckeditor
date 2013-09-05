@@ -4,35 +4,35 @@ TODO QUICKLY
 - internationalization
 
 - ckeditor control panel improvements :
-  
+
   - flag Language : portal_languages settings or lang cookie value
 
 TODO
 ====
 Depending on contributions  : motivation, time, money, bear, ...
-  
+
 - ckeditor control panel improvements :
-  
+
   - different toolbars upon some options (roles, ...)
-  
+
   - area templates
-  
-  - other options (spellchecker, copy/paste options, keyboard options)
-  
+
+  - other options (copy/paste options, keyboard options)
+
   - different toolbars upon some options (roles, ...)
 
 - plugins creation or integration :
-   
+
   - GeckoSpellChecker Plugin
-   
+
   - image map plugin for ckeditor
-   
+
   - a new flv player plugin for ckeditor without javascript tags inside html area
-   
+
   - a new flash plugin for ckeditor using swfobject but without javascript tags inside html area
-  
+
 - upload improvements :
-  
+
   - errors management : rename when always in use, don't upload bad content-type ...
 
   - add metadata form fields to quick upload forms
@@ -40,4 +40,3 @@ Depending on contributions  : motivation, time, money, bear, ...
   - quick upload without browser (directly from insert file/image/flash dialog box)
 
 - specific AT widget or Dexterity Widget with all ckeditor params
-

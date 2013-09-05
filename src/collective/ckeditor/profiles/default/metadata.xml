@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>3410</version>
+  <version>3612</version>
   <dependencies>
     <dependency>profile-collective.plonefinder:default</dependency>
     <dependency>profile-collective.quickupload:default</dependency>
