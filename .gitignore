@@ -30,3 +30,4 @@ dist
 *.tmp*
 var
 sys
+src/collective/ckeditor/browser/ckeditor

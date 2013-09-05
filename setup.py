@@ -4,6 +4,16 @@ from setuptools import setup, find_packages
 
 version = '3.6.12.dev0'
 
+browser_ckeditor_dir = os.path.join(
+    'src', 'collective', 'ckeditor', 'browser', 'ckeditor')
+if not os.path.exists(browser_ckeditor_dir):
+    raise ValueError(
+        "{0} directory should exist and be populated. "
+        "Use bin/copy_ckeditor_code script installed by buildout. "
+        "Or use zest.releaser fullrelease. "
+        "Check README for more details.".format(browser_ckeditor_dir)
+    )
+
 setup(name='collective.ckeditor',
       version=version,
       description="CKEditor for Plone",
@@ -42,10 +52,10 @@ setup(name='collective.ckeditor',
           # -*- Extra requirements: -*-
       ],
       packages = find_packages('src'),
-      package_dir = {'': 'src'}, 
+      package_dir = {'': 'src'},
       extras_require={
           'test': ['plone.app.testing', 'Products.PloneTestCase', ],
-      }, 
+      },
       entry_points={
         'console_scripts': [
                'copy_ckeditor_code = collective.ckeditor.utils.base2zope:main',
