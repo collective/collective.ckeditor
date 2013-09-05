@@ -3,16 +3,6 @@ from setuptools import setup, find_packages
 
 version = '3.6.12.dev0'
 
-browser_ckeditor_dir = os.path.join(
-    'src', 'collective', 'ckeditor', 'browser', 'ckeditor')
-if not os.path.exists(browser_ckeditor_dir):
-    raise ValueError(
-        "{0} directory should exist and be populated. "
-        "Use bin/copy_ckeditor_code script installed by buildout. "
-        "Or use zest.releaser fullrelease. "
-        "Check README for more details.".format(browser_ckeditor_dir)
-    )
-
 long_description = (
     open("README.rst").read() + "\n"
     + open(os.path.join("docs", "HISTORY.txt")).read() + "\n"
