@@ -281,7 +281,7 @@ class CKeditorView(BrowserView):
         enableScaytOnStartup = cke_properties.getProperty(
             'enableScaytOnStartup')
         if enableScaytOnStartup:
-            scayt_lang = self._determinateScaytLanguageToUse()
+            scayt_lang = self._getScaytLanguage()
             # if no relevant language could be found, do not activate SCAYT
             if scayt_lang:
                 params_js_string += """config.scayt_autoStartup = true;"""
@@ -379,7 +379,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                                              mimetype='text/html')
         return "saved"
 
-    def _determinateScaytLanguageToUse(self):
+    def _getScaytLanguage(self):
         """
         If SCAYT is enabled, try to select right default language.
         SCAYT language code is like 'fr_FR' or 'fr_CA', try to find out
