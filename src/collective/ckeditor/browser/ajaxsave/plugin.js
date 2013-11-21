@@ -55,11 +55,13 @@
     };
     var pluginName = 'ajaxsave';
     CKEDITOR.plugins.add( pluginName, {
+        icons: 'ajaxsave',
+        requires : [ 'dialog' ],
         init : function( editor ) {
             var command = editor.addCommand( pluginName, saveCmd );
             command.modes = { wysiwyg : !!( editor.element.$.form ) };
             editor.ui.addButton( 'AjaxSave', {
-                label: editor.lang.save,
+                label: "Save",
                 command: pluginName,
                 className: 'cke_button_save'
                 });
