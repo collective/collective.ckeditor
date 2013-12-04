@@ -24,6 +24,11 @@ CKEDITOR_PLONE_DEFAULT_TOOLBAR = """[
     ['Maximize', 'ShowBlocks','-','About']
 ]"""
 
+CKEDITOR_BASIC_TOOLBAR = """[
+            ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+                'Link', 'Unlink','-','About']
+]"""
+
 # quintagroup.com (from qPloneResolveUID product)
 RUID_URL_PATTERN = 'resolveuid'
 DOCUMENT_DEFAULT_OUTPUT_TYPE = "text/x-html-safe"
