@@ -4,6 +4,12 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
+- Moved to CKeditor 4.3
+  [gotcha]
+
+- Backward compatibility of toolbar settings
+  [gotcha]
+
 - Moved to CKeditor 4.2.3
   [gbastien]
 
