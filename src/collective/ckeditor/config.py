@@ -13,14 +13,14 @@ CKEDITOR_PLONE_DEFAULT_TOOLBAR = """[
     ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print',
     'SpellChecker', 'Scayt'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
-    ['Styles','Format','Font','FontSize'],
+    ['Styles','Format','Font','FontSize','TextColor','BGColor'],
     '/',
     ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','BidiLtr','BidiRtl'],
     ['Link','Unlink','Anchor'],
     ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar',
-    'PageBreak'],
+    'PageBreak','Iframe'],
     ['Maximize', 'ShowBlocks','-','About']
 ]"""
 
