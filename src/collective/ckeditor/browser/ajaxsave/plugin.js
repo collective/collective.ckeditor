@@ -1,6 +1,6 @@
 (function() {
     var showMessage = function showMessage(editor, text, effect) {
-        var message = jq(".cke_msg", editorbody);
+        var message = $(".cke_msg", editorbody);
         message.remove();
         if (effect === 'keep') {
             var body = text + '<span class="cke_discrete">Click to close message.</span>';
@@ -8,16 +8,16 @@
         else {
             var body = text;
         }
-        var editorbody = jq("#cke_top_text", editor.container.$);
+        var editorbody = $("#cke_top_text", editor.container.$);
         editorbody.prepend('<div class="cke_msg">' + body + '</div>');
-        var message = jq(".cke_msg", editorbody);
+        var message = $(".cke_msg", editorbody);
         if (effect == 'in') {
             message.fadeIn(400).delay(400);
         }
         else if (effect === 'keep') {
             message.show();
             message.click(function() {
-                jq(this).remove();
+                $(this).remove();
             });
         }
         else {
@@ -32,7 +32,7 @@
         }
         showMessage(editor, 'Saving content...', 'in');
         editor.updateElement();
-        var url = jq('base').attr('href') + '/cke-save';
+        var url = $('base').attr('href') + '/cke-save';
         var name = editor.element.$.name;
         var data = {
             fieldname: name,
@@ -50,16 +50,18 @@
                 showMessage(editor, 'Error : content not saved.', 'keep');
             }
         };
-        jq.ajax(settings); 
+        $.ajax(settings);
         }
     };
     var pluginName = 'ajaxsave';
     CKEDITOR.plugins.add( pluginName, {
+        icons: 'ajaxsave',
+        requires : [ 'dialog' ],
         init : function( editor ) {
             var command = editor.addCommand( pluginName, saveCmd );
             command.modes = { wysiwyg : !!( editor.element.$.form ) };
             editor.ui.addButton( 'AjaxSave', {
-                label: editor.lang.save,
+                label: "Save",
                 command: pluginName,
                 className: 'cke_button_save'
                 });
@@ -68,4 +70,3 @@
         }
     );
 })();
-

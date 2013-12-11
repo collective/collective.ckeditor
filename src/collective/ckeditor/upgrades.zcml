@@ -28,4 +28,13 @@
         handler=".upgrades.up3612"
         />
 
+    <upgradeStep
+        source="3612"
+        destination="4000"
+        title="Upgrade to CKeditor 4"
+        description="Replace main CKeditor JS file name from ckeditor_basic.js to ckeditor.js"
+        profile="collective.ckeditor:default"
+        handler=".upgrades.up4000"
+        />
+
 </configure>
