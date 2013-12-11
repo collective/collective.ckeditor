@@ -1,10 +1,10 @@
 # Translation of collective.ckeditor.pot to Italian
 # Giacomo Spettoli <giacomo.spettoli@gmail.com>, 2011.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-21 12:44+0000\n"
+"POT-Creation-Date: 2013-12-11 14:25+0000\n"
 "PO-Revision-Date: 2011-12-29 01:26+0100\n"
 "Last-Translator: Giacomo Spettoli <giacomo.spettoli@gmail.com>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -127,7 +127,7 @@ msgid "Check to allow upload for images."
 msgstr "Seleziona per permettere il caricamento di immagini."
 
 #: ./browser/ckeditorsettings.py:97
-msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones"
+msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones."
 msgstr ""
 
 #: ./browser/ckeditorsettings.py:90
@@ -166,7 +166,7 @@ msgstr "Scegli i tipi utilizzati per la selezione di contenuti flash nel browser
 msgid "Choose the types used for images selection in browser."
 msgstr "Scegli i tipi utilizzati per la selezione delle immagini nel browser."
 
-#: ./browser/vocabularies.py:107
+#: ./browser/vocabularies.py:111
 msgid "Content Type Registry default configuration (recommanded)"
 msgstr "Configurazione predefinita del Registro dei Contenuti (raccomandata)"
 
@@ -186,11 +186,11 @@ msgstr "Tipo di contenuto personalizzato per il caricamento di contenuti Flash"
 msgid "Custom Image portal type for upload"
 msgstr "Tipo di contenuto personalizzato per il caricamento di immagini"
 
-#: ./browser/vocabularies.py:75
+#: ./browser/vocabularies.py:79
 msgid "Custom Toolbar fill next field"
 msgstr "Toolbar Personalizzata (modifica il campo successivo)"
 
-#: ./browser/vocabularies.py:108
+#: ./browser/vocabularies.py:112
 msgid "Custom configuration, fill next field"
 msgstr "Configurazione personalizzata, utilizza il campo seguente."
 
@@ -254,6 +254,10 @@ msgstr "Tipo di contenuto per le Cartelle"
 msgid "Force paste as plain text"
 msgstr "Forza incolla come testo semplice"
 
+#: ./browser/vocabularies.py:73
+msgid "Full CKeditor toolbar providing every available functionnalities (some functionnalities could not work correctly depending on your Plone settings)"
+msgstr ""
+
 #: ./browser/ckeditorsettings.py:289
 msgid "Greek Html Entities"
 msgstr "Entità html della lingua Greca"
@@ -310,7 +314,7 @@ msgstr ""
 msgid "Resources Browser"
 msgstr "Browser delle risorse"
 
-#: ./browser/vocabularies.py:73
+#: ./browser/vocabularies.py:77
 msgid "Standard Plone toolbar (recommanded)"
 msgstr "Toolbar standard di Plone (raccomandata)"
 
@@ -357,7 +361,7 @@ msgstr "HTML"
 msgid "label_format"
 msgstr "Formato"
 
-#: ./browser/ckeditorview.py:333
+#: ./browser/ckeditorview.py:341
 msgid "name"
 msgstr ""
 
@@ -370,3 +374,4 @@ msgstr "Testo semplice"
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:105
 msgid "structured_text"
 msgstr "Testo strutturato"
+

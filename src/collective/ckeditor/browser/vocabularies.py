@@ -69,6 +69,10 @@ class CKEditorToolBarVocabulary(object):
     def __call__(self, context):
         items = [SimpleTerm('Basic', 'Basic',
                             _(u'Minimal toolbar')),
+                 SimpleTerm('Full', 'Full',
+                            _(u'Full CKeditor toolbar providing every available '
+                              u'functionnalities (some functionnalities could '
+                              u'not work correctly depending on your Plone settings)')),
                  SimpleTerm('Plone', 'Plone',
                             _(u'Standard Plone toolbar (recommanded)')),
                  SimpleTerm('Custom', 'Custom',

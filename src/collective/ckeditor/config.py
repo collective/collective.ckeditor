@@ -13,6 +13,28 @@ CKEDITOR_PLONE_DEFAULT_TOOLBAR = """[
     ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print',
     'SpellChecker', 'Scayt'],
     ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+    ['Styles','Format','Font','FontSize'],
+    '/',
+    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+    ['Link','Unlink','Anchor'],
+    ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar',
+    'PageBreak'],
+    ['Maximize', 'ShowBlocks','-','About']
+]"""
+
+CKEDITOR_BASIC_TOOLBAR = """[
+    ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+    'Link', 'Unlink','-','About']
+]"""
+
+# the full feautured CKeditor toolbar
+CKEDITOR_FULL_TOOLBAR = """[
+    ['Source','-','AjaxSave','Preview','-','Templates'],
+    ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print',
+    'SpellChecker', 'Scayt'],
+    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
     ['Styles','Format','Font','FontSize','TextColor','BGColor'],
     '/',
     ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
