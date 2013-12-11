@@ -9,6 +9,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
+from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
 
@@ -270,9 +271,12 @@ class CKeditorView(BrowserView):
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
     config.toolbar_Basic = %s;
     config.toolbar_Plone = %s;
+    config.toolbar_Full = %s;
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_BASIC_TOOLBAR,
-               CKEDITOR_PLONE_DEFAULT_TOOLBAR, self.portal_url)
+               CKEDITOR_PLONE_DEFAULT_TOOLBAR,
+               CKEDITOR_FULL_TOOLBAR,
+               self.portal_url)
         cke_properties = self.cke_properties
 
         templatesReplaceContent = cke_properties.getProperty(

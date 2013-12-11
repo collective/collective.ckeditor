@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-21 12:44+0000\n"
+"POT-Creation-Date: 2013-12-11 14:25+0000\n"
 "PO-Revision-Date: 2013-05-30 16:21+0200\n"
 "Last-Translator: JeanMichel FRANCOIS <toutpt@gmail.com>\n"
 "Language-Team: Plone i18n <plone-fr@lists.plone.org>\n"
@@ -127,8 +127,8 @@ msgid "Check to allow upload for images."
 msgstr "Cocher pour autoriser le téléchargement (up) des images."
 
 #: ./browser/ckeditorsettings.py:97
-msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones"
-msgstr "Cocher pour que SCAYT soit activé au chargement de l'éditeur.  SCAYT ne sera cependant activé que si une langue pertinente aura pu être sélectionnée parmi celle disponibles"
+msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones."
+msgstr "Cocher pour que SCAYT soit activé au chargement de l'éditeur.  SCAYT ne sera cependant activé que si une langue pertinente aura pu être sélectionnée parmi celles disponibles"
 
 #: ./browser/ckeditorsettings.py:90
 msgid "Choose if you want templates to replace the contents when inserted"
@@ -166,7 +166,7 @@ msgstr "Choisir les types utilisés pour la sélection de contenu Flash dans le 
 msgid "Choose the types used for images selection in browser."
 msgstr "Choisir les types utilisés pour la sélection de contenu Image dans le navigateur de média."
 
-#: ./browser/vocabularies.py:107
+#: ./browser/vocabularies.py:111
 msgid "Content Type Registry default configuration (recommanded)"
 msgstr "Configuration par défaut du Content Type Registry (recommandé)"
 
@@ -186,11 +186,11 @@ msgstr "Type de contenu personnalisé pour le téléchargement (up) de fichier F
 msgid "Custom Image portal type for upload"
 msgstr "Type de contenu personnalisé pour le téléchargement (up) d'image"
 
-#: ./browser/vocabularies.py:75
+#: ./browser/vocabularies.py:79
 msgid "Custom Toolbar fill next field"
 msgstr "Barre d'outils personalisée, remplir le champ suivant"
 
-#: ./browser/vocabularies.py:108
+#: ./browser/vocabularies.py:112
 msgid "Custom configuration, fill next field"
 msgstr "Configuration personalisée, remplir le champ suivant"
 
@@ -254,6 +254,10 @@ msgstr "Type de contenu Dossier"
 msgid "Force paste as plain text"
 msgstr "Forcer coller en text brut"
 
+#: ./browser/vocabularies.py:73
+msgid "Full CKeditor toolbar providing every available functionnalities (some functionnalities could not work correctly depending on your Plone settings)"
+msgstr "Barre d'outils complète (certaines fonctionnalités pourraient ne pas fonctionner correctement en fonction de la configuration de votre Plone)"
+
 #: ./browser/ckeditorsettings.py:289
 msgid "Greek Html Entities"
 msgstr "Entitées HTML Grecs"
@@ -310,7 +314,7 @@ msgstr "Mise en exergue"
 msgid "Resources Browser"
 msgstr "Navigateur de ressource"
 
-#: ./browser/vocabularies.py:73
+#: ./browser/vocabularies.py:77
 msgid "Standard Plone toolbar (recommanded)"
 msgstr "Barre d'outils standard Plone (recommandée)"
 
@@ -357,7 +361,7 @@ msgstr "HTML"
 msgid "label_format"
 msgstr "Format"
 
-#: ./browser/ckeditorview.py:333
+#: ./browser/ckeditorview.py:341
 msgid "name"
 msgstr "nom"
 

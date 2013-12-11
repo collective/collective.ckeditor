@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-06-21 12:44+0000\n"
+"POT-Creation-Date: 2013-12-11 14:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,7 +126,7 @@ msgid "Check to allow upload for images."
 msgstr ""
 
 #: ./browser/ckeditorsettings.py:97
-msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones"
+msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones."
 msgstr ""
 
 #: ./browser/ckeditorsettings.py:90
@@ -165,7 +165,7 @@ msgstr ""
 msgid "Choose the types used for images selection in browser."
 msgstr ""
 
-#: ./browser/vocabularies.py:107
+#: ./browser/vocabularies.py:111
 msgid "Content Type Registry default configuration (recommanded)"
 msgstr ""
 
@@ -185,11 +185,11 @@ msgstr ""
 msgid "Custom Image portal type for upload"
 msgstr ""
 
-#: ./browser/vocabularies.py:75
+#: ./browser/vocabularies.py:79
 msgid "Custom Toolbar fill next field"
 msgstr ""
 
-#: ./browser/vocabularies.py:108
+#: ./browser/vocabularies.py:112
 msgid "Custom configuration, fill next field"
 msgstr ""
 
@@ -253,6 +253,10 @@ msgstr ""
 msgid "Force paste as plain text"
 msgstr ""
 
+#: ./browser/vocabularies.py:73
+msgid "Full CKeditor toolbar providing every available functionnalities (some functionnalities could not work correctly depending on your Plone settings)"
+msgstr ""
+
 #: ./browser/ckeditorsettings.py:289
 msgid "Greek Html Entities"
 msgstr ""
@@ -309,7 +313,7 @@ msgstr ""
 msgid "Resources Browser"
 msgstr ""
 
-#: ./browser/vocabularies.py:73
+#: ./browser/vocabularies.py:77
 msgid "Standard Plone toolbar (recommanded)"
 msgstr ""
 
@@ -356,7 +360,7 @@ msgstr ""
 msgid "label_format"
 msgstr ""
 
-#: ./browser/ckeditorview.py:333
+#: ./browser/ckeditorview.py:341
 msgid "name"
 msgstr ""
 
@@ -369,3 +373,4 @@ msgstr ""
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:105
 msgid "structured_text"
 msgstr ""
+
