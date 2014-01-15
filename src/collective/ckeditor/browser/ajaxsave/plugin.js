@@ -1,5 +1,6 @@
 (function() {
     var showMessage = function showMessage(editor, text, effect) {
+        var editorbody = $(".cke_top", editor.container.$);
         var message = $(".cke_msg", editorbody);
         message.remove();
         if (effect === 'keep') {
@@ -8,7 +9,6 @@
         else {
             var body = text;
         }
-        var editorbody = $("#cke_top_text", editor.container.$);
         editorbody.prepend('<div class="cke_msg">' + body + '</div>');
         var message = $(".cke_msg", editorbody);
         if (effect == 'in') {
