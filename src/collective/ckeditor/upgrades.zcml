@@ -37,4 +37,17 @@
         handler=".upgrades.up4000"
         />
 
+    <upgradeSteps
+        source="4000"
+        destination="4001"
+        profile="collective.ckeditor:default">
+
+        <upgradeDepends
+            title="Properties tool"
+            description="Setup new extraAllowedContent property."
+            import_steps="propertiestool"
+            />
+
+    </upgradeSteps>
+
 </configure>

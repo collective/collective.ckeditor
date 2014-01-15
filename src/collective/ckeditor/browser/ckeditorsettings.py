@@ -50,6 +50,11 @@ class ICKEditorBaseSchema(Interface):
                       "add new buttons here if needed."),
         required=False)
 
+    extraAllowedContent = Text(
+        title=_(u"Extra Allowed Content"),
+        description=_(u"Extra filtering rules to allow content."),
+        required=False)
+
     menuStyles = Text(
         title=_(u"Menu styles"),
         description=_(u"Build your own CKEditor menu styles Combo box. "
@@ -302,8 +307,8 @@ class ICKEditorAdvancedSchema(Interface):
 
 class ICKEditorSchema(ICKEditorBaseSchema, ICKEditorSkinSchema,
                       ICKEditorBrowserSchema, ICKEditorAdvancedSchema):
-        """Combined schema for the adapter lookup.
-        """
+    """Combined schema for the adapter lookup.
+    """
 
 
 class CKEditorControlPanelAdapter(SchemaAdapterBase):
@@ -344,6 +349,16 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('toolbar_Custom', value)
 
     toolbar_Custom = property(get_toolbar_Custom, set_toolbar_Custom)
+
+    def get_extraAllowedContent(self):
+        return self.context.extraAllowedContent
+
+    def set_extraAllowedContent(self, value):
+        self.context._updateProperty('extraAllowedContent', value)
+
+    extraAllowedContent = property(
+        get_extraAllowedContent, set_extraAllowedContent
+    )
 
     def get_menuStyles(self):
         return self.context.menuStyles

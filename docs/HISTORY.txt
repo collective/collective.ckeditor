@@ -4,6 +4,9 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
+- Add extraAllowedContent option to setup filter rules.
+  [gotcha]
+
 - Moved to CKeditor 4.3
   [gotcha]
 
