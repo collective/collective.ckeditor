@@ -4,10 +4,10 @@ Changelog
 4.0.0 (unreleased)
 ------------------
 
-- Add extraAllowedContent option to setup filter rules.
+- Updated to CKeditor 4.3.2
   [gotcha]
 
-- Moved to CKeditor 4.3
+- Add extraAllowedContent option to setup filter rules.
   [gotcha]
 
 - Backward compatibility of toolbar settings
