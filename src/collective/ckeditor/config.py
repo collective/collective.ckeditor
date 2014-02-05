@@ -24,6 +24,33 @@ CKEDITOR_PLONE_DEFAULT_TOOLBAR = """[
     ['Maximize', 'ShowBlocks','-','About']
 ]"""
 
+CKEDITOR_BASIC_TOOLBAR = """[
+    ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+    'Link', 'Unlink','-','About']
+]"""
+
+# the full feautured CKeditor toolbar
+CKEDITOR_FULL_TOOLBAR = """[
+    ['Source','-','AjaxSave','Preview','-','Templates'],
+    ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print',
+    'SpellChecker', 'Scayt'],
+    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+    ['Styles','Format','Font','FontSize','TextColor','BGColor'],
+    '/',
+    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote','CreateDiv'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','BidiLtr','BidiRtl'],
+    ['Link','Unlink','Anchor'],
+    ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar',
+    'PageBreak','Iframe'],
+    ['Maximize', 'ShowBlocks','-','About']
+]"""
+
+CKEDITOR_BASIC_TOOLBAR = """[
+            ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+                'Link', 'Unlink','-','About']
+]"""
+
 # quintagroup.com (from qPloneResolveUID product)
 RUID_URL_PATTERN = 'resolveuid'
 DOCUMENT_DEFAULT_OUTPUT_TYPE = "text/x-html-safe"

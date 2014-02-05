@@ -27,3 +27,11 @@ def up3612(context):
             'enableScaytOnStartup',
             False,
             'boolean')
+
+
+def up4000(context):
+    jstool = getToolByName(context, 'portal_javascripts')
+    jstool.manage_removeScript('++resource++ckeditor/ckeditor_basic.js')
+    jstool.cookResources()
+    setup = getToolByName(context, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE, 'jsregistry')
