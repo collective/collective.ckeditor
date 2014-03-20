@@ -46,7 +46,8 @@ class CKeditorView(BrowserView):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        self.portal = getToolByName(
+            self.context, 'portal_url').getPortalObject()
         self.portal_url = self.portal.absolute_url()
         request.set('ckLoaded', True)
 
@@ -294,7 +295,8 @@ class CKeditorView(BrowserView):
             # if no relevant language could be found, do not activate SCAYT
             if scayt_lang:
                 params_js_string += """config.scayt_autoStartup = true;"""
-                params_js_string += """config.scayt_sLang = '%s';""" % scayt_lang
+                params_js_string += """config.scayt_sLang = \
+                    '%s';""" % scayt_lang
         else:
             params_js_string += """config.scayt_autoStartup = false;"""
 
@@ -322,7 +324,7 @@ class CKeditorView(BrowserView):
 
     def getCustomTemplatesConfig(self, customTemplates):
         templates = ["'%s/%s'," % (self.portal_url, template) for template in
-                customTemplates]
+                     customTemplates]
         result = """
     config.templates_files = [
         %s
@@ -402,7 +404,8 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         default_language = self.context.portal_languages.getDefaultLanguage()
         content_language = self.context.Language() or default_language
         # content language can be like 'fr' or 'fr-be'...
-        # be smart, compute language_code with 2 first values and 2 last values...
+        # be smart, compute language_code with
+        # 2 first values and 2 last values...
         language_code = "%s_%s" % (content_language[0:2],
                                    content_language.upper()[-2:5])
         if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
@@ -411,7 +414,8 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             # first part main language code.
             # So if we currently use 'fr-be' that has no corresponding
             # supported language in SCAYT, we will find the fallback for 'fr'
-            # that is the first 'fr_xx' code found in SCAYT supported languages...
+            # that is the first 'fr_xx' code found in SCAYT
+            # supported languages...
             for supported_language in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
                 if supported_language.startswith(content_language[0:2]):
                     languageCodeToUse = supported_language
