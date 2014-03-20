@@ -227,6 +227,7 @@ class CKeditorView(BrowserView):
                 params[p] = jsProp
 
         params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
+        params['allowedContent'] = cke_properties.getProperty('allowedContent')
         params['extraAllowedContent'] = cke_properties.getProperty(
             'extraAllowedContent')
         params['contentsCss'] = self.getCK_contentsCss()

@@ -50,4 +50,17 @@
 
     </upgradeSteps>
 
+    <upgradeSteps
+        source="4001"
+        destination="4002"
+        profile="collective.ckeditor:default">
+
+        <upgradeDepends
+            title="Properties tool"
+            description="Setup new allowedContent property."
+            import_steps="propertiestool"
+            />
+
+    </upgradeSteps>
+
 </configure>

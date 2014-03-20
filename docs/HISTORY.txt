@@ -4,7 +4,8 @@ Changelog
 4.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add allowedContent option to enable or disable content filter (ACF).
+  [spereverde]
 
 
 4.0.0 (2014-02-05)

@@ -23,6 +23,7 @@
     ['Maximize', 'ShowBlocks','-','About']
 ]
   </property>
+  <property name="allowedContent" type="string">null</property>
   <property name="extraAllowedContent" type="text">
       /* Add array of allowedContent rules */
       []
