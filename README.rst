@@ -50,9 +50,6 @@ the browser at::
 
   http://yourplonesite/++resource++ckeditor/
 
-.. image:: https://secure.travis-ci.org/collective/collective.ckeditor.png
-    :target: http://travis-ci.org/collective/collective.ckeditor
-
 How to Release
 --------------
 
@@ -68,6 +65,29 @@ a globally installed ``fullrelease``.
 Only the local ``bin/fullrelease`` script can see the entry_point registered by
 ``collective.ckeditor``.
 
+How to update to a newer version of CKEditor
+--------------------------------------------
+
+Valid for CKEditor 4
+
+1. Go to http://ckeditor.com/builder
+2. Choose preset `Full`
+3. Do not modify included plugins.
+4. Select skin `Moono color`
+5. Click `Add all` link beside `Languages to choose` label
+6. Agree with the terms ;-)
+7. Download CKEditor
+8. Unzip archive
+9. From the archive, copy contents of `ckeditor 3` (sic) directory
+10. Replace all content of `src/collective/ckeditor/_src/ckeditor` directory.
+11. Run `bin/copy_ckeditor_code`
+12. Test
+
+Tests status
+------------
+
+.. image:: https://secure.travis-ci.org/collective/collective.ckeditor.png
+    :target: http://travis-ci.org/collective/collective.ckeditor
 
 Credits
 =======
