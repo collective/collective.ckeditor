@@ -4,8 +4,8 @@ Changelog
 4.0.1 (unreleased)
 ------------------
 
-- Add allowedContent option to enable or disable content filter (ACF).
-  [spereverde]
+- Expand setup of Advanced Content filter (ACF).
+  [spereverde, gotcha]
 
 
 4.0.0 (2014-02-05)
