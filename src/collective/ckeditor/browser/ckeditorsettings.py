@@ -50,9 +50,17 @@ class ICKEditorBaseSchema(Interface):
                       "add new buttons here if needed."),
         required=False)
 
+    allowedContent = TextLine(
+        title=_(u"Allowed content"),
+        description=_(u"Option to disable/enable ACF (filtering). \
+            Set to 'true' to allow all content."),
+        default=u'null',
+        required=False)
+
     extraAllowedContent = Text(
         title=_(u"Extra Allowed Content"),
-        description=_(u"Extra filtering rules to allow content."),
+        description=_(u"Extra filtering rules to allow content. \
+            For these rules to be applied, set Allowed content to 'null'."),
         required=False)
 
     menuStyles = Text(
@@ -349,6 +357,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('toolbar_Custom', value)
 
     toolbar_Custom = property(get_toolbar_Custom, set_toolbar_Custom)
+
+    def get_allowedContent(self):
+        return self.context.allowedContent
+
+    def set_allowedContent(self, value):
+        self.context._updateProperty('allowedContent', value)
+
+    allowedContent = property(get_allowedContent, set_allowedContent)
 
     def get_extraAllowedContent(self):
         return self.context.extraAllowedContent
