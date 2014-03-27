@@ -4,6 +4,9 @@ Changelog
 4.1.1 (unreleased)
 ------------------
 
+- Fix upgrade steps to avoid overwriting custom configuration.
+  [gotcha]
+
 - Updated to CKeditor 4.3.4
   [gotcha]
 

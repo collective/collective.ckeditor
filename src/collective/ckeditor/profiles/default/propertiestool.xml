@@ -24,7 +24,7 @@
 ]
   </property>
   <property name="filtering" type="string">default</property>
-  <property name="customAllowedContent" type="string">
+  <property name="customAllowedContent" type="text">
       /* Add items to array of allowedContent rules */
       []
   </property>

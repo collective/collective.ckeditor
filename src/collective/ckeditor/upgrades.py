@@ -35,3 +35,28 @@ def up4000(context):
     jstool.cookResources()
     setup = getToolByName(context, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE, 'jsregistry')
+
+
+def up4001(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if not props.hasProperty('extraAllowedContent'):
+        props.manage_addProperty(
+            'extraAllowedContent',
+            '/* Add items to array of allowedContent rules */\n[]',
+            'text')
+
+
+def up4002(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if not props.hasProperty('customAllowedContent'):
+        props.manage_addProperty(
+            'customAllowedContent',
+            '/* Add items to array of allowedContent rules */\n[]',
+            'text')
+    if not props.hasProperty('filtering'):
+        props.manage_addProperty(
+            'filtering',
+            'default',
+            'string')

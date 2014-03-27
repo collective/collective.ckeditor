@@ -42,10 +42,10 @@
         destination="4001"
         profile="collective.ckeditor:default">
 
-        <upgradeDepends
-            title="Properties tool"
-            description="Setup new extraAllowedContent property."
-            import_steps="propertiestool"
+        <upgradeStep
+            title="Add property extraAllowedContent"
+            description="for Advanced Content Filter"
+            handler=".upgrades.up4001"
             />
 
     </upgradeSteps>
@@ -55,10 +55,10 @@
         destination="4002"
         profile="collective.ckeditor:default">
 
-        <upgradeDepends
-            title="Properties tool"
-            description="Setup new allowedContent property."
-            import_steps="propertiestool"
+        <upgradeStep
+            title="Add properties filtering and  customAllowedContent"
+            description="for Advanced Content Filter"
+            handler=".upgrades.up4002"
             />
 
     </upgradeSteps>
