@@ -50,25 +50,43 @@ class ICKEditorBaseSchema(Interface):
                       "add new buttons here if needed."),
         required=False)
 
-    allowedContent = TextLine(
-        title=_(u"Allowed content"),
-        description=_(u"Option to disable/enable ACF (filtering). \
-            Set to 'true' to allow all content."),
-        default=u'null',
+    filtering = Choice(
+        title=_(u"Filtering"),
+        description=_(
+            u"Setup of Advanced Content Filter. "
+            u"Read documentation at "
+            u"http://docs.ckeditor.com/#!/guide/dev_advanced_content_filter"
+        ),
+        required=True,
+        default='default',
+        vocabulary="collective.ckeditor.vocabularies.filtering")
+
+    customAllowedContent = Text(
+        title=_(u"Custom Allowed Content"),
+        description=_(
+            u"Configuration of custom filtering. "
+            u"Taken in account only if Filtering option is 'Custom'. "
+            u"Use Javascript syntax. Read documentation at "
+            u"http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules"
+        ),
         required=False)
 
     extraAllowedContent = Text(
         title=_(u"Extra Allowed Content"),
-        description=_(u"Extra filtering rules to allow content. \
-            For these rules to be applied, set Allowed content to 'null'."),
+        description=_(
+            u"Extra rules on top of automatic filtering. "
+            u"Taken in account only if Filtering option is 'Automatic'. "
+            u"Use Javascript syntax. Read documentation at "
+            u"http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules"
+        ),
         required=False)
 
     menuStyles = Text(
         title=_(u"Menu styles"),
         description=_(u"Build your own CKEditor menu styles Combo box. "
-                      "Take care with the javascript syntax. "
-                      "If you want to use css classes or ids, "
-                      "the attributes must exist in your css."),
+                      u"Take care with the javascript syntax. "
+                      u"If you want to use css classes or ids, "
+                      u"the attributes must exist in your css."),
         required=True)
 
     bodyId = TextLine(
@@ -358,13 +376,24 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     toolbar_Custom = property(get_toolbar_Custom, set_toolbar_Custom)
 
-    def get_allowedContent(self):
-        return self.context.allowedContent
+    def get_filtering(self):
+        return self.context.filtering
 
-    def set_allowedContent(self, value):
-        self.context._updateProperty('allowedContent', value)
+    def set_filtering(self, value):
+        self.context._updateProperty('filtering', value)
 
-    allowedContent = property(get_allowedContent, set_allowedContent)
+    filtering = property(get_filtering, set_filtering)
+
+    def get_customAllowedContent(self):
+        return self.context.customAllowedContent
+
+    def set_customAllowedContent(self, value):
+        self.context._updateProperty('customAllowedContent', value)
+
+    customAllowedContent = property(
+        get_customAllowedContent,
+        set_customAllowedContent
+    )
 
     def get_extraAllowedContent(self):
         return self.context.extraAllowedContent

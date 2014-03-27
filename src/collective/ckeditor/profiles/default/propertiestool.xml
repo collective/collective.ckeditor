@@ -23,9 +23,13 @@
     ['Maximize', 'ShowBlocks','-','About']
 ]
   </property>
-  <property name="allowedContent" type="string">null</property>
+  <property name="filtering" type="string">default</property>
+  <property name="customAllowedContent" type="string">
+      /* Add items to array of allowedContent rules */
+      []
+  </property>
   <property name="extraAllowedContent" type="text">
-      /* Add array of allowedContent rules */
+      /* Add items to array of allowedContent rules */
       []
   </property>
   <property name="menuStyles" type="text">

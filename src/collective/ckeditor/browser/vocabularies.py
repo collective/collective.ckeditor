@@ -37,7 +37,7 @@ def _listTypesForInterface(portal, interface):
     # fix for bug in listPortalTypesWithInterfaces which returns 2 'ATFolder'
     # when asking for IBaseFolder interface
     unik_types = dict.fromkeys(all_types).keys()
-    return [_infoDictForType(tipe, portal_types, utranslate) \
+    return [_infoDictForType(tipe, portal_types, utranslate)
             for tipe in unik_types]
 
 
@@ -53,7 +53,7 @@ def _infoDictForType(ptype, portal_types, utranslate):
     type_info = getattr(portal_types, ptype)
     title = type_info.Title()
     product = type_info.product
-    type_ui_info = ("%s (portal type: %s, product: %s)" % \
+    type_ui_info = ("%s (portal type: %s, product: %s)" %
                     (utranslate(title, default=title), ptype, product))
     return {
         'portal_type': ptype,
@@ -70,9 +70,10 @@ class CKEditorToolBarVocabulary(object):
         items = [SimpleTerm('Basic', 'Basic',
                             _(u'Minimal toolbar')),
                  SimpleTerm('Full', 'Full',
-                            _(u'Full CKeditor toolbar providing every available '
-                              u'functionnalities (some functionnalities could '
-                              u'not work correctly depending on your Plone settings)')),
+                            _(u'Full CKeditor toolbar providing every '
+                              u'available functionnalities (some '
+                              u'functionnalities could not work correctly '
+                              u'depending on your Plone settings)')),
                  SimpleTerm('Plone', 'Plone',
                             _(u'Standard Plone toolbar (recommanded)')),
                  SimpleTerm('Custom', 'Custom',
@@ -80,6 +81,24 @@ class CKEditorToolBarVocabulary(object):
         return SimpleVocabulary(items)
 
 CKEditorToolBarVocabularyFactory = CKEditorToolBarVocabulary()
+
+
+class CKEditorFilteringVocabulary(object):
+    """Vocabulary factory for ckeditor filtering
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        items = [SimpleTerm('default', 'Based on UI',
+                            _(u'Automatic')),
+                 SimpleTerm('disabled', 'Disabled',
+                            _(u'Disabled: any content is allowed.')),
+                 SimpleTerm('custom', 'Custom filtering',
+                            _(u'Custom: filter is setup according to '
+                              u'Custom Allowed Content option.'))]
+        return SimpleVocabulary(items)
+
+CKEditorFilteringVocabularyFactory = CKEditorFilteringVocabulary()
 
 
 class CKEditorFileTypesVocabulary(object):

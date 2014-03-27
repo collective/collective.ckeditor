@@ -227,9 +227,6 @@ class CKeditorView(BrowserView):
                 params[p] = jsProp
 
         params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
-        params['allowedContent'] = cke_properties.getProperty('allowedContent')
-        params['extraAllowedContent'] = cke_properties.getProperty(
-            'extraAllowedContent')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         img_url = self.getCK_finder_url(type='image')
@@ -287,6 +284,20 @@ class CKeditorView(BrowserView):
             params_js_string += """config.templates_replaceContent = true;"""
         else:
             params_js_string += """config.templates_replaceContent = false;"""
+
+        filtering = cke_properties.getProperty('filtering')
+        if filtering == 'default':
+            extraAllowedContent = cke_properties.getProperty(
+                'extraAllowedContent')
+            params_js_string += "config.extraAllowedContent = {}".format(
+                extraAllowedContent)
+        elif filtering == 'disabled':
+            params_js_string += """config.allowedContent = true;"""
+        elif filtering == 'custom':
+            customAllowedContent = cke_properties.getProperty(
+                'customAllowedContent')
+            params_js_string += "config.allowedContent = {}".format(
+                customAllowedContent)
 
         # enable SCAYT on startup if necessary
         enableScaytOnStartup = cke_properties.getProperty(

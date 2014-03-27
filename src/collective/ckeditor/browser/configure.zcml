@@ -91,6 +91,11 @@
         />
 
     <utility
+        name="collective.ckeditor.vocabularies.filtering"
+        component=".vocabularies.CKEditorFilteringVocabularyFactory"
+        />
+
+    <utility
         name="collective.ckeditor.vocabularies.ImageTypes"
         component=".vocabularies.CKEditorImageTypesVocabularyFactory"
         />
