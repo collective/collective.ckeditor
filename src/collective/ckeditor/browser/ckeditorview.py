@@ -289,14 +289,14 @@ class CKeditorView(BrowserView):
         if filtering == 'default':
             extraAllowedContent = cke_properties.getProperty(
                 'extraAllowedContent')
-            params_js_string += "config.extraAllowedContent = {}".format(
+            params_js_string += "config.extraAllowedContent = {};".format(
                 extraAllowedContent)
         elif filtering == 'disabled':
             params_js_string += """config.allowedContent = true;"""
         elif filtering == 'custom':
             customAllowedContent = cke_properties.getProperty(
                 'customAllowedContent')
-            params_js_string += "config.allowedContent = {}".format(
+            params_js_string += "config.allowedContent = {};".format(
                 customAllowedContent)
 
         # enable SCAYT on startup if necessary
