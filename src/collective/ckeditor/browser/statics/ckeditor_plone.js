@@ -107,3 +107,50 @@ launchCKInstances = function (ids_to_launch) {
 
 jQuery(document).ready(launchCKInstances);
 
+(function() {
+    var showActualUrl = function showActualUrl(domElement, url) {
+        if (url.indexOf('resolveuid') !== -1) {
+            var current_uid = url.split('resolveuid/')[1];
+            var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
+            var settings = {
+                url: new_url,
+                type: 'GET',
+                success: function(data){
+                    domElement.setHtml('<p>Actual URL</p><p>'+data+'</p>');
+                }
+            };
+            $.ajax(settings);
+            return;
+        }
+        domElement.setHtml('<p></p>');
+    };
+
+CKEDITOR.on( 'dialogDefinition', function( ev ) {
+    // Take the dialog name and its definition from the event
+    // data.
+    var dialogName = ev.data.name;
+    var dialogDefinition = ev.data.definition;
+
+    // Check if the definition is from the dialog we're
+    // interested on (the "Link" dialog).
+    if ( dialogName == 'link' ) {
+        // Get a reference to the "Link Info" tab.
+        var infoTab = dialogDefinition.getContents( 'info' );
+
+        infoTab.add( {
+            id: 'actual',
+            type : 'html',
+            setup: function( data ) {
+                var domElement = this.getElement();
+                if ( data.url ) {
+                    showActualUrl(domElement, data.url.url);
+                } else {
+                    domElement.setHtml('<p></p>');
+                }
+            },
+            html : ''
+        });
+    }
+});
+
+})();
