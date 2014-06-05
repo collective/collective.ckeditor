@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.1.2 (unreleased)
+4.2.0 (2014-06-05)
 ------------------
 
 - Show actual url in link dialog besides resolveuid.
