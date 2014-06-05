@@ -137,7 +137,8 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
         // Get a reference to the "Link Info" tab.
         var infoTab = dialogDefinition.getContents( 'info' );
 
-        infoTab.add( {
+        var urlOptions = infoTab.get('urlOptions');
+        urlOptions.children.push( {
             id: 'actual',
             type : 'html',
             setup: function( data ) {
