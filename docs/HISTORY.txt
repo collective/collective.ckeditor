@@ -4,7 +4,8 @@ Changelog
 4.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Show actual url in link dialog besides resolveuid.
+  [gotcha]
 
 
 4.1.1 (2014-03-27)
