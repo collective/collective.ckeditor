@@ -60,3 +60,13 @@ def up4002(context):
             'filtering',
             'default',
             'string')
+
+
+def up4300(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if not props.hasProperty('removePlugins'):
+        props.manage_addProperty(
+            'removePlugins',
+            '',
+            'lines')

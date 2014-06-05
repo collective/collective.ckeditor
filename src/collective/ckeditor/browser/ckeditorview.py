@@ -265,6 +265,12 @@ class CKeditorView(BrowserView):
                     % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
+        removePlugins = self.cke_properties.getProperty('removePlugins', [])
+        if removePlugins:
+            params_js_string += (
+                '''config.removePlugins = "%s";''' % ','.join(removePlugins)
+            )
+
         params_js_string += """
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);

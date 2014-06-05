@@ -102,6 +102,12 @@ class ICKEditorBaseSchema(Interface):
         value_type=TextLine(),
         required=False)
 
+    removePlugins = List(
+        title=_(u"Plugins to remove"),
+        description=_(u"Plugin format is 'id'."),
+        value_type=TextLine(),
+        required=False)
+
     bodyClass = TextLine(
         title=_(u"Area Body Class"),
         description=_(u"Enter the css class name applied to the "
@@ -420,6 +426,14 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
         self.context._updateProperty('plugins', value)
 
     plugins = property(get_plugins, set_plugins)
+
+    def get_removePlugins(self):
+        return self.context.removePlugins
+
+    def set_removePlugins(self, value):
+        self.context._updateProperty('removePlugins', value)
+
+    removePlugins = property(get_removePlugins, set_removePlugins)
 
     def get_bodyId(self):
         return self.context.bodyId

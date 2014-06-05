@@ -63,4 +63,16 @@
 
     </upgradeSteps>
 
+    <upgradeSteps
+        source="4002"
+        destination="4300"
+        profile="collective.ckeditor:default">
+
+        <upgradeStep
+            title="Add properties removePlugins"
+            description="to be able to deactivate plugins"
+            handler=".upgrades.up4300"
+            />
+
+    </upgradeSteps>
 </configure>

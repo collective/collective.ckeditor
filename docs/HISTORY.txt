@@ -4,8 +4,8 @@ Changelog
 4.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Add removePlugins option to control panel to allow to deactivate plugins.
+  [gotcha]
 
 4.2.0 (2014-06-05)
 ------------------
