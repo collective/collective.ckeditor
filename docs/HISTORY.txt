@@ -4,6 +4,9 @@ Changelog
 4.2.1 (unreleased)
 ------------------
 
+- Updated to CKeditor 4.4.1.
+  [gotcha]
+
 - Add removePlugins option to control panel to allow to deactivate plugins.
   [gotcha]
 
