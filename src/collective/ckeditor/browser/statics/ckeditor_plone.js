@@ -108,15 +108,28 @@ launchCKInstances = function (ids_to_launch) {
 jQuery(document).ready(launchCKInstances);
 
 (function() {
+
+    var format = function format(msg) {
+        return '<p>Actual URL</p><p>'+msg+'</p>';
+    };
+
     var showActualUrl = function showActualUrl(domElement, url) {
         if (url.indexOf('resolveuid') !== -1) {
+            domElement.setHtml(format('Loading...'));
             var current_uid = url.split('resolveuid/')[1];
             var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
             var settings = {
                 url: new_url,
                 type: 'GET',
-                success: function(data){
-                    domElement.setHtml('<p>Actual URL</p><p>'+data+'</p>');
+                success: function(data, textStatus, jqXHR){
+                    if (jqXHR.status == 200) {
+                        domElement.setHtml(format(data));
+                    } else {
+                        domElement.setHtml(format('Could not be resolved.'));
+                    }
+                },
+                error: function(jqXHR, textStatus){
+                    domElement.setHtml(format('Could not be resolved.'));
                 }
             };
             $.ajax(settings);
