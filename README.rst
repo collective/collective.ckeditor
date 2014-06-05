@@ -78,10 +78,10 @@ Valid for CKEditor 4
 6. Agree with the terms ;-)
 7. Download CKEditor
 8. Unzip archive
-9. From the archive, copy contents of `ckeditor 3` (sic) directory
-10. Replace all content of `src/collective/ckeditor/_src/ckeditor` directory.
-11. Run `bin/copy_ckeditor_code`
-12. Test
+9. Replace all content of `src/collective/ckeditor/_src/ckeditor` directory.
+   with the contents of `ckeditor 4` directory from the archive.
+10. Run `bin/copy_ckeditor_code`
+11. Test
 
 Tests status
 ------------
