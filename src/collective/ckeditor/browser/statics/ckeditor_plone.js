@@ -153,15 +153,13 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
         });
 
         var url = infoTab.get('url');
-        default_onChange = url.onChange;
-        url.onChange = function() {
-            default_onChange();
-			// Dont't call on dialog load.
-			if ( this.allowOnChange ) {
-                var actual = this.getDialog().getContentElement('info', 'actual');
-                var domElement = actual.getElement();
-                showActualUrl(domElement, this.getValue());
-            }
+        default_onKeyUp = url.onKeyUp;
+        url.onKeyUp = function() {
+            var actual = this.getDialog().getContentElement('info', 'actual');
+            var domElement = actual.getElement();
+            var url = this.getValue();
+            showActualUrl(domElement, url);
+            default_onKeyUp.apply(this);
         };
     }
 });
