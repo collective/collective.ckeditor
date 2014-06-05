@@ -150,6 +150,18 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
             },
             html : ''
         });
+
+        var url = infoTab.get('url');
+        default_onChange = url.onChange;
+        url.onChange = function() {
+            default_onChange();
+			// Dont't call on dialog load.
+			if ( this.allowOnChange ) {
+                var actual = this.getDialog().getContentElement('info', 'actual');
+                var domElement = actual.getElement();
+                showActualUrl(domElement, this.getValue());
+            }
+        };
     }
 });
 
