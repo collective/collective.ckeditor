@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.0b2 (unreleased)
+4.3.0b2 (2014-06-19)
 --------------------
 
 - Fix javascript order though GS.
