@@ -64,6 +64,8 @@
   <property name="plugins" type="lines">
     <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
   </property>
+  <property name="removePlugins" type="lines">
+  </property>
   <property name="customTemplates" type="lines">
   </property>
   <property name="templatesReplaceContent" type="boolean">False</property>
