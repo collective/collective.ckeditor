@@ -70,3 +70,13 @@ def up4300(context):
             'removePlugins',
             '',
             'lines')
+    if not props.hasProperty('image2_alignClasses'):
+        props.manage_addProperty(
+            'image2_alignClasses',
+            ['image-left', '', 'image-right'],
+            'lines')
+    if not props.hasProperty('image2_captionedClass'):
+        props.manage_addProperty(
+            'image2_captionedClass',
+            "image",
+            'string')

@@ -124,6 +124,13 @@
   <property name="entities_greek" type="boolean">False</property>
   <property name="entities_latin" type="boolean">False</property>
 
+  <!-- Captioned image properties -->
+  <property name="image2_alignClasses" type="lines">
+   <element value="image-left"/>
+   <element value=""/>
+   <element value="image-right"/>
+  </property>
+  <property name="image2_captionedClass" type="string">image</property>
  </object>
 
 

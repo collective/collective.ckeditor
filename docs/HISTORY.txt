@@ -4,6 +4,10 @@ Changelog
 4.2.1 (unreleased)
 ------------------
 
+- Add image2_alignClasses and image2_captionedClass setting to setup
+  image2 plugin.
+  [gotcha]
+
 - Updated to CKeditor 4.4.1.
   [gotcha]
 
