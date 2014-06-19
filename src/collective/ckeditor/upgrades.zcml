@@ -69,9 +69,9 @@
         profile="collective.ckeditor:default">
 
         <upgradeStep
-            title="Add properties removePlugins"
-            description="to be able to deactivate plugins"
-            handler=".upgrades.up4300"
+            title="Add properties"
+            description="to deactivate plugins and to configure image2 plugin"
+           handler=".upgrades.up4300"
             />
 
     </upgradeSteps>
