@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.2.1 (unreleased)
-------------------
+4.3.0b1 (2014-06-19)
+--------------------
 
 - Add image2 plugin and its dependencies.
   [gotcha]
