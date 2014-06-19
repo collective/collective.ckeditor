@@ -4,6 +4,9 @@ Changelog
 4.2.1 (unreleased)
 ------------------
 
+- Add image2 plugin and its dependencies.
+  [gotcha]
+
 - Add image2_alignClasses and image2_captionedClass setting to setup
   image2 plugin.
   [gotcha]

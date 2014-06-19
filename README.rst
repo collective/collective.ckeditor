@@ -80,8 +80,14 @@ Valid for CKEditor 4
 8. Unzip archive
 9. Replace all content of `src/collective/ckeditor/_src/ckeditor` directory.
    with the contents of `ckeditor 4` directory from the archive.
-10. Run `bin/copy_ckeditor_code`
-11. Test
+10. Download and install image2 plugin and its dependencies in 
+    `src/collective/ckeditor/_src/ckeditor/plugins` directory.
+    Currently, they are found at:
+      * http://ckeditor.com/addon/image2 
+      * http://ckeditor.com/addon/widget
+      * http://ckeditor.com/addon/lineutils
+11. Run `bin/copy_ckeditor_code`
+12. Test
 
 Tests status
 ------------
