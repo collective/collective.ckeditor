@@ -138,6 +138,12 @@ class ICKEditorBaseSchema(Interface):
         default=False,
         required=False)
 
+    defaultTableWidth = TextLine(
+        title=_(u"Default Table Width"),
+        description=_(u"Enter the default table width"),
+        default=u"500px",
+        required=False)
+
 
 class ICKEditorSkinSchema(Interface):
     """
@@ -476,6 +482,15 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     enableScaytOnStartup = property(get_enableScaytOnStartup,
                                     set_enableScaytOnStartup)
+
+    def get_defaultTableWidth(self):
+        return self.context.defaultTableWidth
+
+    def set_defaultTableWidth(self, value):
+        self.context._updateProperty('defaultTableWidth', value)
+
+    defaultTableWidth = property(get_defaultTableWidth,
+                                 set_defaultTableWidth)
 
     # skin fieldset
 
