@@ -72,6 +72,7 @@
   <property name="enableScaytOnStartup" type="boolean">False</property>
   <property name="bodyId" type="string">content</property>
   <property name="bodyClass" type="string"></property>
+  <property name="defaultTableWidth" type="string">500px</property>
 
   <!-- skin properties -->
   <property name="width" type="string"></property>
