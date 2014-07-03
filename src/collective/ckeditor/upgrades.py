@@ -60,3 +60,23 @@ def up4002(context):
             'filtering',
             'default',
             'string')
+
+
+def up4300(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if not props.hasProperty('removePlugins'):
+        props.manage_addProperty(
+            'removePlugins',
+            '',
+            'lines')
+    if not props.hasProperty('image2_alignClasses'):
+        props.manage_addProperty(
+            'image2_alignClasses',
+            ['image-left', '', 'image-right'],
+            'lines')
+    if not props.hasProperty('image2_captionedClass'):
+        props.manage_addProperty(
+            'image2_captionedClass',
+            "image",
+            'string')

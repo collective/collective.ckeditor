@@ -220,7 +220,8 @@ class CKeditorView(BrowserView):
         cke_properties = self.cke_properties
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
                           'entities_greek', 'entities_latin',
-                          'forcePasteAsPlainText', 'toolbar')
+                          'forcePasteAsPlainText', 'toolbar',
+                          'image2_alignClasses', 'image2_captionedClass')
         for p in unchangedProps:
             jsProp = self.geCK_JSProperty(p)
             if jsProp is not None:
@@ -265,6 +266,12 @@ class CKeditorView(BrowserView):
                     % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
+        removePlugins = self.cke_properties.getProperty('removePlugins', [])
+        if removePlugins:
+            params_js_string += (
+                '''config.removePlugins = "%s";''' % ','.join(removePlugins)
+            )
+
         params_js_string += """
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
@@ -289,14 +296,14 @@ class CKeditorView(BrowserView):
         if filtering == 'default':
             extraAllowedContent = cke_properties.getProperty(
                 'extraAllowedContent')
-            params_js_string += "config.extraAllowedContent = {}".format(
+            params_js_string += "config.extraAllowedContent = {};".format(
                 extraAllowedContent)
         elif filtering == 'disabled':
             params_js_string += """config.allowedContent = true;"""
         elif filtering == 'custom':
             customAllowedContent = cke_properties.getProperty(
                 'customAllowedContent')
-            params_js_string += "config.allowedContent = {}".format(
+            params_js_string += "config.allowedContent = {};".format(
                 customAllowedContent)
 
         # enable SCAYT on startup if necessary

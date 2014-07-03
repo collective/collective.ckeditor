@@ -63,4 +63,16 @@
 
     </upgradeSteps>
 
+    <upgradeSteps
+        source="4002"
+        destination="4300"
+        profile="collective.ckeditor:default">
+
+        <upgradeStep
+            title="Add properties"
+            description="to deactivate plugins and to configure image2 plugin"
+           handler=".upgrades.up4300"
+            />
+
+    </upgradeSteps>
 </configure>

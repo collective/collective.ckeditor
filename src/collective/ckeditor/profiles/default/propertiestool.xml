@@ -64,6 +64,8 @@
   <property name="plugins" type="lines">
     <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
   </property>
+  <property name="removePlugins" type="lines">
+  </property>
   <property name="customTemplates" type="lines">
   </property>
   <property name="templatesReplaceContent" type="boolean">False</property>
@@ -122,6 +124,13 @@
   <property name="entities_greek" type="boolean">False</property>
   <property name="entities_latin" type="boolean">False</property>
 
+  <!-- Captioned image properties -->
+  <property name="image2_alignClasses" type="lines">
+   <element value="image-left"/>
+   <element value=""/>
+   <element value="image-right"/>
+  </property>
+  <property name="image2_captionedClass" type="string">image</property>
  </object>
 
 

@@ -32,7 +32,7 @@ before_install:
   - sudo update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX
   - sudo locale -a
   - sudo locale
-  - sudo apt-get install -y libqt4-dev python-qt4 pyqt4-dev-tools qt4-designer python-sip-dev python-sip libxtst-dev libxml2-dev libxslt1-dev
+  - sudo apt-get install -y libxml2-dev libxslt1-dev
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 

@@ -107,3 +107,74 @@ launchCKInstances = function (ids_to_launch) {
 
 jQuery(document).ready(launchCKInstances);
 
+(function() {
+
+    var format = function format(msg) {
+        return '<p>Actual URL</p><p>'+msg+'</p>';
+    };
+
+    var showActualUrl = function showActualUrl(domElement, url) {
+        if (url.indexOf('resolveuid') !== -1) {
+            domElement.setHtml(format('Loading...'));
+            var current_uid = url.split('resolveuid/')[1];
+            var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
+            var settings = {
+                url: new_url,
+                type: 'GET',
+                success: function(data, textStatus, jqXHR){
+                    if (jqXHR.status == 200) {
+                        domElement.setHtml(format(data));
+                    } else {
+                        domElement.setHtml(format('Could not be resolved.'));
+                    }
+                },
+                error: function(jqXHR, textStatus){
+                    domElement.setHtml(format('Could not be resolved.'));
+                }
+            };
+            $.ajax(settings);
+            return;
+        }
+        domElement.setHtml('<p></p>');
+    };
+
+CKEDITOR.on( 'dialogDefinition', function( ev ) {
+    // Take the dialog name and its definition from the event
+    // data.
+    var dialogName = ev.data.name;
+    var dialogDefinition = ev.data.definition;
+
+    // Check if the definition is from the dialog we're
+    // interested on (the "Link" dialog).
+    if ( dialogName == 'link' ) {
+        // Get a reference to the "Link Info" tab.
+        var infoTab = dialogDefinition.getContents( 'info' );
+
+        var urlOptions = infoTab.get('urlOptions');
+        urlOptions.children.push( {
+            id: 'actual',
+            type : 'html',
+            setup: function( data ) {
+                var domElement = this.getElement();
+                if ( data.url ) {
+                    showActualUrl(domElement, data.url.url);
+                } else {
+                    domElement.setHtml('<p></p>');
+                }
+            },
+            html : ''
+        });
+
+        var url = infoTab.get('url');
+        default_onKeyUp = url.onKeyUp;
+        url.onKeyUp = function() {
+            var actual = this.getDialog().getContentElement('info', 'actual');
+            var domElement = actual.getElement();
+            var url = this.getValue();
+            showActualUrl(domElement, url);
+            default_onKeyUp.apply(this);
+        };
+    }
+});
+
+})();

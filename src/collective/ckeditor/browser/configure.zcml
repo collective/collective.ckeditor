@@ -20,6 +20,13 @@
         />
 
     <browser:page
+      name="convert_uid_to_url"
+      for="*"
+      class=".convertuid.ConvertUIDView"
+      permission="zope.Public"
+      />
+
+    <browser:page
         name="ckeditor_wysiwyg_support"
         for="*"
         class=".ckeditorview.ckeditor_wysiwyg_support"

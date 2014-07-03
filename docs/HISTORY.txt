@@ -1,10 +1,40 @@
 Changelog
 =========
 
-4.1.2 (unreleased)
-------------------
+4.3.0b3 (unreleased)
+--------------------
 
 - Nothing changed yet.
+
+
+4.3.0b2 (2014-06-19)
+--------------------
+
+- Fix javascript order though GS.
+  [montypie]
+
+
+4.3.0b1 (2014-06-19)
+--------------------
+
+- Add image2 plugin and its dependencies.
+  [gotcha]
+
+- Add image2_alignClasses and image2_captionedClass setting to setup
+  image2 plugin.
+  [gotcha]
+
+- Updated to CKeditor 4.4.1.
+  [gotcha]
+
+- Add removePlugins option to control panel to allow to deactivate plugins.
+  [gotcha]
+
+4.2.0 (2014-06-05)
+------------------
+
+- Show actual url in link dialog besides resolveuid.
+  [gotcha]
 
 
 4.1.1 (2014-03-27)
