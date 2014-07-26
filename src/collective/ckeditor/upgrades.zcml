@@ -75,4 +75,17 @@
             />
 
     </upgradeSteps>
+
+    <upgradeSteps
+        source="4300"
+        destination="4310"
+        profile="collective.ckeditor:default">
+
+        <upgradeStep
+            title="Add property disallowedContent"
+            description="for Advanced Content Filter"
+           handler=".upgrades.up4310"
+            />
+
+    </upgradeSteps>
 </configure>

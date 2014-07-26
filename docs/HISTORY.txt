@@ -4,7 +4,8 @@ Changelog
 4.3.0b3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Add disallowedContent option to blacklist content.
+  [naro]
 
 
 4.3.0b2 (2014-06-19)

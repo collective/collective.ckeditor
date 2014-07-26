@@ -81,6 +81,18 @@ class ICKEditorBaseSchema(Interface):
         ),
         required=False)
 
+    disallowedContent = Text(
+        title=_(u"Disallowed Content"),
+        description=_(
+            u"The Disallowed Content feature complements the Allowed "
+            u"Content feature in that it lets you explicitly blacklist "
+            u"elements that you do not want to have in your CKEditor content. "
+            u"Taken in account only if Filtering option is not set to 'Disabled'. "
+            u"Use Javascript syntax. Read documentation at "
+            u"http://docs.ckeditor.com/#!/guide/dev_disallowed_content"
+        ),
+        required=False)
+
     menuStyles = Text(
         title=_(u"Menu styles"),
         description=_(u"Build your own CKEditor menu styles Combo box. "
@@ -409,6 +421,16 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     extraAllowedContent = property(
         get_extraAllowedContent, set_extraAllowedContent
+    )
+
+    def get_disallowedContent(self):
+        return self.context.disallowedContent
+
+    def set_disallowedContent(self, value):
+        self.context._updateProperty('disallowedContent', value)
+
+    disallowedContent = property(
+        get_disallowedContent, set_disallowedContent
     )
 
     def get_menuStyles(self):
