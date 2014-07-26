@@ -88,5 +88,5 @@ def up4310(context):
     if not props.hasProperty('disallowedContent'):
         props.manage_addProperty(
             'disallowedContent',
-            '/* set disallowedContent rules Example: \'h1 style\'*/\n',
+            '/* set disallowedContent rules Example: \'h1 style\'*/\n\'\'',
             'text')

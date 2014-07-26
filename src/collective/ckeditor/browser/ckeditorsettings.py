@@ -88,7 +88,7 @@ class ICKEditorBaseSchema(Interface):
             u"Content feature in that it lets you explicitly blacklist "
             u"elements that you do not want to have in your CKEditor content. "
             u"Taken in account only if Filtering option is not set to 'Disabled'. "
-            u"Use Javascript syntax. Read documentation at "
+            u"Use Javascript syntax, do not leave empty. Read documentation at "
             u"http://docs.ckeditor.com/#!/guide/dev_disallowed_content"
         ),
         required=False)
