@@ -129,7 +129,7 @@ class CKFinder(Finder):
         jsstring = """
 selectCKEditorItem = function (selector, title, image_preview) {
  image_preview = (typeof image_preview != "undefined") ? image_preview : false;
- if (image_preview) selector = selector + '/image_preview' ;
+ if (image_preview) selector = selector + '/@@images/image/preview' ;
  window.opener.CKEDITOR.tools.callFunction( %s, 'resolveuid/' + selector );
  window.close();
 };
