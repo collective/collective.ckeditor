@@ -33,3 +33,4 @@ sys
 src/collective/ckeditor/browser/ckeditor
 lib
 include
+*.idea
