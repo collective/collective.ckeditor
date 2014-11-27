@@ -80,3 +80,13 @@ def up4300(context):
             'image2_captionedClass',
             "image",
             'string')
+
+
+def up4301(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if not props.hasProperty('defaultTableWidth'):
+        props.manage_addProperty(
+                'defaultTableWidth',
+                '500px',
+                'string')
