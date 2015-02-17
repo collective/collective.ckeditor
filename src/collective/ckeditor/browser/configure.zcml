@@ -44,7 +44,7 @@
         name="cke-save"
         for="Products.Archetypes.interfaces.IBaseObject"
         class=".ckeditorview.CKeditorView"
-        attribute="ajaxsave" 
+        attribute="ajaxsave"
         permission="cmf.ModifyPortalContent"
         />
 
@@ -80,6 +80,13 @@
         name="ckeditor-controlpanel"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"
         class=".ckeditorsettings.CKEditorControlPanel"
+        permission="cmf.ManagePortal"
+        />
+
+    <browser:page
+        name="force-editor-for-all-users"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        class=".tools.ForceEditorView"
         permission="cmf.ManagePortal"
         />
 
