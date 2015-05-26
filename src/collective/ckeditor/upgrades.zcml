@@ -78,14 +78,25 @@
 
     <upgradeSteps
         source="4300"
-        destination="4310"
+        destination="4301"
         profile="collective.ckeditor:default">
 
         <upgradeStep
-            title="Add property disallowedContent"
-            description="for Advanced Content Filter"
-           handler=".upgrades.up4310"
+            title="Upgrade for defaultTableWidth property"
+            description="Add the defaultTableWidth property to ckeditor_properties if it does not exist"
+            handler=".upgrades.up4301"
             />
 
     </upgradeSteps>
+
+
+    <upgradeStep
+        source="4301"
+        destination="4310"
+        title="Add property disallowedContent"
+        description="for Advanced Content Filter"
+        profile="collective.ckeditor:default"
+        handler=".upgrades.up4310"
+        />
+
 </configure>

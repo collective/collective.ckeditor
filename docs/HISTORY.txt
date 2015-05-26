@@ -4,8 +4,8 @@ Changelog
 4.3.0b3 (unreleased)
 --------------------
 
-- Add disallowedContent option to blacklist content.
-  [naro]
+- Add disallowedContent option to blacklist content. [naro]
+- Add defaultTableWidth option to control panel to set the default table width in the table dialog window.
 
 
 4.3.0b2 (2014-06-19)

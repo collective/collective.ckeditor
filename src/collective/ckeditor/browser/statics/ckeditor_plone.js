@@ -175,6 +175,20 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
             default_onKeyUp.apply(this);
         };
     }
+
+   // Check if the definition is from the dialog we're
+   // interested on (the "Table" dialog).
+   if ( dialogName == 'table' )
+   {
+       // Get a reference to the "Table Info" tab.
+       var infoTab = dialogDefinition.getContents( 'info' );
+ 
+       // Set default width
+       txtWidth = infoTab.get( 'txtWidth' );
+       defaultTableWidth = ev.editor.config.defaultTableWidth;
+       txtWidth['default'] = defaultTableWidth;
+   }
+
 });
 
 })();

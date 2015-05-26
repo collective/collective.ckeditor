@@ -221,7 +221,8 @@ class CKeditorView(BrowserView):
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
                           'entities_greek', 'entities_latin',
                           'forcePasteAsPlainText', 'toolbar',
-                          'image2_alignClasses', 'image2_captionedClass')
+                          'image2_alignClasses', 'image2_captionedClass',
+                          'defaultTableWidth')
         for p in unchangedProps:
             jsProp = self.geCK_JSProperty(p)
             if jsProp is not None:
