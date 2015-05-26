@@ -32,6 +32,10 @@
       /* Add items to array of allowedContent rules */
       []
   </property>
+  <property name="disallowedContent" type="text">
+    /* set disallowedContent rules Example: 'h1 style'*/
+    ''
+  </property>
   <property name="menuStyles" type="text">
 [
   /* Block Styles */
