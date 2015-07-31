@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -14,7 +14,9 @@
 	var DRAG_HANDLER_SIZE = 15;
 
 	CKEDITOR.plugins.add( 'widget', {
-		lang: 'ar,ca,cs,cy,de,el,en,en-gb,eo,es,fa,fi,fr,gl,he,hr,hu,it,ja,km,ko,nb,nl,no,pl,pt,pt-br,ru,sl,sv,tt,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+		// jscs:disable maximumLineLength
+		lang: 'af,ar,ca,cs,cy,da,de,el,en,en-gb,eo,es,fa,fi,fr,gl,he,hr,hu,it,ja,km,ko,ku,nb,nl,no,pl,pt,pt-br,ru,sk,sl,sq,sv,tr,tt,uk,vi,zh,zh-cn', // %REMOVE_LINE_CORE%
+		// jscs:enable maximumLineLength
 		requires: 'lineutils,clipboard',
 		onLoad: function() {
 			CKEDITOR.addCss(
@@ -58,7 +60,7 @@
 				'}' +
 				'.cke_widget_drag_handler_container:hover{' +
 					'opacity:1' +
-				'}'+
+				'}' +
 				'img.cke_widget_drag_handler{' +
 					'cursor:move;' +
 					'width:' + DRAG_HANDLER_SIZE + 'px;' +
@@ -415,20 +417,31 @@
 		 * @param {Boolean} [checkWrapperOnly] If set to `true`, the method will not check wrappers' descendants.
 		 * @returns {CKEDITOR.plugins.widget} The widget instance or `null`.
 		 */
-		getByElement: function( element, checkWrapperOnly ) {
-			if ( !element )
-				return null;
-
-			var wrapper;
-
-			for ( var id in this.instances ) {
-				wrapper = this.instances[ id ].wrapper;
-				if ( wrapper.equals( element ) || ( !checkWrapperOnly && wrapper.contains( element ) ) )
-					return this.instances[ id ];
+		getByElement: ( function() {
+			var validWrapperElements = { div: 1, span: 1 };
+			function getWidgetId( element ) {
+				return element.is( validWrapperElements ) && element.data( 'cke-widget-id' );
 			}
 
-			return null;
-		},
+			return function( element, checkWrapperOnly ) {
+				if ( !element )
+					return null;
+
+				var id = getWidgetId( element );
+
+				// There's no need to check element parents if element is a wrapper.
+				if ( !checkWrapperOnly && !id ) {
+					var limit = this.editor.editable();
+
+					// Try to find a closest ascendant which is a widget wrapper.
+					do {
+						element = element.getParent();
+					} while ( element && !element.equals( limit ) && !( id = getWidgetId( element ) ) );
+				}
+
+				return this.instances[ id ] || null;
+			};
+		} )(),
 
 		/**
 		 * Initializes a widget on a given element if the widget has not been initialized on it yet.
@@ -464,8 +477,9 @@
 						this.instances[ widget.id ] = widget;
 
 						return widget;
-					} else
+					} else {
 						return null;
+					}
 				}
 
 				// Widget already has been initialized, so try to get widget by element.
@@ -485,6 +499,7 @@
 		 * @param {CKEDITOR.dom.element} [container=editor.editable()] The container which will be checked for not
 		 * initialized widgets. Defaults to editor's {@link CKEDITOR.editor#editable editable} element.
 		 * @returns {CKEDITOR.plugins.widget[]} Array of widget instances which have been initialized.
+		 * Note: Only first-level widgets are returned &mdash; without nested widgets.
 		 */
 		initOnAll: function( container ) {
 			var newWidgets = ( container || this.editor.editable() ).find( '.cke_widget_new' ),
@@ -699,7 +714,7 @@
 	 *
 	 * Or in a completely custom way:
 	 *
-	 *		var element = editor.createElement( 'div' );
+	 *		var element = editor.document.createElement( 'div' );
 	 *		editor.insertElement( element );
 	 *		var widget = editor.widgets.initOn( element, 'simplebox' );
 	 *
@@ -972,8 +987,6 @@
 		 * in this case the DOM (attributes, classes, etc.) will not be cleaned up.
 		 */
 		destroy: function( offline ) {
-			var editor = this.editor;
-
 			this.fire( 'destroy' );
 
 			if ( this.editables ) {
@@ -1018,10 +1031,12 @@
 		 * Starts widget editing.
 		 *
 		 * This method fires the {@link CKEDITOR.plugins.widget#event-edit} event
-		 * which may be cancelled in order to prevent it from opening a dialog window.
+		 * which may be canceled in order to prevent it from opening a dialog window.
 		 *
 		 * The dialog window name is obtained from the event's data `dialog` property or
 		 * from {@link CKEDITOR.plugins.widget.definition#dialog}.
+		 *
+		 * @returns {Boolean} Returns `true` if a dialog window was opened.
 		 */
 		edit: function() {
 			var evtData = { dialog: this.dialog },
@@ -1029,7 +1044,7 @@
 
 			// Edit event was blocked, but there's no dialog to be automatically opened.
 			if ( this.fire( 'edit', evtData ) === false || !evtData.dialog )
-				return;
+				return false;
 
 			this.editor.openDialog( evtData.dialog, function( dialog ) {
 				var showListener,
@@ -1071,6 +1086,8 @@
 					okListener.removeListener();
 				} );
 			} );
+
+			return true;
 		},
 
 		/**
@@ -1184,8 +1201,13 @@
 
 			// Fake the selection before focusing editor, to avoid unpreventable viewports scrolling
 			// on Webkit/Blink/IE which is done because there's no selection or selection was somewhere else than widget.
-			if ( sel )
+			if ( sel ) {
+				var isDirty = this.editor.checkDirty();
+
 				sel.fake( this.wrapper );
+
+				!isDirty && this.editor.resetDirty();
+			}
 
 			// Always focus editor (not only when focusManger.hasFocus is false) (because of #10483).
 			this.editor.focus();
@@ -1416,7 +1438,7 @@
 
 	/**
 	 * An event fired when a dialog window for widget editing is opened.
-	 * This event can be cancelled in order to handle the editing dialog in a custom manner.
+	 * This event can be canceled in order to handle the editing dialog in a custom manner.
 	 *
 	 * @event dialog
 	 * @param {CKEDITOR.dialog} data The opened dialog window instance.
@@ -1425,7 +1447,7 @@
 	/**
 	 * An event fired when a key is pressed on a focused widget.
 	 * This event is forwarded from the {@link CKEDITOR.editor#key} event and
-	 * has the ability to block editor keystrokes if it is cancelled.
+	 * has the ability to block editor keystrokes if it is canceled.
 	 *
 	 * @event key
 	 * @param data
@@ -1435,9 +1457,22 @@
 	/**
 	 * An event fired when a widget is double clicked.
 	 *
+	 * **Note:** If a default editing action is executed on double click (i.e. a widget has a
+	 * {@link CKEDITOR.plugins.widget.definition#dialog dialog} defined and the {@link #event-doubleclick} event was not
+	 * canceled), this event will be automatically canceled, so a listener added with the default priority (10)
+	 * will not be executed. Use a listener with low priority (e.g. 5) to be sure that it will be executed.
+	 *
+	 *		widget.on( 'doubleclick', function( evt ) {
+	 *			console.log( 'widget#doubleclick' );
+	 *		}, null, null, 5 );
+	 *
+	 * If your widget handles double click in a special way (so the default editing action is not executed),
+	 * make sure you cancel this event, because otherwise it will be propagated to {@link CKEDITOR.editor#doubleclick}
+	 * and another feature may step in (e.g. a Link dialog window may be opened if your widget was inside a link).
+	 *
 	 * @event doubleclick
 	 * @param data
-	 * @param {CKEDITOR.dom.element} data.element The double clicked element.
+	 * @param {CKEDITOR.dom.element} data.element The double-clicked element.
 	 */
 
 	/**
@@ -1500,6 +1535,8 @@
 				enterMode: this.enterMode
 			} );
 			this.setHtml( data );
+
+			this.editor.widgets.initOnAll( this );
 		},
 
 		/**
@@ -1632,10 +1669,10 @@
 									cancelListener.removeListener();
 								} );
 							} );
-						}
-						// Dialog hasn't been set, so insert widget now.
-						else
+						} else {
+							// Dialog hasn't been set, so insert widget now.
 							finalizeCreation();
+						}
 					}, null, null, 999 );
 
 					instance.edit();
@@ -1677,19 +1714,23 @@
 			upcasts = upcast.split( ',' );
 			while ( upcasts.length )
 				widgetsRepo._.upcasts.push( [ widgetDef.upcasts[ upcasts.pop() ], widgetDef.name ] );
-		}
-		// Single rule which is automatically activated.
-		else
+		} else {
+			// Single rule which is automatically activated.
 			widgetsRepo._.upcasts.push( [ upcast, widgetDef.name ] );
+		}
 	}
 
 	function blurWidget( widgetsRepo, widget ) {
 		widgetsRepo.focused = null;
 
 		if ( widget.isInited() ) {
+			var isDirty = widget.editor.checkDirty();
+
 			// Widget could be destroyed in the meantime - e.g. data could be set.
 			widgetsRepo.fire( 'widgetBlurred', { widget: widget } );
 			widget.setFocused( false );
+
+			!isDirty && widget.editor.resetDirty();
 		}
 	}
 
@@ -1771,10 +1812,10 @@
 			if ( element.type == CKEDITOR.NODE_ELEMENT && element.data( 'widget' ) ) {
 				element.replace( wrapper );
 				widgetsRepo.wrapElement( element );
-			}
-			// Otherwise - something is wrong... clean this up.
-			else
+			} else {
+				// Otherwise - something is wrong... clean this up.
 				wrapper.remove();
+			}
 		}
 	}
 
@@ -2003,6 +2044,11 @@
 		return element.type == CKEDITOR.NODE_ELEMENT && element.hasAttribute( 'data-cke-widget-drag-handler' );
 	}
 
+	// @param {CKEDITOR.dom.element}
+	function isDomDragHandlerContainer( element ) {
+		return element.type == CKEDITOR.NODE_ELEMENT && element.hasClass( 'cke_widget_drag_handler_container' );
+	}
+
 	function finalizeNativeDrop( editor, sourceWidget, range ) {
 		// Save the snapshot with the state before moving widget.
 		// Focus widget, so when we'll undo the DnD, widget will be focused.
@@ -2052,9 +2098,9 @@
 			var span = editor.document.getById( id );
 			range.moveToPosition( span, CKEDITOR.POSITION_BEFORE_START );
 			span.remove();
-		}
-		else
+		} else {
 			return null;
+		}
 
 		return range;
 	}
@@ -2276,10 +2322,10 @@
 						evt.data.preventDefault();
 						if ( !CKEDITOR.env.ie )
 							widget.focus();
-					}
-					// Reset widget so mouseup listener is not confused.
-					else
+					} else {
+						// Reset widget so mouseup listener is not confused.
 						widget = null;
+					}
 				}
 			} );
 
@@ -2299,7 +2345,7 @@
 			// It is not possible to prevent that default action,
 			// so we force fake selection after everything happened.
 			if ( CKEDITOR.env.ie ) {
-				editable.attachListener( evtRoot, 'mouseup', function( evt ) {
+				editable.attachListener( evtRoot, 'mouseup', function() {
 					if ( widget ) {
 						setTimeout( function() {
 							widget.focus();
@@ -2389,12 +2435,13 @@
 			}
 			// It may happen that there's no widget even if editable was found -
 			// e.g. if selection was automatically set in editable although widget wasn't initialized yet.
-			else if ( newWidget && nestedEditable )
+			else if ( newWidget && nestedEditable ) {
 				setFocusedEditable( widgetsRepo, newWidget, nestedEditable );
+			}
 		} );
 
 		// Invalidate old widgets early - immediately on dataReady.
-		editor.on( 'dataReady', function( evt ) {
+		editor.on( 'dataReady', function() {
 			// Deselect and blur all widgets.
 			stateUpdater( widgetsRepo ).commit();
 		} );
@@ -2427,8 +2474,7 @@
 
 	function setupWidgetsLifecycleEnd( widgetsRepo ) {
 		var editor = widgetsRepo.editor,
-			downcastingSessions = {},
-			nestedEditableScope = false;
+			downcastingSessions = {};
 
 		// Listen before htmlDP#htmlFilter is applied to cache all widgets, because we'll
 		// loose data-cke-* attributes.
@@ -2498,7 +2544,7 @@
 				for ( e in toBe.editables ) {
 					editableElement = toBe.editables[ e ];
 
-					delete editableElement.attributes[ 'contenteditable' ];
+					delete editableElement.attributes.contenteditable;
 					editableElement.setHtml( widget.editables[ e ].getData() );
 				}
 
@@ -2612,7 +2658,7 @@
 
 			commit: function() {
 				var focusedChanged = widgetsRepo.focused !== focused,
-					widget;
+					widget, isDirty;
 
 				widgetsRepo.editor.fire( 'lockSnapshot' );
 
@@ -2622,14 +2668,23 @@
 				while ( ( widget = toBeDeselected.pop() ) ) {
 					currentlySelected.splice( CKEDITOR.tools.indexOf( currentlySelected, widget ), 1 );
 					// Widget could be destroyed in the meantime - e.g. data could be set.
-					if ( widget.isInited() )
+					if ( widget.isInited() ) {
+						isDirty = widget.editor.checkDirty();
+
 						widget.setSelected( false );
+
+						!isDirty && widget.editor.resetDirty();
+					}
 				}
 
 				if ( focusedChanged && focused ) {
+					isDirty = widgetsRepo.editor.checkDirty();
+
 					widgetsRepo.focused = focused;
 					widgetsRepo.fire( 'widgetFocused', { widget: focused } );
 					focused.setFocused( true );
+
+					!isDirty && widgetsRepo.editor.resetDirty();
 				}
 
 				while ( ( widget = toBeSelected.pop() ) ) {
@@ -2838,7 +2893,8 @@
 			return;
 
 		var editor = widget.editor,
-			container = widget.wrapper.findOne( '.cke_widget_drag_handler_container' ),
+			// Use getLast to find wrapper's direct descendant (#12022).
+			container = widget.wrapper.getLast( isDomDragHandlerContainer ),
 			img;
 
 		// Reuse drag handler if already exists (#11281).
@@ -2876,8 +2932,9 @@
 			img.on( 'dragstart', function( evt ) {
 				evt.data.$.dataTransfer.setData( 'text', JSON.stringify( { type: 'cke-widget', editor: editor.name, id: widget.id } ) );
 			} );
-		} else
+		} else {
 			img.on( 'mousedown', onBlockWidgetDrag, widget );
+		}
 
 		widget.dragHandlerContainer = container;
 	}
@@ -3059,17 +3116,17 @@
 			var keyCode = evt.data.keyCode;
 
 			// ENTER.
-			if ( keyCode == 13 )
+			if ( keyCode == 13 ) {
 				widget.edit();
-			// CTRL+C or CTRL+X.
-			else if ( keyCode == CKEDITOR.CTRL + 67 || keyCode == CKEDITOR.CTRL + 88 ) {
+				// CTRL+C or CTRL+X.
+			} else if ( keyCode == CKEDITOR.CTRL + 67 || keyCode == CKEDITOR.CTRL + 88 ) {
 				copySingleWidget( widget, keyCode == CKEDITOR.CTRL + 88 );
 				return; // Do not preventDefault.
-			}
-			// Pass chosen keystrokes to other plugins or default fake sel handlers.
-			// Pass all CTRL/ALT keystrokes.
-			else if ( keyCode in keystrokesNotBlockedByWidget || ( CKEDITOR.CTRL & keyCode ) || ( CKEDITOR.ALT & keyCode ) )
+			} else if ( keyCode in keystrokesNotBlockedByWidget || ( CKEDITOR.CTRL & keyCode ) || ( CKEDITOR.ALT & keyCode ) ) {
+				// Pass chosen keystrokes to other plugins or default fake sel handlers.
+				// Pass all CTRL/ALT keystrokes.
 				return;
+			}
 
 			return false;
 		}, null, null, 999 );
@@ -3077,7 +3134,11 @@
 		// to overwrite this callback.
 
 		widget.on( 'doubleclick', function( evt ) {
-			widget.edit();
+			if ( widget.edit() ) {
+				// We have to cancel event if edit method opens a dialog, otherwise
+				// link plugin may open extra dialog (#12140).
+				evt.cancel();
+			}
 		} );
 
 		if ( widgetDef.data )
@@ -3177,13 +3238,13 @@
 				return this.checkElementMatch( elementPath.lastElement, 0, editor );
 			},
 
-			checkApplicable: function( elementPath, editor, filter ) {
+			checkApplicable: function( elementPath, editor ) {
 				// Before CKEditor 4.4 wasn't a required argument, so we need to
 				// handle a case when it wasn't provided.
 				if ( !( editor instanceof CKEDITOR.editor ) )
 					return false;
 
-				return this.checkElement( elementPath.lastElement, editor );
+				return this.checkElement( elementPath.lastElement );
 			},
 
 			checkElementMatch: checkElementMatch,
@@ -3195,10 +3256,9 @@
 			 * widget whose name matches the {@link #widget widget name} specified in the style definition.
 			 *
 			 * @param {CKEDITOR.dom.element} element
-			 * @param {CKEDITOR.editor} editor
 			 * @returns {Boolean}
 			 */
-			checkElement: function( element, editor ) {
+			checkElement: function( element ) {
 				if ( !isDomWidgetWrapper( element ) )
 					return false;
 
@@ -3289,7 +3349,7 @@
 			if ( !editor )
 				return false;
 
-			if ( !this.checkElement( element, editor ) )
+			if ( !this.checkElement( element ) )
 				return false;
 
 			var widget = editor.widgets.getByElement( element, true );

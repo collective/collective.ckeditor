@@ -1,12 +1,12 @@
 ﻿/*
-Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'ca', {
 	alt: 'Text alternatiu',
 	btnUpload: 'Envia-la al servidor',
 	captioned: 'Imatge amb subtítol',
-	captionPlaceholder: 'Caption', // MISSING
+	captionPlaceholder: 'Títol',
 	infoTab: 'Informació de la imatge',
 	lockRatio: 'Bloqueja les proporcions',
 	menu: 'Propietats de la imatge',
