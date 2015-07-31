@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from zope.testing import doctest
-from unittest import TestSuite, main
+from unittest import TestSuite
 from Testing import ZopeTestCase as ztc
 from collective.ckeditor.tests.base import CKEditorTestCase
 
@@ -20,8 +20,10 @@ def test_suite():
              ]
     suite = TestSuite()
     for test in tests:
-        suite.addTest(ztc.FunctionalDocFileSuite(test,
+        suite.addTest(ztc.FunctionalDocFileSuite(
+            test,
             optionflags=OPTIONFLAGS,
             package="collective.ckeditor.tests",
-            test_class=CKEditorTestCase))
+            test_class=CKEditorTestCase
+        ))
     return suite

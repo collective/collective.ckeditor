@@ -87,6 +87,7 @@ def up4301(context):
     props = ptool.ckeditor_properties
     if not props.hasProperty('defaultTableWidth'):
         props.manage_addProperty(
-                'defaultTableWidth',
-                '500px',
-                'string')
+            'defaultTableWidth',
+            '500px',
+            'string'
+        )

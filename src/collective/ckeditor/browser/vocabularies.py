@@ -58,7 +58,7 @@ def _infoDictForType(ptype, portal_types, utranslate):
     return {
         'portal_type': ptype,
         'type_ui_info': type_ui_info
-        }
+    }
 
 
 class CKEditorToolBarVocabulary(object):

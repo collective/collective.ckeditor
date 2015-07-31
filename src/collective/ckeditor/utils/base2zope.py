@@ -1,9 +1,8 @@
-# -*- coding: UTF-8 -*-
+#!/usr/bin/env python # -*- coding: UTF-8 -*-
 # Authors:
-#!/usr/bin/env python
-#BOILERPLATE###################################################################
+###############################################################################
 #                                                                             #
-#  This package wraps CKeditor for use in the Zope web application server.   #
+#  This package wraps CKeditor for use in the Zope web application server.    #
 #  Copyright (C) 2005 Chad Whitacre < http://www.zetadev.com/ >               #
 #                                                                             #
 #  This library is free software; you can redistribute it and/or modify it    #
@@ -21,7 +20,7 @@
 #  Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA                #
 #                                                                             #
 #                                                                             #
-###################################################################BOILERPLATE#
+###############################################################################
 
 """ This script takes the CKeditor base distribution in ../src/ and massages it
 for use in Zope, outputting to ../browser/ckeditor/. Usage:
@@ -66,9 +65,10 @@ def check_dirs(dest_root, src_root):
     if os.path.exists(dest_root):
         force = sys.argv[1:2] == ['--force']
         if not force:
-            answer = raw_input("destination directory already exists; " +\
-                                "delete and recreate? (y/n) [n] "
-                                )
+            answer = raw_input(
+                "destination directory already exists; "
+                "delete and recreate? (y/n) [n] "
+            )
             force = answer.lower() == 'y'
         if force:
             rm_rf(dest_root)
@@ -78,21 +78,23 @@ def check_dirs(dest_root, src_root):
         os.makedirs(dest_root)
 
 
-ext_unwanted = ('asp', 'aspx', 'cfc', 'cfm', 'cgi', 'exe', 'htaccess', 'php',
-    'pl', 'lasso', 'afp')
+ext_unwanted = (
+    'asp', 'aspx', 'cfc', 'cfm', 'cgi', 'exe', 'htaccess', 'php',
+    'pl', 'lasso', 'afp'
+)
 # files overloaded
 files_unwanted = ()
 # files changed
 files_changed = {}
 
-REPLACE = {'.cke_skin_kama .cke_fontSize .cke_text{width:25px;}':
-               '',
-           '.cke_contextmenu{padding:2px;}':
-              '.cke_contextmenu{padding:2px; width: 180px !important;}'
-          }
+REPLACE = {
+    '.cke_skin_kama .cke_fontSize .cke_text{width:25px;}': '',
+    '.cke_contextmenu{padding:2px;}':
+        '.cke_contextmenu{padding:2px; width: 180px !important;}'
+}
 
 # use regexp to fix xhtml errors in tal parser
-#(https://bugs.launchpad.net/zope2/+bug/142333)
+# (https://bugs.launchpad.net/zope2/+bug/142333)
 BADRE = '(?P<start>\/\/\<\!\[CDATA\[[?!\<]*)(?P<tags>.*?)(?P<end>\/\/\]\]\>)'
 
 
@@ -157,7 +159,7 @@ def makeSkinDirs(srcDir, destDir):
                 else:
                     shutil.copy(src, dest)
 
-                #remove BOM, a known bug on some fckeditor versions
+                # remove BOM, a known bug on some fckeditor versions
                 # (ex: http://sourceforge.net/tracker/index.php?
                 # func=detail&aid=1685547&group_id=75348&atid=543653)
                 if filename.endswith('.html'):
@@ -202,7 +204,7 @@ def copy_ckeditor(root):
     SRC_ROOT = os.path.join(root, '_src', 'ckeditor')
     DEST_ROOT = os.path.join(root, 'browser', 'ckeditor')
     check_dirs(DEST_ROOT, SRC_ROOT)
-    #Add base skin directory
+    # Add base skin directory
     makeSkinDirs(SRC_ROOT, DEST_ROOT)
     # TODO :  Add new skins and plugins
     # SRC_SKINS_ADDONS_ROOT = os.path.join(root, '_addons','skins')

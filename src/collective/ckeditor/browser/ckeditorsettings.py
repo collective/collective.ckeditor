@@ -510,7 +510,7 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     height = property(get_height, set_height)
 
-    #browser fieldset
+    # browser fieldset
 
     def get_allow_link_byuid(self):
         return self.context.allow_link_byuid

@@ -389,15 +389,15 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         if widget is not None:
             widget_settings = {}
             for k, v in params.items():
-                if hasattr(widget, k) and not k in p_overloaded:
+                if hasattr(widget, k) and k not in p_overloaded:
                     widget_settings[k] = v
 
             # specific for cols and rows rich widget settings
-            if hasattr(widget, 'cols') and not 'width' in p_overloaded:
+            if hasattr(widget, 'cols') and 'width' not in p_overloaded:
                 if widget.cols:
                     width = str(int(int(widget.cols) * 100 / 40)) + '%'
                     widget_settings['width'] = width
-            if hasattr(widget, 'rows') and not 'height' in p_overloaded:
+            if hasattr(widget, 'rows') and 'height' not in p_overloaded:
                 if widget.rows:
                     height = str(int(widget.rows) * 25) + 'px'
                     widget_settings['height'] = height
@@ -428,7 +428,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         # 2 first values and 2 last values...
         language_code = "%s_%s" % (content_language[0:2],
                                    content_language.upper()[-2:5])
-        if not language_code in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
+        if language_code not in CKEDITOR_SUPPORTED_LANGUAGE_CODES:
             # try to find a fallback in available languages.
             # the fallback is the first language found with relevant
             # first part main language code.

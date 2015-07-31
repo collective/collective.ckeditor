@@ -3,7 +3,6 @@
 """Base class for ckeditor test cases.
 """
 
-import sys
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.Five.testbrowser import Browser
 from Products.CMFCore.utils import getToolByName
@@ -23,7 +22,6 @@ def setup_product():
     fiveconfigure.debug_mode = True
     import collective.ckeditor
     zcml.load_config('configure.zcml', collective.ckeditor)
-    #fiveconfigure.debug_mode = False
     ztc.installPackage('collective.quickupload')
     ztc.installPackage('collective.plonefinder')
     ztc.installPackage('collective.ckeditor')
@@ -52,18 +50,4 @@ class CKEditorTestCase(ptc.FunctionalTestCase):
         self.browser.getControl('Log in').click()
 
     class layer(PloneSite):
-        @classmethod
-        def setUp(cls):
-            # doctests don't play nicely with ipython
-            try:
-                iphook = sys.displayhook
-                sys.displayhook = sys.__displayhook__
-            except:
-                pass
-
-        @classmethod
-        def tearDown(cls):
-            try:
-                sys.displayhook = iphook
-            except:
-                pass
+        pass

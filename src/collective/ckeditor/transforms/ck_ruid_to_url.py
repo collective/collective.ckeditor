@@ -10,8 +10,6 @@ try:
 except ImportError:
     from Products.PortalTransforms.z3.interfaces import ITransform
 
-#from Products.PortalTransforms.interfaces import itransform
-
 from collective.ckeditor.config import TAG_PATTERN, UID_PATTERN
 from plone.app.uuid.utils import uuidToURL
 
@@ -20,7 +18,6 @@ class ck_ruid_to_url:
     """Transform which replaces resolve uid in absolute urls"""
 
     implements(ITransform)
-#    __implements__ = itransform
 
     __name__ = "ck_ruid_to_url"
     inputs = ('text/html',)

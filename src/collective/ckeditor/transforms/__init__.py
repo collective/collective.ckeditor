@@ -6,7 +6,7 @@
 from Products.PortalTransforms.libtransforms.utils import MissingBinary
 modules = [
     'ck_ruid_to_url',
-    ]
+]
 
 g = globals()
 transforms = []

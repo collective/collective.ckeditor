@@ -27,8 +27,10 @@ class CKFinder(Finder):
         self.allowaddfolder = ckprops.getProperty('allow_folder_creation',
                                                   self.allowaddfolder)
 
-        self.showbreadcrumbs = request.get('showbreadcrumbs',
-            self.showbreadcrumbs)
+        self.showbreadcrumbs = request.get(
+            'showbreadcrumbs',
+            self.showbreadcrumbs
+        )
         # scopeInfos must be set here because we need it in  set_session_props
         self.setScopeInfos(context, request, self.showbreadcrumbs)
         # store CKEditor function name in session for ajax calls
