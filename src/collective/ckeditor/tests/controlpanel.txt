@@ -1,10 +1,22 @@
 CKEditor control panel
 ======================
 
+Log in as manager
+
+    >>> from plone.testing.z2 import Browser
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> app = layer['app']
+    >>> portal = layer['portal']
+    >>> browser = Browser(app)
+    >>> browser.open('http://nohost/plone/login_form')
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
+    >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl('Log in').click()
+
 First just try to get some property from ckeditor_properties sheet:
 
-    >>> self.loginAsManager()
-    >>> ptool = self.ptool
+    >>> ptool = portal.portal_properties
     >>> ckeditor_props = ptool.ckeditor_properties
     >>> ckeditor_props.allow_link_byuid
     True
@@ -14,41 +26,41 @@ First just try to get some property from ckeditor_properties sheet:
 Viewing the ckeditor control panel
 ----------------------------------
 
-    >>> self.browser.open('http://nohost/plone/@@ckeditor-controlpanel')
-    >>> self.browser.url
+    >>> browser.open('http://nohost/plone/@@ckeditor-controlpanel')
+    >>> browser.url
     'http://nohost/plone/@@ckeditor-controlpanel'
 
 Click the cancel button:
 
-    >>> self.browser.getControl(name="form.actions.cancel").click()
-    >>> self.browser.url.endswith('plone_control_panel')
+    >>> browser.getControl(name="form.actions.cancel").click()
+    >>> browser.url.endswith('plone_control_panel')
     True
 
 There should be still no changes:
 
-    >>> 'Changes canceled.' in self.browser.contents
+    >>> 'Changes canceled.' in browser.contents
     True
 
 Make some changes
 -----------------
 
-    >>> self.browser.open('http://nohost/plone/@@ckeditor-controlpanel')
-    >>> self.browser.url.endswith('ckeditor-controlpanel')
+    >>> browser.open('http://nohost/plone/@@ckeditor-controlpanel')
+    >>> browser.url.endswith('ckeditor-controlpanel')
     True
 
-    >>> self.browser.getControl('Allow file upload').selected = False
-    >>> self.browser.getControl(name='form.width').value = '80%'
+    >>> browser.getControl('Allow file upload').selected = False
+    >>> browser.getControl(name='form.width').value = '80%'
 
 
 Click the save button:
 
-    >>> self.browser.getControl("Save").click()
-    >>> self.browser.url.endswith('ckeditor-controlpanel')
+    >>> browser.getControl("Save").click()
+    >>> browser.url.endswith('ckeditor-controlpanel')
     True
 
 We should be informed that something has changed:
 
-    >>> 'Changes saved.' in self.browser.contents
+    >>> 'Changes saved.' in browser.contents
     True
 
 Make sure the changes have been applied correctly to the ckeditor properties sheet:
@@ -62,15 +74,15 @@ Make sure the changes have been applied correctly to the ckeditor properties she
 Test the fieldsets
 ------------------
 
-    >>> 'fieldset-cke_base' in self.browser.contents
+    >>> 'fieldset-cke_base' in browser.contents
     True
 
-    >>> 'fieldset-cke_skin' in self.browser.contents
+    >>> 'fieldset-cke_skin' in browser.contents
     True
 
-    >>> 'fieldset-cke_browser' in self.browser.contents
+    >>> 'fieldset-cke_browser' in browser.contents
     True
 
-    >>> 'fieldset-cke_advanced' in self.browser.contents
+    >>> 'fieldset-cke_advanced' in browser.contents
     True
 

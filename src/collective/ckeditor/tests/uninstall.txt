@@ -1,9 +1,10 @@
 CKEditor Uninstall
 ==================
 
-    >>> self.loginAsManager()
+    >>> app = layer['app']
+    >>> portal = layer['portal']
     >>> from Products.CMFCore.utils import getToolByName
-    >>> qi = getToolByName(self.portal, 'portal_quickinstaller')
+    >>> qi = getToolByName(portal, 'portal_quickinstaller')
     >>> qi.uninstallProducts(['collective.ckeditor'])
 
 
@@ -12,14 +13,14 @@ ckeditor properties
 
 ckeditor properties sheet must stay here after uninstall :
 
-    >>> ptool = self.ptool
+    >>> ptool = portal.portal_properties
     >>> 'ckeditor_properties' in ptool.objectIds()
     True
 
 Control the wysiwyg_editor property in memberdata
 -------------------------------------------------
 
-    >>> memberdata = self.portal.portal_memberdata
+    >>> memberdata = portal.portal_memberdata
     >>> memberdata.wysiwyg_editor
     ''    
     
@@ -39,7 +40,7 @@ Control the default_editor property in site_properties
 Control portal_transforms uninstalls
 ------------------------------------
 
-    >>> transforms = getToolByName(self.portal, 'portal_transforms')
+    >>> transforms = getToolByName(portal, 'portal_transforms')
     >>> output_mimetype = 'text/x-html-safe'
     >>> cke_transform = 'ck_ruid_to_url'
 

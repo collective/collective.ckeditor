@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
+import unittest
 
 from zope.component import getMultiAdapter
-from collective.ckeditor.tests.base import CKEditorTestCase
+from ..testing import CKEDITOR_INTEGRATION
 
 
-class TestCKeditorViewTestCase(CKEditorTestCase):
+class TestCKeditorViewTestCase(unittest.TestCase):
     """Test the methods of the CKeditorView."""
+
+    layer = CKEDITOR_INTEGRATION
 
     def test_getScaytLanguage(self):
         """
@@ -15,7 +18,10 @@ class TestCKeditorViewTestCase(CKEditorTestCase):
           It tries to map the current content used language with languages
           codes supported by SCAYT.
         """
-        frontPage = getattr(self.portal, 'front-page')
+        portal = self.layer['portal']
+        from Products.CMFPlone import utils as ploneutils
+        ploneutils._createObjectByType('Document', portal, 'front-page')
+        frontPage = getattr(portal, 'front-page')
         view = getMultiAdapter(
             (frontPage, frontPage.REQUEST),
             name='ckeditor_view'

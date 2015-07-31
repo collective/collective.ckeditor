@@ -1,15 +1,32 @@
 CKEditor widget
 ===============
 
+Log in as manager
+
+    >>> from plone.testing.z2 import Browser
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> app = layer['app']
+    >>> portal = layer['portal']
+    >>> browser = Browser(app)
+    >>> browser.open('http://nohost/plone/login_form')
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
+    >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl('Log in').click()
+
 The widget settings for a local field can overload the global ckeditor
 settings.
 
-We will test first the rich widget settings used by the default front-page
+We will test first the rich widget settings used by a document (front-page)
 
 Get the rows attribute for this widget
 
-    >>> self.loginAsManager()
-    >>> doc =self.portal['front-page']
+    >>> from Products.CMFPlone import utils as ploneutils
+    >>> ploneutils._createObjectByType('Document', portal, 'front-page')
+    <ATDocument at /plone/front-page>
+    >>> import transaction
+    >>> transaction.commit()
+    >>> doc = portal['front-page']
     >>> field = doc.Schema()['text']
     >>> rows = field.widget.rows
 
@@ -20,32 +37,32 @@ Calculate the widget height as done in ckeditorview
 Get the ckeditor widget settings on front-page
 ----------------------------------------------
 
-    >>> self.browser.open('http://nohost/plone/front-page/edit')
+    >>> browser.open('http://nohost/plone/front-page/edit')
 
 See if widget_settings are in contents:
 
-    >>> '<div class="widget_settings">' in self.browser.contents
+    >>> '<div class="widget_settings">' in browser.contents
     True
     
-    >>> self.browser.getControl(name='cke_height').value== height
+    >>> browser.getControl(name='cke_height').value== height
     True
 
 Choose to overload some widget properties in control panel
 ----------------------------------------------------------
 
-    >>> self.browser.open('http://nohost/plone/@@ckeditor-controlpanel')
+    >>> browser.open('http://nohost/plone/@@ckeditor-controlpanel')
 
 Choose to overload the 'height' widget property by the control panel 'height' value    
 
-    >>> self.browser.getControl(name='form.properties_overloaded.add').click()
-    >>> self.browser.getControl(name='form.properties_overloaded.1.').value = 'height'
+    >>> browser.getControl(name='form.properties_overloaded.add').click()
+    >>> browser.getControl(name='form.properties_overloaded.1.').value = 'height'
 
 Fix the height property to any value
-    >>> self.browser.getControl(name='form.height').value = '600px'
-    >>> self.browser.getControl("Save").click()
+    >>> browser.getControl(name='form.height').value = '600px'
+    >>> browser.getControl("Save").click()
 
 Control that the local field widget setting 'height' is no more here
 
-    >>> self.browser.open('http://nohost/plone/front-page/edit')
-    >>> 'name="cke_height"' in self.browser.contents
+    >>> browser.open('http://nohost/plone/front-page/edit')
+    >>> 'name="cke_height"' in browser.contents
     False

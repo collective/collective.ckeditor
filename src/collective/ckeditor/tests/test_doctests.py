@@ -1,29 +1,37 @@
 # -*- coding: utf-8 -*-
+import unittest
+import doctest
 
-from zope.testing import doctest
-from unittest import TestSuite
-from Testing import ZopeTestCase as ztc
-from collective.ckeditor.tests.base import CKEditorTestCase
+from plone.testing import layered
+
+from ..testing import CKEDITOR_FUNCTIONAL
 
 
 OPTIONFLAGS = (doctest.ELLIPSIS |
                doctest.NORMALIZE_WHITESPACE)
 
+doc_tests = [
+    'installation.txt',
+    'controlpanel.txt',
+    'ckeditor_jsconfig.txt',
+    'uninstall.txt',
+    'widget.txt',
+    'transform_uids.txt',
+]
+
 
 def test_suite():
-    tests = ['installation.txt',
-             'controlpanel.txt',
-             'ckeditor_jsconfig.txt',
-             'uninstall.txt',
-             'widget.txt',
-             'transform_uids.txt',
-             ]
-    suite = TestSuite()
-    for test in tests:
-        suite.addTest(ztc.FunctionalDocFileSuite(
-            test,
-            optionflags=OPTIONFLAGS,
-            package="collective.ckeditor.tests",
-            test_class=CKEditorTestCase
-        ))
+    suite = unittest.TestSuite()
+    suite.addTests([
+        layered(
+            doctest.DocFileSuite(
+                'tests/{0}'.format(test_file),
+                package='collective.ckeditor',
+                optionflags=OPTIONFLAGS,
+            ),
+            layer=CKEDITOR_FUNCTIONAL
+        )
+        for test_file in doc_tests
+    ])
+
     return suite

@@ -1,5 +1,6 @@
 from plone.testing import z2
 from plone.app.testing import PloneWithPackageLayer
+from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 
 from plone.app.robotframework.testing import REMOTE_LIBRARY_BUNDLE_FIXTURE
@@ -12,6 +13,16 @@ CKEDITOR = PloneWithPackageLayer(
     zcml_filename='configure.zcml',
     gs_profile_id='collective.ckeditor:default',
     name='CKEDITOR',
+)
+
+CKEDITOR_INTEGRATION = IntegrationTesting(
+    bases=(CKEDITOR, ),
+    name='CKEDITOR_INTEGRATION',
+)
+
+CKEDITOR_FUNCTIONAL = FunctionalTesting(
+    bases=(CKEDITOR, ),
+    name='CKEDITOR_FUNCTIONAL',
 )
 
 CKEDITOR_ROBOT = FunctionalTesting(

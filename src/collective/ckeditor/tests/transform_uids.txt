@@ -5,23 +5,36 @@ each urls like './resolveuid/abcdef' or 'http://localhost/plone/resolveUID/'
 or 'http://localhost/plone/resolveuid/download'
 must be transformed on page view by absolute url of each objects resolved uid.
 
+Log in as manager
+
+    >>> from plone.testing.z2 import Browser
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> app = layer['app']
+    >>> portal = layer['portal']
+    >>> browser = Browser(app)
+    >>> browser.open('http://nohost/plone/login_form')
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
+    >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl('Log in').click()
+
 Create a document used to be linked
 -----------------------------------
 
     >>> from Products.CMFPlone import utils as ploneutils
-    >>> self.loginAsManager()
-    >>> ploneutils._createObjectByType('Document', self.portal, 'abcd')
+    >>> ploneutils._createObjectByType('Document', portal, 'abcd')
     <ATDocument at /plone/abcd>
+    >>> import transaction
+    >>> transaction.commit()
 
 Get its uid
 
-    >>> uid = self.portal['abcd'].UID()
+    >>> uid = portal['abcd'].UID()
 
 Create a document with resolveuid urls
 --------------------------------------
 
-    >>> portal_url = self.portal.absolute_url()
-    >>> browser = self.browser
+    >>> portal_url = portal.absolute_url()
     >>> browser.open('%s/createObject?type_name=Document' %portal_url)
     >>> browser.getControl(name='title').value = 'Test Doc'
     >>> html_text = '''

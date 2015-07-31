@@ -1,24 +1,36 @@
 CKEditor configuration
 ======================
 
+Log in as manager
+
+    >>> from plone.testing.z2 import Browser
+    >>> from plone.app.testing import SITE_OWNER_NAME
+    >>> from plone.app.testing import SITE_OWNER_PASSWORD
+    >>> app = layer['app']
+    >>> portal = layer['portal']
+    >>> browser = Browser(app)
+    >>> browser.open('http://nohost/plone/login_form')
+    >>> browser.getControl('Login Name').value = SITE_OWNER_NAME
+    >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
+    >>> browser.getControl('Log in').click()
+
 First just get ckeditor properties sheet :
 
-    >>> self.loginAsManager()
-    >>> ptool = self.ptool
+    >>> ptool = portal.portal_properties
     >>> ckeditor_props = ptool.ckeditor_properties
 
 We will try to get javascript configuration using testbrowser
 The javascript code must depend on ckeditor_props.
 
-    >>> from Products.Five.testbrowser import Browser
-    >>> browser = Browser()
-    >>> portal_url = self.portal.absolute_url()
-    >>> self.portal.error_log._ignored_exceptions = ()
+    >>> portal_url = portal.absolute_url()
+    >>> portal.error_log._ignored_exceptions = ()
+    >>> import transaction
+    >>> transaction.commit()
 
 Test ckeditor finder configuration
 ==================================
 
-    >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
+    >>> browser.open('%s/ckeditor_plone_config.js' % portal_url)
     >>> js_string = "config.filebrowserImageBrowseUrl='" + portal_url + "/@@plone_ckfinder?typeview=image&media=image&types:list=Image'"
     >>> js_string in browser.contents
     True
@@ -26,6 +38,7 @@ Test ckeditor finder configuration
 Remove 'News Item' portal_type for browsing images in ckeditor_properties
 
     >>> ckeditor_props.manage_changeProperties(REQUEST=None, browse_images_portal_types = ['Image', 'News Item'])
+    >>> transaction.commit()
 
 Get the javascript config file
 
@@ -39,7 +52,7 @@ Test Area style sheets configuration
 
 We set first portal_css in debug mode 
 
-    >>> self.portal.portal_css.setDebugMode(True)
+    >>> portal.portal_css.setDebugMode(True)
 
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
 
@@ -83,7 +96,8 @@ If an external stylesheet is registered with an absolute URL,
 it should be left alone (portal_url should not be concatenated).
 
     >>> ABSOLUTE_URL = 'http://style.plone.org/external.css'
-    >>> self.portal.portal_css.registerStylesheet(ABSOLUTE_URL)
+    >>> portal.portal_css.registerStylesheet(ABSOLUTE_URL)
+    >>> transaction.commit()
     >>> browser.open('%s/ckeditor_plone_config.js' %portal_url)
     >>> (",\'%s\'," % ABSOLUTE_URL) in browser.contents
     True
