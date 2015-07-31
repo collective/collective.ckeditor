@@ -47,7 +47,11 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     extras_require={
-        'test': ['plone.app.testing', 'Products.PloneTestCase', ],
+        'test': [
+            'plone.app.testing',
+            'Products.PloneTestCase',
+            'plone.app.robotframework[debug]',
+        ],
     },
     entry_points={
         'console_scripts': [
