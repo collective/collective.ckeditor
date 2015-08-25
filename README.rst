@@ -34,13 +34,9 @@ profile and execute the upgrade steps.
 -----
 
 Release 4.3.0 comes with new plugins :
-- the **Enhanced Image** plugin (`image2`). It is not
-enabled by default as it removes some of the advanced functionality provided by
-the default image plugin (`image`). However, the **Enhanced Image** plugin
-provides the ability to add a caption together with the image. It is also much
-more user-friendly;
-- the **Table Resize** plugin (`tableresize`) that makes it possible to easily
-change a table column width.
+
+- the **Enhanced Image** plugin (`image2`). It is not enabled by default as it removes some of the advanced functionality provided by the default image plugin (`image`). However, the **Enhanced Image** plugin provides the ability to add a caption together with the image. It is also much more user-friendly;
+- the **Table Resize** plugin (`tableresize`) that makes it possible to easily change a table column width.
 
 To enable the plugins, you need to setup `ckeditor_properties` through generic
 setup `propertiestool.xml`::
