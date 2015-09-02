@@ -28,6 +28,19 @@ var CKEDITOR_PLONE_BASEPATH = '%(portal_url)s/++resource++ckeditor_for_plone/';
 var CKEDITOR_PLONE_PORTALPATH = '%(portal_url)s';
 """
 
+CK_JS_HELPER_CONDITIONAL_COMMENTS = """
+/**
+* Helper function to evaluate conditional comments by building a temporary
+* object based on that condition and checking for its existence.
+*/
+function checkConditional(condition) {
+    var b = document.createElement('b');
+    b.innerHTML = '<!--[if ' + condition + ']><i></i><![endif]-->';
+    return b.getElementsByTagName('i')[0] != undefined;
+}
+"""
+
+
 ABSOLUTE_URL = re.compile("^https?://")
 
 
@@ -139,37 +152,56 @@ class CKeditorView(BrowserView):
 
     def getCK_contentsCss(self):
         """
-        return list of style sheets applied to ckeditor area
-        the list is returned as a javascript string
-        by default portal_css mixin + plone_ckeditor_area.css
+        return a python list of style sheets applied to ckeditor area
+        each element is a dictionary containing the keys: url and conditional_comment
+        elements contained by default: portal_css mixin + plone_ckeditor_area.css
         TODO : improve it with a control panel
         """
         context = aq_inner(self.context)
         portal = self.portal
         portal_url = self.portal_url
         portal_css = getToolByName(portal, 'portal_css')
-        css_jsList = "["
+        css_list = list()
         current_skin = context.getCurrentSkinName()
         skinname = url_quote(current_skin)
         css_res = portal_css.getEvaluatedResources(context)
         for css in css_res:
+            css_entry = dict()
             media = css.getMedia()
             rel = css.getRel()
             if media not in ('print', 'projection') and rel == 'stylesheet':
                 cssPloneId = css.getId()
                 if ABSOLUTE_URL.match(cssPloneId):
-                    css_jsList += "'%s', " % cssPloneId
+                    css_entry['url'] = cssPloneId
                 else:
                     cssPlone = '%s/portal_css/%s/%s' % (portal_url,
                                                         skinname,
                                                         cssPloneId)
-                    css_jsList += "'%s', " % cssPlone
+                    css_entry['url'] = cssPlone
+                css_entry['conditionalcomment'] = css.getConditionalcomment()
+                css_list.append(css_entry)
 
         baseres = '++resource++ckeditor_for_plone'
-        css_jsList += "'%s/%s/ckeditor_plone_area.css']" % (portal_url,
-                                                            baseres)
+        css_list.append(dict(url='%s/%s/ckeditor_plone_area.css' % (portal_url,
+                                                                    baseres),
+                             conditionalcomment=''))
+        return css_list
 
-        return css_jsList
+    def getCssChooser(self):
+        """
+        returns javascript code to decide, which css from self.getCK_contentsCss
+        to include based on possible Conditional Comments (IE only)
+        """
+        js = CK_JS_HELPER_CONDITIONAL_COMMENTS
+        js += "var cssList = Array();"
+        for css in self.getCK_contentsCss():
+            if css.get('conditionalcomment'):
+                js += "if (checkConditional('%s')) { cssList.push('%s'); }" % (
+                    css.get('conditionalcomment'), css.get('url'))
+            else:
+                js += "cssList.push('%s');" % css.get('url')
+        js += "config.contentsCss = cssList;"
+        return js
 
     def getCK_finder_url(self, type=None):
         """
@@ -229,7 +261,7 @@ class CKeditorView(BrowserView):
                 params[p] = jsProp
 
         params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
-        params['contentsCss'] = self.getCK_contentsCss()
+        # contentCss must be set in self.getCK_contentsCss
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         img_url = self.getCK_finder_url(type='image')
         params['filebrowserImageBrowseUrl'] = img_url
@@ -253,6 +285,8 @@ class CKeditorView(BrowserView):
             params_js_string += """
     config.%s = %s;
             """ % (k, v)
+        # include contentCss (but aware of conditional comments)
+        params_js_string += self.getCssChooser()
 
         ids = []
         for line in self.cke_properties.getProperty('plugins', []):
