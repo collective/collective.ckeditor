@@ -28,11 +28,11 @@ env:
 #  - npm install jshint -g
 
 before_install:
-  - sudo locale-gen en_US.UTF-8
-  - sudo update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX
-  - sudo locale -a
-  - sudo locale
-  - sudo apt-get install -y libxml2-dev libxslt1-dev
+  - locale-gen en_US.UTF-8
+  - update-locale LANG=en_US.UTF-8 LC_MESSAGES=POSIX
+  - locale -a
+  - locale
+  - apt-get install -y libxml2-dev libxslt1-dev
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
