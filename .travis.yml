@@ -45,4 +45,10 @@ install:
   - bin/buildout -N -t 3 -c travis.cfg install omelette
 #  - for po in $(find -L parts/omelette -path '*/LC_MESSAGES/*.po');do msgfmt -o ${po/%po/mo} $po;done
 
-script: bin/$TARGET
+script:
+  - bin/test
+  - bin/createcoverage
+
+after_success:
+  - pip install coveralls
+  - coveralls
