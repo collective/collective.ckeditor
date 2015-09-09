@@ -2,7 +2,7 @@ language: python
 python: 2.7
 #virtualenv:
 #  system_site_packages: true
-sudo: false
+
 env:
 #  - PLONE_VERSION=4.0 TARGET=test
 #  - PLONE_VERSION=4.1 TARGET=test
