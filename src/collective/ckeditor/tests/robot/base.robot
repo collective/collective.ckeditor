@@ -29,6 +29,15 @@ Scenario: Use bold button
     and save the document
     Then the selected text is bold
 
+Scenario: Use italic button
+    Given a logged-in editor
+    and a document
+    When I edit the document
+    and select some text
+    and click the italic button
+    and save the document
+    Then the selected text is italic
+
 *** Keywords *****************************************************************
 
 # --- GIVEN ------------------------------------------------------------------
@@ -58,6 +67,9 @@ select some text
 click the bold button
   Click Element  css=span.cke_button__bold_icon 
 
+click the italic button
+  Click Element  css=span.cke_button__italic_icon 
+
 save the document
     Unselect Frame
     Sleep  1  Wait for the modification of the content
@@ -70,3 +82,6 @@ CKEditor is used for the text field
 
 the selected text is bold
   Page Should Contain Element  css=#p1 strong
+
+the selected text is italic
+  Page Should Contain Element  css=#p1 em
