@@ -1,4 +1,7 @@
 *** Settings ***
+
+Library  collective.ckeditor.tests.keyword.TestKeywords
+
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/selenium.robot
 Resource  plone/app/robotframework/saucelabs.robot
@@ -26,8 +29,7 @@ a logged-in editor
   Enable autologin as  Editor  Contributor
 
 a document
-  Create content  type=Document  id=document-to-edit
-
+  Create content  type=Document  id=document-to-edit  text=<p id="p1">paragraph1</p><p id="p2">paragraph2</p><p>paragraph3</p><p>paragraph4</p>
 
 # --- WHEN -------------------------------------------------------------------
     
@@ -39,5 +41,4 @@ I edit the document
 
 CKEditor is used for the text field
   Page should contain element  css=#archetypes-fieldname-text #cke_text #cke_1_contents iframe
-
 
