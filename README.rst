@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/collective/collective.ckeditor.svg
+    :target: https://travis-ci.org/collective/collective.ckeditor
+
 Introduction
 ============
 
