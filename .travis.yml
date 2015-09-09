@@ -1,31 +1,9 @@
 language: python
 python: 2.7
-#virtualenv:
-#  system_site_packages: true
 
 env:
-#  - PLONE_VERSION=4.0 TARGET=test
-#  - PLONE_VERSION=4.1 TARGET=test
   - PLONE_VERSION=4.2 TARGET=test
   - PLONE_VERSION=4.3 TARGET=test
-#  - PLONE_VERSION=4.4 TARGET=test
-# - TARGET=coverage.sh
-# - TARGET=python-validation.sh
-#  - TARGET=css-validation.sh
-#  - TARGET=js-validation.sh
-
-# csslint and jshint dependencies, uncomment if needed
-# before_install:
-#  - sudo apt-get install ack-grep
-#  - sudo apt-add-repository ppa:chris-lea/node.js -y
-#  - sudo apt-get update 1>/dev/null
-#  - sudo apt-get install nodejs npm -y
-
-# csslint
-#  - npm install csslint -g
-
-# jshint
-#  - npm install jshint -g
 
 before_install:
   - sudo locale-gen en_US.UTF-8
@@ -43,7 +21,6 @@ install:
   - python bootstrap.py -c travis.cfg
   - bin/buildout -N -t 3 -c travis.cfg
   - bin/buildout -N -t 3 -c travis.cfg install omelette
-#  - for po in $(find -L parts/omelette -path '*/LC_MESSAGES/*.po');do msgfmt -o ${po/%po/mo} $po;done
 
 script:
   - bin/test
