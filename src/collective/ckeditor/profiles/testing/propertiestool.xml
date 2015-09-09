@@ -1,0 +1,9 @@
+<?xml version="1.0" ?> 
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="ckeditor_properties" meta_type="Plone Property Sheet" purge="False">
+ <property name="title">CKEditor properties</property>
+  <property name="extraAllowedContent" type="text">
+  ['* [id](*)']
+  </property>  
+ </object>
+</object>

@@ -10,8 +10,8 @@ import collective.ckeditor
 
 CKEDITOR = PloneWithPackageLayer(
     zcml_package=collective.ckeditor,
-    zcml_filename='configure.zcml',
-    gs_profile_id='collective.ckeditor:default',
+    zcml_filename='testing.zcml',
+    gs_profile_id='collective.ckeditor:testing',
     name='CKEDITOR',
 )
 
