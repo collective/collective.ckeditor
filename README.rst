@@ -39,13 +39,12 @@ profile and execute the upgrade steps.
 4.3.0
 -----
 
-Release 4.3.0 comes with the **Enhanced Image** plugin (`image2`). It is not
-enabled by default as it removes some of the advanced functionality provided by
-the default image plugin (`image`). However, the **Enhanced Image** plugin
-provides the ability to add a caption together with the image. It is also much
-more user-friendly.
+Release 4.3.0 comes with new plugins :
 
-To enable the plugin, you need to setup `ckeditor_properties` through generic
+- the **Enhanced Image** plugin (`image2`). It is not enabled by default as it removes some of the advanced functionality provided by the default image plugin (`image`). However, the **Enhanced Image** plugin provides the ability to add a caption together with the image. It is also much more user-friendly;
+- the **Table Resize** plugin (`tableresize`) that makes it possible to easily change a table column width.
+
+To enable the plugins, you need to setup `ckeditor_properties` through generic
 setup `propertiestool.xml`::
 
   <?xml version="1.0"?>
@@ -57,11 +56,12 @@ setup `propertiestool.xml`::
     <property name="plugins" type="lines">
      <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
      <element value="image2;/++resource++ckeditor/plugins/image2/plugin.js"/>
+     <element value="tableresize;/++resource++ckeditor/plugins/tableresize/plugin.js"/>
     </property>
    </object>
   </object>
 
-This disables the `image` (default) plugin and enables the `image2` plugin.
+This disables the `image` (default) plugin and enables the `image2` and `tableresize` plugins.
 
 The `image2` plugin comes with two specific settings (configurable only through
 generic setup)::
@@ -81,7 +81,7 @@ generic setup)::
 The settings are `image2_captionedClass` and `image2_alignClasses`.
 The values above are the default values.
 
-If you enable the plugin, you also need to setup Plone to accept 
+If you enable the plugin, you also need to setup Plone to accept
 the `figcaption` tag.
 
 This is done by configuring HTML filtering with a setup handler like::
@@ -110,8 +110,8 @@ This is done by configuring HTML filtering with a setup handler like::
 Development
 ===========
 
-.. attention:: 
-    ConfigurationError 
+.. attention::
+    ConfigurationError
 
     If you try to run a Zope/Plone instance with a collective.ckeditor
     checkout, your instance will break with a ``ConfigurationError``::
@@ -158,13 +158,14 @@ Valid for CKEditor 4
 8. Unzip archive
 9. Replace all content of `src/collective/ckeditor/_src/ckeditor` directory
    with the contents of `ckeditor 4` directory from the archive.
-10. Download and install image2 plugin and its dependencies in 
+10. Download and install additional plugins and dependencies in
     `src/collective/ckeditor/_src/ckeditor/plugins` directory.
-    In June 2014, they are found at:
+    In September 2015, they are found at:
 
-      * http://ckeditor.com/addon/image2 
+      * http://ckeditor.com/addon/image2
       * http://ckeditor.com/addon/widget
       * http://ckeditor.com/addon/lineutils
+      * http://ckeditor.com/addon/tableresize
 11. Run `bin/copy_ckeditor_code`
 12. Test
 
@@ -184,6 +185,7 @@ Companies
 * `Ecreall <http://www.ecreall.com>`_
 * `BubbleNet <http://bubblenet.be>`_
 * `Hexagonit <http://www.hexagonit.fi>`_
+* `IMIO <http://www.imio.be>`_
 
 Contributors
 ------------

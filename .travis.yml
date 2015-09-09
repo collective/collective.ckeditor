@@ -6,7 +6,7 @@ python: 2.7
 env:
 #  - PLONE_VERSION=4.0 TARGET=test
 #  - PLONE_VERSION=4.1 TARGET=test
-  - PLONE_VERSION=4.2 TARGET=test
+#  - PLONE_VERSION=4.2 TARGET=test
   - PLONE_VERSION=4.3 TARGET=test
 #  - PLONE_VERSION=4.4 TARGET=test
 # - TARGET=coverage.sh

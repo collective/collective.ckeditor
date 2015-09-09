@@ -5,6 +5,10 @@ Changelog
 --------------------
 
 - Add defaultTableWidth option to control panel to set the default table width in the table dialog window.
+- Moved to CKEditor 4.4.8.
+  [gbastien]
+- Added tableresize plugin (http://ckeditor.com/addon/tableresize).
+  [gbastien]
 
 
 4.3.0b2 (2014-06-19)
