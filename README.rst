@@ -1,3 +1,9 @@
+.. image:: https://travis-ci.org/collective/collective.ckeditor.svg
+    :target: https://travis-ci.org/collective/collective.ckeditor
+.. image:: https://coveralls.io/repos/collective/collective.ckeditor/badge.svg?branch=master&service=github
+  :target: https://coveralls.io/github/collective/collective.ckeditor?branch=master
+
+
 Introduction
 ============
 

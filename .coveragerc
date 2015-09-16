@@ -1,0 +1,8 @@
+[report]
+include =
+    src/collective/*
+omit =
+    */test*
+    src/collective/__init__.py
+    src/collective/ckeditor/__init__.py
+    src/collective/ckeditor/browser/__init__.py

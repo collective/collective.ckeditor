@@ -32,4 +32,7 @@ var
 sys
 src/collective/ckeditor/browser/ckeditor
 lib
+lib64
 include
+htmlcov
+.coverage
