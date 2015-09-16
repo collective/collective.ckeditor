@@ -270,8 +270,7 @@ class CKeditorView(BrowserView):
         removePlugins = self.cke_properties.getProperty('removePlugins', [])
         if removePlugins:
             params_js_string += (
-                '''config.removePlugins = "%s";''' % ','.join(removePlugins)
-            )
+                '''config.removePlugins = "%s";''' % ','.join(removePlugins))
 
         params_js_string += """
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
