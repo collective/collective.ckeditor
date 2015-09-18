@@ -279,6 +279,7 @@ class CKeditorView(BrowserView):
     config.toolbar_Plone = %s;
     config.toolbar_Full = %s;
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
+    config.skin = 'moonocolor';
         """ % (CKEDITOR_BASIC_TOOLBAR,
                CKEDITOR_PLONE_DEFAULT_TOOLBAR,
                CKEDITOR_FULL_TOOLBAR,
