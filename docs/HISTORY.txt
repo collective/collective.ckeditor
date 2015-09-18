@@ -4,6 +4,9 @@ Changelog
 4.3.0b3 (unreleased)
 --------------------
 
+- Add some robot tests
+  [spreverde, gotcha]
+
 - Add defaultTableWidth option to control panel to set the default table width in the table dialog window.
 
 
