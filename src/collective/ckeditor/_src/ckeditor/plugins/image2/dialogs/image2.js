@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -38,12 +38,14 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 
 		helpers = CKEDITOR.plugins.image2,
 
+		// Editor instance configuration.
+		config = editor.config,
+
 		// Content restrictions defined by the widget which
 		// impact on dialog structure and presence of fields.
 		features = editor.widgets.registered.image.features,
 
 		// Functions inherited from image2 plugin.
-		checkHasNaturalRatio = helpers.checkHasNaturalRatio,
 		getNatural = helpers.getNatural,
 
 		// Global variables referring to the dialog's context.
@@ -73,7 +75,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 			isValid = !!( match && parseInt( match[ 1 ], 10 ) !== 0 );
 
 		if ( !isValid )
-			alert( commonLang[ 'invalid' + CKEDITOR.tools.capitalize( this.id ) ] );
+			alert( commonLang[ 'invalid' + CKEDITOR.tools.capitalize( this.id ) ] ); // jshint ignore:line
 
 		return isValid;
 	}
@@ -118,7 +120,8 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 				callback( null );
 			} );
 
-			image.setAttribute( 'src', src + '?' + Math.random().toString( 16 ).substring( 2 ) );
+			image.setAttribute( 'src',
+				( config.baseHref || '' ) + src + '?' + Math.random().toString( 16 ).substring( 2 ) );
 		};
 	}
 
@@ -338,7 +341,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		heightField[ method ]();
 	}
 
-	var hasFileBrowser = !!( editor.config.filebrowserImageBrowseUrl || editor.config.filebrowserBrowseUrl ),
+	var hasFileBrowser = !!( config.filebrowserImageBrowseUrl || config.filebrowserBrowseUrl ),
 		srcBoxChildren = [
 			{
 				id: 'src',
@@ -364,7 +367,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 			id: 'browse',
 			// v-align with the 'txtUrl' field.
 			// TODO: We need something better than a fixed size here.
-			style: 'display:inline-block;margin-top:16px;',
+			style: 'display:inline-block;margin-top:14px;',
 			align: 'center',
 			label: editor.lang.common.browseServer,
 			hidden: true,
@@ -492,10 +495,11 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 								id: 'align',
 								type: 'radio',
 								items: [
-									[ 'None', 'none' ],
-									[ 'Left', 'left' ],
-									[ 'Center', 'center' ],
-									[ 'Right', 'right' ] ],
+									[ commonLang.alignNone, 'none' ],
+									[ commonLang.alignLeft, 'left' ],
+									[ commonLang.alignCenter, 'center' ],
+									[ commonLang.alignRight, 'right' ]
+								],
 								label: commonLang.align,
 								setup: function( widget ) {
 									this.setValue( widget.data.align );

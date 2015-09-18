@@ -1,12 +1,12 @@
 ﻿/*
-Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'image2', 'pt-br', {
 	alt: 'Texto Alternativo',
 	btnUpload: 'Enviar para o Servidor',
 	captioned: 'Legenda da Imagem',
-	captionPlaceholder: 'Caption', // MISSING
+	captionPlaceholder: 'Legenda',
 	infoTab: 'Informações da Imagem',
 	lockRatio: 'Travar Proporções',
 	menu: 'Formatar Imagem',
