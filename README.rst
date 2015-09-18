@@ -148,25 +148,10 @@ How to update to a newer version of CKEditor
 
 Valid for CKEditor 4
 
-1. Go to http://ckeditor.com/builder
-2. Choose preset `Full`
-3. Do not modify included plugins.
-4. Select skin `Moono color`
-5. Click `Add all` link beside `Languages to choose` label
-6. Agree with the terms ;-)
-7. Download CKEditor
-8. Unzip archive
-9. Replace all content of `src/collective/ckeditor/_src/ckeditor` directory
-   with the contents of `ckeditor 4` directory from the archive.
-10. Download and install image2 plugin and its dependencies in 
-    `src/collective/ckeditor/_src/ckeditor/plugins` directory.
-    In June 2014, they are found at:
-
-      * http://ckeditor.com/addon/image2 
-      * http://ckeditor.com/addon/widget
-      * http://ckeditor.com/addon/lineutils
-11. Run `bin/copy_ckeditor_code`
-12. Test
+1. Go to `dev/build-ckeditor`
+2. Issue the following command `CKEDITOR_VERSION=4.4.8 make build_all`
+3. Run `bin/copy_ckeditor_code`
+4. Test
 
 Tests status
 ------------
