@@ -4,6 +4,9 @@ Changelog
 4.3.0b3 (unreleased)
 --------------------
 
+- Update to CKeditor 4.5.3
+  [gotcha]
+
 - Update to CKeditor 4.4.8
   [gotcha]
 
