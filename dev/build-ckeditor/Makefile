@@ -16,7 +16,7 @@ moono:
 scayt:
 	./scayt.sh
 
-build_all: checkout plone build moono scayt
+build_all: checkout scayt plone build moono
 
 clean:
 	rm -rf ckeditor-dev download

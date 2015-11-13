@@ -1,6 +1,6 @@
 #!/bin/bash
 : "${CKEDITOR_VERSION:?"Need to set CKEDITOR_VERSION environment variable"}"
-CKEDITOR_SRC_DIR="$(pwd)/../../src/collective/ckeditor/_src"
+PLUGINS_DIR="$(pwd)/ckeditor-dev/plugins"
 
 # make download directory
 DOWNLOAD_DIR="$(pwd)/download"
@@ -44,8 +44,8 @@ function error_exit
 
 echo "Downloading ${SCAYT_URL}..."
 curl -o "${DOWNLOAD_DIR}/${SCAYT_FILE}" ${SCAYT_URL} || error_exit "download of scayt failed" 
-unzip "${DOWNLOAD_DIR}/${SCAYT_FILE}" -d "${CKEDITOR_SRC_DIR}/ckeditor/plugins"
+unzip "${DOWNLOAD_DIR}/${SCAYT_FILE}" -d "${PLUGINS_DIR}"
 
 echo "Downloading ${WSC_URL}..."
 curl -o "${DOWNLOAD_DIR}/${WSC_FILE}" ${WSC_URL} || error_exit "download of wsc failed" 
-unzip "${DOWNLOAD_DIR}/${WSC_FILE}" -d "${CKEDITOR_SRC_DIR}/ckeditor/plugins"
+unzip "${DOWNLOAD_DIR}/${WSC_FILE}" -d "${PLUGINS_DIR}"

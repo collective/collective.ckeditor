@@ -32,6 +32,8 @@ function check_plugin
 check_plugin image2
 check_plugin widget
 check_plugin lineutils
+check_plugin wsc
+check_plugin scayt
 
 # add image2 plugin in build configuration
 # also add widget and lineutils plugins, they are image2 dependencies
@@ -39,3 +41,5 @@ check_plugin lineutils
 sed -i '/image: 1,/aimage2: 1,' "${BUILD_CONFIG}"
 sed -i '/image2: 1,/awidget: 1,' "${BUILD_CONFIG}"
 sed -i '/widget: 1,/alineutils: 1,' "${BUILD_CONFIG}"
+sed -i '/lineutils: 1,/awsc: 1,' "${BUILD_CONFIG}"
+sed -i '/wsc: 1,/ascayt: 1,' "${BUILD_CONFIG}"
