@@ -148,9 +148,9 @@ How to update to a newer version of CKEditor
 
 Valid for CKEditor 4
 
-1. Go to `dev/build-ckeditor`
-2. Issue the following command `CKEDITOR_VERSION=4.4.8 make build_all`
-3. Run `bin/copy_ckeditor_code`
+1. Go to ``dev/build-ckeditor``
+2. Issue the following command ``CKEDITOR_VERSION=4.4.8 make build_all``
+3. Run ``bin/copy_ckeditor_code``
 4. Test
 
 Tests status
