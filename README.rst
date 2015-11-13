@@ -152,6 +152,7 @@ Valid for CKEditor 4
 2. Issue the following command ``CKEDITOR_VERSION=4.4.8 make build_all``
 3. Run ``bin/copy_ckeditor_code``
 4. Test
+5. Commit
 
 Tests status
 ------------
