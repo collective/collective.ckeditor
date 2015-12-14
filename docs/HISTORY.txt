@@ -4,10 +4,7 @@ Changelog
 4.3.0b3 (unreleased)
 --------------------
 
-- Update to CKeditor 4.5.5
-  [gotcha]
-
-- Update to CKeditor 4.4.8
+- Update to CKeditor 4.5.6
   [gotcha]
 
 - Add some robot tests
