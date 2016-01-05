@@ -1,10 +1,11 @@
 Changelog
 =========
 
-4.3.2 (unreleased)
-------------------
+4.3.1.1 (2015-01-05)
+--------------------
 
-- Nothing changed yet.
+- Re-publish egg with generated static resources
+  [ebrehault]
 
 
 4.3.1 (2015-12-14)
