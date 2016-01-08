@@ -211,6 +211,20 @@ class CKeditorView(BrowserView):
         elif propValue is not None:
             return str(cke_properties.getProperty(prop))
 
+    def get_CK_image2_alignClasses(self):
+        """check that each class is valid
+        """
+        cke_properties = self.cke_properties
+        propValue = cke_properties.getProperty('image2_alignClasses')
+        result = str(list(propValue))
+        for class_ in propValue:
+            # TODO: check that classes are valid according to HTML
+            if not class_.strip():
+                msg = ('At least a class among image2_alignClasses is not '
+                       'valid: %s' % result)
+                raise ValueError(msg)
+        return result
+
     @property
     def cke_params(self):
         """
@@ -221,13 +235,14 @@ class CKeditorView(BrowserView):
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
                           'entities_greek', 'entities_latin',
                           'forcePasteAsPlainText', 'toolbar',
-                          'image2_alignClasses', 'image2_captionedClass',
+                          'image2_captionedClass',
                           'defaultTableWidth')
         for p in unchangedProps:
             jsProp = self.geCK_JSProperty(p)
             if jsProp is not None:
                 params[p] = jsProp
 
+        params['image2_alignClasses'] = self.get_CK_image2_alignClasses()
         params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
