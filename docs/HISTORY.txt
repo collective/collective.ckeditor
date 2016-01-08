@@ -4,6 +4,13 @@ Changelog
 4.3.2 (unreleased)
 ------------------
 
+- Add option to not minify JS to build-ckeditor scripts
+  [gotcha]
+
+- Fix build-ckeditor scripts to keep option to not use 
+  image2 plugin
+  [gotcha]
+
 - Check validity of image2_alignClasses
   [gotcha]
 

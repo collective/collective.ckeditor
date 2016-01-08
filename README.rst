@@ -149,10 +149,13 @@ How to update to a newer version of CKEditor
 Valid for CKEditor 4
 
 1. Go to ``dev/build-ckeditor``
-2. Issue the following command ``CKEDITOR_VERSION=4.4.8 make build_all``
+2. Issue the following command ``CKEDITOR_VERSION=4.5.6 make``
 3. Run ``bin/copy_ckeditor_code``
 4. Test
 5. Commit
+
+If you need unminified JS to debug the release,
+step 2 can be replaced by ``MINIFIED_JS=--leave-js-unminified CKEDITOR_VERSION=4.5.6 make``
 
 Tests status
 ------------
