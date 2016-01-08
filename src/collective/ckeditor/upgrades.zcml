@@ -88,4 +88,17 @@
             />
 
     </upgradeSteps>
+
+    <upgradeSteps
+        source="4301"
+        destination="4310"
+        profile="collective.ckeditor:default">
+
+        <upgradeStep
+            title="Fix image2 align classes"
+            description="to avoid empty class"
+            handler=".upgrades.up4310"
+            />
+    </upgradeSteps>
+
 </configure>

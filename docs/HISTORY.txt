@@ -4,6 +4,8 @@ Changelog
 4.3.2 (unreleased)
 ------------------
 
+- Fix default value of image2_alignClasses (plus upgrade step)
+  [gotcha]
 
 - Add option to not minify JS to build-ckeditor scripts
   [gotcha]

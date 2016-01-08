@@ -91,3 +91,12 @@ def up4301(context):
             '500px',
             'string'
         )
+
+
+def up4310(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if props.hasProperty('image2_alignClasses'):
+        value = props.getProperty('image2_alignClasses')
+        fixed = [item or 'image-dummy' for item in value]
+        props.manage_changeProperties(image2_alignClasses=fixed)
