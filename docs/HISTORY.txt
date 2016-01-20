@@ -4,7 +4,10 @@ Changelog
 4.3.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix context of ckeditor_plone_config.js
+  when called by plone.app.form.widgets.wysiwygwidget
+  when editing a portlet.
+  [gotcha]
 
 
 4.3.2 (2016-01-08)

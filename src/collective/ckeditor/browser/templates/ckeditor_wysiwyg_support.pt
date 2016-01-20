@@ -8,13 +8,14 @@
  <div metal:define-macro="wysiwygEditorBox">
   <tal:defines define="fname fieldName|inputname|nothing;
                        ckview context/@@ckeditor_view;
-                       usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname);">
+                       usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname);
+                       finder_context formlib_field/context|context">
     <tal:block condition="usesCKeditor">
      <div id="alerts"><!-- --></div>
      <input type="hidden"
             name="cke_config_url"
             class="cke_config_url"
-            tal:attributes="value ckview/cke_config_url" />
+            tal:attributes="value python:ckview.cke_config_url(finder_context)" />
      <tal:block condition="nocall:widget | nothing">
        <tal:block define="cke_widget python:ckview.getCK_widget_settings(widget)">
          <input type="hidden"

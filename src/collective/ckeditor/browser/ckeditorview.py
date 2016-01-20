@@ -1,12 +1,15 @@
 import re
 from Acquisition import aq_inner
+from Acquisition import aq_parent
 from zope import component
 from zope.interface import implements, Interface
 from Products.PythonScripts.standard import url_quote
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.interfaces import IContentish
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
+from plone.portlets.interfaces import IPortletAssignment
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
@@ -56,12 +59,19 @@ class CKeditorView(BrowserView):
         pp = getToolByName(self.portal, 'portal_properties')
         return pp.ckeditor_properties
 
-    @property
-    def cke_config_url(self):
+    def cke_config_url(self, context=None):
         """"
         return the dynamic configuration file url
         """
-        context = aq_inner(self.context)
+        # when used by plone.app.form.widgets.wysiwygwidget to edit a portlet
+        # find context by walking up acquisition chain from portlet assignment
+        if IPortletAssignment.providedBy(context):
+            while True:
+                context = aq_parent(context)
+                if IContentish.providedBy(context):
+                    break
+        else:
+            context = aq_inner(self.context)
         return '%s/ckeditor_plone_config.js' % context.absolute_url()
 
     @property
