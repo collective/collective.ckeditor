@@ -19,7 +19,7 @@ install:
   - sed -ie "s#travis-4.x.cfg#travis-$PLONE_VERSION.x.cfg#" travis.cfg
   - mkdir -p buildout-cache/eggs
   - mkdir -p buildout-cache/downloads
-  - python bootstrap.py -c travis.cfg
+  - python bootstrap.py --setuptools-version=19.4 --buildout-version=2.5.0 -c travis.cfg
   - bin/buildout -N -t 3 -c travis.cfg
   - bin/buildout -N -t 3 -c travis.cfg install omelette
 
