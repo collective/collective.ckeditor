@@ -8,8 +8,10 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import IContentish
+from Products.CMFCore.interfaces import IFolderish
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from plone.portlets.interfaces import IPortletAssignment
+from plone.app.portlets.browser.interfaces import IPortletAdding
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
@@ -63,13 +65,23 @@ class CKeditorView(BrowserView):
         """"
         return the dynamic configuration file url
         """
-        # when used by plone.app.form.widgets.wysiwygwidget to edit a portlet
-        # find context by walking up acquisition chain from portlet assignment
-        if IPortletAssignment.providedBy(context):
+
+        def findContentish(context):
+            # find context by walking up acquisition chain
             while True:
                 context = aq_parent(context)
                 if IContentish.providedBy(context):
                     break
+                elif IFolderish.providedBy(context):
+                    break
+            return context
+
+        # when used by plone.app.form.widgets.wysiwygwidget
+        # to add or edit a portlet
+        if IPortletAssignment.providedBy(context):
+            context = findContentish(context)
+        elif IPortletAdding.providedBy(context):
+            context = findContentish(context)
         else:
             context = aq_inner(self.context)
         return '%s/ckeditor_plone_config.js' % context.absolute_url()

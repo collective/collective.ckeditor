@@ -9,7 +9,7 @@
   <tal:defines define="fname fieldName|inputname|nothing;
                        ckview context/@@ckeditor_view;
                        usesCKeditor python:ckview.contentUsesCKeditor(fieldname=fname);
-                       finder_context formlib_field/context|context">
+                       finder_context nocall:formlib_field/context|nothing">
     <tal:block condition="usesCKeditor">
      <div id="alerts"><!-- --></div>
      <input type="hidden"
