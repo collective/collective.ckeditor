@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.4 (unreleased)
+4.3.4 (2016-01-21)
 ------------------
 
 - Fix context of ckeditor_plone_config.js
