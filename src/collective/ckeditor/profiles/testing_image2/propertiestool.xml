@@ -1,0 +1,12 @@
+<?xml version="1.0" ?> 
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="ckeditor_properties" meta_type="Plone Property Sheet" purge="False">
+   <property name="removePlugins" type="lines">
+     <element value="image"/>
+   </property>
+   <property name="plugins" type="lines">
+     <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
+     <element value="image2;/++resource++ckeditor/plugins/image2/plugin.js"/>
+   </property>
+ </object>
+</object>

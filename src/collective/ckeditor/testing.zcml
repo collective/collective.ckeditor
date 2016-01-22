@@ -13,4 +13,20 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+    <genericsetup:registerProfile
+      name="testing_scayt"
+      title="Testing profile for CKeditor for Plone"
+      directory="profiles/testing_scayt"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <genericsetup:registerProfile
+      name="testing_image2"
+      title="Testing profile for CKeditor for Plone"
+      directory="profiles/testing_image2"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 </configure>

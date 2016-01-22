@@ -20,6 +20,18 @@ Scenario: As an editor, I am using CKEditor
     When I edit the document
     Then CKEditor is used for the text field
 
+Scenario: Does not display uncorrect spelling
+    Given a logged-in editor
+    and a document
+    When I edit the document
+    Then CKEditor does not show uncorrect spelling
+
+Scenario: Uses default image editor
+    Given a logged-in editor
+    and a document
+    When I edit the document
+    Then CKEditor uses default image editor
+
 Scenario: Use bold button
     Given a logged-in editor
     and a document
@@ -65,15 +77,17 @@ select some text
   Unselect Frame
 
 click the bold button
+  Page Should contain Element  css=span.cke_button__bold_icon 
   Click Element  css=span.cke_button__bold_icon 
 
 click the italic button
+  Page Should contain Element  css=span.cke_button__italic_icon 
   Click Element  css=span.cke_button__italic_icon 
 
 save the document
-    Unselect Frame
-    Sleep  1  Wait for the modification of the content
-    Click Button  Save
+  Unselect Frame
+  Sleep  1  Wait for the modification of the content
+  Click Button  Save
 
 # --- THEN -------------------------------------------------------------------
 
@@ -85,3 +99,17 @@ the selected text is bold
 
 the selected text is italic
   Page Should Contain Element  css=#p1 em
+
+CKEditor does not show uncorrect spelling
+  Select Frame  css=iframe.cke_wysiwyg_frame
+  Sleep  1s  # to give time to scayt
+  Page Should Not Contain Element  css=#p1 .scayt-misspell-word
+    
+CKEditor uses default image editor
+  Page Should Not Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
+  Page Should Contain Element  css=span.cke_button__image_icon 
+  Click Element  css=span.cke_button__image_icon
+  Wait Until Element Is Visible  css=.cke_editor_text_dialog .cke_dialog_title
+  Page Should Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
+  Element should contain  css=.cke_editor_text_dialog .cke_dialog_title  Image Properties
+  Element should contain  css=.cke_editor_text_dialog  Preview

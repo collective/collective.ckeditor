@@ -9,6 +9,7 @@ import collective.ckeditor
 
 
 CKEDITOR = PloneWithPackageLayer(
+    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, ),
     zcml_package=collective.ckeditor,
     zcml_filename='testing.zcml',
     gs_profile_id='collective.ckeditor:testing',
@@ -26,6 +27,32 @@ CKEDITOR_FUNCTIONAL = FunctionalTesting(
 )
 
 CKEDITOR_ROBOT = FunctionalTesting(
-    bases=(CKEDITOR, REMOTE_LIBRARY_BUNDLE_FIXTURE, z2.ZSERVER_FIXTURE),
+    bases=(CKEDITOR, z2.ZSERVER_FIXTURE),
     name='CKEDITOR_ROBOT',
+)
+
+CKEDITOR_SCAYT = PloneWithPackageLayer(
+    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, ),
+    zcml_package=collective.ckeditor,
+    zcml_filename='testing.zcml',
+    gs_profile_id='collective.ckeditor:testing_scayt',
+    name='CKEDITOR_SCAYT',
+)
+
+CKEDITOR_SCAYT_ROBOT = FunctionalTesting(
+    bases=(CKEDITOR_SCAYT, z2.ZSERVER_FIXTURE),
+    name='CKEDITOR_SCAYT_ROBOT',
+)
+
+CKEDITOR_IMAGE2 = PloneWithPackageLayer(
+    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, ),
+    zcml_package=collective.ckeditor,
+    zcml_filename='testing.zcml',
+    gs_profile_id='collective.ckeditor:testing_image2',
+    name='CKEDITOR_IMAGE2',
+)
+
+CKEDITOR_IMAGE2_ROBOT = FunctionalTesting(
+    bases=(CKEDITOR_IMAGE2, z2.ZSERVER_FIXTURE),
+    name='CKEDITOR_IMAGE2_ROBOT',
 )
