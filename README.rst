@@ -72,7 +72,7 @@ generic setup)::
     <property name="image2_captionedClass" type="string">image</property>
     <property name="image2_alignClasses" type="lines">
      <element value="image-left"/>
-     <element value=""/>
+     <element value="image-dummy"/>
      <element value="image-right"/>
     </property>
    </object>
