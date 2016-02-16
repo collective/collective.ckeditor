@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.5 (unreleased)
+4.3.5 (2016-02-16)
 ------------------
 
 - Fix image preview in ckeditor when clicking on main image in pop-pup window.
