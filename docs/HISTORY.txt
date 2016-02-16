@@ -3,6 +3,8 @@ Changelog
 
 4.3.4 (2016-01-21)
 ------------------
+- Fix image preview in ckeditor when clicking on main image in pop-pup window.
+  [boulch]
 
 - Fix context of ckeditor_plone_config.js
   when called by plone.app.form.widgets.wysiwygwidget
