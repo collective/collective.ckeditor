@@ -3,12 +3,12 @@
    autogroup="False" debugmode="False">
  <javascript cacheable="True" compression="safe" conditionalcomment=""
     cookable="True" enabled="True" expression=""
-    id="ckeditor_vars.js" inline="False"/>
+    id="ckeditor_vars.js" inline="False" authenticated="True"/>
  <javascript cacheable="True" compression="none" conditionalcomment=""
     cookable="True" enabled="True" expression=""
-    id="++resource++ckeditor/ckeditor.js" inline="False"/>
+    id="++resource++ckeditor/ckeditor.js" inline="False" authenticated="True"/>
  <javascript cacheable="True" compression="safe" conditionalcomment=""
     cookable="True" enabled="True" expression=""
     id="++resource++ckeditor_for_plone/ckeditor_plone.js" inline="False"
-    insert-after="++resource++ckeditor/ckeditor.js" />
+    insert-after="++resource++ckeditor/ckeditor.js" authenticated="True"/>
 </object>
