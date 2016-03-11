@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.6 (unreleased)
+4.4.0 (2016-03-11)
 ------------------
 
 - Store custom toolbars in registry.
