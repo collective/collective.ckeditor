@@ -75,32 +75,23 @@ launchCKInstances = function (ids_to_launch) {
 	/* if no ids is provided or if the current id is in the array of given ids, we proceed */
         if ((typeof(ids_to_launch[0]) == 'undefined') || (jQuery.inArray(ckid, ids_to_launch) >= 0)) { 
         cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
+        var widget_config = {};
+        widget_config.customConfig = cke_config_url;
         /* Here starts the local js overload of settings by a field widget */
-        /* for now it only works with at rich widget : basehref width and height are the only attributes */
-        /* TODO improve it for any possible widget settings with jQuery.each('',jQuery(this).parent()) ... */
+        /* for now it only works with at rich widget */
         if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
-            cke_width = jQuery('.cke_width', jQuery(this).parent()).val();
-            cke_height = jQuery('.cke_height', jQuery(this).parent()).val();
-            cke_baseHref = jQuery('.cke_baseHref', jQuery(this).parent()).val();
+            settings = jQuery('.widget_settings input', jQuery(this).parent());
+            settings.each(function () {
+                setting = jQuery(this);
+                widget_config[setting.attr('class')] = setting.val();
+            });
 	    /* Destroy instance if it exists because an existing instance can not be managed twice */
 	    if (typeof CKEDITOR.instances != 'undefined') {
 	        var instance = CKEDITOR.instances[ckid];
                 if (instance) { instance.destroy(true); }
 	    };
-            CKEDITOR.replace( ckid,
-              {
-                customConfig : cke_config_url,
-                width : cke_width,
-                height : cke_height,
-                baseHref : cke_baseHref
-              });
-            }
-        else  {
-            CKEDITOR.replace( ckid,
-              {
-                customConfig : cke_config_url
-              });
-            }
+        }
+        CKEDITOR.replace( ckid, widget_config);
 	};
     })
 }

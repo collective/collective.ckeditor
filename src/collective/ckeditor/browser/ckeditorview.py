@@ -426,8 +426,8 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         if widget is not None:
             widget_settings = {}
             for k, v in params.items():
-                if hasattr(widget, k) and k not in p_overloaded:
-                    widget_settings[k] = v
+                if k in p_overloaded and hasattr(widget, k):
+                    widget_settings[k] = getattr(widget, k)
 
             # specific for cols and rows rich widget settings
             if hasattr(widget, 'cols') and 'width' not in p_overloaded:
