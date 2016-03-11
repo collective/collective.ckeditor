@@ -4,6 +4,13 @@ Changelog
 4.3.6 (unreleased)
 ------------------
 
+- Store custom toolbars in registry.
+  (With previous change, enable different toolbars per widget)
+  [gotcha]
+
+- Improve settings overloading per widget
+  [gotcha]
+
 - Load js only if you are an authenticated user.
   [bsuttor]
 
