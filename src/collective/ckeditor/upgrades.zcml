@@ -101,4 +101,16 @@
             />
     </upgradeSteps>
 
+    <upgradeSteps
+        source="4310"
+        destination="4320"
+        profile="collective.ckeditor:default">
+
+    <genericsetup:upgradeDepends
+        title="Add registry setting for toolbars"
+        description="Enable per field/widget customization of toolbar"
+        import_steps="registry"
+        />
+
+    </upgradeSteps>
 </configure>
