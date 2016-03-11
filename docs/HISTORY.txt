@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.3.6 (unreleased)
+4.3.6 (2016-03-11)
 ------------------
 
 - Fix profile version
