@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<registry>
+    <record name="collective.ckeditor.toolbars">
+	<field type="plone.registry.field.Dict">
+	    <title>CKEditor toolbars</title>
+	    <key_type type="plone.registry.field.TextLine" />
+	    <value_type type="plone.registry.field.Text" />
+	</field>
+	<value>
+	    <!--element key="header">[
+    ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+    'Link', 'Unlink','-','About']
+]</element-->
+	</value>
+    </record> 
+</registry>

@@ -17,6 +17,9 @@ from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
+from zope.component import getUtility
+from plone.registry.interfaces import IRegistry
+
 
 import demjson
 demjson.dumps = demjson.encode
@@ -274,8 +277,16 @@ class CKeditorView(BrowserView):
         params['filebrowserFlashBrowseUrl'] = flash_url
         # the basehref must be set in wysiwyg template
         # params['baseHref'] = self.cke_basehref
-
+        params.update(self.cke_toolbars())
         return params
+
+    def cke_toolbars(self):
+        registry = getUtility(IRegistry)
+        toolbars = registry['collective.ckeditor.toolbars']
+        result = dict()
+        for name, toolbar in toolbars.items():
+            result['toolbar_{0}'.format(name)] = toolbar
+        return result
 
     def getCK_plone_config(self):
         """
