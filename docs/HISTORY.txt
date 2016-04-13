@@ -4,7 +4,8 @@ Changelog
 4.4.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix customization per widget of filexxxBrowserUrl, depending on language
+  [gotcha]
 
 
 4.4.1 (2016-04-13)

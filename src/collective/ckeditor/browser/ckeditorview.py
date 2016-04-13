@@ -427,7 +427,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         params = self.cke_params
 
         def update_setting(key):
-            settings[key] = params[key] + '&set_language=%s' % language
+            settings[key] = '%s&set_language=%s' % (params[key][1:-1], language)
 
         update_setting('filebrowserBrowseUrl')
         update_setting('filebrowserImageBrowseUrl')
