@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.4.2 (unreleased)
+4.4.2 (2016-04-13)
 ------------------
 
 - Fix customization per widget of filexxxBrowserUrl, depending on language
