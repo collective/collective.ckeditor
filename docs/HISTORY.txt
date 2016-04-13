@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.4.1 (unreleased)
+4.4.1 (2016-04-13)
 ------------------
 
 - Enable settings overloading for plone.app.z3cform wysiwyg widget
