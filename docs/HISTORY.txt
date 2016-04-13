@@ -4,8 +4,11 @@ Changelog
 4.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable settings overloading for plone.app.z3cform wysiwyg widget
+  [gotcha]
 
+- Enable customization per widget of filexxxBrowserUrl, depending on language
+  [gotcha]
 
 4.4.0 (2016-03-11)
 ------------------

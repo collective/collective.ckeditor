@@ -78,7 +78,6 @@ launchCKInstances = function (ids_to_launch) {
         var widget_config = {};
         widget_config.customConfig = cke_config_url;
         /* Here starts the local js overload of settings by a field widget */
-        /* for now it only works with at rich widget */
         if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
             settings = jQuery('.widget_settings input', jQuery(this).parent());
             settings.each(function () {

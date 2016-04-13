@@ -423,13 +423,37 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
 
         return JavascriptPacker('safe').pack(menu_styles_js_string)
 
+    def customize_browserurl(self, settings, language):
+        params = self.cke_params
+
+        def update_setting(key):
+            settings[key] = params[key] + '&set_language=%s' % language
+
+        update_setting('filebrowserBrowseUrl')
+        update_setting('filebrowserImageBrowseUrl')
+        update_setting('filebrowserFlashBrowseUrl')
+
+    def getCK_z3cwidget_settings(self, widget):
+        """
+        Some params could be overloaded by widget settings
+        """
+        if widget is not None and hasattr(widget, 'settings'):
+            params = self.cke_params
+            cke_properties = self.cke_properties
+            p_overloaded = cke_properties.getProperty('properties_overloaded', [])
+            widget_settings = {}
+            for k, v in params.items():
+                if k in p_overloaded and k in widget.settings:
+                    widget_settings[k] = widget.settings[k]
+            if 'language' in widget.settings:
+                language = widget.settings['language']
+                self.customize_browserurl(widget_settings, language)
+            return widget_settings
+
     def getCK_widget_settings(self, widget):
         """
-        Some params could be overloaded
-        for a local field
-        by widget settings
+        Some params could be overloaded by widget settings
         example : AT rich widget overload width or height
-        TODO : specific AT widget or Dexterity Widget with all ckeditor params
         """
         params = self.cke_params
         cke_properties = self.cke_properties
@@ -449,7 +473,8 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                 if widget.rows:
                     height = str(int(widget.rows) * 25) + 'px'
                     widget_settings['height'] = height
-
+            if hasattr(widget, 'language'):
+                self.customize_browserurl(widget_settings, widget.language)
             return widget_settings
 
     def ajaxsave(self, fieldname, text):
