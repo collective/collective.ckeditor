@@ -4,7 +4,8 @@ Changelog
 4.4.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix overloading settings: it should be empty dict rather than None
+  [gotcha]
 
 
 4.4.3 (2016-05-02)

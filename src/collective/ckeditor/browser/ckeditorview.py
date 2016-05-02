@@ -437,18 +437,18 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         """
         Some params could be overloaded by widget settings
         """
+        widget_settings = {}
         if widget is not None and hasattr(widget, 'settings'):
             params = self.cke_params
             cke_properties = self.cke_properties
             p_overloaded = cke_properties.getProperty('properties_overloaded', [])
-            widget_settings = {}
             for k, v in params.items():
                 if k in p_overloaded and k in widget.settings:
                     widget_settings[k] = widget.settings[k]
             if 'language' in widget.settings:
                 language = widget.settings['language']
                 self.customize_browserurl(widget_settings, language)
-            return widget_settings
+        return widget_settings
 
     def getCK_widget_settings(self, widget):
         """
@@ -458,8 +458,8 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         params = self.cke_params
         cke_properties = self.cke_properties
         p_overloaded = cke_properties.getProperty('properties_overloaded', [])
+        widget_settings = {}
         if widget is not None:
-            widget_settings = {}
             for k, v in params.items():
                 if k in p_overloaded and hasattr(widget, k):
                     widget_settings[k] = getattr(widget, k)
@@ -475,7 +475,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                     widget_settings['height'] = height
             if hasattr(widget, 'language'):
                 self.customize_browserurl(widget_settings, widget.language)
-            return widget_settings
+        return widget_settings
 
     def ajaxsave(self, fieldname, text):
         self.context.getField(fieldname).set(self.context,
