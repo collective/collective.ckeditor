@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.4.4 (unreleased)
+4.4.4 (2016-05-02)
 ------------------
 
 - Fix overloading settings: it should be empty dict rather than None
