@@ -4,7 +4,8 @@ Changelog
 4.4.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable settings overloading for formlib wysiwyg widget
+  [gotcha]
 
 
 4.4.2 (2016-04-13)
