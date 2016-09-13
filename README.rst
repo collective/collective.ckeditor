@@ -16,8 +16,6 @@ How to install
 
 You can install it as any Plone addon. Please follow official documentation_.
 
-Please use CKeditor_ for Plone > 4.
-
 The code source can be found at
 https://github.com/collective/collective.ckeditor
 
@@ -33,7 +31,7 @@ Dependencies
 Upgrades
 ========
 
-Go to ZMi-->portal_setup-->Upgrades, choose "collective.ckeditor:default"
+Go to ZMI-->portal_setup-->Upgrades, choose "collective.ckeditor:default"
 profile and execute the upgrade steps.
 
 4.3.0
@@ -106,6 +104,38 @@ This is done by configuring HTML filtering with a setup handler like::
       trans.reload()
       log.info('added figcaption as valid tag')
 
+
+CKEditor plugins
+================
+
+`nonbreaking` plugin
+--------------------
+provided since version 4.5.0.
+
+When installed, the plugin provides keyboard shortcuts to insert non breaking chars:
+
+- ``Ctrl-Alt-Space`` for non breaking space,
+- ``Ctrl--`` for non breaking hyphen.
+
+Corresponding buttons can also be configured in the toolbar:
+
+- ``NbSpace``
+- ``NbHyphen``
+
+To install the plugin, add ``nonbreaking;/++resource++cke_nonbreaking/plugin.js``
+to the `Plugins` field in CKEditor control panel (``@@ckeditor-controlpanel``).
+
+Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
+
+  <?xml version="1.0"?>
+  <object name="portal_properties" meta_type="Plone Properties Tool">
+   <object name="ckeditor_properties" meta_type="Plone Property Sheet">
+    <property name="plugins" type="lines">
+     <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
+     <element value="nonbreaking;/++resource++cke_nonbreaking/plugin.js"/>
+    </property>
+   </object>
+  </object>
 
 Development
 ===========

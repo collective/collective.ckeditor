@@ -4,7 +4,8 @@ Changelog
 4.4.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- ``nonbreaking`` plugin: used to insert non breaking spaces and hyphens.
+  [gotcha]
 
 
 4.4.4 (2016-05-02)

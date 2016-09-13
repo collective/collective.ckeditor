@@ -15,6 +15,11 @@
         />
 
     <browser:resourceDirectory
+        name="cke_nonbreaking"
+        directory="nonbreaking"
+        />
+
+    <browser:resourceDirectory
         name="ckeditor_for_plone"
         directory="statics"
         />
