@@ -137,6 +137,26 @@ Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
    </object>
   </object>
 
+`tableresize` plugin
+--------------------
+
+When installed, the plugin makes it easy to change the table columns width by
+drag/dropping it from left to right and right to left.
+
+To install the plugin, add ``tableresize;/++resource++ckeditor/plugins/tableresize/plugin.js``
+to the `Plugins` field in CKEditor control panel (``@@ckeditor-controlpanel``).
+
+Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
+
+  <?xml version="1.0"?>
+  <object name="portal_properties" meta_type="Plone Properties Tool">
+   <object name="ckeditor_properties" meta_type="Plone Property Sheet">
+    <property name="plugins" type="lines" purge="False">
+     <element value="tableresize;/++resource++ckeditor/plugins/tableresize/plugin.js"/>
+    </property>
+   </object>
+  </object>
+
 Development
 ===========
 
