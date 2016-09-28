@@ -115,7 +115,7 @@ provided since version 4.5.0.
 When installed, the plugin provides keyboard shortcuts to insert non breaking chars:
 
 - ``Ctrl-Alt-Space`` for non breaking space,
-- ``Ctrl--`` for non breaking hyphen.
+- ``Ctrl-Alt-Hyphen`` for non breaking hyphen.
 
 Corresponding buttons can also be configured in the toolbar:
 
