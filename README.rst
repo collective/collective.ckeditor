@@ -110,7 +110,7 @@ CKEditor plugins
 
 `nonbreaking` plugin
 --------------------
-provided since version 4.5.0.
+provided since version 4.4.5.
 
 When installed, the plugin provides keyboard shortcuts to insert non breaking chars:
 
