@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.4.5 (unreleased)
+4.4.5 (2016-11-23)
 ------------------
 
 - ``nonbreaking`` plugin: used to insert non breaking spaces and hyphens.
