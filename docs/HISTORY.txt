@@ -4,6 +4,23 @@ Changelog
 4.4.6 (unreleased)
 ------------------
 
+- Add a setting for CKEditor skin: colored or flat buttons
+
+  Default skin remains Moonocolor, colored buttons.
+  Flat buttons comes from the new Moono-lisa skin (see http://ckeditor.com/addon/moono-lisa)
+  [gotcha]
+
+  To avoid ugly border-bottom on buttons in default Plone 4 skin: add the
+  following style to your CSS::
+
+      #content a.cke_button {
+          border-bottom: 0;
+      }
+
+      #content a.cke_button:hover {
+          border-bottom: #ccc 0.1em solid;
+      }
+
 - Update to CKEditor 4.6.2
   [gotcha]
 

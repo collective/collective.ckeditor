@@ -61,6 +61,20 @@ def _infoDictForType(ptype, portal_types, utranslate):
     }
 
 
+class CKEditorSkinVocabulary(object):
+    """Vocabulary factory for ckeditor skin
+    """
+    implements(IVocabularyFactory)
+
+    def __call__(self, context):
+        items = [SimpleTerm('moonocolor', 'moonocolor',
+                            _(u'Colored buttons')),
+                 SimpleTerm('moono-lisa', 'moono-lisa',
+                            _(u'Flat buttons'))]
+        return SimpleVocabulary(items)
+
+CKEditorSkinVocabularyFactory = CKEditorSkinVocabulary()
+
 class CKEditorToolBarVocabulary(object):
     """Vocabulary factory for ckeditor toolbar
     """

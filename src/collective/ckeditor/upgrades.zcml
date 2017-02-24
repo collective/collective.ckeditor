@@ -113,4 +113,26 @@
         />
 
     </upgradeSteps>
+
+    <registerProfile
+      name="to4330"
+      title="CKeditor for Plone"
+      directory="profiles/to4330"
+      description="upgrade profile to add skin property"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <upgradeSteps
+        source="4320"
+        destination="4330"
+        profile="collective.ckeditor:default">
+
+    <upgradeDepends
+        title="Add skin property"
+        description="to ckeditor properties"
+        import_profile="collective.ckeditor:to4330"
+        import_steps="propertiestool"
+        />
+
+    </upgradeSteps>
 </configure>

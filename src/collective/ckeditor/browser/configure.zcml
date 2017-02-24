@@ -98,6 +98,11 @@
 
     <!-- vocabularies -->
     <utility
+        name="collective.ckeditor.vocabularies.skin"
+        component=".vocabularies.CKEditorSkinVocabularyFactory"
+        />
+
+    <utility
         name="collective.ckeditor.vocabularies.toolbar"
         component=".vocabularies.CKEditorToolBarVocabularyFactory"
         />

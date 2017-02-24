@@ -259,7 +259,7 @@ class CKeditorView(BrowserView):
         cke_properties = self.cke_properties
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
                           'entities_greek', 'entities_latin',
-                          'forcePasteAsPlainText', 'toolbar',
+                          'forcePasteAsPlainText', 'toolbar', 
                           'image2_captionedClass',
                           'defaultTableWidth')
         for p in unchangedProps:
@@ -268,6 +268,7 @@ class CKeditorView(BrowserView):
                 params[p] = jsProp
 
         params['image2_alignClasses'] = self.get_CK_image2_alignClasses()
+        params['skin'] = "'{}'".format(cke_properties.getProperty('skin', 'moonocolor'))
         params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
@@ -327,7 +328,6 @@ class CKeditorView(BrowserView):
     config.toolbar_Plone = %s;
     config.toolbar_Full = %s;
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
-    config.skin = 'moonocolor';
         """ % (CKEDITOR_BASIC_TOOLBAR,
                CKEDITOR_PLONE_DEFAULT_TOOLBAR,
                CKEDITOR_FULL_TOOLBAR,

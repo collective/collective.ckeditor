@@ -27,6 +27,13 @@ class ICKEditorBaseSchema(Interface):
     CKEditor Base fieldset schema
     """
 
+    skin = Choice(
+        title=_(u"Skin"),
+        description=_(u"Choose the editor skin."),
+        required=True,
+        default='moonocolor',
+        vocabulary="collective.ckeditor.vocabularies.skin")
+
     forcePasteAsPlainText = Bool(
         title=_(u"Force paste as plain text"),
         description=_(u"Choose if you want to remove format on copy/paste, "
@@ -371,6 +378,17 @@ class CKEditorControlPanelAdapter(SchemaAdapterBase):
 
     forcePasteAsPlainText = property(get_forcePasteAsPlainText,
                                      set_forcePasteAsPlainText)
+
+    def get_skin(self):
+        return self.context.getProperty('skin', 'moonolor')
+
+    def set_skin(self, value):
+        if not self.context.hasProperty('skin'):
+            self.context._setProperty('skin', value, 'string')
+        else:
+            self.context._updateProperty('skin', value)
+
+    skin = property(get_skin, set_skin)
 
     def get_toolbar(self):
         return self.context.toolbar
