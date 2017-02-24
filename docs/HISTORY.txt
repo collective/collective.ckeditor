@@ -4,7 +4,8 @@ Changelog
 4.4.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update to CKEditor 4.6.2
+  [gotcha]
 
 
 4.4.5 (2016-11-23)
