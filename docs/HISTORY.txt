@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.4.6 (unreleased)
+4.5.0 (2017-02-24)
 ------------------
 
 - Add a setting for CKEditor skin: colored or flat buttons
