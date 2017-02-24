@@ -13,6 +13,9 @@ if [[ ${CKEDITOR_VERSION} == 4.4* ]]; then
         IMAGE2_VERSION=4.4.8
 fi
 if [[ ${CKEDITOR_VERSION} == 4.5* ]]; then
+        IMAGE2_VERSION=4.5.11
+fi
+if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         IMAGE2_VERSION=${CKEDITOR_VERSION}
 fi
 if [ -z "${IMAGE2_VERSION+x}" ]; then

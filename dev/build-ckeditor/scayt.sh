@@ -13,6 +13,9 @@ if [[ ${CKEDITOR_VERSION} == 4.4* ]]; then
         SCAYT_VERSION=4.4.8
 fi
 if [[ ${CKEDITOR_VERSION} == 4.5* ]]; then
+        SCAYT_VERSION=4.5.11
+fi
+if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         SCAYT_VERSION=${CKEDITOR_VERSION}
 fi
 if [ -z "${SCAYT_VERSION+x}" ]; then
@@ -27,6 +30,9 @@ if [[ ${CKEDITOR_VERSION} == 4.4* ]]; then
         WSC_VERSION=4.4.8
 fi
 if [[ ${CKEDITOR_VERSION} == 4.5* ]]; then
+        WSC_VERSION=4.5.11
+fi
+if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
 if [ -z "${WSC_VERSION+x}" ]; then
