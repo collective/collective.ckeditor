@@ -19,6 +19,7 @@ Scenario: As an editor, CKEditor displays uncorrect spelling
     and a document
     When I edit the document
     Then CKEditor shows uncorrect spelling
+    Cancel edit
 
 *** Keywords *****************************************************************
 
@@ -44,6 +45,8 @@ I edit the document
 
 CKEditor shows uncorrect spelling
   Select Frame  css=iframe.cke_wysiwyg_frame
-  Sleep  1s  # to give time to scayt
-  Page Should Contain Element  css=#p1 .scayt-misspell-word
+  Wait Until Page Contains Element  css=#p1 .scayt-misspell-word  10s
 
+Cancel edit
+  Unselect frame
+  Click element  name=form.button.cancel

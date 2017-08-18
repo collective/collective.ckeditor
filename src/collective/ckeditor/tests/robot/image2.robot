@@ -19,6 +19,8 @@ Scenario: Uses image2 editor
     and a document
     When I edit the document
     Then CKEditor uses image2 editor
+    Click element  css=.cke_dialog_ui_button_cancel
+    Cancel edit
 
 *** Keywords *****************************************************************
 
@@ -50,3 +52,7 @@ CKEditor uses image2 editor
   Page Should Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
   Element should contain  css=.cke_editor_text_dialog .cke_dialog_title  Image Properties
   Element should contain  css=.cke_editor_text_dialog  Captioned image
+
+Cancel edit
+  Unselect frame
+  Click element  name=form.button.cancel

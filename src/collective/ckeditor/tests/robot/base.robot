@@ -19,18 +19,22 @@ Scenario: As an editor, I am using CKEditor
     and a document
     When I edit the document
     Then CKEditor is used for the text field
+    Cancel edit
 
 Scenario: Does not display uncorrect spelling
     Given a logged-in editor
     and a document
     When I edit the document
     Then CKEditor does not show uncorrect spelling
+    Cancel edit
 
 Scenario: Uses default image editor
     Given a logged-in editor
     and a document
     When I edit the document
     Then CKEditor uses default image editor
+    Click element  css=.cke_dialog_ui_button_cancel
+    Cancel edit
 
 Scenario: Use bold button
     Given a logged-in editor
@@ -73,7 +77,7 @@ I edit the document
 select some text
   Select Frame  css=iframe.cke_wysiwyg_frame
   Page Should Contain Element  css=#p1
-  Mouse Select  css=#p1  20  0
+  Mouse Select  css=#p1  20  2
   Unselect Frame
 
 click the bold button
@@ -113,3 +117,7 @@ CKEditor uses default image editor
   Page Should Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
   Element should contain  css=.cke_editor_text_dialog .cke_dialog_title  Image Properties
   Element should contain  css=.cke_editor_text_dialog  Preview
+
+Cancel edit
+  Unselect frame
+  Click element  name=form.button.cancel

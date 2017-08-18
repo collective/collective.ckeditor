@@ -8,11 +8,7 @@ def mouse_select(self, source, xoffset, yoffset):
     yoffset = int(yoffset)
     source_element = self._element_find(source, True, True)
     browser = self._current_browser()
-    # Need to scroll element into view
-    # so that i can receive native events
-    browser.execute(
-        Command.GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW,
-        {'id': source_element.id})
+    browser.execute_script("arguments[0].scrollIntoView(true);", source_element)
     chain = ActionChains(browser)
     chain.move_to_element_with_offset(source_element, 2, 2)
     chain.click_and_hold()

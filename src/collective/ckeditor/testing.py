@@ -9,7 +9,6 @@ import collective.ckeditor
 
 
 CKEDITOR = PloneWithPackageLayer(
-    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, ),
     zcml_package=collective.ckeditor,
     zcml_filename='testing.zcml',
     gs_profile_id='collective.ckeditor:testing',
@@ -26,8 +25,16 @@ CKEDITOR_FUNCTIONAL = FunctionalTesting(
     name='CKEDITOR_FUNCTIONAL',
 )
 
+CKEDITOR_ROBOT_BASE  = PloneWithPackageLayer(
+    bases=(REMOTE_LIBRARY_BUNDLE_FIXTURE, ),
+    zcml_package=collective.ckeditor,
+    zcml_filename='testing.zcml',
+    gs_profile_id='collective.ckeditor:testing',
+    name='CKEDITOR_ROBOT_BASE',
+)
+
 CKEDITOR_ROBOT = FunctionalTesting(
-    bases=(CKEDITOR, z2.ZSERVER_FIXTURE),
+    bases=(CKEDITOR_ROBOT_BASE, z2.ZSERVER_FIXTURE),
     name='CKEDITOR_ROBOT',
 )
 
