@@ -210,7 +210,7 @@ Valid for CKEditor 4
 If you need unminified JS to debug the release,
 step 3 can be replaced with::
 
-  ``MINIFIED_JS=--leave-js-unminified CKEDITOR_VERSION=4.x.x make``
+  MINIFIED_JS=--leave-js-unminified CKEDITOR_VERSION=4.x.x make
 
 Tests status
 ------------
