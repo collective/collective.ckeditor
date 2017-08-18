@@ -18,6 +18,9 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         IMAGE2_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
+        IMAGE2_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${IMAGE2_VERSION+x}" ]; then
         echo "version of image2 plugin could not be computed"
         exit 1

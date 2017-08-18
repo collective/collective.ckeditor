@@ -12,4 +12,5 @@ if [ ! -d ".git" ]; then
 fi
 git fetch origin
 git checkout "${CKEDITOR_VERSION}"
+git checkout -- dev/builder/build-config.js
 cd ..

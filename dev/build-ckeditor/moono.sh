@@ -18,6 +18,9 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         MOONO_COLOR_VERSION=4.5.1
 fi
+if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
+        MOONO_COLOR_VERSION=4.5.1
+fi
 if [ -z ${MOONO_COLOR_VERSION+x} ]; then
         echo "version of Monoo color skin could not be computed"
         exit 1

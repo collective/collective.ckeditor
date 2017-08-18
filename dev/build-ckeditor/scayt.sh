@@ -18,6 +18,9 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         SCAYT_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
+        SCAYT_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${SCAYT_VERSION+x}" ]; then
         echo "version of scayt plugin could not be computed"
         exit 1
@@ -35,6 +38,9 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
+        WSC_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${WSC_VERSION+x}" ]; then
         echo "version of wsc plugin could not be computed"
         exit 1
@@ -49,9 +55,11 @@ function error_exit
 }
 
 echo "Downloading ${SCAYT_URL}..."
-curl -o "${DOWNLOAD_DIR}/${SCAYT_FILE}" ${SCAYT_URL} || error_exit "download of scayt failed" 
+curl -o "${DOWNLOAD_DIR}/${SCAYT_FILE}" "${SCAYT_URL}" || error_exit "download of scayt failed" 
+rm -rf "${PLUGINS_DIR}/scayt"
 unzip "${DOWNLOAD_DIR}/${SCAYT_FILE}" -d "${PLUGINS_DIR}"
 
 echo "Downloading ${WSC_URL}..."
-curl -o "${DOWNLOAD_DIR}/${WSC_FILE}" ${WSC_URL} || error_exit "download of wsc failed" 
+curl -o "${DOWNLOAD_DIR}/${WSC_FILE}" "${WSC_URL}" || error_exit "download of wsc failed" 
+rm -rf "${PLUGINS_DIR}/wsc"
 unzip "${DOWNLOAD_DIR}/${WSC_FILE}" -d "${PLUGINS_DIR}"
