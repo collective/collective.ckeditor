@@ -1,6 +1,7 @@
 language: python
 python: 2.7
 addons:
+  firefox: "55.0.2"
   apt:
     packages:
     - libxml2-dev
