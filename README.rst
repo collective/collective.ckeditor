@@ -7,7 +7,7 @@
 Introduction
 ============
 
-This addon is a ckeditor_ integration for Plone.  This release uses ckeditor_ version 4.6.2.
+This addon is a ckeditor_ integration for Plone.  This release uses ckeditor_ version 4.7.2.
 
 .. contents::
 
@@ -199,13 +199,18 @@ How to update to a newer version of CKEditor
 Valid for CKEditor 4
 
 1. Go to ``dev/build-ckeditor``
-2. Issue the following command ``CKEDITOR_VERSION=4.5.6 make``
-3. Run ``bin/copy_ckeditor_code``
-4. Test
-5. Commit
+2. Update plugin versions computation in ``image2.sh``, ``moono.sh``,
+   ``scayt.sh``
+3. Issue the following command ``CKEDITOR_VERSION=4.x.x make``
+4. Run ``bin/copy_ckeditor_code``
+5. Test
+6. Add untracked files ``git add ../../src/collective/ckeditor/_src/ckeditor/``
+7. Commit
 
 If you need unminified JS to debug the release,
-step 2 can be replaced by ``MINIFIED_JS=--leave-js-unminified CKEDITOR_VERSION=4.5.6 make``
+step 3 can be replaced with::
+
+  ``MINIFIED_JS=--leave-js-unminified CKEDITOR_VERSION=4.x.x make``
 
 Tests status
 ------------
