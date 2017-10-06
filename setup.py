@@ -51,6 +51,9 @@ setup(
             'plone.app.testing',
             'plone.app.robotframework[debug]',
         ],
+        'uploadimage': [
+            'plone.api',
+        ],
     },
     entry_points={
         'console_scripts': [

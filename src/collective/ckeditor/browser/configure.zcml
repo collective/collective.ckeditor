@@ -54,6 +54,14 @@
         />
 
     <browser:page
+        name="cke-upload-image"
+        for="Products.Archetypes.interfaces.IBaseObject"
+        class=".ckeditorview.CKeditorView"
+        attribute="upload_image" 
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
         name="ckeditor_plone_config.js"
         for="*"
         class=".ckeditorview.CKeditorView"

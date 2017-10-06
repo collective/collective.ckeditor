@@ -19,6 +19,8 @@ from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
 from zope.component import getUtility
 from plone.registry.interfaces import IRegistry
+from plone import api
+import json
 
 
 import demjson
@@ -329,6 +331,7 @@ class CKeditorView(BrowserView):
     config.toolbar_Basic = %s;
     config.toolbar_Plone = %s;
     config.toolbar_Full = %s;
+    config.imageUploadUrl = '@@cke-upload-image';
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_BASIC_TOOLBAR,
                CKEDITOR_PLONE_DEFAULT_TOOLBAR,
@@ -484,6 +487,18 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                                              text,
                                              mimetype='text/html')
         return "saved"
+
+    def upload_image(self):
+        container = component.getMultiAdapter((self.context, self.request),name='folder_factories').add_context()
+        upload = self.request.form['upload']
+        image = api.content.create(container=container, type='Image', file=upload, id=upload.filename, safe_id=True)
+        image_url = image.absolute_url()
+        result = {
+            "uploaded": 1,
+            "fileName": image.getId(),
+            "url": image.absolute_url()
+        }
+        return json.dumps(result)
 
     def _getScaytLanguage(self):
         """
