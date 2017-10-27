@@ -3,6 +3,8 @@ import unittest
 
 from zope.component import getMultiAdapter
 from ..testing import CKEDITOR_INTEGRATION
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
 
 
 class TestCKeditorViewTestCase(unittest.TestCase):
@@ -42,3 +44,43 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         self.failIf(view._getScaytLanguage())
         frontPage.setLanguage('ru-ru')
         self.failIf(view._getScaytLanguage())
+
+    def test_uploadimage(self):
+
+        portal = self.layer['portal']
+        setRoles(portal, TEST_USER_ID, ['Contributor'])
+        view = getMultiAdapter(
+            (portal, portal.REQUEST),
+            name='cke-upload-image'
+        )
+        view.request.form['upload'] = DummyFileUpload(filename="image1.png")
+        view()
+        self.failIf("image1.png" not in portal.objectIds())
+        self.assertEquals(portal['image1.png'].portal_type, 'Image')
+        view()
+        self.failIf("image1-1.png" not in portal.objectIds())
+        self.assertEquals(portal['image1-1.png'].portal_type, 'Image')
+
+
+from plone.app.blob.interfaces import IFileUpload
+from zope.interface import implements
+
+class DummyFileUpload:
+    
+    implements(IFileUpload)
+
+    def __init__(self, data='', filename='', content_type=''):
+        self.data = data
+        self.filename = filename
+        self.headers = {'content_type': content_type}
+
+    def read(self, index=None):
+        if index is None:
+            index = len(self.data)
+        return self.data[:index]
+
+    def tell(self):
+        return len(self.data)
+
+    def seek(self, offset, from_what=0):
+        pass

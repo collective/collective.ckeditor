@@ -55,7 +55,14 @@
 
     <browser:page
         name="cke-upload-image"
-        for="Products.Archetypes.interfaces.IBaseObject"
+        for="Products.CMFCore.interfaces.IFolderish"
+        class=".ckeditorview.CKeditorView"
+        attribute="upload_image" 
+        permission="cmf.ModifyPortalContent"
+        />
+    <browser:page
+        name="cke-upload-image"
+        for="Products.CMFCore.interfaces.IContentish"
         class=".ckeditorview.CKeditorView"
         attribute="upload_image" 
         permission="cmf.ModifyPortalContent"
