@@ -1,6 +1,7 @@
 import re
 from Acquisition import aq_inner
 from Acquisition import aq_parent
+from zExceptions import Unauthorized
 from zope import component
 from zope.interface import implements, Interface
 from Products.PythonScripts.standard import url_quote
@@ -12,6 +13,7 @@ from Products.CMFCore.interfaces import IFolderish
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from plone.portlets.interfaces import IPortletAssignment
 from plone.app.portlets.browser.interfaces import IPortletAdding
+from collective.ckeditor import LOG
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
@@ -491,7 +493,11 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
     def upload_image(self):
         container = component.getMultiAdapter((self.context, self.request),name='folder_factories').add_context()
         upload = self.request.form['upload']
-        image = api.content.create(container=container, type='Image', file=upload, id=upload.filename, safe_id=True)
+        try:
+            image = api.content.create(container=container, type='Image', file=upload, id=upload.filename, safe_id=True)
+        except Unauthorized:
+            LOG.warning("Upload image not allowed at {}".format(container.absolute_url()))
+            raise
         image_url = image.absolute_url()
         result = {
             "uploaded": 1,
