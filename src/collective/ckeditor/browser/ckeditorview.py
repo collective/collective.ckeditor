@@ -1,8 +1,10 @@
+import json
 import re
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from zExceptions import Unauthorized
 from zope import component
+from zope.component import getUtility
 from zope.interface import implements, Interface
 from Products.PythonScripts.standard import url_quote
 from Products.Five import BrowserView
@@ -11,7 +13,9 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.interfaces import IFolderish
 from Products.ResourceRegistries.tools.packer import JavascriptPacker
+from plone import api
 from plone.portlets.interfaces import IPortletAssignment
+from plone.registry.interfaces import IRegistry
 from plone.app.portlets.browser.interfaces import IPortletAdding
 from collective.ckeditor import LOG
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
@@ -19,10 +23,6 @@ from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
-from plone import api
-import json
 
 
 import demjson
