@@ -64,6 +64,8 @@
   </property>
   <property name="plugins" type="lines">
     <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
+    <element value="uploadwidget;/++resource++ckeditor/plugins/uploadwidget/plugin.js"/>
+    <element value="uploadimage;/++resource++ckeditor/plugins/uploadimage/plugin.js"/>
   </property>
   <property name="removePlugins" type="lines">
   </property>

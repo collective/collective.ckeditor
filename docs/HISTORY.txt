@@ -4,7 +4,9 @@ Changelog
 4.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable `uploadwidget` and `uploadimage` plugins.
+  Corresponding upgrade step
+  [gotcha]
 
 
 4.6.0 (2017-08-18)

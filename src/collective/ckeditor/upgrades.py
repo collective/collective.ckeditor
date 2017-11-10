@@ -100,3 +100,13 @@ def up4310(context):
         value = props.getProperty('image2_alignClasses')
         fixed = [item or 'image-dummy' for item in value]
         props.manage_changeProperties(image2_alignClasses=fixed)
+
+
+def up4340(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    if props.hasProperty('plugins'):
+        fixed = list(props.getProperty('plugins'))
+        fixed.append("uploadwidget;/++resource++ckeditor/plugins/uploadwidget/plugin.js")
+        fixed.append("uploadimage;/++resource++ckeditor/plugins/uploadimage/plugin.js")
+        props.manage_changeProperties(plugins=fixed)

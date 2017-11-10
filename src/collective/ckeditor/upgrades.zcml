@@ -135,4 +135,14 @@
         />
 
     </upgradeSteps>
+    
+    <upgradeStep
+        source="4330"
+        destination="4340"
+        title="Add uploadimage and uploadwidget"
+        description="to ckeditor properties"
+        profile="collective.ckeditor:default"
+        handler=".upgrades.up4340"
+        />
+
 </configure>
