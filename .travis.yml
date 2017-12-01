@@ -1,23 +1,42 @@
 language: python
 python: 2.7
 addons:
-  firefox: "55.0.2"
   apt:
     packages:
     - libxml2-dev
     - libxslt1-dev
 sudo: false
+cache:
+  directories:
+  - buildout-cache/eggs
+  - buildout-cache/downloads
 
 env:
-  - PLONE_VERSION=4.2 TARGET=test
-  - PLONE_VERSION=4.3 TARGET=test
+  global:
+    - TARGET=test
+    - GECKODRIVER_VERSION=v0.19.1
+
+matrix:
+  include:
+    - addons:
+        firefox: "55.0.2"
+      env: PLONE_VERSION=4.2
+    - addons:
+        firefox: "57.0.1"
+      env: PLONE_VERSION=4.2
+    - addons:
+        firefox: "55.0.2"
+      env: PLONE_VERSION=4.3
+    - addons:
+        firefox: "57.0.1"
+      env: PLONE_VERSION=4.3
 
 before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.18.0/geckodriver-v0.18.0-linux64.tar.gz
+  - wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
   - mkdir geckodriver
-  - tar -xzf geckodriver-v0.18.0-linux64.tar.gz -C geckodriver
+  - tar -xzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
 
 install:
@@ -25,8 +44,7 @@ install:
   - mkdir -p buildout-cache/eggs
   - mkdir -p buildout-cache/downloads
   - python bootstrap.py --setuptools-version=19.4 --buildout-version=2.5.0 -c travis.cfg
-  - bin/buildout -N -t 3 -c travis.cfg
-  - bin/buildout -N -t 3 -c travis.cfg install omelette
+  - bin/buildout -N -t 3 -c travis.cfg install test createcoverage copy_ckeditor_code ckeditor
 
 script:
   - bin/test

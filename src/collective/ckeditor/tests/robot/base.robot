@@ -12,6 +12,10 @@ Library  plone.app.robotframework.keywords.Debugging
 Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
+*** Variables ***
+
+${SELENIUM_IMPLICIT_WAIT}  2
+
 *** Test cases ***
 
 Scenario: As an editor, I am using CKEditor
@@ -83,14 +87,18 @@ select some text
 click the bold button
   Page Should contain Element  css=span.cke_button__bold_icon 
   Click Element  css=span.cke_button__bold_icon 
+  Select Frame  css=iframe.cke_wysiwyg_frame
+  Page Should Contain Element  css=#p1 strong
 
 click the italic button
   Page Should contain Element  css=span.cke_button__italic_icon 
   Click Element  css=span.cke_button__italic_icon 
+  Select Frame  css=iframe.cke_wysiwyg_frame
+  Page Should Contain Element  css=#p1 em
 
 save the document
   Unselect Frame
-  Sleep  1  Wait for the modification of the content
+  Sleep  ${SELENIUM_IMPLICIT_WAIT}  Wait for the modification of the content
   Click Button  Save
 
 # --- THEN -------------------------------------------------------------------

@@ -12,6 +12,10 @@ Library  plone.app.robotframework.keywords.Debugging
 Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
+*** Variables ***
+
+${SELENIUM_IMPLICIT_WAIT}  2
+
 *** Test cases ***
 
 Scenario: As an editor, CKEditor displays uncorrect spelling
@@ -44,6 +48,7 @@ I edit the document
 # --- THEN -------------------------------------------------------------------
 
 CKEditor shows uncorrect spelling
+  Wait Until Page Contains Element  css=iframe.cke_wysiwyg_frame  2s
   Select Frame  css=iframe.cke_wysiwyg_frame
   Wait Until Page Contains Element  css=#p1 .scayt-misspell-word  10s
 

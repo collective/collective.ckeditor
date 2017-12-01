@@ -43,6 +43,7 @@ setup(
         'collective.plonefinder',
         'plone.app.uuid',
         'demjson',
+        'plone.api',
     ],
     packages=find_packages('src'),
     package_dir={'': 'src'},
@@ -50,9 +51,6 @@ setup(
         'test': [
             'plone.app.testing',
             'plone.app.robotframework[debug]',
-        ],
-        'uploadimage': [
-            'plone.api',
         ],
     },
     entry_points={

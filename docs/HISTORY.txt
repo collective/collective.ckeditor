@@ -6,6 +6,7 @@ Changelog
 
 - Enable `uploadwidget` and `uploadimage` plugins.
   Corresponding upgrade step
+  (Now depends on `plone.api`)
   [gotcha]
 
 

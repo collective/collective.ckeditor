@@ -104,9 +104,14 @@ This is done by configuring HTML filtering with a setup handler like::
       trans.reload()
       log.info('added figcaption as valid tag')
 
-
 CKEditor plugins
 ================
+
+`uploadimage` plugin
+--------------------
+provided since version 4.6.1.
+
+Enabled by default, this plugin manages support for uploading images that were dropped or pasted into the editor.
 
 `nonbreaking` plugin
 --------------------

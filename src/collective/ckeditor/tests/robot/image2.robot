@@ -12,6 +12,10 @@ Library  plone.app.robotframework.keywords.Debugging
 Test Setup  Open SauceLabs test browser
 Test Teardown  Run keywords  Report test status  Close all browsers
 
+*** Variables ***
+
+${SELENIUM_IMPLICIT_WAIT}  2
+
 *** Test cases ***
 
 Scenario: Uses image2 editor
