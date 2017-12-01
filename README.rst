@@ -109,7 +109,7 @@ CKEditor plugins
 
 `uploadimage` plugin
 --------------------
-provided since version 4.6.1.
+provided since version 4.7.0
 
 Enabled by default, this plugin manages support for uploading images that were dropped or pasted into the editor.
 
