@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.6.1 (unreleased)
+4.7.0 (2017-12-01)
 ------------------
 
 - Enable `uploadwidget` and `uploadimage` plugins.
