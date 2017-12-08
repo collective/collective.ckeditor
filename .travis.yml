@@ -20,12 +20,6 @@ matrix:
   include:
     - addons:
         firefox: "55.0.2"
-      env: PLONE_VERSION=4.2
-    - addons:
-        firefox: "57.0.1"
-      env: PLONE_VERSION=4.2
-    - addons:
-        firefox: "55.0.2"
       env: PLONE_VERSION=4.3
     - addons:
         firefox: "57.0.1"
