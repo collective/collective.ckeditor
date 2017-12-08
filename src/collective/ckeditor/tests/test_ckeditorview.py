@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
+import json
+from plone import api
 
 from zope.component import getMultiAdapter
 from ..testing import CKEDITOR_INTEGRATION
@@ -60,7 +62,37 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         view()
         self.failIf("image1-1.png" not in portal.objectIds())
         self.assertEquals(portal['image1-1.png'].portal_type, 'Image')
+    
+    def test_uploadimage_json(self):
+        portal = self.layer['portal']
+        setRoles(portal, TEST_USER_ID, ['Contributor'])
+        view = getMultiAdapter(
+            (portal, portal.REQUEST),
+            name='cke-upload-image'
+        )
+        view.request.form['upload'] = DummyFileUpload(filename="image1.png")
+        result = json.loads(view())
+        self.assertTrue('url' in result)
+        self.assertTrue('fileName' in result)
+        self.assertEquals(result['fileName'], 'image1.png')
+        self.assertTrue('uploaded' in result)
+        self.assertEquals(result['uploaded'], 1)
 
+    def test_uploadimage_url(self):
+        portal = self.layer['portal']
+        setRoles(portal, TEST_USER_ID, ['Contributor'])
+        view = getMultiAdapter(
+            (portal, portal.REQUEST),
+            name='cke-upload-image'
+        )
+        view.request.form['upload'] = DummyFileUpload(filename="image1.png")
+        result = json.loads(view())
+        self.assertTrue('url' in result)
+        msg = "url should contain resolveuid"
+        self.assertTrue('resolveuid' in result['url'], msg)
+        uuid = result['url'].split('/')[-1]
+        image = portal['image1.png']
+        self.assertEquals(api.content.get_uuid(image), uuid)
 
 from plone.app.blob.interfaces import IFileUpload
 from zope.interface import implements

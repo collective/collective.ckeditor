@@ -4,7 +4,8 @@ Changelog
 4.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- `uploadimage` support uses `resolveuid`.
+  [gotcha]
 
 
 4.7.0 (2017-12-01)

@@ -498,11 +498,13 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         except Unauthorized:
             LOG.warning("Upload image not allowed at {}".format(container.absolute_url()))
             raise
-        image_url = image.absolute_url()
+        navroot = api.portal.get_navigation_root(context=self.context)
+        image_url = "/".join((navroot.absolute_url(), 'resolveuid',
+            api.content.get_uuid(image)))
         result = {
             "uploaded": 1,
             "fileName": image.getId(),
-            "url": image.absolute_url()
+            "url": image_url
         }
         return json.dumps(result)
 
