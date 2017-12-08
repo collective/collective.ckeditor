@@ -19,11 +19,11 @@ env:
 matrix:
   include:
     - addons:
-        firefox: "55.0.2"
-      env: PLONE_VERSION=4.3
+        firefox: "latest"
+      env: PLONE_VERSION=4.3 FIREFOX=latest
     - addons:
         firefox: "57.0.1"
-      env: PLONE_VERSION=4.3
+      env: PLONE_VERSION=4.3 FIREFOX=57.0.1
 
 before_install:
   - "export DISPLAY=:99.0"
