@@ -14,7 +14,7 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
-${SELENIUM_IMPLICIT_WAIT}  2
+${SELENIUM_IMPLICIT_WAIT}  3
 
 *** Test cases ***
 
