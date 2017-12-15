@@ -499,8 +499,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             LOG.warning("Upload image not allowed at {}".format(container.absolute_url()))
             raise
         navroot = api.portal.get_navigation_root(context=self.context)
-        image_url = "/".join((navroot.absolute_url(), 'resolveuid',
-            api.content.get_uuid(image)))
+        image_url = "/".join(('resolveuid', api.content.get_uuid(image)))
         result = {
             "uploaded": 1,
             "fileName": image.getId(),
