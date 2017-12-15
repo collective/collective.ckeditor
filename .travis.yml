@@ -23,7 +23,11 @@ matrix:
       env: PLONE_VERSION=4.3 FIREFOX=latest
     - addons:
         firefox: "57.0.1"
-      env: PLONE_VERSION=4.3 FIREFOX=57.0.1
+      env: PLONE_VERSION=4.3 FIREFOX=latest-beta
+  allow_failures:
+    - addons:
+        firefox: "latest"
+      env: PLONE_VERSION=4.3 FIREFOX=latest-beta
 
 before_install:
   - "export DISPLAY=:99.0"
