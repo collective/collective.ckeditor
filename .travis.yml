@@ -22,11 +22,11 @@ matrix:
         firefox: "latest"
       env: PLONE_VERSION=4.3 FIREFOX=latest
     - addons:
-        firefox: "57.0.1"
+        firefox: "latest-beta"
       env: PLONE_VERSION=4.3 FIREFOX=latest-beta
   allow_failures:
     - addons:
-        firefox: "latest"
+        firefox: "latest-beta"
       env: PLONE_VERSION=4.3 FIREFOX=latest-beta
 
 before_install:
