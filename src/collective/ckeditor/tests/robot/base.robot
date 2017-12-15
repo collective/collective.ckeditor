@@ -14,7 +14,8 @@ Test Teardown  Run keywords  Report test status  Close all browsers
 
 *** Variables ***
 
-${SELENIUM_IMPLICIT_WAIT}  3
+${SELENIUM_IMPLICIT_WAIT}  1
+${WAIT_MORE}  5
 
 *** Test cases ***
 
@@ -85,20 +86,24 @@ select some text
   Unselect Frame
 
 click the bold button
+  Set Selenium implicit wait  ${WAIT_MORE}
   Page Should contain Element  css=span.cke_button__bold_icon 
   Click Element  css=span.cke_button__bold_icon 
   Select Frame  css=iframe.cke_wysiwyg_frame
   Page Should Contain Element  css=#p1 strong
+  Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
 
 click the italic button
+  Set Selenium implicit wait  ${WAIT_MORE}
   Page Should contain Element  css=span.cke_button__italic_icon 
   Click Element  css=span.cke_button__italic_icon 
   Select Frame  css=iframe.cke_wysiwyg_frame
   Page Should Contain Element  css=#p1 em
+  Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
 
 save the document
   Unselect Frame
-  Sleep  ${SELENIUM_IMPLICIT_WAIT}  Wait for the modification of the content
+  Sleep  ${WAIT_MORE}  Wait for the modification of the content
   Click Button  Save
 
 # --- THEN -------------------------------------------------------------------
