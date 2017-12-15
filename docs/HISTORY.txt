@@ -4,7 +4,8 @@ Changelog
 4.7.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Make `uploadimage` `resolveuid` links relative.
+  [gotcha]
 
 
 4.7.1 (2017-12-08)
