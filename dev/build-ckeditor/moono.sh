@@ -21,12 +21,16 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
         MOONO_COLOR_VERSION=4.5.1
 fi
+if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
+        MOONO_COLOR_VERSION=4.5.1
+fi
 if [ -z ${MOONO_COLOR_VERSION+x} ]; then
         echo "version of Monoo color skin could not be computed"
         exit 1
 fi
 MOONO_COLOR_FILE=moonocolor_${MOONO_COLOR_VERSION}.zip
-MOONO_COLOR_URL=http://download.ckeditor.com/moonocolor/releases/${MOONO_COLOR_FILE}
+DOWNLOAD_URL=https://ckeditor.com/cke4/sites/default/files
+MOONO_COLOR_URL=${DOWNLOAD_URL}/moonocolor/releases/${MOONO_COLOR_FILE}
 
 function error_exit
 {

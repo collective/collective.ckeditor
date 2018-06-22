@@ -21,12 +21,16 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
         IMAGE2_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
+        IMAGE2_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${IMAGE2_VERSION+x}" ]; then
         echo "version of image2 plugin could not be computed"
         exit 1
 fi
 IMAGE2_FILE=image2_${IMAGE2_VERSION}.zip
-IMAGE2_URL=http://download.ckeditor.com/image2/releases/${IMAGE2_FILE}
+DOWNLOAD_URL=https://ckeditor.com/cke4/sites/default/files
+IMAGE2_URL=${DOWNLOAD_URL}/image2/releases/${IMAGE2_FILE}
 
 function error_exit
 {

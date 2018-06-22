@@ -33,11 +33,14 @@ check_plugin widget
 check_plugin lineutils
 check_plugin wsc
 check_plugin scayt
+check_plugin balloontoolbar
 
 # add wsc and scayt plugins in build configuration
 # so that they get included in the distro
 # also add widget and lineutils plugins, image2 dependencies
+echo "Fixing ${BUILD_CONFIG}"
 sed -i '/image: 1,/awsc: 1,' "${BUILD_CONFIG}"
 sed -i '/wsc: 1,/ascayt: 1,' "${BUILD_CONFIG}"
 sed -i '/scayt: 1,/awidget: 1,' "${BUILD_CONFIG}"
 sed -i '/widget: 1,/alineutils: 1,' "${BUILD_CONFIG}"
+sed -i '/lineutils: 1,/aballoontoolbar: 1,' "${BUILD_CONFIG}"

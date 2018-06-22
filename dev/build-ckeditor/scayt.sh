@@ -21,12 +21,16 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
         SCAYT_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
+        SCAYT_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${SCAYT_VERSION+x}" ]; then
         echo "version of scayt plugin could not be computed"
         exit 1
 fi
 SCAYT_FILE=scayt_${SCAYT_VERSION}.zip
-SCAYT_URL=http://download.ckeditor.com/scayt/releases/${SCAYT_FILE}
+DOWNLOAD_URL=https://ckeditor.com/cke4/sites/default/files
+SCAYT_URL=${DOWNLOAD_URL}/scayt/releases/${SCAYT_FILE}
 
 # compute wsc plugin version
 if [[ ${CKEDITOR_VERSION} == 4.4* ]]; then
@@ -41,12 +45,15 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
+        WSC_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${WSC_VERSION+x}" ]; then
         echo "version of wsc plugin could not be computed"
         exit 1
 fi
 WSC_FILE=wsc_${WSC_VERSION}.zip
-WSC_URL=http://download.ckeditor.com/wsc/releases/${WSC_FILE}
+WSC_URL=${DOWNLOAD_URL}/wsc/releases/${WSC_FILE}
 
 function error_exit
 {

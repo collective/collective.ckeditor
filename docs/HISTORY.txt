@@ -4,7 +4,9 @@ Changelog
 4.7.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update to CKEditor 4.9.2
+  Include not enabled balloontoolbar plugin
+  [gotcha]
 
 
 4.7.2 (2017-12-15)

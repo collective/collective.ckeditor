@@ -7,7 +7,7 @@
 Introduction
 ============
 
-This addon is a ckeditor_ integration for Plone.  This release uses ckeditor_ version 4.7.2.
+This addon is a ckeditor_ integration for Plone.  This release includes ckeditor_ version 4.9.2.
 
 .. contents::
 
@@ -107,6 +107,15 @@ This is done by configuring HTML filtering with a setup handler like::
 CKEditor plugins
 ================
 
+`balloontoolbar` plugin
+-----------------------
+provided since version 4.8.0
+
+Not enabled by default, this plugin provides an API to setup context sensitive toolbars.
+
+To enable the plugin, add ``balloontoolbar;/++resource++ckeditor/plugins/balloontoolbar/plugin.js``
+to the `Plugins` field in CKEditor control panel (``@@ckeditor-controlpanel``).
+
 `uploadimage` plugin
 --------------------
 provided since version 4.7.0
@@ -117,7 +126,7 @@ Enabled by default, this plugin manages support for uploading images that were d
 --------------------
 provided since version 4.4.5.
 
-When installed, the plugin provides keyboard shortcuts to insert non breaking chars:
+When enabled, the plugin provides keyboard shortcuts to insert non breaking chars:
 
 - ``Ctrl-Alt-Space`` for non breaking space,
 - ``Ctrl-Alt-Hyphen`` for non breaking hyphen.
@@ -127,7 +136,7 @@ Corresponding buttons can also be configured in the toolbar:
 - ``NbSpace``
 - ``NbHyphen``
 
-To install the plugin, add ``nonbreaking;/++resource++cke_nonbreaking/plugin.js``
+To enable the plugin, add ``nonbreaking;/++resource++cke_nonbreaking/plugin.js``
 to the `Plugins` field in CKEditor control panel (``@@ckeditor-controlpanel``).
 
 Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
@@ -145,10 +154,10 @@ Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
 `tableresize` plugin
 --------------------
 
-When installed, the plugin makes it easy to change the table columns width by
+When enabled, the plugin makes it easy to change the table columns width by
 drag/dropping it from left to right and right to left.
 
-To install the plugin, add ``tableresize;/++resource++ckeditor/plugins/tableresize/plugin.js``
+To enable the plugin, add ``tableresize;/++resource++ckeditor/plugins/tableresize/plugin.js``
 to the `Plugins` field in CKEditor control panel (``@@ckeditor-controlpanel``).
 
 Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
@@ -205,7 +214,7 @@ Valid for CKEditor 4
 
 1. Go to ``dev/build-ckeditor``
 2. Update plugin versions computation in ``image2.sh``, ``moono.sh``,
-   ``scayt.sh``
+   ``scayt`` and ``wsc`` in ``scayt.sh``
 3. Issue the following command ``CKEDITOR_VERSION=4.x.x make``
 4. Run ``bin/copy_ckeditor_code``
 5. Test
