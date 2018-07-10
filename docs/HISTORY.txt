@@ -4,7 +4,9 @@ Changelog
 4.8.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- CKEditor language is coherent with edit view language
+  [gotcha]
+  
 
 
 4.8.0 (2018-06-22)

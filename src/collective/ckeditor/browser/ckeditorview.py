@@ -105,6 +105,15 @@ class CKeditorView(BrowserView):
         return "%s" % request['ACTUAL_URL']
 
     @property
+    def cke_language(self):
+        """
+        return language in content context
+        """
+        pstate = component.getMultiAdapter((self.context, self.request),
+                                           name="plone_portal_state")
+        return pstate.language()
+
+    @property
     def cke_result_basehref(self):
         """
         return the base href
@@ -381,11 +390,6 @@ class CKeditorView(BrowserView):
         params_js_string += """
 };
         """
-
-        pstate = component.getMultiAdapter((self.context, self.request),
-                                           name="plone_portal_state")
-        language = pstate.language()
-        params_js_string += "CKEDITOR.config.language = '%s';" % language
 
         cache_header = 'pre-check=0,post-check=0,must-revalidate,s-maxage=0,\
           max-age=0,no-cache'

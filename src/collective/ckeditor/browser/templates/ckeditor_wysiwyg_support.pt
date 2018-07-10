@@ -50,6 +50,10 @@
                   class="baseHref"
                   name="cke_baseHref"
                   tal:attributes="value ckview/cke_basehref" />
+           <input type="hidden"
+                  class="language"
+                  name="cke_language"
+                  tal:attributes="value ckview/cke_language" />
            <tal:block repeat="item cke_widget/items">
              <input type="hidden"
                     tal:define="k python: item[0];
