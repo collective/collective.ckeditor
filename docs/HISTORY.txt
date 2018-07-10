@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.8.1 (unreleased)
+4.8.1 (2018-07-10)
 ------------------
 
 - CKEditor language is coherent with edit view language
