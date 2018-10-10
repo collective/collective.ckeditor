@@ -49,8 +49,16 @@
         name="cke-save"
         for="Products.Archetypes.interfaces.IBaseObject"
         class=".ckeditorview.CKeditorView"
-        attribute="ajaxsave" 
+        attribute="AT_save"
         permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        name="cke-save"
+        for="plone.portlets.interfaces.IPortletAssignment"
+        class=".ckeditorview.CKeditorView"
+        attribute="portlet_save"
+        permission="plone.app.portlets.ManageOwnPortlets"
         />
 
     <browser:page
@@ -60,6 +68,7 @@
         attribute="upload_image" 
         permission="cmf.ModifyPortalContent"
         />
+
     <browser:page
         name="cke-upload-image"
         for="Products.CMFCore.interfaces.IContentish"

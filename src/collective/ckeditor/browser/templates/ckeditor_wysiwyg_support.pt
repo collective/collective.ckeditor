@@ -54,6 +54,14 @@
                   class="language"
                   name="cke_language"
                   tal:attributes="value ckview/cke_language" />
+           <input type="hidden"
+                  class="ajaxsave_fieldname"
+                  name="cke_fieldname"
+                  tal:attributes="value fname" />
+           <input type="hidden"
+                  class="ajaxsave_enabled"
+                  name="cke_ajaxsave_anabled"
+                  tal:attributes="value string:true" />
            <tal:block repeat="item cke_widget/items">
              <input type="hidden"
                     tal:define="k python: item[0];

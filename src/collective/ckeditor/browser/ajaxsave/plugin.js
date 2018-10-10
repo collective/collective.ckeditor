@@ -32,14 +32,12 @@
         }
         showMessage(editor, 'Saving content...', 'in');
         editor.updateElement();
-        var url = $('base').attr('href') + '/cke-save';
-        var name = editor.element.$.name;
         var data = {
-            fieldname: name,
+            fieldname: editor.config.ajaxsave_fieldname,
             text: editor.getData()
         };
         var settings = {
-            url: url,
+            url: editor.config.ajaxsave_url,
             type: 'POST',
             data: data,
             success: function(data){
@@ -58,6 +56,9 @@
         icons: 'ajaxsave',
         requires : [ 'dialog' ],
         init : function( editor ) {
+            if (editor.config.ajaxsave_enabled !== "true") {
+                saveCmd.startDisabled = true;
+            }
             var command = editor.addCommand( pluginName, saveCmd );
             command.modes = { wysiwyg : !!( editor.element.$.form ) };
             editor.ui.addButton( 'AjaxSave', {

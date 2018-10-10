@@ -459,6 +459,16 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             if 'language' in widget.settings:
                 language = widget.settings['language']
                 self.customize_browserurl(widget_settings, language)
+        save_url = str(self.portal.portal_url.getRelativeUrl(widget.context.context) + '/cke-save')
+        widget_settings['ajaxsave_enabled'] = 'true'
+        try:
+            view = self.portal.restrictedTraverse(save_url)
+        except:
+            widget_settings['ajaxsave_enabled'] = 'false'
+        else:
+            widget_settings['ajaxsave_url'] = save_url
+            fieldname = widget.context.__name__
+            widget_settings['ajaxsave_fieldname'] = fieldname
         return widget_settings
 
     def getCK_widget_settings(self, widget):
@@ -486,12 +496,17 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
                     widget_settings['height'] = height
             if hasattr(widget, 'language'):
                 self.customize_browserurl(widget_settings, widget.language)
+        widget_settings['ajaxsave_url'] = self.context.absolute_url() + '/cke-save'
         return widget_settings
 
-    def ajaxsave(self, fieldname, text):
+    def AT_save(self, fieldname, text):
         self.context.getField(fieldname).set(self.context,
                                              text,
                                              mimetype='text/html')
+        return "saved"
+    
+    def portlet_save(self, fieldname, text):
+        setattr(self.context, fieldname, text)
         return "saved"
 
     def upload_image(self):
