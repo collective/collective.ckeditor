@@ -4,7 +4,13 @@ Changelog
 4.8.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- refactor AjaxSave plugin
+
+  - fix for Archetypes
+  - support for plone.app.contenttypes
+  - support for formlib portlets
+
+  [gotcha]
 
 
 4.8.1 (2018-07-10)
