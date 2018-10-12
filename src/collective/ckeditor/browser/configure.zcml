@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.ckeditor">
@@ -50,6 +51,14 @@
         for="Products.Archetypes.interfaces.IBaseObject"
         class=".ckeditorview.CKeditorView"
         attribute="AT_save"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page zcml:condition="installed plone.dexterity"
+        name="cke-save"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        class=".ckeditorview.CKeditorView"
+        attribute="dexterity_save"
         permission="cmf.ModifyPortalContent"
         />
 

@@ -16,8 +16,8 @@
             name="cke_config_url"
             class="cke_config_url"
             tal:attributes="value python:ckview.cke_config_url(finder_context)" />
-     <tal:block condition="nocall:z3c_widget | nocall:formlib_widget | nothing">
-       <tal:block define="widget nocall:z3c_widget | nocall:formlib_widget;
+     <tal:block condition="nocall:z3c_widget | nocall:formlib_widget | nocall:view | nothing">
+       <tal:block define="widget nocall:z3c_widget | nocall:formlib_widget | nocall:view;
                           cke_widget python:ckview.getCK_z3cwidget_settings(widget)">
          <input type="hidden"
                 name="cke_iswidget"

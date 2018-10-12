@@ -459,7 +459,13 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             if 'language' in widget.settings:
                 language = widget.settings['language']
                 self.customize_browserurl(widget_settings, language)
-        save_url = str(self.portal.portal_url.getRelativeUrl(widget.context.context) + '/cke-save')
+        try:
+            target = widget.context.context
+            fieldname = widget.context.__name__
+        except AttributeError:
+            target = widget.context
+            fieldname = widget.field.__name__
+        save_url = str(self.portal.portal_url.getRelativeUrl(target) + '/cke-save')
         widget_settings['ajaxsave_enabled'] = 'true'
         try:
             view = self.portal.restrictedTraverse(save_url)
@@ -467,7 +473,6 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             widget_settings['ajaxsave_enabled'] = 'false'
         else:
             widget_settings['ajaxsave_url'] = save_url
-            fieldname = widget.context.__name__
             widget_settings['ajaxsave_fieldname'] = fieldname
         return widget_settings
 
@@ -506,7 +511,13 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         return "saved"
     
     def portlet_save(self, fieldname, text):
-        setattr(self.context, fieldname, text)
+        setattr(self.context, fieldname, text.decode('utf8'))
+        return "saved"
+
+    def dexterity_save(self, fieldname, text):
+        from plone.app.textfield.value import RichTextValue
+        value = RichTextValue(text)
+        setattr(self.context, fieldname, value)
         return "saved"
 
     def upload_image(self):
