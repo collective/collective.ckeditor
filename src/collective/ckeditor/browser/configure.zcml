@@ -49,7 +49,7 @@
     <browser:page
         name="cke-save"
         for="Products.Archetypes.interfaces.IBaseObject"
-        class=".ckeditorview.CKeditorView"
+        class=".ckeditorview.AjaxSave"
         attribute="AT_save"
         permission="cmf.ModifyPortalContent"
         />
@@ -57,7 +57,7 @@
     <browser:page zcml:condition="installed plone.dexterity"
         name="cke-save"
         for="plone.dexterity.interfaces.IDexterityContent"
-        class=".ckeditorview.CKeditorView"
+        class=".ckeditorview.AjaxSave"
         attribute="dexterity_save"
         permission="cmf.ModifyPortalContent"
         />
@@ -65,7 +65,7 @@
     <browser:page
         name="cke-save"
         for="plone.portlets.interfaces.IPortletAssignment"
-        class=".ckeditorview.CKeditorView"
+        class=".ckeditorview.AjaxSave"
         attribute="portlet_save"
         permission="plone.app.portlets.ManageOwnPortlets"
         />

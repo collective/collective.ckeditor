@@ -504,22 +504,6 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         widget_settings['ajaxsave_url'] = self.context.absolute_url() + '/cke-save'
         return widget_settings
 
-    def AT_save(self, fieldname, text):
-        self.context.getField(fieldname).set(self.context,
-                                             text,
-                                             mimetype='text/html')
-        return "saved"
-    
-    def portlet_save(self, fieldname, text):
-        setattr(self.context, fieldname, text.decode('utf8'))
-        return "saved"
-
-    def dexterity_save(self, fieldname, text):
-        from plone.app.textfield.value import RichTextValue
-        value = RichTextValue(text)
-        setattr(self.context, fieldname, value)
-        return "saved"
-
     def upload_image(self):
         container = component.getMultiAdapter((self.context, self.request),name='folder_factories').add_context()
         upload = self.request.form['upload']
@@ -581,3 +565,28 @@ class ckeditor_wysiwyg_support(BrowserView):
     @property
     def macros(self):
         return self.index.macros
+
+
+class SettingsView(BrowserView):
+    index = ViewPageTemplateFile("templates/widget_settings.pt")
+    def __call__(self):
+        return self.index()
+
+
+class AjaxSave(BrowserView):
+
+    def AT_save(self, fieldname, text):
+        self.context.getField(fieldname).set(self.context,
+                                             text,
+                                             mimetype='text/html')
+        return "saved"
+
+    def portlet_save(self, fieldname, text):
+        setattr(self.context, fieldname, text.decode('utf8'))
+        return "saved"
+
+    def dexterity_save(self, fieldname, text):
+        from plone.app.textfield.value import RichTextValue
+        value = RichTextValue(text)
+        setattr(self.context, fieldname, value)
+        return "saved"
