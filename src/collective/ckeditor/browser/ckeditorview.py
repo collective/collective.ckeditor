@@ -68,6 +68,10 @@ class CKeditorView(BrowserView):
         pp = getToolByName(self.portal, 'portal_properties')
         return pp.ckeditor_properties
 
+    @property
+    def cke_properties_overloaded(self):
+        return self.cke_properties.getProperty('properties_overloaded', [])
+
     def cke_config_url(self, context=None):
         """"
         return the dynamic configuration file url
@@ -444,65 +448,11 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         update_setting('filebrowserImageBrowseUrl')
         update_setting('filebrowserFlashBrowseUrl')
 
-    def getCK_z3cwidget_settings(self, widget):
-        """
-        Some params could be overloaded by widget settings
-        """
-        widget_settings = {}
-        if widget is not None and hasattr(widget, 'settings'):
-            params = self.cke_params
-            cke_properties = self.cke_properties
-            p_overloaded = cke_properties.getProperty('properties_overloaded', [])
-            for k, v in params.items():
-                if k in p_overloaded and k in widget.settings:
-                    widget_settings[k] = widget.settings[k]
-            if 'language' in widget.settings:
-                language = widget.settings['language']
-                self.customize_browserurl(widget_settings, language)
-        try:
-            target = widget.context.context
-            fieldname = widget.context.__name__
-        except AttributeError:
-            target = widget.context
-            fieldname = widget.field.__name__
-        save_url = str(self.portal.portal_url.getRelativeUrl(target) + '/cke-save')
-        widget_settings['ajaxsave_enabled'] = 'true'
-        try:
-            view = self.portal.restrictedTraverse(save_url)
-        except:
-            widget_settings['ajaxsave_enabled'] = 'false'
-        else:
-            widget_settings['ajaxsave_url'] = save_url
-            widget_settings['ajaxsave_fieldname'] = fieldname
-        return widget_settings
+    def widget_settings(self, widget, fieldname):
+        settings = IWidgetSettings(widget)
+        settings.setup(ckview=self, fieldname=fieldname)
+        return settings()
 
-    def getCK_widget_settings(self, widget):
-        """
-        Some params could be overloaded by widget settings
-        example : AT rich widget overload width or height
-        """
-        params = self.cke_params
-        cke_properties = self.cke_properties
-        p_overloaded = cke_properties.getProperty('properties_overloaded', [])
-        widget_settings = {}
-        if widget is not None:
-            for k, v in params.items():
-                if k in p_overloaded and hasattr(widget, k):
-                    widget_settings[k] = getattr(widget, k)
-
-            # specific for cols and rows rich widget settings
-            if hasattr(widget, 'cols') and 'width' not in p_overloaded:
-                if widget.cols:
-                    width = str(int(int(widget.cols) * 100 / 40)) + '%'
-                    widget_settings['width'] = width
-            if hasattr(widget, 'rows') and 'height' not in p_overloaded:
-                if widget.rows:
-                    height = str(int(widget.rows) * 25) + 'px'
-                    widget_settings['height'] = height
-            if hasattr(widget, 'language'):
-                self.customize_browserurl(widget_settings, widget.language)
-        widget_settings['ajaxsave_url'] = self.context.absolute_url() + '/cke-save'
-        return widget_settings
 
     def upload_image(self):
         container = component.getMultiAdapter((self.context, self.request),name='folder_factories').add_context()
@@ -567,10 +517,92 @@ class ckeditor_wysiwyg_support(BrowserView):
         return self.index.macros
 
 
-class SettingsView(BrowserView):
-    index = ViewPageTemplateFile("templates/widget_settings.pt")
+class IWidgetSettings(Interface):
+    pass
+
+
+class FormlibWidgetSettings(object):
+    implements(IWidgetSettings)
+
+    def __init__(self, context):
+        self.context = context
+
+    def setup(self, **kwargs):
+        self.__dict__.update(kwargs)
+
     def __call__(self):
-        return self.index()
+        """
+        Some params could be overloaded by widget settings
+        """
+        ckview = self.ckview
+        widget_settings = {}
+        if hasattr(self.context, 'settings'):
+            params = ckview.cke_params
+            p_overloaded = ckview.cke_properties_overloaded
+            for k, v in params.items():
+                if k in p_overloaded and k in self.context.settings:
+                    widget_settings[k] = self.context.settings[k]
+            if 'language' in self.context.settings:
+                language = self.context.settings['language']
+                ckview.customize_browserurl(widget_settings, language)
+        widget_settings['basehref'] = ckview.cke_basehref
+        try:
+            target = self.context.context.context
+            fieldname = self.context.context.__name__
+        except AttributeError:
+            target = self.context.context
+            fieldname = self.context.field.__name__
+        save_url = str(ckview.portal.portal_url.getRelativeUrl(target) + '/cke-save')
+        widget_settings['ajaxsave_enabled'] = 'true'
+        try:
+            view = ckview.portal.restrictedTraverse(save_url)
+        except:
+            widget_settings['ajaxsave_enabled'] = 'false'
+        else:
+            widget_settings['ajaxsave_url'] = save_url
+            widget_settings['ajaxsave_fieldname'] = fieldname
+        return widget_settings
+
+
+class ATWidgetSettings(object):
+    implements(IWidgetSettings)
+
+    def __init__(self, context):
+        self.context = context
+
+    def setup(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+    def __call__(self):
+        """
+        Some params could be overloaded by widget settings
+        example : AT rich widget overload width or height
+        """
+        ckview = self.ckview
+        params = ckview.cke_params
+        widget_settings = {}
+        p_overloaded = ckview.cke_properties_overloaded
+        for k, v in params.items():
+            if k in p_overloaded and hasattr(self.context, k):
+                widget_settings[k] = getattr(self.context, k)
+
+        # specific for cols and rows rich widget settings
+        if hasattr(self.context, 'cols') and 'width' not in p_overloaded:
+            if self.context.cols:
+                width = str(int(int(self.context.cols) * 100 / 40)) + '%'
+                widget_settings['width'] = width
+        if hasattr(self.context, 'rows') and 'height' not in p_overloaded:
+            if self.context.rows:
+                height = str(int(self.context.rows) * 25) + 'px'
+                widget_settings['height'] = height
+        if hasattr(self.context, 'language'):
+            ckview.customize_browserurl(widget_settings, self.context.language)
+        widget_settings['basehref'] = ckview.cke_basehref
+        widget_settings['language'] = ckview.cke_language
+        widget_settings['ajaxsave_enabled'] = 'true'
+        widget_settings['ajaxsave_fieldname'] = self.fieldname
+        widget_settings['ajaxsave_url'] = ckview.context.absolute_url() + '/cke-save'
+        return widget_settings
 
 
 class AjaxSave(BrowserView):

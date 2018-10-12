@@ -70,6 +70,21 @@
         permission="plone.app.portlets.ManageOwnPortlets"
         />
 
+    <adapter
+        for="Products.Archetypes.generator.widget.iwidget"
+        factory=".ckeditorview.ATWidgetSettings"
+        />
+
+    <adapter
+        for="zope.formlib.interfaces.IWidget"
+        factory=".ckeditorview.FormlibWidgetSettings"
+        />
+
+    <adapter
+        for="z3c.form.interfaces.IWidget"
+        factory=".ckeditorview.FormlibWidgetSettings"
+        />
+
     <browser:page
         name="cke-upload-image"
         for="Products.CMFCore.interfaces.IFolderish"
