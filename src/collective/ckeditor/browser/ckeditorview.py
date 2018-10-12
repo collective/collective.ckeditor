@@ -521,7 +521,7 @@ class IWidgetSettings(Interface):
     pass
 
 
-class FormlibWidgetSettings(object):
+class Z3WidgetSettings(object):
     implements(IWidgetSettings)
 
     def __init__(self, context):
@@ -535,33 +535,60 @@ class FormlibWidgetSettings(object):
         Some params could be overloaded by widget settings
         """
         ckview = self.ckview
+        widget = self.context
         widget_settings = {}
-        if hasattr(self.context, 'settings'):
+        if hasattr(widget, 'settings'):
             params = ckview.cke_params
             p_overloaded = ckview.cke_properties_overloaded
             for k, v in params.items():
-                if k in p_overloaded and k in self.context.settings:
-                    widget_settings[k] = self.context.settings[k]
-            if 'language' in self.context.settings:
-                language = self.context.settings['language']
+                if k in p_overloaded and k in widget.settings:
+                    widget_settings[k] = widget.settings[k]
+            if 'language' in widget.settings:
+                language = widget.settings['language']
                 ckview.customize_browserurl(widget_settings, language)
         widget_settings['basehref'] = ckview.cke_basehref
-        try:
-            target = self.context.context.context
-            fieldname = self.context.context.__name__
-        except AttributeError:
-            target = self.context.context
-            fieldname = self.context.field.__name__
-        save_url = str(ckview.portal.portal_url.getRelativeUrl(target) + '/cke-save')
+        self.setupAjaxSave(widget_settings)
+        return widget_settings
+
+    def setupAjaxSave(self, widget_settings):
+        portal = self.ckview.portal
+        target = self.getSaveTarget()
+        save_url = str(portal.portal_url.getRelativeUrl(target) + '/cke-save')
         widget_settings['ajaxsave_enabled'] = 'true'
         try:
-            view = ckview.portal.restrictedTraverse(save_url)
+            view = portal.restrictedTraverse(save_url)
         except:
             widget_settings['ajaxsave_enabled'] = 'false'
         else:
             widget_settings['ajaxsave_url'] = save_url
-            widget_settings['ajaxsave_fieldname'] = fieldname
-        return widget_settings
+            widget_settings['ajaxsave_fieldname'] = self.getFieldName()
+
+
+class Z3CFormWidgetSettings(Z3WidgetSettings):
+
+    def getFieldName(self):
+        widget = self.context
+        field = widget.field
+        return field.__name__
+
+    def getSaveTarget(self):
+        widget = self.context
+        content_item = widget.context
+        return content_item
+
+
+class FormlibWidgetSettings(Z3WidgetSettings):
+
+    def getFieldName(self):
+        widget = self.context
+        field = widget.context
+        return field.__name__
+
+    def getSaveTarget(self):
+        widget = self.context
+        field = widget.context
+        content_item = field.context
+        return content_item
 
 
 class ATWidgetSettings(object):
@@ -580,30 +607,32 @@ class ATWidgetSettings(object):
         """
         ckview = self.ckview
         params = ckview.cke_params
+        widget = self.context
         widget_settings = {}
         p_overloaded = ckview.cke_properties_overloaded
         for k, v in params.items():
-            if k in p_overloaded and hasattr(self.context, k):
-                widget_settings[k] = getattr(self.context, k)
-
+            if k in p_overloaded and hasattr(widget, k):
+                widget_settings[k] = getattr(widget, k)
         # specific for cols and rows rich widget settings
-        if hasattr(self.context, 'cols') and 'width' not in p_overloaded:
-            if self.context.cols:
-                width = str(int(int(self.context.cols) * 100 / 40)) + '%'
+        if hasattr(widget, 'cols') and 'width' not in p_overloaded:
+            if widget.cols:
+                width = str(int(int(widget.cols) * 100 / 40)) + '%'
                 widget_settings['width'] = width
-        if hasattr(self.context, 'rows') and 'height' not in p_overloaded:
-            if self.context.rows:
-                height = str(int(self.context.rows) * 25) + 'px'
+        if hasattr(widget, 'rows') and 'height' not in p_overloaded:
+            if widget.rows:
+                height = str(int(widget.rows) * 25) + 'px'
                 widget_settings['height'] = height
-        if hasattr(self.context, 'language'):
-            ckview.customize_browserurl(widget_settings, self.context.language)
+        if hasattr(widget, 'language'):
+            ckview.customize_browserurl(widget_settings, widget.language)
         widget_settings['basehref'] = ckview.cke_basehref
         widget_settings['language'] = ckview.cke_language
-        widget_settings['ajaxsave_enabled'] = 'true'
-        widget_settings['ajaxsave_fieldname'] = self.fieldname
-        widget_settings['ajaxsave_url'] = ckview.context.absolute_url() + '/cke-save'
+        self.setupAjaxSave(widget_settings)
         return widget_settings
 
+    def setupAjaxSave(self, widget_settings):
+        widget_settings['ajaxsave_enabled'] = 'true'
+        widget_settings['ajaxsave_fieldname'] = self.fieldname
+        widget_settings['ajaxsave_url'] = self.ckview.context.absolute_url() + '/cke-save'
 
 class AjaxSave(BrowserView):
 

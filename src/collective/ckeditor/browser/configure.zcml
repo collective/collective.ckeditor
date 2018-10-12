@@ -82,7 +82,7 @@
 
     <adapter
         for="z3c.form.interfaces.IWidget"
-        factory=".ckeditorview.FormlibWidgetSettings"
+        factory=".ckeditorview.Z3CFormWidgetSettings"
         />
 
     <browser:page
