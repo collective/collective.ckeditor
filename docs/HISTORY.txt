@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.8.3 (unreleased)
+4.8.3 (2018-11-13)
 ------------------
 
 - AjaxSave plugin, defend against not traversable objects like plone.registry
