@@ -553,9 +553,9 @@ class Z3WidgetSettings(object):
     def setupAjaxSave(self, widget_settings):
         portal = self.ckview.portal
         target = self.getSaveTarget()
-        save_url = str(portal.portal_url.getRelativeUrl(target) + '/cke-save')
         widget_settings['ajaxsave_enabled'] = 'true'
         try:
+            save_url = str(portal.portal_url.getRelativeUrl(target) + '/cke-save')
             view = portal.restrictedTraverse(save_url)
         except:
             widget_settings['ajaxsave_enabled'] = 'false'

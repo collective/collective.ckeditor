@@ -4,7 +4,11 @@ Changelog
 4.8.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- AjaxSave plugin, defend against not traversable objects like plone.registry
+  records
+  [gotcha]
+
+
 
 
 4.8.2 (2018-10-12)
