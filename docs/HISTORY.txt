@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.8.4 (unreleased)
+4.9.0 (2019-09-12)
 ------------------
 
 - Update to CKEditor 4.12.1
