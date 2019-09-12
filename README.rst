@@ -7,7 +7,7 @@
 Introduction
 ============
 
-This addon is a ckeditor_ integration for Plone.  This release includes ckeditor_ version 4.9.2.
+This addon is a ckeditor_ integration for Plone.  This release includes ckeditor_ version 4.12.1.
 
 .. contents::
 

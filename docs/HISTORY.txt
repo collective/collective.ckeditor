@@ -4,7 +4,8 @@ Changelog
 4.8.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update to CKEditor 4.12.1
+  [gotcha]
 
 
 4.8.3 (2018-11-13)
