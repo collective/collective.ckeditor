@@ -3,7 +3,7 @@
 CKEDITOR_GITHUB_URL="git@github.com:ckeditor/ckeditor4.git"
 CKEDITOR_DEV_DIR="$(pwd)/ckeditor-dev"
 if [ ! -d "${CKEDITOR_DEV_DIR}" ]; then
-        git clone "${CKEDITOR_GITHUB_URL}"
+        git clone "${CKEDITOR_GITHUB_URL}" "${CKEDITOR_DEV_DIR}"
 fi
 cd "${CKEDITOR_DEV_DIR}" || exit
 if [ ! -d ".git" ]; then
