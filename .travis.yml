@@ -19,6 +19,7 @@ env:
 
 matrix:
   include:
+    - env: PLONE_VERSION=4.3
     - addons:
         firefox: "latest"
       env: PLONE_VERSION=4.3 FIREFOX=latest
