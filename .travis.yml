@@ -16,7 +16,6 @@ cache:
 env:
   global:
     - TARGET=test
-    - GECKODRIVER_VERSION=v0.19.1
 
 matrix:
   include:
@@ -32,12 +31,8 @@ matrix:
       env: PLONE_VERSION=4.3 FIREFOX=latest-beta
 
 before_install:
-  - 'export DISPLAY=:99.0'
-  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-  - wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
+  - sudo apt-get install -y firefox-geckodriver
+  - virtualenv -p `which python` .
 
 install:
   - sed -ie "s#travis-4.x.cfg#travis-$PLONE_VERSION.x.cfg#" travis.cfg
@@ -45,6 +40,12 @@ install:
   - mkdir -p buildout-cache/downloads
   - python bootstrap.py --setuptools-version=19.4 --buildout-version=2.5.0 -c travis.cfg
   - bin/buildout -N -t 3 -c travis.cfg install test createcoverage copy_ckeditor_code ckeditor
+
+before_script:
+  - 'export DISPLAY=:99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+  - sleep 3
+  - firefox -v
 
 script:
   - bin/test
