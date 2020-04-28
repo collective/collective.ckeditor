@@ -28,6 +28,22 @@ Dependencies
 * Plone >= 4
 * collective.plonefinder_
 
+
+Translations
+============
+
+This product has been translated into
+
+
+- Spanish.
+
+- French.
+
+- Italian.
+
+You can contribute for any message missing or other new languages, join us at `Plone Collective Team <https://www.transifex.com/plone/plone-collective/>`_ into *Transifex.net* service with all world Plone translators community.
+
+
 Upgrades
 ========
 
@@ -229,8 +245,18 @@ step 3 can be replaced with::
 Tests status
 ------------
 
-.. image:: https://secure.travis-ci.org/collective/collective.ckeditor.png
+
+This add-on is tested using Travis CI. The current status of the add-on is:
+
+.. image:: https://img.shields.io/travis/collective/collective.ckeditor/master.svg
     :target: http://travis-ci.org/collective/collective.ckeditor
+
+.. image:: https://img.shields.io/coveralls/collective/collective.ckeditor/master.svg
+    :target: https://coveralls.io/r/collective/collective.ckeditor
+
+.. image:: http://img.shields.io/pypi/v/collective.ckeditor.svg
+   :target: https://pypi.python.org/pypi/collective.ckeditor
+
 
 Credits
 =======
@@ -256,6 +282,7 @@ Contributors
 - Kim Paulissen <spereverde@gmail.com>
 - Jean-Michel FRANCOIS aka toutpt <toutpt@gmail.com>
 - Gauthier Bastien <gauthier@imio.be>
+- Leonardo J. Caballero G. <leonardocaballero@gmail.com>
 
 .. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
 .. _FCKEditor: http://plone.org/fckeditor
