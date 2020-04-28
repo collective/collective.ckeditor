@@ -28,6 +28,20 @@ Dependencies
 * Plone >= 4
 * collective.plonefinder_
 
+
+Translations
+============
+
+This product has been translated into
+
+
+- Spanish.
+
+- French.
+
+- Italian.
+
+
 Upgrades
 ========
 
