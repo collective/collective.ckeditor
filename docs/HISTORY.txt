@@ -8,6 +8,9 @@ Changelog
   [macagua]
 - Add Spanish translation
   [macagua]
+- AjaxSave plugin, add message when nothing saved because nothing changed
+  (Content already saved (nothing changed).)
+  [gbastien]
 
 
 4.9.0 (2019-09-12)

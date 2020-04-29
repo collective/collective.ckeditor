@@ -28,6 +28,7 @@
         modes : { wysiwyg:1, source:1 },
         exec : function( editor ) {
         if (!editor.checkDirty()) {
+            showMessage(editor, 'Content already saved (nothing changed).');
             return;
         }
         showMessage(editor, 'Saving content...', 'in');
