@@ -41,6 +41,7 @@
             url: editor.config.ajaxsave_url,
             type: 'POST',
             data: data,
+            async: false,
             success: function(data){
                 editor.resetDirty();
                 showMessage(editor, 'Content saved.');
