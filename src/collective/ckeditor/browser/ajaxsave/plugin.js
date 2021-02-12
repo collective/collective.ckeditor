@@ -25,6 +25,7 @@
         };
     };
     var saveCmd = {
+        async : true,
         modes : { wysiwyg:1, source:1 },
         exec : function( editor ) {
         if (!editor.checkDirty()) {
@@ -41,6 +42,7 @@
             url: editor.config.ajaxsave_url,
             type: 'POST',
             data: data,
+            async: this.async,
             success: function(data){
                 editor.resetDirty();
                 showMessage(editor, 'Content saved.');
