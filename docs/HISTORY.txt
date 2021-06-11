@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.9.2 (unreleased)
-------------------
+4.10.0 (2021-06-11)
+-------------------
 
 - Add disallowedContent option to blacklist content.
   [naro, gotcha]
