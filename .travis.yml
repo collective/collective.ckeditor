@@ -14,7 +14,9 @@ cache:
 env:
   global:
     - TARGET=test
-    - GECKODRIVER_VERSION=v0.19.1
+    - GECKODRIVER_VERSION=v0.28.0
+    - ZSERVER_PORT=55001
+    - MOZ_HEADLESS=1
 
 matrix:
   include:
@@ -30,8 +32,6 @@ matrix:
       env: PLONE_VERSION=4.3 FIREFOX=latest-beta
 
 before_install:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
   - wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
   - mkdir geckodriver
   - tar -xzf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz -C geckodriver

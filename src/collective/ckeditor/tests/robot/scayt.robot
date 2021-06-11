@@ -33,15 +33,15 @@ a logged-in editor
   Enable autologin as  Editor  Contributor
 
 a document
-  Create content  type=Document  id=document-to-edit  title=Document to edit  text=<p id="p1">paragraph1</p><p id="p2">paragraph2</p><p>paragraph3</p><p>paragraph4</p>
+  Create content  type=Document  id=document-to-edit  title=Document to edit  text=<p id="p1">paragraphy</p><p id="p2">paragraph2</p><p>paragraph3</p><p>paragraph4</p>
   Go to  ${PLONE_URL}/document-to-edit
-  Page Should Contain  paragraph1
+  Page Should Contain  paragraphy
   Page Should Contain  paragraph4
   Page Should Contain Element  css=#p1
   Page Should Not Contain Element  css=#p1 strong
 
 # --- WHEN -------------------------------------------------------------------
-    
+
 I edit the document
   Go to  ${PLONE_URL}/document-to-edit/edit
 
