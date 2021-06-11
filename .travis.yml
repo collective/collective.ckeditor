@@ -14,7 +14,7 @@ cache:
 env:
   global:
     - TARGET=test
-    - GECKODRIVER_VERSION=v0.19.1
+    - GECKODRIVER_VERSION=v0.29.1
 
 matrix:
   include:
