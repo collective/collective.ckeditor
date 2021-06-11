@@ -27,6 +27,9 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
         SCAYT_VERSION=${CKEDITOR_VERSION}
 fi
+if [[ ${CKEDITOR_VERSION} == 4.16* ]]; then
+        SCAYT_VERSION=${CKEDITOR_VERSION}
+fi
 if [ -z "${SCAYT_VERSION+x}" ]; then
         echo "version of scayt plugin could not be computed"
         exit 1
@@ -52,6 +55,9 @@ if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
 if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
+        WSC_VERSION=${CKEDITOR_VERSION}
+fi
+if [[ ${CKEDITOR_VERSION} == 4.16* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
 if [ -z "${WSC_VERSION+x}" ]; then
