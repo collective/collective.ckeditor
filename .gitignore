@@ -36,3 +36,5 @@ lib64
 include
 htmlcov
 .coverage
+.idea/
+pyvenv.cfg
