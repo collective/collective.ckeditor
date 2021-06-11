@@ -15,6 +15,7 @@ env:
   global:
     - TARGET=test
     - GECKODRIVER_VERSION=v0.29.1
+    - ZSERVER_PORT=55001
 
 matrix:
   include:
