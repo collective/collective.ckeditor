@@ -1,7 +1,4 @@
 language: python
-dist: xenial
-services:
-  - xvfb
 python: 2.7
 addons:
   apt:
@@ -19,6 +16,7 @@ env:
     - TARGET=test
     - GECKODRIVER_VERSION=v0.28.0
     - ZSERVER_PORT=55001
+    - MOZ_HEADLESS=1
 
 matrix:
   include:
@@ -47,7 +45,7 @@ install:
   - bin/buildout -N -t 3 -c travis.cfg install test createcoverage copy_ckeditor_code ckeditor
 
 script:
-  - xvfb-run bin/test
+  - bin/test
 
 after_success:
   - bin/createcoverage
