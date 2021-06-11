@@ -135,7 +135,7 @@
         />
 
     </upgradeSteps>
-    
+
     <upgradeStep
         source="4330"
         destination="4340"
@@ -144,5 +144,27 @@
         profile="collective.ckeditor:default"
         handler=".upgrades.up4340"
         />
+
+    <registerProfile
+      name="to4350"
+      title="CKeditor for Plone"
+      directory="profiles/to4350"
+      description="upgrade profile to add disallowedContent property"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <upgradeSteps
+        source="4340"
+        destination="4350"
+        profile="collective.ckeditor:default">
+
+    <upgradeDepends
+        title="Add disallowedContent property"
+        description=""
+        import_profile="collective.ckeditor:to4350"
+        import_steps="propertiestool"
+        />
+
+    </upgradeSteps>
 
 </configure>

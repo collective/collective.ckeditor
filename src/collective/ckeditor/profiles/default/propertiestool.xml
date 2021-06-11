@@ -30,8 +30,12 @@
       []
   </property>
   <property name="extraAllowedContent" type="text">
-      /* Add items to array of allowedContent rules */
+      /* Add items to array of extraAllowedContent rules */
       []
+  </property>
+  <property name="disallowedContent" type="text">
+      /* Add items to string of disallowedContent rules */
+      ''
   </property>
   <property name="menuStyles" type="text">
 [

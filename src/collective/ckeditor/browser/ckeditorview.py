@@ -361,6 +361,7 @@ class CKeditorView(BrowserView):
         else:
             params_js_string += """config.templates_replaceContent = false;"""
 
+        use_disallowed_content = True
         filtering = cke_properties.getProperty('filtering')
         if filtering == 'default':
             extraAllowedContent = cke_properties.getProperty(
@@ -369,11 +370,21 @@ class CKeditorView(BrowserView):
                 extraAllowedContent)
         elif filtering == 'disabled':
             params_js_string += """config.allowedContent = true;"""
+            # It is not possible to disallow content when the Advanced Content
+            # Filter is disabled by setting CKEDITOR.config.allowedContent
+            # to true.
+            use_disallowed_content = False
         elif filtering == 'custom':
             customAllowedContent = cke_properties.getProperty(
                 'customAllowedContent')
             params_js_string += "config.allowedContent = {0};".format(
                 customAllowedContent)
+
+        if use_disallowed_content:
+            disallowedContent = cke_properties.getProperty(
+                'disallowedContent')
+            params_js_string += "config.disallowedContent = {0};".format(
+                disallowedContent)
 
         # enable SCAYT on startup if necessary
         enableScaytOnStartup = cke_properties.getProperty(
