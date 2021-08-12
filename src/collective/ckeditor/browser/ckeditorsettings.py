@@ -417,8 +417,3 @@ class CKEditorControlPanelForm(RegistryEditForm):
 
 class CKEditorControlPanel(ControlPanelFormWrapper):
     form = CKEditorControlPanelForm
-
-
-
-
-
