@@ -12,7 +12,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.interfaces import IFolderish
-from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from plone import api
 from plone.portlets.interfaces import IPortletAssignment
 from plone.registry.interfaces import IRegistry
@@ -411,7 +410,7 @@ class CKeditorView(BrowserView):
         response.setHeader('Cache-control', cache_header)
         response.setHeader('Content-Type', 'application/x-javascript')
 
-        return JavascriptPacker('safe').pack(params_js_string)
+        return params_js_string
 
     def getCK_vars(self):
         return CK_VARS_TEMPLATE % {'portal_url': self.portal_url}
@@ -447,7 +446,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             's-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
 
-        return JavascriptPacker('safe').pack(menu_styles_js_string)
+        return menu_styles_js_string
 
     def customize_browserurl(self, settings, language):
         params = self.cke_params

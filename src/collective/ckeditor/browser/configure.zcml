@@ -46,7 +46,7 @@
         permission="zope.Public"
         />
 
-    <browser:page
+    <browser:page zcml:condition="installed Products.Archetypes"
         name="cke-save"
         for="Products.Archetypes.interfaces.IBaseObject"
         class=".ckeditorview.AjaxSave"
@@ -70,12 +70,13 @@
         permission="plone.app.portlets.ManageOwnPortlets"
         />
 
-    <adapter
+    <adapter zcml:condition="installed Products.Archetypes"
         for="Products.Archetypes.generator.widget.iwidget"
         factory=".ckeditorview.ATWidgetSettings"
         />
 
     <adapter
+        zcml:condition="installed zope.formlib"
         for="zope.formlib.interfaces.IWidget"
         factory=".ckeditorview.FormlibWidgetSettings"
         />
