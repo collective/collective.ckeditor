@@ -4,7 +4,10 @@ Changelog
 4.10.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix missing directory in 4.10.0 release.
+  [aduchene]
+- Use zest.releaser = 6.22.1.
+  [aduchene]
 
 
 4.10.0 (2021-06-11)
