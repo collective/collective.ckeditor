@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.10.1 (unreleased)
+4.10.1 (2021-10-01)
 -------------------
 
 - Fix CKEditor not packaged properly in 4.10.0 release.
