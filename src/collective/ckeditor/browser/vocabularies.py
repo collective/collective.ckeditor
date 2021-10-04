@@ -15,10 +15,15 @@ try:
     from zope.component.hooks import getSite
 except ImportError:
     from zope.app.component.hooks import getSite
-from Products.ATContentTypes.interfaces import IFileContent, IImageContent
-from Products.Archetypes.interfaces.base import IBaseFolder
-from Products.CMFCore.utils import getToolByName
 
+try:
+    from Products.ATContentTypes.interfaces import IFileContent, IImageContent
+    from Products.Archetypes.interfaces.base import IBaseFolder
+    HAS_AT = True
+except ImportError:
+    HAS_AT = False
+
+from Products.CMFCore.utils import getToolByName
 from collective.ckeditor import siteMessageFactory as _
 
 
@@ -123,10 +128,13 @@ class CKEditorFileTypesVocabulary(object):
     def __call__(self, context):
         context = getattr(context, 'context', context)
         portal = getSite()
-        flt = _listTypesForInterface(portal, IFileContent)
-        items = [SimpleTerm(t['portal_type'], t['portal_type'],
-                            t['type_ui_info'])
-                 for t in flt]
+        if HAS_AT:
+            flt = _listTypesForInterface(portal, IFileContent)
+            items = [SimpleTerm(t['portal_type'], t['portal_type'],
+                                t['type_ui_info'])
+                     for t in flt]
+        else:
+            items = []
         return SimpleVocabulary(items)
 
 CKEditorFileTypesVocabularyFactory = CKEditorFileTypesVocabulary()
@@ -140,14 +148,17 @@ class CKEditorUploadFileTypeVocabulary(object):
     def __call__(self, context):
         context = getattr(context, 'context', context)
         portal = getSite()
-        flt = _listTypesForInterface(portal, IFileContent)
-        msg1 = _(u'Content Type Registry default configuration (recommanded)')
-        msg2 = _(u'Custom configuration, fill next field')
-        items = [SimpleTerm('auto', 'auto', msg1),
-                 SimpleTerm('custom', 'custom', msg2)]
-        items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
-                                 t['type_ui_info'])
-                      for t in flt])
+        if HAS_AT:
+            flt = _listTypesForInterface(portal, IFileContent)
+            msg1 = _(u'Content Type Registry default configuration (recommanded)')
+            msg2 = _(u'Custom configuration, fill next field')
+            items = [SimpleTerm('auto', 'auto', msg1),
+                     SimpleTerm('custom', 'custom', msg2)]
+            items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
+                                     t['type_ui_info'])
+                          for t in flt])
+        else:
+            items = []
         return SimpleVocabulary(items)
 
 CKEditorUploadFileTypeVocabularyFactory = CKEditorUploadFileTypeVocabulary()
@@ -161,10 +172,13 @@ class CKEditorImageTypesVocabulary(object):
     def __call__(self, context):
         context = getattr(context, 'context', context)
         portal = getSite()
-        flt = _listTypesForInterface(portal, IImageContent)
-        items = [SimpleTerm(t['portal_type'], t['portal_type'],
-                            t['type_ui_info'])
-                 for t in flt]
+        if HAS_AT:
+            flt = _listTypesForInterface(portal, IImageContent)
+            items = [SimpleTerm(t['portal_type'], t['portal_type'],
+                                t['type_ui_info'])
+                     for t in flt]
+        else:
+            items = []
         return SimpleVocabulary(items)
 
 CKEditorImageTypesVocabularyFactory = CKEditorImageTypesVocabulary()
@@ -178,14 +192,17 @@ class CKEditorUploadImageTypeVocabulary(object):
     def __call__(self, context):
         context = getattr(context, 'context', context)
         portal = getSite()
-        flt = _listTypesForInterface(portal, IImageContent)
-        msg1 = _(u'Content Type Registry default configuration (recommanded)')
-        msg2 = _(u'Custom configuration, fill next field')
-        items = [SimpleTerm('auto', 'auto', msg1),
-                 SimpleTerm('custom', 'custom', msg2)]
-        items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
-                                 t['type_ui_info'])
-                      for t in flt])
+        if HAS_AT:
+            flt = _listTypesForInterface(portal, IImageContent)
+            msg1 = _(u'Content Type Registry default configuration (recommanded)')
+            msg2 = _(u'Custom configuration, fill next field')
+            items = [SimpleTerm('auto', 'auto', msg1),
+                     SimpleTerm('custom', 'custom', msg2)]
+            items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
+                                     t['type_ui_info'])
+                          for t in flt])
+        else:
+            items = []
         return SimpleVocabulary(items)
 
 CKEditorUploadImageTypeVocabularyFactory = CKEditorUploadImageTypeVocabulary()
@@ -199,12 +216,15 @@ class CKEditorFolderTypesVocabulary(object):
     def __call__(self, context):
         context = getattr(context, 'context', context)
         portal = getSite()
-        flt = _listTypesForInterface(portal, IBaseFolder)
-        items = [SimpleTerm('custom', 'custom',
-                            _(u'Custom configuration, fill next field'))]
-        items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
-                                 t['type_ui_info'])
-                      for t in flt])
+        if HAS_AT:
+            flt = _listTypesForInterface(portal, IBaseFolder)
+            items = [SimpleTerm('custom', 'custom',
+                                _(u'Custom configuration, fill next field'))]
+            items.extend([SimpleTerm(t['portal_type'], t['portal_type'],
+                                     t['type_ui_info'])
+                          for t in flt])
+        else:
+            items = []
         return SimpleVocabulary(items)
 
 CKEditorFolderTypesVocabularyFactory = CKEditorFolderTypesVocabulary()
