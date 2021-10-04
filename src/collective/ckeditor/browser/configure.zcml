@@ -183,4 +183,9 @@
         component=".vocabularies.CKEditorFolderTypesVocabularyFactory"
         />
 
+    <utility
+       component=".widget.ckeditor_richtextwidget_render"
+       provides="plone.app.z3cform.interfaces.IRichTextWidgetInputModeRenderer"
+       name="ckeditor"
+       />
 </configure>

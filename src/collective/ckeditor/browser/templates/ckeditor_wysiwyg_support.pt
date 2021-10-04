@@ -6,10 +6,7 @@
 
  <!-- wysiwyg default widget -->
  <div metal:define-macro="wysiwygEditorBox">
-  <tal:defines define="fieldName string:text;
-                       inputname string:form.widgets.IRichTextBehavior.text;
-                       inputvalue string:text;
-                       fname fieldName|inputname|nothing;
+  <tal:defines define="fname inputname|nothing;
                        ckview context/@@ckeditor_view;
                        usesCKeditor python:True;
                        finder_context nocall:formlib_field/context|nothing">
@@ -124,5 +121,4 @@
     </tal:block>
   </tal:defines>
  </div>
-
 </html>
