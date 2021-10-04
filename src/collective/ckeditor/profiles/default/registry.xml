@@ -148,4 +148,18 @@
     ]</element-->
         </value>
     </record>
+    <records
+            interface="Products.CMFPlone.interfaces.controlpanel.IEditingSchema"
+            prefix="plone">
+            <value
+                  key="available_editors"
+                  purge="True">
+                    <element>CKeditor</element>
+                    <element>TinyMCE</element>
+                    <element>None</element>
+            </value>
+          <value
+                  key="default_editor"
+                  purge="True">CKeditor</value>
+    </records>
 </registry>
