@@ -2,6 +2,7 @@ import json
 import re
 from Acquisition import aq_inner
 from Acquisition import aq_parent
+from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
 from zExceptions import Unauthorized
 from zope import component
 from zope.component import getUtility
@@ -183,34 +184,15 @@ class CKeditorView(BrowserView):
         return list of style sheets applied to ckeditor area
         the list is returned as a javascript string
         by default portal_css mixin + plone_ckeditor_area.css
-        TODO : improve it with a control panel
         """
-        context = aq_inner(self.context)
-        portal = self.portal
-        portal_url = self.portal_url
-        portal_css = getToolByName(portal, 'portal_css')
-        css_jsList = "["
-        current_skin = context.getCurrentSkinName()
-        skinname = url_quote(current_skin)
-        css_res = portal_css.getEvaluatedResources(context)
-        for css in css_res:
-            media = css.getMedia()
-            rel = css.getRel()
-            if media not in ('print', 'projection') and rel == 'stylesheet':
-                cssPloneId = css.getId()
-                if ABSOLUTE_URL.match(cssPloneId):
-                    css_jsList += "'%s', " % cssPloneId
-                else:
-                    cssPlone = '%s/portal_css/%s/%s' % (portal_url,
-                                                        skinname,
-                                                        cssPloneId)
-                    css_jsList += "'%s', " % cssPlone
-
-        baseres = '++resource++ckeditor_for_plone'
-        css_jsList += "'%s/%s/ckeditor_plone_area.css']" % (portal_url,
-                                                            baseres)
-
-        return css_jsList
+        styles_viewlet = StylesView(
+            self.context,
+            self.request,
+            self
+        )
+        styles_viewlet.update()
+        urls = [style["src"] for style in styles_viewlet.styles()]
+        return repr(urls)
 
     def getCK_finder_url(self, type=None):
         """
