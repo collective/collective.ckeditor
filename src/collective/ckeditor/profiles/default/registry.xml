@@ -1,30 +1,49 @@
 <?xml version="1.0"?>
 <registry>
     <record name="collective.ckeditor.toolbars">
-	<field type="plone.registry.field.Dict">
-	    <title>CKEditor toolbars</title>
-	    <key_type type="plone.registry.field.TextLine" />
-	    <value_type type="plone.registry.field.Text" />
-	</field>
-	<value>
-	    <!--element key="header">[
-    ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
-    'Link', 'Unlink','-','About']
-]</element-->
-	</value>
-  </record>
-	  <records
-		  interface="Products.CMFPlone.interfaces.controlpanel.IEditingSchema"
-		  prefix="plone">
-		  <value
-			key="available_editors"
-			purge="True">
-			  <element>CKeditor</element>
-			  <element>TinyMCE</element>
-			  <element>None</element>
-		  </value>
-		<value
-			key="default_editor"
-			purge="True">CKeditor</value>
-	  </records>
+        <field type="plone.registry.field.Dict">
+            <title>CKEditor toolbars</title>
+            <key_type type="plone.registry.field.TextLine"/>
+            <value_type type="plone.registry.field.Text"/>
+        </field>
+        <value>
+            <!--element key="header">[
+        ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+        'Link', 'Unlink','-','About']
+    ]</element-->
+        </value>
+    </record>
+    <records
+            interface="Products.CMFPlone.interfaces.controlpanel.IEditingSchema"
+            prefix="plone">
+        <value
+                key="available_editors"
+                purge="True">
+            <element>CKeditor</element>
+            <element>TinyMCE</element>
+            <element>None</element>
+        </value>
+        <value key="default_editor"
+               purge="True">CKeditor</value>
+    </records>
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor_vars" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="enabled">True</value>
+        <value key="compile">False</value>
+        <value key="jscompilation">ckeditor_vars.js</value>
+        <value key="last_compilation">2021-10-15 12:30:00</value>
+    </records>
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor_js" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="depends">collective.ckeditor.ckeditor_vars</value>
+        <value key="enabled">True</value>
+        <value key="compile">False</value>
+        <value key="jscompilation">++resource++ckeditor/ckeditor.js</value>
+        <value key="last_compilation">2021-10-15 12:30:00</value>
+    </records>
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor_plone" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="depends">collective.ckeditor.ckeditor_js</value>
+        <value key="enabled">True</value>
+        <value key="compile">False</value>
+        <value key="jscompilation">++resource++ckeditor_for_plone/ckeditor_plone.js</value>
+        <value key="last_compilation">2021-10-15 12:30:00</value>
+    </records>
 </registry>
