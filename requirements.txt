@@ -1,2 +1,1 @@
-zc.buildout==3.0.0b2
-pip<21.0
+zc.buildout==3.0.0b3
