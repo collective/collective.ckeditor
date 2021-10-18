@@ -5,7 +5,6 @@
   <!-- base properties -->
   <property name="forcePasteAsPlainText" type="boolean">False</property>
   <property name="skin" type="string">moonocolor</property>
-  <property name="toolbar" type="string">Plone</property>
   <property name="toolbar_Custom" type="text">
 [
     ['Source','-','AjaxSave','Preview','-','Templates'],

@@ -13,6 +13,9 @@ from zope.schema import Choice
 from zope.schema import Tuple
 from zope.schema import List
 
+from z3c.form import field
+from z3c.form import group
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
@@ -734,21 +737,22 @@ class CKEditorControlPanelAdapter(object):
     entities_latin = property(get_entities_latin, set_entities_latin)
 
 
-# basicset = FormFieldsets(ICKEditorBaseSchema)
-# basicset.id = 'cke_base'
-# basicset.label = _(u'Basic settings')
-#
-# skinset = FormFieldsets(ICKEditorSkinSchema)
-# skinset.id = 'cke_skin'
-# skinset.label = _(u'Editor Skin')
-#
-# browserset = FormFieldsets(ICKEditorBrowserSchema)
-# browserset.id = 'cke_browser'
-# browserset.label = _(u'Resources Browser')
-#
-# advancedset = FormFieldsets(ICKEditorAdvancedSchema)
-# advancedset.id = 'cke_advanced'
-# advancedset.label = _(u'Advanced Configuration')
+class CKEditorBaseSchemaForm(group.GroupForm):
+    label = _(u"Basic settings")
+    fields = field.Fields(ICKEditorBaseSchema)
+
+
+class CKEditorSkinSchemaForm(group.GroupForm):
+    label = _(u"Editor Skin")
+    fields = field.Fields(ICKEditorSkinSchema)
+
+class CKEditorBrowserSchemaForm(group.GroupForm):
+    label = _(u"Resources Browser")
+    fields = field.Fields(ICKEditorBrowserSchema)
+
+class CKEditorAdvancedSchemaForm(group.GroupForm):
+    label = _(u"Advanced Configuration")
+    fields = field.Fields(ICKEditorAdvancedSchema)
 
 class CKEditorControlPanelForm(RegistryEditForm):
     schema = ICKEditorSchema
@@ -756,6 +760,8 @@ class CKEditorControlPanelForm(RegistryEditForm):
     label = _("CKEditor settings")
     description = _("Control CKEditor settings for Plone.")
     form_name = _("CKEditor settings")
+    groups = (CKEditorBaseSchemaForm, CKEditorSkinSchemaForm, CKEditorBrowserSchemaForm, CKEditorAdvancedSchemaForm)
+
 
 
 class CKEditorControlPanel(ControlPanelFormWrapper):

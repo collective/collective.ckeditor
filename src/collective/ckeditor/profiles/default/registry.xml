@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <registry>
+    <records interface="collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema">
+        <value key="toolbar">Basic</value>
+    </records>
     <record name="collective.ckeditor.toolbars">
         <field type="plone.registry.field.Dict">
             <title>CKEditor toolbars</title>

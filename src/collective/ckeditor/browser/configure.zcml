@@ -127,8 +127,8 @@
         permission="zope.Public"
         />
 
-    <!-- ckeditor control panel adapter -->
-    <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />
+    <!-- ckeditor control panel adapter
+    <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />-->
 
     <browser:page
         name="ckeditor-controlpanel"
