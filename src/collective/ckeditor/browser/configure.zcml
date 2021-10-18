@@ -127,6 +127,9 @@
         permission="zope.Public"
         />
 
+    <!-- ckeditor control panel adapter
+    <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />-->
+
     <browser:page
         name="ckeditor-controlpanel"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"

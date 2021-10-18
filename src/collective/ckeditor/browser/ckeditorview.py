@@ -255,13 +255,17 @@ class CKeditorView(BrowserView):
         params = {}
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
                           'entities_greek', 'entities_latin',
-                          'forcePasteAsPlainText', 'toolbar',
+                          'forcePasteAsPlainText',
                           'image2_captionedClass',
                           'defaultTableWidth')
         for p in unchangedProps:
             jsProp = self.geCK_JSProperty(p)
             if jsProp is not None:
                 params[p] = jsProp
+        toolbar = api.portal.get_registry_record(
+            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.toolbar"
+        )
+        params["toolbar"] = "'{}'".format(toolbar)
         params['image2_alignClasses'] = self.get_CK_image2_alignClasses()
         params['skin'] = "'{}'".format(
             self.get_registry_value('skin', 'moonocolor')

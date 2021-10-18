@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <registry>
+<<<<<<< HEAD
     <records interface="collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema">
         <value key="forcePasteAsPlainText">True</value>
         <value key="skin">moonocolor</value>
@@ -136,7 +137,6 @@
         <value key="image2_captionedClass">image</value>
     </records>
     <record name="collective.ckeditor.toolbars">
-<<<<<<< HEAD
         <field type="plone.registry.field.Dict">
             <title>CKEditor toolbars</title>
             <key_type type="plone.registry.field.TextLine"/>
