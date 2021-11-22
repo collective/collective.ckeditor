@@ -1,16 +1,151 @@
 <?xml version="1.0"?>
 <registry>
+    <records interface="collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema">
+        <value key="forcePasteAsPlainText">True</value>
+        <value key="skin">moonocolor</value>
+        <value key="toolbar">Plone</value>
+        <value key="toolbar_Custom">
+[
+    ['Source','-','AjaxSave','Preview','-','Templates'],
+    ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+    ['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+    ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button',
+    'ImageButton', 'HiddenField'],
+    '/',
+    ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+    ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+    ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+    ['Link','Unlink','Anchor'],
+    ['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+    '/',
+    ['Styles','Format','Font','FontSize'],
+    ['TextColor','BGColor'],
+    ['Maximize', 'ShowBlocks','-','About']
+]
+        </value>
+        <value key="filtering">default</value>
+        <value key="customAllowedContent">
+/* Add items to array of allowedContent rules */
+[]
+        </value>
+        <value key="extraAllowedContent">
+/* Add items to array of extraAllowedContent rules */
+[]
+        </value>
+        <value key="disallowedContent">
+/* Add items to string of disallowedContent rules */
+''
+        </value>
+        <value key="menuStyles">
+[
+    /* Block Styles */
+    { name : 'Grey Title' , element : 'h2', styles : { 'color' : '#888' } },
+    { name : 'Grey Sub Title' , element : 'h3', styles : { 'color' : '#888' } },
+    { name : 'Discreet bloc' , element : 'p', attributes : { 'class' : 'discreet' } },
+    /* Inline styles */
+    { name : 'Discreet text' , element : 'span', attributes : { 'class' : 'discreet' } },
+    { name : 'Marker: Yellow' , element : 'span', styles : { 'background-color' : 'Yellow' }
+    },
+    { name : 'Typewriter' , element : 'tt' },
+    { name : 'Computer Code' , element : 'code' },
+    { name : 'Keyboard Phrase' , element : 'kbd' },
+    { name : 'Sample Text' , element : 'samp' },
+    { name : 'Variable' , element : 'var' },
+    { name : 'Deleted Text' , element : 'del' },
+    { name : 'Inserted Text' , element : 'ins' },
+    { name : 'Cited Work' , element : 'cite' },
+    { name : 'Inline Quotation' , element : 'q' },
+    { name : 'Language: RTL' , element : 'span', attributes : { 'dir' : 'rtl' } },
+    { name : 'Language: LTR' , element : 'span', attributes : { 'dir' : 'ltr' } },
+    /* Objects styles */
+    { name : 'Image on right' , element : 'img', attributes : { 'class' : 'image-right' } },
+    { name : 'Image on left' , element : 'img', attributes : { 'class' : 'image-left' } },
+    { name : 'Image centered' , element : 'img', attributes : { 'class' : 'image-inline' }
+    },
+    { name : 'Borderless Table', element : 'table', styles: { 'border-style': 'hidden',
+    'background-color' : '#E6E6FA' } },
+    { name : 'Square Bulleted List', element : 'ul', styles : { 'list-style-type' : 'square'
+    } }
+]
+        </value>
+        <value key="plugins">
+            <element>ajaxsave;/++resource++cke_ajaxsave/plugin.js</element>
+            <element>uploadwidget;/++resource++ckeditor/plugins/uploadwidget/plugin.js</element>
+            <element>uploadimage;/++resource++ckeditor/plugins/uploadimage/plugin.js</element>
+        </value>
+        <value key="removePlugins"></value>
+        <value key="customTemplates"></value>
+        <value key="templatesReplaceContent">False</value>
+        <value key="enableScaytOnStartup">False</value>
+        <value key="bodyId">content</value>
+        <value key="bodyClass"></value>
+        <value key="defaultTableWidth">500px</value>
+
+        <!-- skin properties -->
+        <value key="width"></value>
+        <value key="height"></value>
+
+        <!-- browser properties -->
+        <value key="allow_link_byuid">True</value>
+        <value key="allow_relative_links">True</value>
+        <value key="allow_server_browsing">True</value>
+        <value key="allow_file_upload">True</value>
+        <value key="allow_image_upload">True</value>
+        <value key="allow_flash_upload">True</value>
+        <value key="allow_folder_creation">True</value>
+        <value key="file_portal_type">auto</value>
+        <value key="file_portal_type_custom">
+            <element>*|File</element>
+            <element>Folder|File</element>
+        </value>
+        <value key="image_portal_type">auto</value>
+        <value key="image_portal_type_custom">
+            <element>*|Image</element>
+            <element>Folder|Image</element>
+        </value>
+        <value key="browse_images_portal_types">
+            <element>Image</element>
+        </value>
+        <value key="flash_portal_type">auto</value>
+        <value key="flash_portal_type_custom">
+            <element>*|File</element>
+            <element>Folder|File</element>
+        </value>
+        <value key="browse_flashs_portal_types">
+        </value>
+        <value key="folder_portal_type">custom</value>
+        <value key="folder_portal_type_custom">
+            <element>*|Folder</element>
+            <element>Large Plone Folder|Large Plone Folder</element>
+        </value>
+
+        <!-- Advanced properties -->
+        <value key="overloadable_properties">
+            <element>width</element>
+        </value>
+        <value key="entities">False</value>
+        <value key="entities_greek">False</value>
+        <value key="entities_latin">False</value>
+
+        <!-- Captioned image properties -->
+        <value key="image2_alignClasses">
+            <element>image-left</element>
+            <element>image-dummy</element>
+            <element>image-right</element>
+        </value>
+        <value key="image2_captionedClass">image</value>
+    </records>
     <record name="collective.ckeditor.toolbars">
-	<field type="plone.registry.field.Dict">
-	    <title>CKEditor toolbars</title>
-	    <key_type type="plone.registry.field.TextLine" />
-	    <value_type type="plone.registry.field.Text" />
-	</field>
-	<value>
-	    <!--element key="header">[
-    ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
-    'Link', 'Unlink','-','About']
-]</element-->
-	</value>
-    </record> 
+        <field type="plone.registry.field.Dict">
+            <title>CKEditor toolbars</title>
+            <key_type type="plone.registry.field.TextLine"/>
+            <value_type type="plone.registry.field.Text"/>
+        </field>
+        <value>
+            <!--element key="header">[
+        ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-',
+        'Link', 'Unlink','-','About']
+    ]</element-->
+        </value>
+    </record>
 </registry>

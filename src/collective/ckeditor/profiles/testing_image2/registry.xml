@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<registry>
+    <records interface="collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema">
+        <value key="plugins">
+            <element>ajaxsave;/++resource++cke_ajaxsave/plugin.js</element>
+            <element>image2;/++resource++ckeditor/plugins/image2/plugin.js</element>
+        </value>
+        <value key="removePlugins">
+            <element>image</element>
+        </value>
+    </records>
+</registry>

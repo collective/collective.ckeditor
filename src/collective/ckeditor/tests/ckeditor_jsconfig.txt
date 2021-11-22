@@ -14,11 +14,6 @@ Log in as manager
     >>> browser.getControl('Password').value = SITE_OWNER_PASSWORD
     >>> browser.getControl('Log in').click()
 
-First just get ckeditor properties sheet :
-
-    >>> ptool = portal.portal_properties
-    >>> ckeditor_props = ptool.ckeditor_properties
-
 We will try to get javascript configuration using testbrowser
 The javascript code must depend on ckeditor_props.
 
@@ -36,8 +31,10 @@ Test ckeditor finder configuration
     True
 
 Remove 'News Item' portal_type for browsing images in ckeditor_properties
-
-    >>> ckeditor_props.manage_changeProperties(REQUEST=None, browse_images_portal_types = ['Image', 'News Item'])
+    >>> from plone import api
+    >>> api.portal.set_registry_record(
+    ...  "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.browse_images_portal_types",
+    ...  ('Image', 'News Item'))
     >>> transaction.commit()
 
 Get the javascript config file
