@@ -11,11 +11,7 @@ CKEditor Uninstall
 ckeditor properties
 -------------------
 
-ckeditor properties sheet must stay here after uninstall :
-
     >>> ptool = portal.portal_properties
-    >>> 'ckeditor_properties' in ptool.objectIds()
-    True
 
 Control the wysiwyg_editor property in memberdata
 -------------------------------------------------

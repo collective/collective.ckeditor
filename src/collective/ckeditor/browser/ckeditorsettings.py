@@ -1,3 +1,5 @@
+from plone.app.registry.browser.controlpanel import RegistryEditForm
+from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
 from zope.interface import implements, Interface
 from zope.component import adapts
 try:
@@ -12,12 +14,13 @@ from zope.schema import Choice
 from zope.schema import Tuple
 from zope.schema import List
 
-from Products.CMFDefault.formlib.schema import SchemaAdapterBase
+from z3c.form import field
+from z3c.form import group
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 
-from plone.fieldsets.fieldsets import FormFieldsets
-from plone.app.controlpanel.form import ControlPanelForm
+# from plone.fieldsets.fieldsets import FormFieldsets
 
 from collective.ckeditor import siteMessageFactory as _
 
@@ -123,7 +126,7 @@ class ICKEditorBaseSchema(Interface):
 
     removePlugins = List(
         title=_(u"Plugins to remove"),
-        description=_(u"Plugin format is 'id'."),
+        description=_(u"List of plugins to remove, one plugin per line. Plugin format is 'id'."),
         value_type=TextLine(),
         required=False)
 
@@ -328,7 +331,7 @@ class ICKEditorAdvancedSchema(Interface):
     """
     CKEditor Advanced schema
     """
-    properties_overloaded = List(
+    overloadable_properties = List(
         title=_(u"Widget overload"),
         description=_(u"If you want some cke control panel properties "
                       "overload local field widget properties, enter the "
@@ -361,6 +364,21 @@ class ICKEditorAdvancedSchema(Interface):
         default=False,
         required=False)
 
+    image2_captionedClass = Text(
+        title=_(u"Captioned image class (image2)"),
+        description=_(u"CSS class applied by image2 plugin to"
+                      "the <figure> element of a captioned image."),
+        default=u"image",
+        required=False)
+
+    image2_alignClasses = List(
+        title=_(u"Align classes (image2)"),
+        description=_(u"3 CSS classes applied by image2 plugin to"
+                      "specify alignment (left, center, right)."),
+        required=False,
+        value_type=TextLine(),
+        default=[],)
+
 
 class ICKEditorSchema(ICKEditorBaseSchema, ICKEditorSkinSchema,
                       ICKEditorBrowserSchema, ICKEditorAdvancedSchema):
@@ -368,395 +386,39 @@ class ICKEditorSchema(ICKEditorBaseSchema, ICKEditorSkinSchema,
     """
 
 
-class CKEditorControlPanelAdapter(SchemaAdapterBase):
+class CKEditorBaseSchemaForm(group.GroupForm):
+    label = _(u"Basic settings")
+    fields = field.Fields(ICKEditorBaseSchema)
 
-    implements(ICKEditorSchema)
-    adapts(IPloneSiteRoot)
 
-    def __init__(self, context):
-        super(CKEditorControlPanelAdapter, self).__init__(context)
-        self.portal = getSite()
-        pprop = getToolByName(self.portal, 'portal_properties')
-        self.context = pprop.ckeditor_properties
-        self.encoding = pprop.site_properties.default_charset
+class CKEditorSkinSchemaForm(group.GroupForm):
+    label = _(u"Editor Skin")
+    fields = field.Fields(ICKEditorSkinSchema)
 
-    # base fieldset
 
-    def get_forcePasteAsPlainText(self):
-        return self.context.forcePasteAsPlainText
+class CKEditorBrowserSchemaForm(group.GroupForm):
+    label = _(u"Resources Browser")
+    fields = field.Fields(ICKEditorBrowserSchema)
 
-    def set_forcePasteAsPlainText(self, value):
-        self.context._updateProperty('forcePasteAsPlainText', value)
 
-    forcePasteAsPlainText = property(get_forcePasteAsPlainText,
-                                     set_forcePasteAsPlainText)
+class CKEditorAdvancedSchemaForm(group.GroupForm):
+    label = _(u"Advanced Configuration")
+    fields = field.Fields(ICKEditorAdvancedSchema)
 
-    def get_skin(self):
-        return self.context.getProperty('skin', 'moonolor')
 
-    def set_skin(self, value):
-        if not self.context.hasProperty('skin'):
-            self.context._setProperty('skin', value, 'string')
-        else:
-            self.context._updateProperty('skin', value)
-
-    skin = property(get_skin, set_skin)
-
-    def get_toolbar(self):
-        return self.context.toolbar
-
-    def set_toolbar(self, value):
-        self.context._updateProperty('toolbar', value)
-
-    toolbar = property(get_toolbar, set_toolbar)
-
-    def get_toolbar_Custom(self):
-        return self.context.toolbar_Custom
-
-    def set_toolbar_Custom(self, value):
-        self.context._updateProperty('toolbar_Custom', value)
-
-    toolbar_Custom = property(get_toolbar_Custom, set_toolbar_Custom)
-
-    def get_filtering(self):
-        return self.context.filtering
-
-    def set_filtering(self, value):
-        self.context._updateProperty('filtering', value)
-
-    filtering = property(get_filtering, set_filtering)
-
-    def get_customAllowedContent(self):
-        return self.context.customAllowedContent
-
-    def set_customAllowedContent(self, value):
-        self.context._updateProperty('customAllowedContent', value)
-
-    customAllowedContent = property(
-        get_customAllowedContent,
-        set_customAllowedContent
-    )
-
-    def get_extraAllowedContent(self):
-        return self.context.extraAllowedContent
-
-    def set_extraAllowedContent(self, value):
-        self.context._updateProperty('extraAllowedContent', value)
-
-    extraAllowedContent = property(
-        get_extraAllowedContent, set_extraAllowedContent
-    )
-
-    def get_disallowedContent(self):
-        return self.context.disallowedContent
-
-    def set_disallowedContent(self, value):
-        self.context._updateProperty('disallowedContent', value)
-
-    disallowedContent = property(
-        get_disallowedContent, set_disallowedContent
-    )
-
-    def get_menuStyles(self):
-        return self.context.menuStyles
-
-    def set_menuStyles(self, value):
-        self.context._updateProperty('menuStyles', value)
-
-    menuStyles = property(get_menuStyles, set_menuStyles)
-
-    def get_plugins(self):
-        return self.context.plugins
-
-    def set_plugins(self, value):
-        self.context._updateProperty('plugins', value)
-
-    plugins = property(get_plugins, set_plugins)
-
-    def get_removePlugins(self):
-        return self.context.removePlugins
-
-    def set_removePlugins(self, value):
-        self.context._updateProperty('removePlugins', value)
-
-    removePlugins = property(get_removePlugins, set_removePlugins)
-
-    def get_bodyId(self):
-        return self.context.bodyId
-
-    def set_bodyId(self, value):
-        self.context._updateProperty('bodyId', value)
-
-    bodyId = property(get_bodyId, set_bodyId)
-
-    def get_bodyClass(self):
-        return self.context.bodyClass
-
-    def set_bodyClass(self, value):
-        self.context._updateProperty('bodyClass', value)
-
-    bodyClass = property(get_bodyClass, set_bodyClass)
-
-    def get_customTemplates(self):
-        return self.context.customTemplates
-
-    def set_customTemplates(self, value):
-        self.context._updateProperty('customTemplates', value)
-
-    customTemplates = property(get_customTemplates, set_customTemplates)
-
-    def get_templatesReplaceContent(self):
-        return self.context.templatesReplaceContent
-
-    def set_templatesReplaceContent(self, value):
-        self.context._updateProperty('templatesReplaceContent', value)
-
-    templatesReplaceContent = property(get_templatesReplaceContent,
-                                       set_templatesReplaceContent)
-
-    def get_enableScaytOnStartup(self):
-        return self.context.enableScaytOnStartup
-
-    def set_enableScaytOnStartup(self, value):
-        self.context._updateProperty('enableScaytOnStartup', value)
-
-    enableScaytOnStartup = property(get_enableScaytOnStartup,
-                                    set_enableScaytOnStartup)
-
-    def get_defaultTableWidth(self):
-        return self.context.defaultTableWidth
-
-    def set_defaultTableWidth(self, value):
-        self.context._updateProperty('defaultTableWidth', value)
-
-    defaultTableWidth = property(get_defaultTableWidth,
-                                 set_defaultTableWidth)
-
-    # skin fieldset
-
-    def get_width(self):
-        return self.context.width
-
-    def set_width(self, value):
-        self.context._updateProperty('width', value)
-
-    width = property(get_width, set_width)
-
-    def get_height(self):
-        return self.context.height
-
-    def set_height(self, value):
-        self.context._updateProperty('height', value)
-
-    height = property(get_height, set_height)
-
-    # browser fieldset
-
-    def get_allow_link_byuid(self):
-        return self.context.allow_link_byuid
-
-    def set_allow_link_byuid(self, value):
-        self.context._updateProperty('allow_link_byuid', value)
-
-    allow_link_byuid = property(get_allow_link_byuid, set_allow_link_byuid)
-
-    def get_allow_relative_links(self):
-        return self.context.allow_relative_links
-
-    def set_allow_relative_links(self, value):
-        self.context._updateProperty('allow_relative_links', value)
-
-    allow_relative_links = property(get_allow_relative_links,
-                                    set_allow_relative_links)
-
-    def get_allow_server_browsing(self):
-        return self.context.allow_server_browsing
-
-    def set_allow_server_browsing(self, value):
-        self.context._updateProperty('allow_server_browsing', value)
-
-    allow_server_browsing = property(get_allow_server_browsing,
-                                     set_allow_server_browsing)
-
-    def get_allow_file_upload(self):
-        return self.context.allow_file_upload
-
-    def set_allow_file_upload(self, value):
-        self.context._updateProperty('allow_file_upload', value)
-
-    allow_file_upload = property(get_allow_file_upload, set_allow_file_upload)
-
-    def get_allow_image_upload(self):
-        return self.context.allow_image_upload
-
-    def set_allow_image_upload(self, value):
-        self.context._updateProperty('allow_image_upload', value)
-
-    allow_image_upload = property(get_allow_image_upload,
-                                  set_allow_image_upload)
-
-    def get_allow_flash_upload(self):
-        return self.context.allow_flash_upload
-
-    def set_allow_flash_upload(self, value):
-        self.context._updateProperty('allow_flash_upload', value)
-
-    allow_flash_upload = property(get_allow_flash_upload,
-                                  set_allow_flash_upload)
-
-    def get_allow_folder_creation(self):
-        return self.context.allow_folder_creation
-
-    def set_allow_folder_creation(self, value):
-        self.context._updateProperty('allow_folder_creation', value)
-
-    allow_folder_creation = property(get_allow_folder_creation,
-                                     set_allow_folder_creation)
-
-    def get_file_portal_type(self):
-        return self.context.file_portal_type
-
-    def set_file_portal_type(self, value):
-        self.context._updateProperty('file_portal_type', value)
-
-    file_portal_type = property(get_file_portal_type, set_file_portal_type)
-
-    def get_file_portal_type_custom(self):
-        return self.context.file_portal_type_custom
-
-    def set_file_portal_type_custom(self, value):
-        self.context._updateProperty('file_portal_type_custom', value)
-
-    file_portal_type_custom = property(get_file_portal_type_custom,
-                                       set_file_portal_type_custom)
-
-    def get_browse_images_portal_types(self):
-        return self.context.browse_images_portal_types
-
-    def set_browse_images_portal_types(self, value):
-        self.context._updateProperty('browse_images_portal_types', value)
-
-    browse_images_portal_types = property(get_browse_images_portal_types,
-                                          set_browse_images_portal_types)
-
-    def get_image_portal_type(self):
-        return self.context.image_portal_type
-
-    def set_image_portal_type(self, value):
-        self.context._updateProperty('image_portal_type', value)
-
-    image_portal_type = property(get_image_portal_type, set_image_portal_type)
-
-    def get_image_portal_type_custom(self):
-        return self.context.image_portal_type_custom
-
-    def set_image_portal_type_custom(self, value):
-        self.context._updateProperty('image_portal_type_custom', value)
-
-    image_portal_type_custom = property(get_image_portal_type_custom,
-                                        set_image_portal_type_custom)
-
-    def get_browse_flashs_portal_types(self):
-        return self.context.browse_flashs_portal_types
-
-    def set_browse_flashs_portal_types(self, value):
-        self.context._updateProperty('browse_flashs_portal_types', value)
-
-    browse_flashs_portal_types = property(get_browse_flashs_portal_types,
-                                          set_browse_flashs_portal_types)
-
-    def get_flash_portal_type(self):
-        return self.context.flash_portal_type
-
-    def set_flash_portal_type(self, value):
-        self.context._updateProperty('flash_portal_type', value)
-
-    flash_portal_type = property(get_flash_portal_type, set_flash_portal_type)
-
-    def get_flash_portal_type_custom(self):
-        return self.context.flash_portal_type_custom
-
-    def set_flash_portal_type_custom(self, value):
-        self.context._updateProperty('flash_portal_type_custom', value)
-
-    flash_portal_type_custom = property(get_flash_portal_type_custom,
-                                        set_flash_portal_type_custom)
-
-    def get_folder_portal_type(self):
-        return self.context.folder_portal_type
-
-    def set_folder_portal_type(self, value):
-        self.context._updateProperty('folder_portal_type', value)
-
-    folder_portal_type = property(get_folder_portal_type,
-                                  set_folder_portal_type)
-
-    def get_folder_portal_type_custom(self):
-        return self.context.folder_portal_type_custom
-
-    def set_folder_portal_type_custom(self, value):
-        self.context._updateProperty('folder_portal_type_custom', value)
-
-    folder_portal_type_custom = property(get_folder_portal_type_custom,
-                                         set_folder_portal_type_custom)
-
-    # advanced fieldset
-
-    def get_properties_overloaded(self):
-        return self.context.properties_overloaded
-
-    def set_properties_overloaded(self, value):
-        self.context._updateProperty('properties_overloaded', value)
-
-    properties_overloaded = property(get_properties_overloaded,
-                                     set_properties_overloaded)
-
-    def get_entities(self):
-        return self.context.entities
-
-    def set_entities(self, value):
-        self.context._updateProperty('entities', value)
-
-    entities = property(get_entities, set_entities)
-
-    def get_entities_greek(self):
-        return self.context.entities_greek
-
-    def set_entities_greek(self, value):
-        self.context._updateProperty('entities_greek', value)
-
-    entities_greek = property(get_entities_greek, set_entities_greek)
-
-    def get_entities_latin(self):
-        return self.context.entities_latin
-
-    def set_entities_latin(self, value):
-        self.context._updateProperty('entities_latin', value)
-
-    entities_latin = property(get_entities_latin, set_entities_latin)
-
-
-basicset = FormFieldsets(ICKEditorBaseSchema)
-basicset.id = 'cke_base'
-basicset.label = _(u'Basic settings')
-
-skinset = FormFieldsets(ICKEditorSkinSchema)
-skinset.id = 'cke_skin'
-skinset.label = _(u'Editor Skin')
-
-browserset = FormFieldsets(ICKEditorBrowserSchema)
-browserset.id = 'cke_browser'
-browserset.label = _(u'Resources Browser')
-
-advancedset = FormFieldsets(ICKEditorAdvancedSchema)
-advancedset.id = 'cke_advanced'
-advancedset.label = _(u'Advanced Configuration')
-
-
-class CKEditorControlPanel(ControlPanelForm):
-
-    form_fields = FormFieldsets(basicset, skinset, browserset, advancedset)
-
+class CKEditorControlPanelForm(RegistryEditForm):
+    schema = ICKEditorSchema
+    # form_fields = FormFieldsets(basicset, skinset, browserset, advancedset)
     label = _("CKEditor settings")
     description = _("Control CKEditor settings for Plone.")
     form_name = _("CKEditor settings")
+    groups = (CKEditorBaseSchemaForm, CKEditorSkinSchemaForm, CKEditorBrowserSchemaForm, CKEditorAdvancedSchemaForm)
+
+
+class CKEditorControlPanel(ControlPanelFormWrapper):
+    form = CKEditorControlPanelForm
+
+
+
+
+
