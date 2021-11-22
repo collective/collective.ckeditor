@@ -36,8 +36,10 @@ Test ckeditor finder configuration
     True
 
 Remove 'News Item' portal_type for browsing images in ckeditor_properties
-
-    >>> ckeditor_props.manage_changeProperties(REQUEST=None, browse_images_portal_types = ['Image', 'News Item'])
+    >>> from plone import api
+    >>> api.portal.set_registry_record(
+    ...  "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.browse_images_portal_types",
+    ...  ('Image', 'News Item'))
     >>> transaction.commit()
 
 Get the javascript config file

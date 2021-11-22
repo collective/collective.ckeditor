@@ -49,17 +49,15 @@ See if widget_settings are in contents:
 
 Choose to overload some widget properties in control panel
 ----------------------------------------------------------
-
-    >>> browser.open('http://nohost/plone/@@ckeditor-controlpanel')
-
-Choose to overload the 'height' widget property by the control panel 'height' value    
-
-    >>> browser.getControl(name='form.properties_overloaded.add').click()
-    >>> browser.getControl(name='form.properties_overloaded.1.').value = 'height'
-
-Fix the height property to any value
-    >>> browser.getControl(name='form.height').value = '600px'
-    >>> browser.getControl("Save").click()
+    >>> from plone import api
+    >>> api.portal.set_registry_record(
+    ...  "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.overloadable_properties",
+    ...  [u"height",])
+    >>> api.portal.set_registry_record(
+    ...  "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.height",
+    ...  u"600px")
+    >>> import transaction
+    >>> transaction.commit()
 
 Control that the local field widget setting 'height' is no more here
 
