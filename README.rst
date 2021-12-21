@@ -206,7 +206,7 @@ copying ckeditor code in the appropriate ``browser/ckeditor`` directory.
 The ``browser/ckeditor`` directory makes ckeditor javascript code available to
 the browser at::
 
-  http://yourplonesite/++resource++ckeditor/
+  https://yourplonesite/++resource++ckeditor/
 
 How to Release
 --------------
@@ -249,12 +249,12 @@ Tests status
 This add-on is tested using Travis CI. The current status of the add-on is:
 
 .. image:: https://img.shields.io/travis/collective/collective.ckeditor/master.svg
-    :target: http://travis-ci.org/collective/collective.ckeditor
+    :target: https://travis-ci.org/collective/collective.ckeditor
 
 .. image:: https://img.shields.io/coveralls/collective/collective.ckeditor/master.svg
     :target: https://coveralls.io/r/collective/collective.ckeditor
 
-.. image:: http://img.shields.io/pypi/v/collective.ckeditor.svg
+.. image:: https://img.shields.io/pypi/v/collective.ckeditor.svg
    :target: https://pypi.python.org/pypi/collective.ckeditor
 
 
@@ -264,10 +264,10 @@ Credits
 Companies
 ---------
 
-* `Makina Corpus <http://www.makina-corpus.com>`_
-* `Ecreall <http://www.ecreall.com>`_
-* `BubbleNet <http://bubblenet.be>`_
-* `Hexagonit <http://www.hexagonit.fi>`_
+* `Makina Corpus <https://www.makina-corpus.com>`_
+* `Ecreall <https://www.ecreall.com>`_
+* `BubbleNet <https://bubblenet.be>`_
+* `Hexagonit <https://www.hexagonit.fi>`_
 
 Contributors
 ------------
@@ -284,9 +284,9 @@ Contributors
 - Gauthier Bastien <gauthier@imio.be>
 - Leonardo J. Caballero G. <leonardocaballero@gmail.com>
 
-.. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
-.. _FCKEditor: http://plone.org/fckeditor
-.. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
-.. _makinacom:  http://www.makina-corpus.com
-.. _ckeditor: http://ckeditor.com/
-.. _collective.plonefinder: http://plone.org/products/collective.plonefinder
+.. _documentation: https://plone.org/documentation/kb/installing-add-ons-quick-how-to
+.. _FCKEditor: https://plone.org/fckeditor
+.. |makinacom| image:: https://depot.makina-corpus.org/public/logo.gif
+.. _makinacom:  https://www.makina-corpus.com
+.. _ckeditor: https://ckeditor.com/
+.. _collective.plonefinder: https://plone.org/products/collective.plonefinder
