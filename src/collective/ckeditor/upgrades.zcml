@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.ckeditor">
 
     <upgradeStep
@@ -163,6 +164,27 @@
         description=""
         import_profile="collective.ckeditor:to4350"
         import_steps="propertiestool"
+        />
+
+    </upgradeSteps>
+
+    <upgradeSteps
+        source="*"
+        destination="4360"
+        profile="collective.ckeditor:default"
+        zcml:condition="not-have migration-registry"
+        >
+
+        <upgradeDepends
+            title="Registry"
+            description=""
+            import_steps="plone.app.registry"
+        />
+
+        <upgradeStep
+             title="Migrate to plone.app.registry"
+             description="Copy portal_properties to registry"
+             handler=".upgrades.to_registry"
         />
 
     </upgradeSteps>
