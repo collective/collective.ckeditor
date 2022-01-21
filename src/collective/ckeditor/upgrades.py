@@ -120,4 +120,9 @@ def to_registry(context):
         props.forcePasteAsPlainText
     )
 
+    api.portal.set_registry_record(
+        "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.skin",
+        props.skin
+    )
+
     ptool.manage_delObjects("ckeditor_properties")
