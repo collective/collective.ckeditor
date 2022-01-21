@@ -28,3 +28,10 @@ def test(plone_instance):
             """<input type="checkbox" id="form-widgets-value-0" name="form.widgets.value:list" class="single-checkbox-widget bool-field" value="selected" checked="checked" />"""
             in r.text
         )
+
+        r = requests.get(
+            "http://localhost:8080/Plone/portal_registry/edit/collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.skin",
+            auth=("admin", "admin"),
+        )
+        assert r.status_code == 200
+        assert "moono-lisa" in r.text
