@@ -1,5 +1,5 @@
 from Products.CMFCore.utils import getToolByName
-
+from plone import api
 
 PROFILE = "profile-collective.ckeditor:default"
 
@@ -110,3 +110,14 @@ def up4340(context):
         fixed.append("uploadwidget;/++resource++ckeditor/plugins/uploadwidget/plugin.js")
         fixed.append("uploadimage;/++resource++ckeditor/plugins/uploadimage/plugin.js")
         props.manage_changeProperties(plugins=fixed)
+
+
+def to_registry(context):
+    ptool = getToolByName(context, 'portal_properties')
+    props = ptool.ckeditor_properties
+    api.portal.set_registry_record(
+        "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.forcePasteAsPlainText",
+        props.forcePasteAsPlainText
+    )
+
+    ptool.manage_delObjects("ckeditor_properties")
