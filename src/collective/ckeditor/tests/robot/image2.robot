@@ -4,13 +4,12 @@ Library  collective.ckeditor.tests.keyword.TestKeywords
 
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/selenium.robot
-Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 Library  plone.app.robotframework.keywords.Debugging
 
-Test Setup  Open SauceLabs test browser
-Test Teardown  Run keywords  Report test status  Close all browsers
+Test Setup  Open test browser
+Test Teardown  Run keywords  Close all browsers
 
 *** Variables ***
 
