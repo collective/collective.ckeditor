@@ -4,8 +4,8 @@ Changelog
 4.10.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fix robot tests
+  [aduchene]
 
 4.10.1 (2021-10-01)
 -------------------

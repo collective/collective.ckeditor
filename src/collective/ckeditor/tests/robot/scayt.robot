@@ -4,13 +4,12 @@ Library  collective.ckeditor.tests.keyword.TestKeywords
 
 Resource  plone/app/robotframework/keywords.robot
 Resource  plone/app/robotframework/selenium.robot
-Resource  plone/app/robotframework/saucelabs.robot
 
 Library  Remote  ${PLONE_URL}/RobotRemote
 Library  plone.app.robotframework.keywords.Debugging
 
-Test Setup  Open SauceLabs test browser
-Test Teardown  Run keywords  Report test status  Close all browsers
+Test Setup  Open test browser
+Test Teardown  Run keywords  Close all browsers
 
 *** Variables ***
 
@@ -33,9 +32,9 @@ a logged-in editor
   Enable autologin as  Editor  Contributor
 
 a document
-  Create content  type=Document  id=document-to-edit  title=Document to edit  text=<p id="p1">paragraph1</p><p id="p2">paragraph2</p><p>paragraph3</p><p>paragraph4</p>
+  Create content  type=Document  id=document-to-edit  title=Document to edit  text=<p id="p1">paragrph 1</p><p id="p2">paragraph2</p><p>paragraph3</p><p>paragraph4</p>
   Go to  ${PLONE_URL}/document-to-edit
-  Page Should Contain  paragraph1
+  Page Should Contain  paragrph 1
   Page Should Contain  paragraph4
   Page Should Contain Element  css=#p1
   Page Should Not Contain Element  css=#p1 strong
