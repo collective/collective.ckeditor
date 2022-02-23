@@ -149,8 +149,7 @@ class CKeditorView(BrowserView):
         if editor != '':
             return False
         # The member wants the default editor of the site.
-        pprops = getToolByName(self.portal, 'portal_properties')
-        editor = pprops.site_properties.getProperty('default_editor')
+        editor = api.portal.get_registry_record(name="plone.default_editor")
         return editor == 'CKeditor'
 
     def contentUsesCKeditor(self, fieldname=''):
