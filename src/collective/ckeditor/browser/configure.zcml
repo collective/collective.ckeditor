@@ -186,7 +186,8 @@
         component=".vocabularies.CKEditorFolderTypesVocabularyFactory"
         />
 
-    <utility
+   <!-- IRichTextWidgetInputModeRenderer arrived with Plone 5.2.6 -->
+   <utility zcml:condition="installed plone.app.z3cform.interfaces.IRichTextWidgetInputModeRenderer" 
        component=".widget.ckeditor_richtextwidget_render"
        provides="plone.app.z3cform.interfaces.IRichTextWidgetInputModeRenderer"
        name="ckeditor"
