@@ -1,7 +1,8 @@
 minitage.*
 *.mo
 src.mrdeveloper/*
-devel/
+src/collective.plonefinder/
+src/collective.quickupload/
 tags
 tags.python
 plone.env
@@ -35,6 +36,5 @@ lib64
 include
 htmlcov
 .coverage
-.idea/
 pyvenv.cfg
-share/
+.idea/

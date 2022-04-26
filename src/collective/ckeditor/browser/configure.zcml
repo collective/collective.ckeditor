@@ -46,7 +46,7 @@
         permission="zope.Public"
         />
 
-    <browser:page zcml:condition="installed Products.Archetypes"
+    <browser:page
         name="cke-save"
         for="Products.Archetypes.interfaces.IBaseObject"
         class=".ckeditorview.AjaxSave"
@@ -70,13 +70,12 @@
         permission="plone.app.portlets.ManageOwnPortlets"
         />
 
-    <adapter zcml:condition="installed Products.Archetypes"
+    <adapter
         for="Products.Archetypes.generator.widget.iwidget"
         factory=".ckeditorview.ATWidgetSettings"
         />
 
     <adapter
-        zcml:condition="installed zope.formlib"
         for="zope.formlib.interfaces.IWidget"
         factory=".ckeditorview.FormlibWidgetSettings"
         />
@@ -126,9 +125,6 @@
         attribute="getCK_vars"
         permission="zope.Public"
         />
-
-    <!-- ckeditor control panel adapter
-    <adapter factory=".ckeditorsettings.CKEditorControlPanelAdapter" />-->
 
     <browser:page
         name="ckeditor-controlpanel"
@@ -186,10 +182,4 @@
         component=".vocabularies.CKEditorFolderTypesVocabularyFactory"
         />
 
-   <!-- IRichTextWidgetInputModeRenderer arrived with Plone 5.2.6 -->
-   <utility zcml:condition="installed plone.app.z3cform.interfaces.IRichTextWidgetInputModeRenderer" 
-       component=".widget.ckeditor_richtextwidget_render"
-       provides="plone.app.z3cform.interfaces.IRichTextWidgetInputModeRenderer"
-       name="ckeditor"
-       />
 </configure>

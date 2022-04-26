@@ -1,7 +1,7 @@
 import os
 from setuptools import setup, find_packages
 
-version = '4.10.1.dev0'
+version = '4.10.1'
 
 long_description = (
     open("README.rst").read() + "\n"
@@ -47,12 +47,18 @@ setup(
     ],
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    extras_require={
-        'test': [
+    extras_require=dict(
+        test=[
             'plone.app.testing',
             'plone.app.robotframework[debug]',
         ],
-    },
+        pytest=[
+            "pytest",
+            "gocept.pytestlayer",
+            "pathlib2",
+            "requests",
+        ],
+    ),
     entry_points={
         'console_scripts': [
             'copy_ckeditor_code = collective.ckeditor.utils.base2zope:main',

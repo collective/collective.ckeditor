@@ -1,10 +1,14 @@
 Changelog
 =========
 
-4.10.1 (unreleased)
+4.10.1 (2021-10-01)
 -------------------
 
-- Nothing changed yet.
+- Fix CKEditor not packaged properly in 4.10.0 release.
+  [aduchene]
+
+- Use zest.releaser = 6.22.1.
+  [aduchene]
 
 
 4.10.0 (2021-06-11)

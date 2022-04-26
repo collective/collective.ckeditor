@@ -2,7 +2,6 @@ import json
 import re
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
 from zExceptions import Unauthorized
 from zope import component
 from zope.component import getUtility
@@ -13,6 +12,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.interfaces import IFolderish
+from Products.ResourceRegistries.tools.packer import JavascriptPacker
 from plone import api
 from plone.portlets.interfaces import IPortletAssignment
 from plone.registry.interfaces import IRegistry
@@ -63,14 +63,15 @@ class CKeditorView(BrowserView):
         self.portal_url = self.portal.absolute_url()
         request.set('ckLoaded', True)
 
-    @property
-    def cke_properties(self):
-        pp = getToolByName(self.portal, 'portal_properties')
-        return pp.ckeditor_properties
+    def get_registry_value(self, key, default=api.portal.MISSING):
+        return api.portal.get_registry_record(
+            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.{}".format(key),
+            default=default
+        )
 
     @property
-    def cke_properties_overloaded(self):
-        return self.cke_properties.getProperty('properties_overloaded', [])
+    def overloadable_properties(self):
+        return self.get_registry_value('overloadable_properties', [])
 
     def cke_config_url(self, context=None):
         """"
@@ -149,7 +150,8 @@ class CKeditorView(BrowserView):
         if editor != '':
             return False
         # The member wants the default editor of the site.
-        editor = api.portal.get_registry_record(name="plone.default_editor")
+        pprops = getToolByName(self.portal, 'portal_properties')
+        editor = pprops.site_properties.getProperty('default_editor')
         return editor == 'CKeditor'
 
     def contentUsesCKeditor(self, fieldname=''):
@@ -183,15 +185,34 @@ class CKeditorView(BrowserView):
         return list of style sheets applied to ckeditor area
         the list is returned as a javascript string
         by default portal_css mixin + plone_ckeditor_area.css
+        TODO : improve it with a control panel
         """
-        styles_viewlet = StylesView(
-            self.context,
-            self.request,
-            self
-        )
-        styles_viewlet.update()
-        urls = [style["src"] for style in styles_viewlet.styles()]
-        return repr(urls)
+        context = aq_inner(self.context)
+        portal = self.portal
+        portal_url = self.portal_url
+        portal_css = getToolByName(portal, 'portal_css')
+        css_jsList = "["
+        current_skin = context.getCurrentSkinName()
+        skinname = url_quote(current_skin)
+        css_res = portal_css.getEvaluatedResources(context)
+        for css in css_res:
+            media = css.getMedia()
+            rel = css.getRel()
+            if media not in ('print', 'projection') and rel == 'stylesheet':
+                cssPloneId = css.getId()
+                if ABSOLUTE_URL.match(cssPloneId):
+                    css_jsList += "'%s', " % cssPloneId
+                else:
+                    cssPlone = '%s/portal_css/%s/%s' % (portal_url,
+                                                        skinname,
+                                                        cssPloneId)
+                    css_jsList += "'%s', " % cssPlone
+
+        baseres = '++resource++ckeditor_for_plone'
+        css_jsList += "'%s/%s/ckeditor_plone_area.css']" % (portal_url,
+                                                            baseres)
+
+        return css_jsList
 
     def getCK_finder_url(self, type=None):
         """
@@ -202,13 +223,13 @@ class CKeditorView(BrowserView):
             base_url += 'typeview=file&media=file'
         elif type == 'flash':
             pid = 'browse_flashs_portal_types'
-            flash_types = self.cke_properties.getProperty(pid)
+            flash_types = self.get_registry_value(pid)
             base_url += 'typeview=file&media=flash'
             for ftype in flash_types:
                 base_url += '&types:list=%s' % url_quote(ftype)
         elif type == 'image':
             pid = 'browse_images_portal_types'
-            image_types = self.cke_properties.getProperty(pid)
+            image_types = self.get_registry_value(pid)
             base_url += 'typeview=image&media=image'
             for itype in image_types:
                 base_url += '&types:list=%s' % url_quote(itype)
@@ -219,8 +240,7 @@ class CKeditorView(BrowserView):
         just get property from ckeditor_properties sheet
         return it as a javascript string
         """
-        cke_properties = self.cke_properties
-        propValue = cke_properties.getProperty(prop)
+        propValue = self.get_registry_value(prop)
         if type(propValue).__name__ in ('str', 'unicode'):
             return "'%s'" % propValue
         elif type(propValue).__name__ == 'bool':
@@ -231,14 +251,13 @@ class CKeditorView(BrowserView):
         elif type(propValue).__name__ == 'tuple':
             return str(list(propValue))
         elif propValue is not None:
-            return str(cke_properties.getProperty(prop))
+            return str(propValue)
 
     def get_CK_image2_alignClasses(self):
         """check that each class is valid
         """
-        cke_properties = self.cke_properties
-        propValue = cke_properties.getProperty('image2_alignClasses')
-        result = str(list(propValue))
+        propValue = self.get_registry_value('image2_alignClasses')
+        result = json.dumps(list(propValue))
         for class_ in propValue:
             # TODO: check that classes are valid according to HTML
             if not class_.strip():
@@ -253,25 +272,20 @@ class CKeditorView(BrowserView):
         return CKEditor widget Settings
         """
         params = {}
-        cke_properties = self.cke_properties
         unchangedProps = ('width', 'height', 'bodyId', 'bodyClass', 'entities',
                           'entities_greek', 'entities_latin',
-                          'forcePasteAsPlainText',
+                          'forcePasteAsPlainText', 'toolbar',
                           'image2_captionedClass',
                           'defaultTableWidth')
         for p in unchangedProps:
             jsProp = self.geCK_JSProperty(p)
             if jsProp is not None:
                 params[p] = jsProp
-        toolbar = api.portal.get_registry_record(
-            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.toolbar"
-        )
-        params["toolbar"] = "'{}'".format(toolbar)
         params['image2_alignClasses'] = self.get_CK_image2_alignClasses()
         params['skin'] = "'{}'".format(
-            cke_properties.getProperty('skin', 'moonocolor')
+            self.get_registry_value('skin', 'moonocolor')
         )
-        params['toolbar_Custom'] = cke_properties.getProperty('toolbar_Custom')
+        params['toolbar_Custom'] = self.get_registry_value('toolbar_Custom')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         img_url = self.getCK_finder_url(type='image')
@@ -306,7 +320,7 @@ class CKeditorView(BrowserView):
             """ % (k, v)
 
         ids = []
-        for line in self.cke_properties.getProperty('plugins', []):
+        for line in self.get_registry_value('plugins', []):
             # ignore the rest so we get no error
             if len(line.split(';')) == 2:
                 id, url = line.split(';')
@@ -318,7 +332,7 @@ class CKeditorView(BrowserView):
                     % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
-        removePlugins = self.cke_properties.getProperty('removePlugins', [])
+        removePlugins = self.get_registry_value('removePlugins', [])
         if removePlugins:
             params_js_string += (
                 '''config.removePlugins = "%s";''' % ','.join(removePlugins))
@@ -335,9 +349,8 @@ class CKeditorView(BrowserView):
                CKEDITOR_PLONE_DEFAULT_TOOLBAR,
                CKEDITOR_FULL_TOOLBAR,
                self.portal_url)
-        cke_properties = self.cke_properties
 
-        templatesReplaceContent = cke_properties.getProperty(
+        templatesReplaceContent = self.get_registry_value(
             'templatesReplaceContent')
         if templatesReplaceContent:
             params_js_string += """config.templates_replaceContent = true;"""
@@ -345,9 +358,9 @@ class CKeditorView(BrowserView):
             params_js_string += """config.templates_replaceContent = false;"""
 
         use_disallowed_content = True
-        filtering = cke_properties.getProperty('filtering')
+        filtering = self.get_registry_value('filtering')
         if filtering == 'default':
-            extraAllowedContent = cke_properties.getProperty(
+            extraAllowedContent = self.get_registry_value(
                 'extraAllowedContent')
             params_js_string += "config.extraAllowedContent = {0};".format(
                 extraAllowedContent)
@@ -358,19 +371,19 @@ class CKeditorView(BrowserView):
             # to true.
             use_disallowed_content = False
         elif filtering == 'custom':
-            customAllowedContent = cke_properties.getProperty(
+            customAllowedContent = self.get_registry_value(
                 'customAllowedContent')
             params_js_string += "config.allowedContent = {0};".format(
                 customAllowedContent)
 
         if use_disallowed_content:
-            disallowedContent = cke_properties.getProperty(
+            disallowedContent = self.get_registry_value(
                 'disallowedContent')
             params_js_string += "config.disallowedContent = {0};".format(
                 disallowedContent)
 
         # enable SCAYT on startup if necessary
-        enableScaytOnStartup = cke_properties.getProperty(
+        enableScaytOnStartup = self.get_registry_value(
             'enableScaytOnStartup')
         if enableScaytOnStartup:
             scayt_lang = self._getScaytLanguage()
@@ -382,7 +395,7 @@ class CKeditorView(BrowserView):
         else:
             params_js_string += """config.scayt_autoStartup = false;"""
 
-        customTemplates = cke_properties.getProperty('customTemplates')
+        customTemplates = self.get_registry_value('customTemplates')
         if customTemplates:
             params_js_string += self.getCustomTemplatesConfig(customTemplates)
         params_js_string += """
@@ -394,7 +407,7 @@ class CKeditorView(BrowserView):
         response.setHeader('Cache-control', cache_header)
         response.setHeader('Content-Type', 'application/x-javascript')
 
-        return params_js_string
+        return JavascriptPacker('safe').pack(params_js_string)
 
     def getCK_vars(self):
         return CK_VARS_TEMPLATE % {'portal_url': self.portal_url}
@@ -416,8 +429,7 @@ class CKeditorView(BrowserView):
         """
         request = self.request
         response = request.RESPONSE
-        cke_properties = self.cke_properties
-        styles = demjson.loads(cke_properties.getProperty('menuStyles', '[]'))
+        styles = demjson.loads(self.get_registry_value('menuStyles', '[]'))
         for style in styles:
             if 'name' in style:
                 style['name'] = self.context.translate(_(style['name']))
@@ -430,7 +442,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
             's-maxage=0,max-age=0,no-cache')
         response.setHeader('Content-Type', 'application/x-javascript')
 
-        return menu_styles_js_string
+        return JavascriptPacker('safe').pack(menu_styles_js_string)
 
     def customize_browserurl(self, settings, language):
         params = self.cke_params
@@ -526,16 +538,16 @@ class Z3WidgetSettings(object):
 
     def __call__(self):
         """
-        Some params could be overloaded by widget settings
+        Some params are overloadable by settings configured widget by widget.
         """
         ckview = self.ckview
         widget = self.context
         widget_settings = {}
         if hasattr(widget, 'settings'):
             params = ckview.cke_params
-            p_overloaded = ckview.cke_properties_overloaded
+            overloadable = ckview.overloadable_properties
             for k, v in params.items():
-                if k in p_overloaded and k in widget.settings:
+                if k in overloadable and k in widget.settings:
                     widget_settings[k] = widget.settings[k]
             if 'language' in widget.settings:
                 language = widget.settings['language']
@@ -596,23 +608,23 @@ class ATWidgetSettings(object):
 
     def __call__(self):
         """
-        Some params could be overloaded by widget settings
+        Some params are overloadable by widget settings
         example : AT rich widget overload width or height
         """
         ckview = self.ckview
         params = ckview.cke_params
         widget = self.context
         widget_settings = {}
-        p_overloaded = ckview.cke_properties_overloaded
+        overloadable = ckview.overloadable_properties
         for k, v in params.items():
-            if k in p_overloaded and hasattr(widget, k):
+            if k in overloadable and hasattr(widget, k):
                 widget_settings[k] = getattr(widget, k)
         # specific for cols and rows rich widget settings
-        if hasattr(widget, 'cols') and 'width' not in p_overloaded:
+        if hasattr(widget, 'cols') and 'width' not in overloadable:
             if widget.cols:
                 width = str(int(int(widget.cols) * 100 / 40)) + '%'
                 widget_settings['width'] = width
-        if hasattr(widget, 'rows') and 'height' not in p_overloaded:
+        if hasattr(widget, 'rows') and 'height' not in overloadable:
             if widget.rows:
                 height = str(int(widget.rows) * 25) + 'px'
                 widget_settings['height'] = height
