@@ -36,7 +36,8 @@ def _listTypesForInterface(portal, interface):
     """
     archetype_tool = getToolByName(portal, 'archetype_tool')
     portal_types = getToolByName(portal, 'portal_types')
-    utranslate = portal.utranslate
+    translation_service = getToolByName(portal, 'translation_service')
+    utranslate = translation_service.utranslate
     types = archetype_tool.listPortalTypesWithInterfaces([interface])
     all_types = [tipe.getId() for tipe in types]
     # fix for bug in listPortalTypesWithInterfaces which returns 2 'ATFolder'
