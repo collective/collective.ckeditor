@@ -114,15 +114,17 @@ def up4340(context):
 
 def to_registry(context):
     ptool = getToolByName(context, 'portal_properties')
-    props = ptool.ckeditor_properties
-    api.portal.set_registry_record(
-        "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.forcePasteAsPlainText",
-        props.forcePasteAsPlainText
-    )
+    # clean up only if there are things to clean up
+    if "ckeditor_properties" in ptool:
+        props = ptool.ckeditor_properties
+        api.portal.set_registry_record(
+            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.forcePasteAsPlainText",
+            props.forcePasteAsPlainText
+        )
 
-    api.portal.set_registry_record(
-        "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.skin",
-        props.skin
-    )
+        api.portal.set_registry_record(
+            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.skin",
+            props.skin
+        )
 
-    ptool.manage_delObjects("ckeditor_properties")
+        ptool.manage_delObjects("ckeditor_properties")
