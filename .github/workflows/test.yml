@@ -20,14 +20,18 @@ jobs:
           pip install virtualenv
           virtualenv -p 2 .
           bin/pip install -r requirements.txt
-          bin/buildout -c test-4.3.x.cfg install copy_ckeditor_code ckeditor test
+          bin/buildout -c test-4.3.x.cfg install copy_ckeditor_code ckeditor pytest
       - name: Run unit tests
         run: |
-          bin/test -t "!robot"
+          bin/pytest
       - name: Install Firefox
         uses: browser-actions/setup-firefox@latest
       - name: Install Geckodriver
         uses: browser-actions/setup-geckodriver@latest
       - name: Run robot tests
         run: |
-          ROBOT_BROWSER=headlessFirefox bin/test -t "robot"
+          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
+          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and image2"
+      - name: Run upgrade tests
+        run: |
+          bin/pytest -k "upgrade"
