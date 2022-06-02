@@ -39,20 +39,27 @@ develop =  %(package_path)s
         os.chdir(str(tmp_path))
         retcode = subprocess.call([str(buildout_exe), "bootstrap"])
         assert retcode == 0
-        output = subprocess.check_output(
-            [str(buildout_exe), "query", "buildout:eggs-directory"]
-        )
+        try:
+            output = subprocess.check_output(
+                [str(buildout_exe), "query", "buildout:eggs-directory"]
+            )
 
-        self.eggs_directory = output.decode("utf8").split("\n")[-2]
 
-        output = subprocess.check_output(["bin/buildout", "query", "buildout:develop"])
-        assert str(package_path).encode("utf8") in output
+            self.eggs_directory = output.decode("utf8").split("\n")[-2]
 
-        output = subprocess.check_output(["bin/buildout", "query", "instance:recipe"])
-        assert b"plone.recipe.zope2instance" in output
+            output = subprocess.check_output(["bin/buildout", "query", "buildout:develop"])
+            assert str(package_path).encode("utf8") in output
 
-        output = subprocess.check_output(["bin/buildout", "query", "plonesite:recipe"])
-        assert b"collective.recipe.plonesite" in output
+            output = subprocess.check_output(["bin/buildout", "query", "instance:recipe"])
+            assert b"plone.recipe.zope2instance" in output
+
+            output = subprocess.check_output(["bin/buildout", "query", "plonesite:recipe"])
+            assert b"collective.recipe.plonesite" in output
+
+        except subprocess.CalledProcessError as e:
+            print(e.cmd)
+            print(e.output)
+            raise e
 
     def run_buildouts(self, from_version):
         print()
