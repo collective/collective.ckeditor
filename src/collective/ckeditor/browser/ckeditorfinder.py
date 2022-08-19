@@ -1,7 +1,8 @@
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from collective.plonefinder.browser.finder import Finder
-
+from plone import api
+from collective.ckeditor.browser.ckeditorsettings import ICKEditorSchema
 
 class CKFinder(Finder):
     """
@@ -22,10 +23,9 @@ class CKFinder(Finder):
         request = aq_inner(self.request)
         session = request.get('SESSION', {})
 
-        pp = getToolByName(context, 'portal_properties')
-        ckprops = pp.ckeditor_properties
-        self.allowaddfolder = ckprops.getProperty('allow_folder_creation',
-                                                  self.allowaddfolder)
+        self.allowaddfolder = api.portal.get_registry_record('allow_folder_creation',
+                                                             interface=ICKEditorSchema,
+                                                             default=self.allowaddfolder)
 
         self.showbreadcrumbs = request.get(
             'showbreadcrumbs',
@@ -95,10 +95,8 @@ class CKFinder(Finder):
         """
         context = aq_inner(self.context)
 
-        pprops = getToolByName(context, 'portal_properties')
-        ckprops = pprops.ckeditor_properties
-
-        prop = ckprops.getProperty('%s_portal_type' % media)
+        prop = api.portal.get_registry_record(name='%s_portal_type' % media,
+                                              interface=ICKEditorSchema)
 
         if prop == 'auto':
             return ''
@@ -109,7 +107,8 @@ class CKFinder(Finder):
 
         # custom type depending on scope
         mediatype = ''
-        customprop = ckprops.getProperty('%s_portal_type_custom' % media)
+        customprop = api.portal.get_registry_record(name='%s_portal_type_custom' % media,
+                                                    interface=ICKEditorSchema)
         for pair in customprop:
             listtypes = pair.split('|')
             if listtypes[0] == '*':
