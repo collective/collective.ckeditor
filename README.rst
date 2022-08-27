@@ -288,5 +288,5 @@ Contributors
 .. _FCKEditor: https://plone.org/fckeditor
 .. |makinacom| image:: https://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  https://www.makina-corpus.com
-.. _ckeditor: http://ckeditor.com/
+.. _ckeditor: https://ckeditor.com/
 .. _collective.plonefinder: https://plone.org/products/collective.plonefinder
