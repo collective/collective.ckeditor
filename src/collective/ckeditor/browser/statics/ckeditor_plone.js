@@ -167,7 +167,12 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
             html : ''
         });
 
-        // Extended function `onKeyUp` to automatically check for our `resolveuid/` protocol and set fields accordingly.
+        // Additional selectable protocols (might be extended by other plugins)
+        ev.editor.plugins.link.additionalProtocols = [
+            'resolveuid/'
+        ];
+
+        // Extended function `onKeyUp` to automatically check for our any custom protocol and set fields accordingly.
         var url = infoTab.get('url');
         var default_onKeyUp = url.onKeyUp;
         url.onKeyUp = CKEDITOR.tools.override(default_onKeyUp, function(org) {
@@ -180,14 +185,22 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
                     urlField = this.getDialog().getContentElement('info', 'url'),
                     urlValue = urlField.getValue(),
                     actualField = this.getDialog().getContentElement('info', 'actual'),
-                    actualElement = actualField.getElement();
-                if (urlValue.indexOf('resolveuid/') == 0) {
-                    protocolField.setValue('resolveuid/');
-                    protocolValue = protocolField.getValue();
-                    urlField.setValue(urlValue.substr('resolveuid/'.length));
-                    urlValue = urlField.getValue();
+                    actualElement = actualField.getElement(),
+                    additionalProtocol;
+
+                for (var i=0;i<ev.editor.plugins.link.additionalProtocols.length;i++) {
+                    additionalProtocol = ev.editor.plugins.link.additionalProtocols[i];
+
+                    if (urlValue.indexOf(additionalProtocol) == 0) {
+                        protocolField.setValue(additionalProtocol);
+                        protocolValue = protocolField.getValue();
+                        urlField.setValue(urlValue.substr(additionalProtocol.length));
+                        urlValue = urlField.getValue();
+                    }
                 }
-                showActualUrl(actualElement, protocolValue, urlValue);
+                if (protocolValue == 'resolveuid/') { // Update url as well
+                    showActualUrl(actualElement, protocolValue, urlValue);
+                }
                 this.allowOnChange = true;
             }
         });
@@ -196,10 +209,15 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
         var defaultUrlSetup = url.setup;
         url.setup = CKEDITOR.tools.override(defaultUrlSetup, function(org) {
             return function (data) {
+                var additionalProtocol;
                 org.apply(this, [data]);
                 this.allowOnChange = false;
-                if (data.url && data.url.url.indexOf('resolveuid/') == 0) {
-                    this.getDialog().getContentElement('info', 'url').setValue(data.url.url.split('resolveuid/')[1]);
+
+                for (var i=0;i<ev.editor.plugins.link.additionalProtocols.length;i++) {
+                    additionalProtocol = ev.editor.plugins.link.additionalProtocols[i];
+                    if (data.url && data.url.url.indexOf(additionalProtocol) == 0) {
+                        this.getDialog().getContentElement('info', 'url').setValue(data.url.url.split(additionalProtocol)[1]);
+                    }
                 }
                 this.allowOnChange = true;
             }
@@ -210,9 +228,13 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
         var defaultProtocolSetup = protocolField.setup;
         protocolField.setup = CKEDITOR.tools.override(defaultProtocolSetup, function(org) {
             return function (data) {
+                var additionalProtocol;
                 org.apply(this, [data]);
-                if (data.url && data.url.url.indexOf('resolveuid/') == 0) {
-                    this.getDialog().getContentElement('info', 'protocol').setValue('resolveuid/');
+                for (var i=0;i<ev.editor.plugins.link.additionalProtocols.length;i++) {
+                    additionalProtocol = ev.editor.plugins.link.additionalProtocols[i];
+                    if (data.url && data.url.url.indexOf(additionalProtocol) == 0) {
+                        this.getDialog().getContentElement('info', 'protocol').setValue(additionalProtocol);
+                    }
                 }
             }
         });
