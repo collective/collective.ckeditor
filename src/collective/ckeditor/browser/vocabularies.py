@@ -76,7 +76,9 @@ class CKEditorSkinVocabulary(object):
         items = [SimpleTerm('moonocolor', 'moonocolor',
                             _(u'Colored buttons')),
                  SimpleTerm('moono-lisa', 'moono-lisa',
-                            _(u'Flat buttons'))]
+                            _(u'Flat buttons')),
+                 SimpleTerm('office2013', 'office2013',
+                            _(u'Office 2013'))]
         return SimpleVocabulary(items)
 
 CKEditorSkinVocabularyFactory = CKEditorSkinVocabulary()
