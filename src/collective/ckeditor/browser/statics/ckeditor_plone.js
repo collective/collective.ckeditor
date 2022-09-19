@@ -77,6 +77,8 @@ launchCKInstances = function (ids_to_launch) {
             cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
             var widget_config = {};
             widget_config.customConfig = cke_config_url;
+            // takeover textarea focus for ckeditor
+            widget_config.startupFocus = (this == document.activeElement)
             /* Here starts the local js overload of settings by a field widget */
             if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
                 // overridden boolean settings need to be converted to boolean again
