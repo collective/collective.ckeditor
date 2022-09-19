@@ -79,10 +79,17 @@ launchCKInstances = function (ids_to_launch) {
         widget_config.customConfig = cke_config_url;
         /* Here starts the local js overload of settings by a field widget */
         if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
+            // overridden boolean settings need to be converted to boolean again
+            var booleanWidgetSettings = ['allowedContent'];
             settings = jQuery('.widget_settings input', jQuery(this).parent());
             settings.each(function () {
                 setting = jQuery(this);
-                widget_config[setting.attr('class')] = setting.val();
+                var name = setting.attr('class');
+                var value = setting.val();
+                if (jQuery.inArray(name, booleanWidgetSettings) != -1) {
+                    value = value == 'true'
+                }
+                widget_config[name] = value;
             });
 	    /* Destroy instance if it exists because an existing instance can not be managed twice */
 	    if (typeof CKEDITOR.instances != 'undefined') {
