@@ -73,7 +73,7 @@ launchCKInstances = function (ids_to_launch) {
         ids_to_launch = ids_to_launch || [];
 	/* we can specify an array of ids for wich CKeditor has to be launched */
 	/* if no ids is provided or if the current id is in the array of given ids, we proceed */
-        if ((typeof(ids_to_launch[0]) == 'undefined') || (jQuery.inArray(ckid, ids_to_launch) >= 0)) { 
+        if ((typeof(ids_to_launch[0]) == 'undefined') || (jQuery.inArray(ckid, ids_to_launch) >= 0)) {
         cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
         var widget_config = {};
         widget_config.customConfig = cke_config_url;
@@ -103,15 +103,14 @@ jQuery(document).ready(launchCKInstances);
         return '<p>Actual URL</p><p>'+msg+'</p>';
     };
 
-    var showActualUrl = function showActualUrl(domElement, url) {
-        if (url.indexOf('resolveuid') !== -1) {
-            domElement.setHtml(format('Loading...'));
-            var current_uid = url.split('resolveuid/')[1];
+    var showActualUrl = function showActualUrl(domElement, protocol, current_uid) {
+        domElement.setHtml(format('Loading...'));
+        if (protocol == 'resolveuid/' && current_uid) {
             var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
             var settings = {
                 url: new_url,
                 type: 'GET',
-                success: function(data, textStatus, jqXHR){
+                success: function (data, textStatus, jqXHR) {
                     if (jqXHR.status == 200) {
                         domElement.setHtml(format(data));
                     } else {
@@ -123,9 +122,9 @@ jQuery(document).ready(launchCKInstances);
                 }
             };
             $.ajax(settings);
-            return;
+        } else {
+            domElement.setHtml('<p></p>');
         }
-        domElement.setHtml('<p></p>');
     };
 
 CKEDITOR.on( 'dialogDefinition', function( ev ) {
@@ -139,15 +138,21 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
     if ( dialogName == 'link' ) {
         // Get a reference to the "Link Info" tab.
         var infoTab = dialogDefinition.getContents( 'info' );
+        var protocol = infoTab.get('protocol');
 
+        // Introduce custom protocol
+        protocol['items'].push(['resolveuid/', 'resolveuid/']);
+
+        // Add element to show the resolved uid
         var urlOptions = infoTab.get('urlOptions');
         urlOptions.children.push( {
             id: 'actual',
             type : 'html',
             setup: function( data ) {
                 var domElement = this.getElement();
-                if ( data.url ) {
-                    showActualUrl(domElement, data.url.url);
+                // Since we can't hook into the plugin's url parsing, we have to do it here.
+                if (data.url && !data.url.protocol && data.url.url.indexOf('resolveuid/') == 0) {
+                    showActualUrl(domElement, 'resolveuid/', data.url.url.split('resolveuid/')[1]);
                 } else {
                     domElement.setHtml('<p></p>');
                 }
@@ -155,15 +160,70 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
             html : ''
         });
 
+        // Extended function `onKeyUp` to automatically check for our `resolveuid/` protocol and set fields accordingly.
         var url = infoTab.get('url');
-        default_onKeyUp = url.onKeyUp;
-        url.onKeyUp = function() {
-            var actual = this.getDialog().getContentElement('info', 'actual');
-            var domElement = actual.getElement();
-            var url = this.getValue();
-            showActualUrl(domElement, url);
-            default_onKeyUp.apply(this);
-        };
+        var default_onKeyUp = url.onKeyUp;
+        url.onKeyUp = CKEDITOR.tools.override(default_onKeyUp, function(org) {
+            return function() {
+                org.apply(this);
+                this.allowOnChange = false;
+                // Start of updating protocol
+                var protocolField = this.getDialog().getContentElement('info', 'protocol'),
+                    protocolValue = protocolField.getValue(),
+                    urlField = this.getDialog().getContentElement('info', 'url'),
+                    urlValue = urlField.getValue(),
+                    actualField = this.getDialog().getContentElement('info', 'actual'),
+                    actualElement = actualField.getElement();
+                if (urlValue.indexOf('resolveuid/') == 0) {
+                    protocolField.setValue('resolveuid/');
+                    protocolValue = protocolField.getValue();
+                    urlField.setValue(urlValue.substr('resolveuid/'.length));
+                    urlValue = urlField.getValue();
+                }
+                showActualUrl(actualElement, protocolValue, urlValue);
+                this.allowOnChange = true;
+            }
+        });
+
+        // Setup url field correctly if its a `resolveuid` link.
+        var defaultUrlSetup = url.setup;
+        url.setup = CKEDITOR.tools.override(defaultUrlSetup, function(org) {
+            return function (data) {
+                org.apply(this, [data]);
+                this.allowOnChange = false;
+                if (data.url && data.url.url.indexOf('resolveuid/') == 0) {
+                    this.getDialog().getContentElement('info', 'url').setValue(data.url.url.split('resolveuid/')[1]);
+                }
+                this.allowOnChange = true;
+            }
+        });
+
+        // Setup protocol field correctly if its a `resolveuid` link.
+        var protocolField = infoTab.get('protocol');
+        var defaultProtocolSetup = protocolField.setup;
+        protocolField.setup = CKEDITOR.tools.override(defaultProtocolSetup, function(org) {
+            return function (data) {
+                org.apply(this, [data]);
+                if (data.url && data.url.url.indexOf('resolveuid/') == 0) {
+                    this.getDialog().getContentElement('info', 'protocol').setValue('resolveuid/');
+                }
+            }
+        });
+        protocolField.onChange = function (ev) {
+            var protocolField = this.getDialog().getContentElement('info', 'protocol');
+            var urlField = this.getDialog().getContentElement('info', 'url');
+            if (ev.data.value == 'resolveuid/') {
+                urlField.disable();
+            } else {
+                urlField.enable();
+            }
+            if (protocolField.previousValue == 'resolveuid/' && ev.data.value != 'resolveuid/' || protocolField.previousValue != 'resolveuid/' && ev.data.value == 'resolveuid/') {
+                this.allowOnChange = false;
+                urlField.setValue('');
+                this.allowOnChange = true;
+            }
+            protocolField.previousValue = ev.data.value;
+        }
     }
 
    // Check if the definition is from the dialog we're
@@ -172,7 +232,7 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
    {
        // Get a reference to the "Table Info" tab.
        var infoTab = dialogDefinition.getContents( 'info' );
- 
+
        // Set default width
        txtWidth = infoTab.get( 'txtWidth' );
        defaultTableWidth = ev.editor.config.defaultTableWidth;
