@@ -26,9 +26,9 @@
         />
 
     <browser:page
-      name="convert_uid_to_url"
+      name="show_object_info"
       for="*"
-      class=".convertuid.ConvertUIDView"
+      class=".show_object_info.ShowObjectInfoView"
       permission="zope.Public"
       />
 
