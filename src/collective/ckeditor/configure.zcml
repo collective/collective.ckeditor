@@ -6,6 +6,8 @@
     i18n_domain="collective.ckeditor">
 
     <include package="collective.plonefinder" />
+    <!-- potentielly useful for mockup.core/jsi18n.js
+    <include package="plone.mockup" /> -->
 
     <five:registerPackage package="." initialize=".initialize" />
     <i18n:registerTranslations directory="locales" />

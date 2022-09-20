@@ -1,356 +1,352 @@
-# Translation of collective.ckeditor.pot to Italian
-# Giacomo Spettoli <giacomo.spettoli@gmail.com>, 2011.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2015-11-10 13:49+0000\n"
 "PO-Revision-Date: 2013-05-30 16:21+0200\n"
-"Last-Translator: JeanMichel FRANCOIS <toutpt@gmail.com>\n"
+"Last-Translator: Paul Grunewald <paul.grunewald@tu-dresden.de>\n"
 "Language-Team: Plone i18n <plone-fr@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language-Code: fr\n"
-"Language-Name: French\n"
+"Language-Name: German\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.ckeditor\n"
-"X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
 msgid " CKEditor is compatible with ${browser} or higher."
-msgstr ""
+msgstr " Der CKEDITOR ist kompatibel mit ${browser} oder höher."
 
 msgid " It is also compatible with ${alsoBrowsers}."
-msgstr ""
+msgstr " Er ist außerdem kompatibel mit ${alsoBrowsers}."
 
 msgid "+ and $1"
-msgstr ""
+msgstr "+ und $1"
 
 msgid "Actual Url"
-msgstr ""
+msgstr "Eigentliche URL"
 
 #: ./browser/ckeditorsettings.py:224
 msgid "Add list of pairs CONTAINER_TYPE|FILE_TYPE. The file portal type choosen for upload will depend on contextual container portal type. * means any portal type.Take care, no control is done over this field value."
-msgstr "Ajouter une liste de paires TYPE_CONTENEUR | TYPE_FICHIER. Le type de fichier choisi portail pour le téléchargement dépendra du type de contenu receveur. * signifie tous les types de contenu. Attention, aucun contrôle n'est fait sur la valeur de ce champ."
+msgstr "Füge eine Liste von Paaren CONTAINER_TYPE|FILE_TYPE hinzu. Der jeweilige File Portal Type hängt vom jeweiligen Container Portal Type ab. Stern (*) steht für jeden Portal Type. Beachte, dass keine Prüfung über den Feldwert vorgenommen wird."
 
 #: ./browser/ckeditorsettings.py:280
 msgid "Add list of pairs CONTAINER_TYPE|FLASH_TYPE. The flash portal type choosen for upload will depend on contextual container portal type. * means any portal type. Take care, no control is done over this field value."
-msgstr "Ajouter une liste de paires TYPE_CONTENEUR | TYPE_FLASH. Le type de contenu flash choisi pour le téléchargement dépendra du type de contenu receveur. * signifie tous les types de contenu. Attention, aucun contrôle n'est fait sur la valeur de ce champ."
+msgstr "Füge eine Liste von Paaren CONTAINER_TYPE|FLASH_TYPE hinzu. Der jeweilige Flash Portal Type hängt vom jeweiligen Container Portal Type ab. Stern (*) steht für jeden Portal Type. Beachte, dass keine Prüfung über den Feldwert vorgenommen wird."
 
 #: ./browser/ckeditorsettings.py:298
 msgid "Add list of pairs CONTAINER_TYPE|FOLDER_TYPE. The folder portal type choosen for folders creation will depend on contextual container portal type. * means any portal type. Take care, no control is done over this field value."
-msgstr "Ajouter une liste de paires TYPE_CONTENEUR | TYPE_DOSSIER. Le type de dossier choisi pour la création des dossiers dépendra du type de contenu receveur. signifie tous les types de contenu. Attention, aucun contrôle n'est fait sur la valeur de ce champ."
+msgstr "Füge eine Liste von Paaren CONTAINER_TYPE|FOLDER_TYPE hinzu. Der jeweilige Folder Portal Type hängt vom jeweiligen Container Portal Type ab. Stern (*) steht für jeden Portal Type. Beachte, dass keine Prüfung über den Feldwert vorgenommen wird."
 
 #: ./browser/ckeditorsettings.py:252
 msgid "Add list of pairs CONTAINER_TYPE|IMAGE_TYPE. The image portal type choosen for upload will depend on contextual container portal type. * means any portal type.Take care, no control is done over this field value."
-msgstr "Ajouter une liste de paires TYPE_CONTENEUR | TYPE_IMAGE. Le type de contenu image choisi pour le téléchargement dépendra du type de contenu receveur. * signifie tous les types de contenu. Attention, aucun contrôle n'est fait sur la valeur de ce champ."
+msgstr "Füge eine Liste von Paaren CONTAINER_TYPE|IMAGE_TYPE hinzu. Der jeweilige Image Portal Type hängt vom jeweiligen Container Portal Type ab. Stern (*) steht für jeden Portal Type. Beachte, dass keine Prüfung über den Feldwert vorgenommen wird."
 
 #: ./browser/ckeditorsettings.py:713
 msgid "Advanced Configuration"
-msgstr "Configuration avancée"
+msgstr "Erweitere Einstellungen"
 
 #: ./browser/ckeditorsettings.py:185
 msgid "Allow browsing for links"
-msgstr "Autoriser la recherche pour les liens"
+msgstr "Erlaube Navigierung durch die Seite für Links"
 
 #: ./browser/ckeditorsettings.py:192
 msgid "Allow file upload"
-msgstr "Autoriser le téléchargement (up) de fichier"
+msgstr "Erlaube Dateiupload"
 
 #: ./browser/ckeditorsettings.py:204
 msgid "Allow flash upload"
-msgstr "Autoriser le téléchargement (up) de flash"
+msgstr "Erlaube Flashupload"
 
 #: ./browser/ckeditorsettings.py:210
 msgid "Allow folder creation"
-msgstr "Autoriser la création de dossier"
+msgstr "Erlaube Ordnererstellung"
 
 #: ./browser/ckeditorsettings.py:198
 msgid "Allow image upload"
-msgstr "Autoriser le téléchargement (up) d'image"
+msgstr "Erlaube Bildupload"
 
 #: ./browser/ckeditorsettings.py:168
 msgid "Allow link objects by UID"
-msgstr "Autoriser les liens par UID"
+msgstr "Erlaube Linkobjekte über UID"
 
 #: ./browser/ckeditorsettings.py:178
 msgid "Allow relative urls transformation"
-msgstr "Autoriser la transformation d'URL relative"
+msgstr "Erlaube relative URL-Transformationen"
 
 #: ./browser/ckeditorsettings.py:112
 msgid "Area Body Class"
-msgstr "Class de la zone de contenu"
+msgstr "Bereich Body CSS-Klasse"
 
 #: ./browser/ckeditorsettings.py:93
 msgid "Area Body Id"
-msgstr "ID de la zone de contenu"
+msgstr "Bereich Body ID"
 
 #: ./browser/vocabularies.py:93
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisch"
 
 #: ./browser/ckeditorsettings.py:701
 msgid "Basic settings"
-msgstr "Paramètres de base"
+msgstr "Einstellungen"
 
 #: ./browser/ckeditorsettings.py:47
 msgid "Build your own CKEditor Toolbar. Take care with the javascript syntax. If you want to add new plugins, add new buttons here if needed."
-msgstr "Construisez votre propre barre d'outils. Attention à la syntaxe javascript. Si vous voulez ajouter de nouveaux plugins, ajouter les nouveaux boutons ici si nécessaire."
+msgstr "Erstellen Sie ihre eigene CKEditor-Werkzeugleiste. Beachten Sie die JavaScript-Syntax. Wenn Sie neue Plugins hinzufügen, fügen Sie dazu neue Knöpfe hinzu falls notwendig."
 
 #: ./browser/ckeditorsettings.py:86
 msgid "Build your own CKEditor menu styles Combo box. Take care with the javascript syntax. If you want to use css classes or ids, the attributes must exist in your css."
-msgstr "Construisez votre propre menu de styles. Attention à la syntaxe javascript. Si vous souhaitez utiliser des classes css ou des id, les attributs doivent exister dans votre css."
+msgstr "Erstellen Sie ihr eigene Menü-Style-Combobox. Beachten Sie die JavaScript-Syntax. Falls Sie CSS-Klassen oder IDs nutzen, müssen die Attribute in ihrem CSS existieren."
 
 #: ./browser/ckeditorsettings.py:720
 msgid "CKEditor settings"
-msgstr "Paramètres de CKEditor"
+msgstr "CKEditor-Einstellungen"
 
 #. Default: "Citation"
 msgid "Call-out"
-msgstr "Citation"
+msgstr "Zitat"
 
 #. Default: "Citation"
 msgid "Call-out bloc"
-msgstr "Citation"
+msgstr "Zitat"
 
 #: ./browser/ckeditorsettings.py:179
 msgid "Check if you want relative urls after saving forms. Useful when link by uid is not checked."
-msgstr "Cocher si vous voulez des urls relative après avoir sauvegardé. Intéressant si vous n'utilisez pas les liens avec UID."
+msgstr "Anhaken, wenn URls nach Absenden des Formulars relativ gespeicht werden sollen. Nützlich, falls 'Links über UID deaktiviert' ist."
 
 #: ./browser/ckeditorsettings.py:169
 msgid "Check if you want url with Unique ID (no more 404 errors when moving objects). Notice that portal_transforms in standard configuration transforms uid links in absolute urls in view displays."
-msgstr "Cocher si vous voulez avoir des URL avec des UID (pour ne plus avoir d'erreur 404 ). Noter que le portal_transforms dans sa configuration standard transforme les liens UID en URL absolue pour l'affichage."
+msgstr "Anhaken, wenn Sie URLs mit UID haben möchten (keine 404-Fehler nach Verschieben von Objekten). Beachte Sie, dass portal_transform in der Standardkonfiguration UID-Links in absolute in der Anzeige umwandelt."
 
 #: ./browser/ckeditorsettings.py:193
 msgid "Check to allow files upload in link dialog boxes)."
-msgstr "Cocher pour autoriser le téléchargement (up) de fichier dans la boite de dialogue des liens."
+msgstr "Anhaken, um zu Dateiupload im Link-Dialog zu erlauben)."
 
 #: ./browser/ckeditorsettings.py:211
 msgid "Check to allow folder creation in browser."
-msgstr "Cocher pour authoriser la création de dossier dans le navigateur."
+msgstr "Anhaken, um zu Ordner-Erstellung im CK-Browser zu erlauben."
 
 #: ./browser/ckeditorsettings.py:186
 msgid "Check to allow server browsingused for medias linking."
-msgstr "Cocher pour authoriser la navigation dans le serveur pour créer des liens vers les médias."
+msgstr "Anhaken, um den CK-Browser für das Verlinken von Medien zu erlauben."
 
 #: ./browser/ckeditorsettings.py:205
 msgid "Check to allow upload for flash content."
-msgstr "Cocher pour autoriser le téléchargement (up) de contenu flash."
+msgstr "Anhaken, um Flash-Upload zu erlauben."
 
 #: ./browser/ckeditorsettings.py:199
 msgid "Check to allow upload for images."
-msgstr "Cocher pour autoriser le téléchargement (up) des images."
+msgstr "Anhaken, um Bild-Upload zu erlauben."
 
 #: ./browser/ckeditorsettings.py:134
 msgid "Choose if you want SCAYT to be automatically enabled while the editor is loaded.  This will only be the case if a relevant language can be used in SCAYT availble ones."
-msgstr "Cocher pour que SCAYT soit activé au chargement de l'éditeur.  SCAYT ne sera cependant activé que si une langue pertinente aura pu être sélectionnée parmi celles disponibles"
+msgstr "Wählen Sie, ob Sie SCAYT automatisch aktivieren wollen, wenn der Editor geladen wird. Dies ist nur der Fall, falls die betreffende Sprache in SCAYT zur Verfügung steht."
 
 #: ./browser/ckeditorsettings.py:127
 msgid "Choose if you want templates to replace the contents when inserted"
-msgstr "Choisir si vous voulez que les templates remplace le contenu à l'insertion"
+msgstr "Wählen Sie, falls Vorlagen die Inhalte der Seite ersetzen sollen."
 
 #: ./browser/ckeditorsettings.py:32
 msgid "Choose if you want to remove format on copy/paste, and paste only text and CR/LF"
-msgstr "Choisir si vous voulez retirer le formatage durant le copier/coller, et coller uniquement le texte et les fins de ligne"
+msgstr "Wählen Sie, ob Sie Formatierung bei Kopieren/Einfügen entfernen wollen und Einfügen nur als nur Text (mit CR/LF) möchten."
 
 #: ./browser/ckeditorsettings.py:39
 msgid "Choose the editor toolbar, edit the next field if you choose a Custom toolbar'."
-msgstr "Choisir la barre d'outils, modifier le champ suivant si vous choisissez une barre d'outils Personalisée."
+msgstr "Wählen Sie die Editor-Werkzeugleiste, bearbeiten Sie das nächste Feld, wenn sie eine Eigene Werkzeugleiste gewählt haben."
 
 #: ./browser/ckeditorsettings.py:217
 msgid "Choose the portal type used for file upload."
-msgstr "Choisir le type de contenu pour les téléchargements (up) de fichier."
+msgstr "Wählen Sie den Portal Type, der für den Bilder-Upload genutzt wird."
 
 #: ./browser/ckeditorsettings.py:273
 msgid "Choose the portal type used for flash content upload"
-msgstr "Choisir le type de contenu pour les téléchargements (up) de fichier flash."
+msgstr "Wählen Sie den Portal Type, der für den Flash-Upload genutzt wird."
 
 #: ./browser/ckeditorsettings.py:291
 msgid "Choose the portal type used for folder creation"
-msgstr "Choisir le type de contenu pour la création de dossier."
+msgstr "Wählen Sie den Portal Type, der für  die Ordner-Erstellung genutzt wird."
 
 #: ./browser/ckeditorsettings.py:245
 msgid "Choose the portal type used for image upload."
-msgstr "Choisir le type de contenu pour les téléchargements (up) d'image."
+msgstr "Wählen Sie den Portal Type, der für den Bild-Upload genutzt wird."
 
 #: ./browser/ckeditorsettings.py:263
 msgid "Choose the types used for flash contents selection in browser."
-msgstr "Choisir les types utilisés pour la sélection de contenu Flash dans le navigateur de média."
+msgstr "Wählen Sie die Typen, die für die Flash-Auswahl im CK-Browser genutzt wird."
 
 #: ./browser/ckeditorsettings.py:235
 msgid "Choose the types used for images selection in browser."
-msgstr "Choisir les types utilisés pour la sélection de contenu Image dans le navigateur de média."
+msgstr "Wählen Sie die Typen, die für die Bild-Auswahl im CK-Browser genutzt wird."
 
 #: ./browser/ckeditorsettings.py:66
 msgid "Configuration of custom filtering. Taken in account only if Filtering option is 'Custom'. Use Javascript syntax. Read documentation at http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules"
-msgstr ""
+msgstr "Konfiguration von eigenen Filtern. Diese wird nur in Betracht gezogen, wenn die Filter-Option 'Custom' gewählte ist. Benutzen Sie JavaScript-Syntax. Die Dokumentation ist hier zu lesen: http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules"
 
 #: ./browser/vocabularies.py:130
 msgid "Content Type Registry default configuration (recommanded)"
-msgstr "Configuration par défaut du Content Type Registry (recommandé)"
+msgstr "Standard Konfiguration der Content Type Registry (empfohlen)"
 
 #: ./browser/ckeditorsettings.py:721
 msgid "Control CKEditor settings for Plone."
-msgstr "Contrôler les paramètres de CKEditor pour Plone."
+msgstr "Verwalten der CKEditor-Einstellungen für Plone."
 
 msgid "Could not be resolved."
-msgstr ""
+msgstr "Konnte nicht aufgelöst werden."
 
 #: ./browser/ckeditorsettings.py:65
 msgid "Custom Allowed Content"
-msgstr ""
+msgstr "Eigene erlaubte Inhalte."
 
 #: ./browser/ckeditorsettings.py:223
 msgid "Custom File portal type for upload"
-msgstr "Type de contenu personnalisé pour le téléchargement (up) de fichier"
+msgstr "Eigene Datei-Portal Types für den Upload."
 
 #: ./browser/ckeditorsettings.py:279
 msgid "Custom Flash portal type for upload"
-msgstr "Type de contenu personnalisé pour le téléchargement (up) de fichier Flash"
+msgstr "Eigene Flash-Portal Types für den Upload."
 
 #: ./browser/ckeditorsettings.py:251
 msgid "Custom Image portal type for upload"
-msgstr "Type de contenu personnalisé pour le téléchargement (up) d'image"
+msgstr "Eigene Bilder-Portal Types für den Upload."
 
 #: ./browser/vocabularies.py:80
 msgid "Custom Toolbar fill next field"
-msgstr "Barre d'outils personalisée, remplir le champ suivant"
+msgstr "Für die Eigene Werkzeugeleiste das nächste Feld ausfüllen"
 
 #: ./browser/vocabularies.py:131
 msgid "Custom configuration, fill next field"
-msgstr "Configuration personalisée, remplir le champ suivant"
+msgstr "Für die Eigene Konfiguration das nächste Feld ausfüllen"
 
 #: ./browser/ckeditorsettings.py:297
 msgid "Custom portal type for folder creation"
-msgstr "Type de contenu personalisé pour la création de dossier"
+msgstr "Eigene Portal Types für die Ordner-Erstellungen"
 
 #: ./browser/ckeditorsettings.py:118
 msgid "Custom templates"
-msgstr "Templates personnalisés"
+msgstr "Eigene Vorlagen"
 
 #: ./browser/vocabularies.py:97
 msgid "Custom: filter is setup according to Custom Allowed Content option."
-msgstr ""
+msgstr "Eigen: Der Filter ist entsprechend der `Eigenen erlaubten Inhalte` eingestellt."
 
 #: ./browser/ckeditorsettings.py:46
 msgid "Customized Toolbar"
-msgstr "Barre d'outils personnalisée"
+msgstr "Eigene Werkzeugleiste"
 
 #: ./browser/ckeditorsettings.py:142
 msgid "Default Table Width"
-msgstr ""
+msgstr "Standard Tabellenbreite."
 
 #: ./browser/vocabularies.py:95
 msgid "Disabled: any content is allowed."
-msgstr ""
+msgstr "Deaktiviert. Kein Inhalt ist erlaubt"
 
 #: ./browser/ckeditorsettings.py:705
 msgid "Editor Skin"
-msgstr "Thème de l'éditeur"
+msgstr "Editor-Theme"
 
 #: ./browser/ckeditorsettings.py:158
 msgid "Editor height"
-msgstr "Hauteur de l'éditeur"
+msgstr "Editor-Höhe"
 
 #: ./browser/ckeditorsettings.py:153
 msgid "Editor width"
-msgstr "Largeur de l'éditeur"
+msgstr "Editor-Breite"
 
 #: ./browser/ckeditorsettings.py:133
 msgid "Enable SCAYT on startup"
-msgstr "Activer SCAYT (correcteur d'orthographe) par défaut"
+msgstr "Aktiviere SCAYT beim Starten"
 
 #: ./browser/ckeditorsettings.py:113
 msgid "Enter the css class name applied to the body tag of the editor area"
-msgstr "Saisir le nom de la classe css à appliquer au tag body de la zone d'édition"
+msgstr "Tragen Sie den CSS-Klassennamen, der in den body-Tag des Editor-Bereichs eingetragen werden soll."
 
 #: ./browser/ckeditorsettings.py:94
 msgid "Enter the css id applied to the body tag of the editor area"
-msgstr "Saisir l'identifiant css appliqué au tag body de la zone d'édition"
+msgstr "Tragen Sie die ID, der in den body-Tag des Editor-Bereichs eingetragen werden soll."
 
 #: ./browser/ckeditorsettings.py:143
 msgid "Enter the default table width"
-msgstr ""
+msgstr "Tragen Sie die Standard Tabellenbreite ein"
 
 #: ./browser/ckeditorsettings.py:159
 msgid "Enter the height of the editor in px % or em"
-msgstr "Saisir la hauteur de l'éditeur en px, % ou em"
+msgstr "Tragen Sie die Höhe des Editors in px % oder em."
 
 #: ./browser/ckeditorsettings.py:154
 msgid "Enter the width of the editor in px % or em"
-msgstr "Saisir la largeur de l'éditeur en px, % ou em"
+msgstr "Tragen Sie die Breite des Editors in px % oder em."
 
 #: ./browser/ckeditorsettings.py:75
 msgid "Extra Allowed Content"
-msgstr ""
+msgstr "Zusätzliche erlaubte Inhalte"
 
 #: ./browser/ckeditorsettings.py:76
 msgid "Extra rules on top of automatic filtering. Taken in account only if Filtering option is 'Automatic'. Use Javascript syntax. Read documentation at http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules"
-msgstr ""
+msgstr "Extra Regeln zusätzlich zur automatischen Filterung. Dies wird nur in Betrachte bezogen, wenn die Filteroption 'Automatisch' gewählt ist. Benutzen Sie JavaScript-Syntax. Die Dokumentation ist hier zu lesen: http://docs.ckeditor.com/#!/guide/dev_allowed_content_rules"
 
 #: ./browser/ckeditorsettings.py:216
 msgid "File portal type"
-msgstr "Type de contenu Fichier"
+msgstr "Datei Portal Types"
 
 #: ./browser/ckeditorsettings.py:54
 msgid "Filtering"
-msgstr ""
+msgstr "Filterung"
 
 #: ./browser/ckeditorsettings.py:272
 msgid "Flash portal type"
-msgstr "Type de contenu Flash"
+msgstr "Flash Portal Types"
 
 #: ./browser/ckeditorsettings.py:290
 msgid "Folder portal type"
-msgstr "Type de contenu Dossier"
+msgstr "Ordner Portal Types"
 
 #: ./browser/ckeditorsettings.py:31
 msgid "Force paste as plain text"
-msgstr "Forcer coller en text brut"
+msgstr "Erzwinge einfügen als Plain Text."
 
 #: ./browser/vocabularies.py:73
 msgid "Full CKeditor toolbar providing every available functionnalities (some functionnalities could not work correctly depending on your Plone settings)"
-msgstr "Barre d'outils complète (certaines fonctionnalités pourraient ne pas fonctionner correctement en fonction de la configuration de votre Plone)"
+msgstr "Vollständige CKEditor-Werkzeugleiste, die alle Funktionalitäten anbietet (manche davon können eventuell abhängig der Plone-Einstellungen nicht korrekt funktionieren)."
 
 #: ./browser/ckeditorsettings.py:332
 msgid "Greek Html Entities"
-msgstr "Entitées HTML Grecs"
+msgstr "Griechische HTML-Sonderzeichen"
 
 #: ./browser/ckeditorsettings.py:326
 msgid "Html Entities"
-msgstr "Entités HTML"
+msgstr "HTMl-Sonderzeichen"
 
 #: ./browser/ckeditorsettings.py:314
 msgid "If you want some cke control panel properties overload local field widget properties, enter the properties names list here. Example, enter 'width' and 'height' to get always the same values. Look at ZMI > portal_properties > ckeditor_properties for all properties names."
-msgstr "Si vous voulez surcharger quelques propriétés du panneau de configuration CKEditor, entrez la liste des propriétés ici. Par exemple, entrez 'width' et 'height' pour obtenir toujours les mêmes valeurs. Regardez dans ZMI > portal_properties> ckeditor_properties pour voir tous les noms des propriétés."
+msgstr "Falls sie Feld-Widget Properties durch CKEditor-Properties überladen wollen, dann tragen Sie die Namen der Properties in diese Liste. Beispielsweise, 'width' und 'height', um immer dieselben Werte zu erhalten. Schauen Sie in ZMI > portal_properties > ckeditor_properties für alle Namen der Properties."
 
 #: ./browser/ckeditorsettings.py:244
 msgid "Image portal type"
-msgstr "Type de contenu Image"
+msgstr "Bild Portal Type"
 
 #: ./browser/ckeditorsettings.py:339
 msgid "Latin Html Entities"
-msgstr "Entités HTML Latin"
+msgstr "Lateinische HTML-Sonderzeichen"
 
 msgid "Loading..."
-msgstr ""
+msgstr "Laden..."
 
 #: ./browser/ckeditorsettings.py:85
 msgid "Menu styles"
-msgstr "Menu styles"
+msgstr "Menüstile"
 
 #: ./browser/vocabularies.py:71
 msgid "Minimal toolbar"
-msgstr "Barre d'outils minimale"
+msgstr "Minimale Werkzeugleiste"
 
 #: ./browser/ckeditorsettings.py:107
 msgid "Plugin format is 'id'."
-msgstr ""
+msgstr "Plugin-Format ist 'id'."
 
 #: ./browser/ckeditorsettings.py:101
 msgid "Plugin format is 'id;relative path'."
-msgstr "Le format des plugins est 'id;relative path'."
+msgstr "Plugin-Format ist 'id;relativer Pfad'."
 
 #: ./browser/ckeditorsettings.py:100
 msgid "Plugins"
@@ -358,74 +354,74 @@ msgstr "Plugins"
 
 #: ./browser/ckeditorsettings.py:106
 msgid "Plugins to remove"
-msgstr ""
+msgstr "Zu entfernende Plugins"
 
 #: ./browser/ckeditorsettings.py:262
 msgid "Portal Types for flash contents linking"
-msgstr "Types de contenu utilisés pour insertion Flash"
+msgstr "Portal Types für das Verlinken von Flash."
 
 #: ./browser/ckeditorsettings.py:234
 msgid "Portal Types for images linking"
-msgstr "Types de contenu utilisé pour insertion d'image"
+msgstr "Portal Types für das Verlinken von Bildern."
 
 #. Default: "Mise en exergue"
 msgid "Pull-quote"
-msgstr "Mise en exergue"
+msgstr "Pull Quote"
 
 #. Default: "Mise en exergue"
 msgid "Pull-quote bloc"
-msgstr "Mise en exergue"
+msgstr "Pull Quote block"
 
 #: ./browser/ckeditorsettings.py:709
 msgid "Resources Browser"
-msgstr "Navigateur de ressource"
+msgstr "Resourcen-Browser"
 
 #: ./browser/ckeditorsettings.py:55
 msgid "Setup of Advanced Content Filter. Read documentation at http://docs.ckeditor.com/#!/guide/dev_advanced_content_filter"
-msgstr ""
+msgstr "Einstellungen der 'Advanced Content Filter'. Dokumentation: http://docs.ckeditor.com/#!/guide/dev_advanced_content_filter"
 
 #: ./browser/vocabularies.py:78
 msgid "Standard Plone toolbar (recommanded)"
-msgstr "Barre d'outils standard Plone (recommandée)"
+msgstr "Standard-Plone-Werkzeugleiste (empfohlen)"
 
 #: ./browser/ckeditorsettings.py:125
 msgid "Templates will replace the current contents of the visual editor window"
-msgstr "Les templates remplacerons le contenu courant"
+msgstr "Vorlagen werden den aktuellen Inhalt im Editorfenster ersetzen."
 
 #: ./browser/ckeditorsettings.py:38
 msgid "Toolbar"
-msgstr "Barre d'outils"
+msgstr "Werkzeugleiste"
 
 #: ./browser/ckeditorsettings.py:119
 msgid "URLs of Javascript files that register custom templates"
-msgstr "URLs des fichiers Javascript qui déclare des templates personnalisés"
+msgstr "URLs von Javascript-Dateien, die eigene Templates registrieren."
 
 #: ./browser/ckeditorsettings.py:340
 msgid "Whether to convert some Latin characters Latin alphabet No. 1, ISO 8859-1) to Html entities."
-msgstr "Pour convertir certains caractères latins alphabet latin n ° 1, de la norme ISO 8859-1 en entités HTML"
+msgstr "Ob Sie manche lateinischen Zeichen (lateinisches Alphabet Nr. 1, nach ISO 8859-1) zu HTML-Entitäten umwandeln wollen."
 
 #: ./browser/ckeditorsettings.py:333
 msgid "Whether to convert some symbols, mathematical symbols, and Greek letters to Html entities."
-msgstr "Pour la conversion de certains symboles, les symboles mathématiques et les lettres grecques en entités HTML."
+msgstr "Ob Sie (mathematische) Symbole und griechische Zeichen zu HTML-Entitäten umwandeln wollen."
 
 #: ./browser/ckeditorsettings.py:327
 msgid "Whether to use Html entities in the editor."
-msgstr "Pour utiliser des entités HTML dans l'éditeur."
+msgstr "Ob Sie HTML-Entitäten im Editor genutzt werden."
 
 #: ./browser/ckeditorsettings.py:313
 msgid "Widget overload"
-msgstr "Surcharge widget"
+msgstr "Widget-Überschreibung"
 
 msgid "With non compatible browsers, you should still be able to see and edit the contents (HTML) in a plain text field."
-msgstr ""
+msgstr "Auch mit einem nicht kompatibeln Browser, sollten Sie immer noch in der Lage sein den Inhalt (HTML) als Klartext zu beschreiben."
 
 msgid "Your browser is not compatible with CKEditor."
-msgstr ""
+msgstr "Ihr Browser nicht kompatibel mit dem CKEditor."
 
 #. Default: "Select which format you want to type the contents of this document in. If you are unsure of which format to use, just select Plain Text and type the document as you usually do."
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:81
 msgid "help_format"
-msgstr "Sélectionnez le format que vous voulez pour saisir le contenu de ce document. Si vous n'êtes pas sûr de choisir le bon format à utiliser, il suffit de sélectionner Texte brut et de saisir le document comme vous le faites habituellement."
+msgstr "Wählen Sie das Format, welches für den Inhalt in diesem Dokument verwendet werden soll. Falls Sie unsicher sind, welches Format zu nutzen ist, wählen Sie Klartext und schreiben das Dokument, wie sie für gewöhnlich machen."
 
 #. Default: "HTML"
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:118
@@ -439,15 +435,15 @@ msgstr "Format"
 
 #: ./browser/ckeditorview.py:404
 msgid "name"
-msgstr "nom"
+msgstr "Name"
 
 #. Default: "Plain Text"
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:131
 msgid "plain_text"
-msgstr "Texte brut"
+msgstr "Klartext"
 
 #. Default: "Structured Text"
 #: ./browser/templates/ckeditor_wysiwyg_support.pt:105
 msgid "structured_text"
-msgstr "Texte structuré"
+msgstr "Strukturierter Text"
 

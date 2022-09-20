@@ -1,10 +1,30 @@
-/* Standard CKeditor tips for non compatible browsers
-   Must be i18nized */
-
+/* Standard CKeditor tips for non compatible browsers */
 
 if ( typeof console != 'undefined' )
 	console.log();
 
+/* Initialize plone i18n message factory for collective.ckeditor */
+var ck_mf = function(m){
+    return m;
+};
+
+var ck_locales = {
+    "messagefactory": ck_mf,
+    "ckeditor": {
+        "incompability": {
+            "incompatibleBrowser": "Your browser is not compatible with CKEditor.",
+            "ckeditorIsCompatibleWith": " CKEditor is compatible with ${browser} or higher.",
+            "msgAndLastBrowser": "+ and $1",
+            "alsoCompatibleWith": " It is also compatible with ${alsoBrowsers}.",
+            "ckeditorStillUsable": "With non compatible browsers, you should still be able to see and edit the contents (HTML) in a plain text field."
+        },
+        "link": {
+            "ActualUrl": "Actual Url",
+            "Loading": "Loading...",
+            "NotResolved": "Could not be resolved."
+        }
+    }
+};
 
 if ( window.CKEDITOR )
 {
@@ -13,8 +33,9 @@ if ( window.CKEDITOR )
 		var showCompatibilityMsg = function()
 		{
 			var env = CKEDITOR.env;
+            var locale = ck_locales.ckeditor.incompability;
 
-			var html = '<p><strong>Your browser is not compatible with CKEditor.</strong>';
+			var html = '<p><strong>' + ck_mf(locale.incompatibleBrowser) + '</strong>';
 
 			var browsers =
 			{
@@ -31,34 +52,50 @@ if ( window.CKEDITOR )
 				if ( browsers[ key ] )
 				{
 					if ( env[key] )
-						html += ' CKEditor is compatible with ' + browsers[ key ] + ' or higher.';
+						html += ck_mf(locale.ckeditorIsCompatibleWith, { browser: browsers[key] });
 					else
 						alsoBrowsers += browsers[ key ] + '+, ';
 				}
 			}
 
-			alsoBrowsers = alsoBrowsers.replace( /\+,([^,]+), $/, '+ and $1' );
+			alsoBrowsers = alsoBrowsers.replace( /\+,([^,]+), $/, ck_mf(locale.msgAndLastBrowser) );
 
-			html += ' It is also compatible with ' + alsoBrowsers + '.';
+			html += ck_mf(locale.alsoCompatibleWith, {alsoBrowsers: alsoBrowsers});
 
-			html += '</p><p>With non compatible browsers, you should still be able to see and edit the contents (HTML) in a plain text field.</p>';
+			html += '</p><p>' + ck_mf(locale.ckeditorStillUsable) + '</p>';
 
 			document.getElementById( 'alerts' ).innerHTML = html;
 		};
 
-		var onload = function()
-		{
-			// Show a friendly compatibility message as soon as the page is loaded,
-			// for those browsers that are not compatible with CKEditor.
-			if ( !CKEDITOR.env.isCompatible )
-				showCompatibilityMsg();
-		};
+		$(document).ready(function() {
+            /* Setting up jsi18n message factory for ckeditor */
+            var lang = $('html').attr('lang');
 
-		// Register the onload listener.
-		if ( window.addEventListener )
-			window.addEventListener( 'load', onload, false );
-		else if ( window.attachEvent )
-			window.attachEvent( 'onload', onload );
+            try {
+                // get the translation tool catalog for the given language and domain
+                i18n.loadCatalog('collective.ckeditor', lang);
+                // let's initialize message factory
+                ck_mf = i18n.MessageFactory('collective.ckeditor', lang);
+                console.log("blubber");
+            } catch (e) {
+                console.log('failed to load i18n');
+            }
+            /* do we need to init the i18n?
+
+            // init with jsi18n (from mockup)
+            if(typeof(require) == "function" && require.specified("mockup-i18n")) {
+                require(['mockup-i18n'], function(I18N) {
+                    var i18n = new I18N();
+                    init(i18n);
+                });
+            }
+            */
+
+            // Show a friendly compatibility message as soon as the page is loaded,
+            // for those browsers that are not compatible with CKEditor.
+            if ( !CKEDITOR.env.isCompatible )
+                showCompatibilityMsg();
+        });
 	})();
 }
 
@@ -122,10 +159,10 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
 
     var showObjectInfo = function showObjectInfo(domElement, urlTextElement, protocol, current_uid) {
             function format(msg) {
-                return '<p>Actual URL:</p><p>'+msg+'</p>';
+                return '<p>' + ck_mf(ck_locales.ckeditor.link.ActualUrl) + ':</p><p>'+msg+'</p>';
             }
 
-            domElement.setHtml(format('Loading...'));
+            domElement.setHtml(format(ck_mf(ck_locales.ckeditor.link.Loading)));
             if (protocol == 'resolveuid/' && current_uid) {
                 $.ajax({
                     url: ev.editor._getObjectInfoUrl(current_uid),
@@ -141,7 +178,7 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
                         }
                     },
                     error: function (jqXHR, textStatus) {
-                        domElement.setHtml(format('Could not be resolved.'));
+                        domElement.setHtml(format(ck_mf(ck_locales.ckeditor.link.NotResolved)));
                     }
                 });
             } else {
