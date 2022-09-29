@@ -68,28 +68,21 @@ if ( window.CKEDITOR )
 		};
 
 		$(document).ready(function() {
-            /* Setting up jsi18n message factory for ckeditor */
-            var lang = $('html').attr('lang');
-
-            try {
-                // get the translation tool catalog for the given language and domain
-                i18n.loadCatalog('collective.ckeditor', lang);
-                // let's initialize message factory
-                ck_mf = i18n.MessageFactory('collective.ckeditor', lang);
-                console.log("blubber");
-            } catch (e) {
-                console.log('failed to load i18n');
-            }
-            /* do we need to init the i18n?
-
-            // init with jsi18n (from mockup)
-            if(typeof(require) == "function" && require.specified("mockup-i18n")) {
-                require(['mockup-i18n'], function(I18N) {
-                    var i18n = new I18N();
-                    init(i18n);
-                });
-            }
-            */
+            /* Setting up jsi18n message factory for ckeditor with jsi18n (from mockup) */
+            require(['mockup-i18n'], function(I18N) {
+                try {
+                    if (typeof(i18n) === 'undefined') {
+                        var i18n = new I18N();
+                    }
+                    var lang = $('html').attr('lang');
+                    // get the translation tool catalog for the given language and domain
+                    i18n.loadCatalog('collective.ckeditor', lang);
+                    // let's initialize message factory
+                    ck_mf = i18n.MessageFactory('collective.ckeditor', lang);
+                } catch (e) {
+                    console.log('failed to load i18n');
+                }
+            });
 
             // Show a friendly compatibility message as soon as the page is loaded,
             // for those browsers that are not compatible with CKEditor.
