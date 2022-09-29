@@ -29,3 +29,26 @@ msgstr "Citation"
 msgid "Call-out bloc"
 msgstr "Citation"
 
+msgid "Your browser is not compatible with CKEditor."
+msgstr ""
+
+msgid " CKEditor is compatible with ${browser} or higher."
+msgstr ""
+
+msgid "+ and $1"
+msgstr ""
+
+msgid " It is also compatible with ${alsoBrowsers}."
+msgstr ""
+
+msgid "With non compatible browsers, you should still be able to see and edit the contents (HTML) in a plain text field."
+msgstr ""
+
+msgid "Actual Url"
+msgstr ""
+
+msgid "Loading..."
+msgstr ""
+
+msgid "Could not be resolved."
+msgstr ""

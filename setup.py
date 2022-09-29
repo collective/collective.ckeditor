@@ -42,6 +42,7 @@ setup(
         'collective.quickupload',
         'collective.plonefinder',
         'plone.app.uuid',
+        'plone.mockup',# for the js i18n functionality
         'demjson',
         'plone.api',
     ],

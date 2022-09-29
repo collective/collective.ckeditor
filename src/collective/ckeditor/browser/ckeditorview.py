@@ -630,6 +630,9 @@ class ATWidgetSettings(object):
                 widget_settings['height'] = height
         if hasattr(widget, 'language'):
             ckview.customize_browserurl(widget_settings, widget.language)
+                    # specific for cols and rows rich widget settings
+        if getattr(widget, 'disableFiltering', False):
+            widget_settings['allowedContent'] = 'true'
         widget_settings['basehref'] = ckview.cke_basehref
         widget_settings['language'] = ckview.cke_language
         self.setupAjaxSave(widget_settings)

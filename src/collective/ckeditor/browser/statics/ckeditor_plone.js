@@ -1,10 +1,30 @@
-/* Standard CKeditor tips for non compatible browsers
-   Must be i18nized */
-
+/* Standard CKeditor tips for non compatible browsers */
 
 if ( typeof console != 'undefined' )
 	console.log();
 
+/* Initialize plone i18n message factory for collective.ckeditor */
+var ck_mf = function(m){
+    return m;
+};
+
+var ck_locales = {
+    "messagefactory": ck_mf,
+    "ckeditor": {
+        "incompability": {
+            "incompatibleBrowser": "Your browser is not compatible with CKEditor.",
+            "ckeditorIsCompatibleWith": " CKEditor is compatible with ${browser} or higher.",
+            "msgAndLastBrowser": "+ and $1",
+            "alsoCompatibleWith": " It is also compatible with ${alsoBrowsers}.",
+            "ckeditorStillUsable": "With non compatible browsers, you should still be able to see and edit the contents (HTML) in a plain text field."
+        },
+        "link": {
+            "ActualUrl": "Actual Url",
+            "Loading": "Loading...",
+            "NotResolved": "Could not be resolved."
+        }
+    }
+};
 
 if ( window.CKEDITOR )
 {
@@ -13,8 +33,9 @@ if ( window.CKEDITOR )
 		var showCompatibilityMsg = function()
 		{
 			var env = CKEDITOR.env;
+            var locale = ck_locales.ckeditor.incompability;
 
-			var html = '<p><strong>Your browser is not compatible with CKEditor.</strong>';
+			var html = '<p><strong>' + ck_mf(locale.incompatibleBrowser) + '</strong>';
 
 			var browsers =
 			{
@@ -31,34 +52,43 @@ if ( window.CKEDITOR )
 				if ( browsers[ key ] )
 				{
 					if ( env[key] )
-						html += ' CKEditor is compatible with ' + browsers[ key ] + ' or higher.';
+						html += ck_mf(locale.ckeditorIsCompatibleWith, { browser: browsers[key] });
 					else
 						alsoBrowsers += browsers[ key ] + '+, ';
 				}
 			}
 
-			alsoBrowsers = alsoBrowsers.replace( /\+,([^,]+), $/, '+ and $1' );
+			alsoBrowsers = alsoBrowsers.replace( /\+,([^,]+), $/, ck_mf(locale.msgAndLastBrowser) );
 
-			html += ' It is also compatible with ' + alsoBrowsers + '.';
+			html += ck_mf(locale.alsoCompatibleWith, {alsoBrowsers: alsoBrowsers});
 
-			html += '</p><p>With non compatible browsers, you should still be able to see and edit the contents (HTML) in a plain text field.</p>';
+			html += '</p><p>' + ck_mf(locale.ckeditorStillUsable) + '</p>';
 
 			document.getElementById( 'alerts' ).innerHTML = html;
 		};
 
-		var onload = function()
-		{
-			// Show a friendly compatibility message as soon as the page is loaded,
-			// for those browsers that are not compatible with CKEditor.
-			if ( !CKEDITOR.env.isCompatible )
-				showCompatibilityMsg();
-		};
+		$(document).ready(function() {
+            /* Setting up jsi18n message factory for ckeditor with jsi18n (from mockup) */
+            require(['mockup-i18n'], function(I18N) {
+                try {
+                    if (typeof(i18n) === 'undefined') {
+                        var i18n = new I18N();
+                    }
+                    var lang = $('html').attr('lang');
+                    // get the translation tool catalog for the given language and domain
+                    i18n.loadCatalog('collective.ckeditor', lang);
+                    // let's initialize message factory
+                    ck_mf = i18n.MessageFactory('collective.ckeditor', lang);
+                } catch (e) {
+                    console.log('failed to load i18n');
+                }
+            });
 
-		// Register the onload listener.
-		if ( window.addEventListener )
-			window.addEventListener( 'load', onload, false );
-		else if ( window.attachEvent )
-			window.attachEvent( 'onload', onload );
+            // Show a friendly compatibility message as soon as the page is loaded,
+            // for those browsers that are not compatible with CKEditor.
+            if ( !CKEDITOR.env.isCompatible )
+                showCompatibilityMsg();
+        });
 	})();
 }
 
@@ -71,62 +101,42 @@ launchCKInstances = function (ids_to_launch) {
     jQuery('.ckeditor_plone').each(function(){
         ckid = jQuery(this).attr('id');
         ids_to_launch = ids_to_launch || [];
-	/* we can specify an array of ids for wich CKeditor has to be launched */
-	/* if no ids is provided or if the current id is in the array of given ids, we proceed */
-        if ((typeof(ids_to_launch[0]) == 'undefined') || (jQuery.inArray(ckid, ids_to_launch) >= 0)) { 
-        cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
-        var widget_config = {};
-        widget_config.customConfig = cke_config_url;
-        /* Here starts the local js overload of settings by a field widget */
-        if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
-            settings = jQuery('.widget_settings input', jQuery(this).parent());
-            settings.each(function () {
-                setting = jQuery(this);
-                widget_config[setting.attr('class')] = setting.val();
-            });
-	    /* Destroy instance if it exists because an existing instance can not be managed twice */
-	    if (typeof CKEDITOR.instances != 'undefined') {
-	        var instance = CKEDITOR.instances[ckid];
-                if (instance) { instance.destroy(true); }
+        /* we can specify an array of ids for wich CKeditor has to be launched */
+        /* if no ids is provided or if the current id is in the array of given ids, we proceed */
+        if ((typeof(ids_to_launch[0]) == 'undefined') || (jQuery.inArray(ckid, ids_to_launch) >= 0)) {
+            cke_config_url = jQuery('.cke_config_url', jQuery(this).parent()).val();
+            var widget_config = {};
+            widget_config.customConfig = cke_config_url;
+            // takeover textarea focus for ckeditor
+            widget_config.startupFocus = (this == document.activeElement)
+            /* Here starts the local js overload of settings by a field widget */
+            if (jQuery('.cke_iswidget', jQuery(this).parent()).length) {
+                // overridden boolean settings need to be converted to boolean again
+                var booleanWidgetSettings = ['allowedContent'];
+                settings = jQuery('.widget_settings input', jQuery(this).parent());
+                settings.each(function () {
+                    setting = jQuery(this);
+                    var name = setting.attr('class');
+                    var value = setting.val();
+                    if (jQuery.inArray(name, booleanWidgetSettings) != -1) {
+                        value = value == 'true'
+                    }
+                    widget_config[name] = value;
+                });
+                /* Destroy instance if it exists because an existing instance can not be managed twice */
+                if (typeof CKEDITOR.instances != 'undefined') {
+                    var instance = CKEDITOR.instances[ckid];
+                        if (instance) { instance.destroy(true); }
+	            };
+            }
+            CKEDITOR.replace( ckid, widget_config);
 	    };
-        }
-        CKEDITOR.replace( ckid, widget_config);
-	};
-    })
-}
+    });
+};
 
 jQuery(document).ready(launchCKInstances);
 
 (function() {
-
-    var format = function format(msg) {
-        return '<p>Actual URL</p><p>'+msg+'</p>';
-    };
-
-    var showActualUrl = function showActualUrl(domElement, url) {
-        if (url.indexOf('resolveuid') !== -1) {
-            domElement.setHtml(format('Loading...'));
-            var current_uid = url.split('resolveuid/')[1];
-            var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
-            var settings = {
-                url: new_url,
-                type: 'GET',
-                success: function(data, textStatus, jqXHR){
-                    if (jqXHR.status == 200) {
-                        domElement.setHtml(format(data));
-                    } else {
-                        domElement.setHtml(format('Could not be resolved.'));
-                    }
-                },
-                error: function(jqXHR, textStatus){
-                    domElement.setHtml(format('Could not be resolved.'));
-                }
-            };
-            $.ajax(settings);
-            return;
-        }
-        domElement.setHtml('<p></p>');
-    };
 
 CKEDITOR.on( 'dialogDefinition', function( ev ) {
     // Take the dialog name and its definition from the event
@@ -134,20 +144,61 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
     var dialogName = ev.data.name;
     var dialogDefinition = ev.data.definition;
 
+    if (!ev.editor._getObjectInfoUrl) {
+        ev.editor._getObjectInfoUrl = function(current_uid) {
+            return CKEDITOR_PLONE_PORTALPATH + '/show_object_info/' + current_uid
+        }
+    }
+
+    var showObjectInfo = function showObjectInfo(domElement, urlTextElement, protocol, current_uid) {
+            function format(msg) {
+                return '<p>' + ck_mf(ck_locales.ckeditor.link.ActualUrl) + ':</p><p>'+msg+'</p>';
+            }
+
+            domElement.setHtml(format(ck_mf(ck_locales.ckeditor.link.Loading)));
+            if (protocol == 'resolveuid/' && current_uid) {
+                $.ajax({
+                    url: ev.editor._getObjectInfoUrl(current_uid),
+                    dataType: 'json',
+                    method: 'GET',
+                    success: function (data, textStatus, jqXHR) {
+                        var resolved_url = data.url,
+                            resolved_title = data.title;
+                        domElement.setHtml(format(resolved_url));
+                        if (urlTextElement && (urlTextElement.getValue() == '' || !urlTextElement.dirty)) {
+                            urlTextElement.setValue(resolved_title);
+                            urlTextElement.dirty = false;
+                        }
+                    },
+                    error: function (jqXHR, textStatus) {
+                        domElement.setHtml(format(ck_mf(ck_locales.ckeditor.link.NotResolved)));
+                    }
+                });
+            } else {
+                domElement.setHtml('<p></p>');
+            }
+    };
+
     // Check if the definition is from the dialog we're
     // interested on (the "Link" dialog).
     if ( dialogName == 'link' ) {
         // Get a reference to the "Link Info" tab.
         var infoTab = dialogDefinition.getContents( 'info' );
+        var protocol = infoTab.get('protocol');
 
+        // Introduce custom protocol
+        protocol['items'].push(['resolveuid/', 'resolveuid/']);
+
+        // Add element to show the resolved uid
         var urlOptions = infoTab.get('urlOptions');
         urlOptions.children.push( {
             id: 'actual',
             type : 'html',
             setup: function( data ) {
                 var domElement = this.getElement();
-                if ( data.url ) {
-                    showActualUrl(domElement, data.url.url);
+                // Since we can't hook into the plugin's url parsing, we have to do it here.
+                if (data.url && !data.url.protocol && data.url.url.indexOf('resolveuid/') == 0) {
+                    showObjectInfo(domElement, null, 'resolveuid/', data.url.url.split('resolveuid/')[1]);
                 } else {
                     domElement.setHtml('<p></p>');
                 }
@@ -155,15 +206,107 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
             html : ''
         });
 
+        // Additional selectable protocols (might be extended by other plugins)
+        ev.editor.plugins.link.additionalProtocols = [
+            'resolveuid/'
+        ];
+
+        // Extended function `onKeyUp` to automatically check for our any custom protocol and set fields accordingly.
         var url = infoTab.get('url');
-        default_onKeyUp = url.onKeyUp;
-        url.onKeyUp = function() {
-            var actual = this.getDialog().getContentElement('info', 'actual');
-            var domElement = actual.getElement();
-            var url = this.getValue();
-            showActualUrl(domElement, url);
-            default_onKeyUp.apply(this);
+        var default_onKeyUp = url.onKeyUp;
+        url.onKeyUp = CKEDITOR.tools.override(default_onKeyUp, function(org) {
+            return function() {
+                org.apply(this);
+                this.allowOnChange = false;
+                // Start of updating protocol
+                var protocolField = this.getDialog().getContentElement('info', 'protocol'),
+                    protocolValue = protocolField.getValue(),
+                    urlField = this.getDialog().getContentElement('info', 'url'),
+                    urlValue = urlField.getValue(),
+                    linkTextField = this.getDialog().getContentElement('info', 'linkDisplayText'),
+                    actualField = this.getDialog().getContentElement('info', 'actual'),
+                    actualElement = actualField.getElement(),
+                    additionalProtocol;
+
+                for (var i=0;i<ev.editor.plugins.link.additionalProtocols.length;i++) {
+                    additionalProtocol = ev.editor.plugins.link.additionalProtocols[i];
+
+                    if (urlValue.indexOf(additionalProtocol) == 0) {
+                        protocolField.setValue(additionalProtocol);
+                        protocolValue = protocolField.getValue();
+                        urlField.setValue(urlValue.substr(additionalProtocol.length));
+                        urlValue = urlField.getValue();
+                    }
+                }
+                if (protocolValue == 'resolveuid/') { // Update url as well
+                    showObjectInfo(actualElement, linkTextField, protocolValue, urlValue);
+                }
+                this.allowOnChange = true;
+            }
+        });
+
+        // Mark field, if it has not been populated by object's data.
+        var linkTextField = infoTab.get('linkDisplayText');
+        linkTextField.onKeyUp = function(ev) {
+            this.dirty = true;
         };
+        linkTextField.setup = CKEDITOR.tools.override(linkTextField.setup, function(org) {
+            return function (data) {
+                org.apply(this, [data]);
+                if (this.getValue()) {
+                    this.dirty = true;
+                }
+            }
+        });
+
+        // Setup url field correctly if its a `resolveuid` link.
+        var defaultUrlSetup = url.setup;
+        url.setup = CKEDITOR.tools.override(defaultUrlSetup, function(org) {
+            return function (data) {
+                var additionalProtocol;
+                org.apply(this, [data]);
+                this.allowOnChange = false;
+
+                for (var i=0;i<ev.editor.plugins.link.additionalProtocols.length;i++) {
+                    additionalProtocol = ev.editor.plugins.link.additionalProtocols[i];
+                    if (data.url && data.url.url.indexOf(additionalProtocol) == 0) {
+                        this.getDialog().getContentElement('info', 'url').setValue(data.url.url.split(additionalProtocol)[1]);
+                    }
+                }
+                this.allowOnChange = true;
+            }
+        });
+
+        // Setup protocol field correctly if its a `resolveuid` link.
+        var protocolField = infoTab.get('protocol');
+        var defaultProtocolSetup = protocolField.setup;
+        protocolField.setup = CKEDITOR.tools.override(defaultProtocolSetup, function(org) {
+            return function (data) {
+                var additionalProtocol;
+                org.apply(this, [data]);
+                for (var i=0;i<ev.editor.plugins.link.additionalProtocols.length;i++) {
+                    additionalProtocol = ev.editor.plugins.link.additionalProtocols[i];
+                    if (data.url && data.url.url.indexOf(additionalProtocol) == 0) {
+                        this.getDialog().getContentElement('info', 'protocol').setValue(additionalProtocol);
+                    }
+                }
+            }
+        });
+        protocolField.onChange = function (ev) {
+            var protocolField = this.getDialog().getContentElement('info', 'protocol');
+            var urlField = this.getDialog().getContentElement('info', 'url');
+            if (ev.data.value == 'resolveuid/') {
+                urlField.disable();
+            } else {
+                urlField.enable();
+            }
+            if (protocolField.previousValue == 'resolveuid/' && ev.data.value != 'resolveuid/' || protocolField.previousValue != 'resolveuid/' && ev.data.value == 'resolveuid/') {
+                this.allowOnChange = false;
+                urlField.setValue('');
+                this.allowOnChange = true;
+            }
+            protocolField.previousValue = ev.data.value;
+        }
     }
 
    // Check if the definition is from the dialog we're
@@ -172,7 +315,7 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
    {
        // Get a reference to the "Table Info" tab.
        var infoTab = dialogDefinition.getContents( 'info' );
- 
+
        // Set default width
        txtWidth = infoTab.get( 'txtWidth' );
        defaultTableWidth = ev.editor.config.defaultTableWidth;

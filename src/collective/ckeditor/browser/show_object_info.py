@@ -1,12 +1,14 @@
 from zope.interface import implements
-from zope.publisher.interfaces import IPublishTraverse
+from zope.publisher.interfaces import IPublishTraverse, NotFound
 from zope.publisher.browser import BrowserView
+import plone.api
+import json
 
 from plone.outputfilters.browser.resolveuid import uuidToURL
 
 
-class ConvertUIDView(BrowserView):
-    """Resolve a URL like /convert_uid_to_url/<uuid> to a normalized URL.
+class ShowObjectInfoView(BrowserView):
+    """For requests like /show_object_info/<uuid> return the normalized URL and Title.
     """
     implements(IPublishTraverse)
 
@@ -23,4 +25,10 @@ class ConvertUIDView(BrowserView):
         return self
 
     def __call__(self):
-        return uuidToURL(self.uuid)
+        self.context.REQUEST.response.setHeader("Content-type", "application/json")
+        obj = plone.api.content.get(UID=self.uuid)
+
+        return json.dumps({
+            'url': uuidToURL(self.uuid),
+            'title': obj.Title() if obj else None,
+        })
