@@ -1,7 +1,7 @@
 from plone.app.registry.browser.controlpanel import RegistryEditForm
 from plone.app.registry.browser.controlpanel import ControlPanelFormWrapper
-from zope.interface import implements, Interface
-from zope.component import adapts
+from zope.interface import implementer, Interface
+from zope.component import adapter
 try:
     from zope.component.hooks import getSite
 except:  # Plone < 4.3
@@ -109,7 +109,7 @@ class ICKEditorBaseSchema(Interface):
                       u"Take care with the javascript syntax. "
                       u"If you want to use css classes or ids, "
                       u"the attributes must exist in your css."),
-        required=True)
+        required=False)
 
     bodyId = TextLine(
         title=_(u"Area Body Id"),

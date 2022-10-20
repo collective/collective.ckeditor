@@ -6,7 +6,7 @@ from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
 from zExceptions import Unauthorized
 from zope import component
 from zope.component import getUtility
-from zope.interface import implements, Interface
+from zope.interface import implementer, Interface
 from Products.PythonScripts.standard import url_quote
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -49,11 +49,11 @@ class ICKeditorView(Interface):
     """
 
 
+@implementer(ICKeditorView)
 class CKeditorView(BrowserView):
     """
     CKeditor browser view
     """
-    implements(ICKeditorView)
 
     def __init__(self, context, request):
         self.context = context
@@ -512,8 +512,8 @@ class IWidgetSettings(Interface):
     pass
 
 
+@implementer(IWidgetSettings)
 class Z3WidgetSettings(object):
-    implements(IWidgetSettings)
 
     def __init__(self, context):
         self.context = context
@@ -582,8 +582,8 @@ class FormlibWidgetSettings(Z3WidgetSettings):
         return content_item
 
 
+@implementer(IWidgetSettings)
 class ATWidgetSettings(object):
-    implements(IWidgetSettings)
 
     def __init__(self, context):
         self.context = context

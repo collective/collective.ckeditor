@@ -1,14 +1,14 @@
-from zope.interface import implements
+from zope.interface import implementer
 from zope.publisher.interfaces import IPublishTraverse
 from zope.publisher.browser import BrowserView
 
 from plone.outputfilters.browser.resolveuid import uuidToURL
 
 
+@implementer(IPublishTraverse)
 class ConvertUIDView(BrowserView):
     """Resolve a URL like /convert_uid_to_url/<uuid> to a normalized URL.
     """
-    implements(IPublishTraverse)
 
     subpath = None
 

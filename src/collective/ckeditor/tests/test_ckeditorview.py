@@ -95,11 +95,11 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         self.assertEquals(api.content.get_uuid(image), uuid)
 
 from plone.app.blob.interfaces import IFileUpload
-from zope.interface import implements
+from zope.interface import implementer
 
+
+@implementer(IFileUpload)
 class DummyFileUpload:
-    
-    implements(IFileUpload)
 
     def __init__(self, data='', filename='', content_type=''):
         self.data = data
