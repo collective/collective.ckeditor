@@ -22,6 +22,7 @@ class ZopeInstance(object):
     ):
         self.host = host
         self.port = port
+        self.check_port()
         buildout_exe = pathlib.Path(
             pytestconfig.invocation_dir, sys.argv[0]
         ).parent.joinpath("buildout")
@@ -46,6 +47,7 @@ develop =  %(package_path)s
 
 
             self.eggs_directory = output.decode("utf8").split("\n")[-2]
+            print "Use eggs directory ", self.eggs_directory
 
             output = subprocess.check_output(["bin/buildout", "query", "buildout:develop"])
             assert str(package_path).encode("utf8") in output
@@ -62,11 +64,13 @@ develop =  %(package_path)s
             raise e
 
     def run_buildouts(self, from_version):
-        print()
-        print("Plone site with", from_version)
+        print 
+        print "Install collective.ckeditor", from_version
+        start = time.time()
         retcode = subprocess.call(
             [
                 "bin/buildout",
+                "-N",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "buildout:develop=",
                 "versions:%s" % from_version,
@@ -77,12 +81,16 @@ develop =  %(package_path)s
         )
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
+        total = time.time() - start
+        print "in %s seconds" % total
         print()
 
-        print("Plone site with testing profile")
+        print("Setup properties as upgrade setup")
+        start = time.time()
         retcode = subprocess.call(
             [
                 "bin/buildout",
+                "-N",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "instance:zcml=collective.ckeditor:migration-registry.zcml",
                 "plonesite:upgrade-profiles=collective.ckeditor:default",
@@ -93,11 +101,15 @@ develop =  %(package_path)s
         )
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
+        total = time.time() - start
+        print "in %s seconds" % total
         print()
-        print("Plone site with develop")
+        print("Run upgrade")
+        start = time.time()
         retcode = subprocess.call(
             [
                 "bin/buildout",
+                "-N",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "install",
                 "instance",
@@ -106,11 +118,16 @@ develop =  %(package_path)s
         )
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
+        total = time.time() - start
+        print "in %s seconds" % total
+
+    def check_port(self):
+        msg = "There is already another process listening on port %d." % self.port
+        assert not check_socket(self.host, self.port), msg
 
     def start(self):
+        self.check_port()
         self.process = subprocess.Popen(["bin/instance", "console"])
-        # retcode = subprocess.call(["bin/instance", "start"])
-        # assert retcode == 0
         while not check_socket(self.host, self.port):
             time.sleep(0.3)
 

@@ -3,5 +3,90 @@
   <object name="ckeditor_properties" meta_type="Plone Property Sheet">
     <property name="forcePasteAsPlainText" type="boolean">True</property>
     <property name="skin" type="string">moono-lisa</property>
+    <property name="toolbar" type="string">Custom</property>
+    <property name="toolbar_Custom" type="text">
+[
+    ['Cut','-','AjaxSave'],
+    ['TextColor','ShowBlocks'],
+]
+    </property>
+    <property name="filtering" type="string">disabled</property>
+    <property name="customAllowedContent" type="text">
+    ['p h2']
+    </property>
+    <property name="extraAllowedContent" type="text">
+    ['h3']
+    </property>
+    <property name="disallowedContent" type="text">
+    'h1'
+    </property>
+    <property name="menuStyles" type="text">
+[
+  { name : 'upgrade Title'		, element : 'h2', styles : { 'color' : '#888' } },
+]
+    </property>
+    <property name="plugins" type="lines">
+      <element value="ajaxsave;/++resource++cke_ajaxsave/plugin.js"/>
+    </property>
+    <property name="removePlugins" type="lines">
+      <element value="image"/>
+    </property>
+    <property name="customTemplates" type="lines">
+      <element value="++resource++upgrade_javascripts/upgrade_templates.js" />
+    </property>
+    <property name="templatesReplaceContent" type="boolean">True</property>
+    <property name="enableScaytOnStartup" type="boolean">True</property>
+    <property name="bodyId" type="string">upgrade</property>
+    <property name="bodyClass" type="string">upgrade</property>
+    <property name="defaultTableWidth" type="string">250px</property>
+    <property name="width" type="string">200</property>
+    <property name="height" type="string">200</property>
+    <property name="allow_link_byuid" type="boolean">False</property>
+    <property name="allow_relative_links" type="boolean">False</property>
+    <property name="allow_server_browsing" type="boolean">False</property>
+    <property name="allow_file_upload" type="boolean">False</property>
+    <property name="allow_image_upload" type="boolean">False</property>
+    <property name="allow_flash_upload" type="boolean">False</property>
+    <property name="allow_folder_creation" type="boolean">False</property>
+    <property name="file_portal_type" type="string">custom</property>
+    <property name="file_portal_type_custom" type="lines">
+      <element value="*|MyFile"/>
+      <element value="Folder|MyFile"/>
+    </property>
+    <property name="image_portal_type" type="string">custom</property>
+    <property name="image_portal_type_custom" type="lines">
+      <element value="*|MyImage"/>
+      <element value="Folder|MyImage"/>
+    </property>
+    <property name="browse_images_portal_types" type="lines">
+     <element value="News Item"/>
+    </property>
+    <property name="flash_portal_type" type="string">custom</property>
+    <property name="flash_portal_type_custom" type="lines">
+      <element value="*|MyFile"/>
+      <element value="Folder|MyFile"/>
+    </property>
+    <property name="browse_flashs_portal_types" type="lines">
+     <element value="File"/>
+    </property>
+    <property name="folder_portal_type" type="string">custom</property>
+    <property name="folder_portal_type_custom" type="lines">
+      <element value="*|MyFolder"/>
+    </property>
+    <!-- Advanced properties -->
+    <property name="properties_overloaded" type="lines">
+      <element value="height"/>
+    </property>
+    <property name="entities" type="boolean">True</property>
+    <property name="entities_greek" type="boolean">True</property>
+    <property name="entities_latin" type="boolean">True</property>
+
+    <!-- Captioned image properties -->
+    <property name="image2_alignClasses" type="lines">
+     <element value="myimageleft"/>
+     <element value="myimagedummy"/>
+     <element value="myimageright"/>
+    </property>
+    <property name="image2_captionedClass" type="string">my_image</property>
   </object>
 </object>

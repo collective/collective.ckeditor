@@ -52,10 +52,10 @@ Choose to overload some widget properties in control panel
     >>> from plone import api
     >>> api.portal.set_registry_record(
     ...  "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.overloadable_properties",
-    ...  [u"height",])
+    ...  ["height",])
     >>> api.portal.set_registry_record(
     ...  "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.height",
-    ...  u"600px")
+    ...  "600px")
     >>> import transaction
     >>> transaction.commit()
 

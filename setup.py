@@ -68,6 +68,7 @@ setup(
             "gocept.pytestlayer",
             "pathlib2",
             "requests",
+            "beautifulsoup4",
         ],
     ),
     entry_points={
