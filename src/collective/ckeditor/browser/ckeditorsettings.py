@@ -7,6 +7,7 @@ try:
 except:  # Plone < 4.3
     from zope.app.component.hooks import getSite
 
+from zope.schema import ASCIILine
 from zope.schema import Bool
 from zope.schema import Text
 from zope.schema import TextLine
@@ -111,11 +112,11 @@ class ICKEditorBaseSchema(Interface):
                       u"the attributes must exist in your css."),
         required=True)
 
-    bodyId = TextLine(
+    bodyId = ASCIILine(
         title=_(u"Area Body Id"),
         description=_(u"Enter the css id applied to the "
                       "body tag of the editor area"),
-        default=u'content',
+        default='content',
         required=False)
 
     plugins = List(
@@ -130,7 +131,7 @@ class ICKEditorBaseSchema(Interface):
         value_type=TextLine(),
         required=False)
 
-    bodyClass = TextLine(
+    bodyClass = ASCIILine(
         title=_(u"Area Body Class"),
         description=_(u"Enter the css class name applied to the "
                       "body tag of the editor area"),
@@ -160,10 +161,10 @@ class ICKEditorBaseSchema(Interface):
         default=False,
         required=False)
 
-    defaultTableWidth = TextLine(
+    defaultTableWidth = ASCIILine(
         title=_(u"Default Table Width"),
         description=_(u"Enter the default table width"),
-        default=u"500px",
+        default="500px",
         required=False)
 
 
@@ -171,12 +172,12 @@ class ICKEditorSkinSchema(Interface):
     """
     CKEditor Skin fieldset schema
     """
-    width = TextLine(
+    width = ASCIILine(
         title=_(u"Editor width"),
         description=_(u"Enter the width of the editor in px % or em"),
         required=False)
 
-    height = TextLine(
+    height = ASCIILine(
         title=_(u"Editor height"),
         description=_(u"Enter the height of the editor in px % or em"),
         required=False)
@@ -341,7 +342,7 @@ class ICKEditorAdvancedSchema(Interface):
                       "ZMI > portal_properties > ckeditor_properties "
                       "for all properties names."),
         required=False,
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         default=['width', ],)
 
     entities = Bool(
@@ -364,11 +365,11 @@ class ICKEditorAdvancedSchema(Interface):
         default=False,
         required=False)
 
-    image2_captionedClass = Text(
+    image2_captionedClass = ASCIILine(
         title=_(u"Captioned image class (image2)"),
         description=_(u"CSS class applied by image2 plugin to"
                       "the <figure> element of a captioned image."),
-        default=u"image",
+        default="image",
         required=False)
 
     image2_alignClasses = List(
@@ -376,7 +377,7 @@ class ICKEditorAdvancedSchema(Interface):
         description=_(u"3 CSS classes applied by image2 plugin to"
                       "specify alignment (left, center, right)."),
         required=False,
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         default=[],)
 
 
