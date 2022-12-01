@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <registry>
-<<<<<<< HEAD
     <records interface="collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema">
         <value key="forcePasteAsPlainText">True</value>
         <value key="skin">moonocolor</value>
@@ -164,6 +163,7 @@
                   purge="True">CKeditor</value>
     </records>
     <records prefix="plone.bundles/collective.ckeditor.ckeditor_vars" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="depends">plone</value>
         <value key="enabled">True</value>
         <value key="compile">False</value>
         <value key="jscompilation">ckeditor_vars.js</value>

@@ -2,7 +2,7 @@ import json
 import re
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
+#from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
 from zExceptions import Unauthorized
 from zope import component
 from zope.component import getUtility
@@ -186,6 +186,7 @@ class CKeditorView(BrowserView):
         the list is returned as a javascript string
         by default portal_css mixin + plone_ckeditor_area.css
         """
+        return repr([])
         styles_viewlet = StylesView(
             self.context,
             self.request,
