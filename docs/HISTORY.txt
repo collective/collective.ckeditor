@@ -4,6 +4,9 @@ Changelog
 4.10.2 (unreleased)
 -------------------
 
+- Migrate configuration from ``portal_properties`` to registry.
+  [aduchene, gotcha, kimpaulissen, Mychae1]
+
 - Fix robot tests
   [aduchene]
 
