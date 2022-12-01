@@ -135,7 +135,9 @@ class CKEditorFileTypesVocabulary(object):
                                 t['type_ui_info'])
                      for t in flt]
         else:
-            items = []
+            # TODO compute from actual portal_types
+            items = [
+                     SimpleTerm('File', 'File', _(u'File'))]
         return SimpleVocabulary(items)
 
 CKEditorFileTypesVocabularyFactory = CKEditorFileTypesVocabulary()
@@ -159,7 +161,13 @@ class CKEditorUploadFileTypeVocabulary(object):
                                      t['type_ui_info'])
                           for t in flt])
         else:
-            items = []
+            # TODO compute from actual portal_types
+            msg1 = _(u'Content Type Registry default configuration (recommanded)')
+            msg2 = _(u'Custom configuration, fill next field')
+            items = [SimpleTerm('auto', 'auto', msg1),
+                     SimpleTerm('custom', 'custom', msg2)]
+            items.extend([
+                     SimpleTerm('File', 'File', _(u'File'))])
         return SimpleVocabulary(items)
 
 CKEditorUploadFileTypeVocabularyFactory = CKEditorUploadFileTypeVocabulary()
@@ -179,7 +187,9 @@ class CKEditorImageTypesVocabulary(object):
                                 t['type_ui_info'])
                      for t in flt]
         else:
-            items = []
+            # TODO compute from actual portal_types
+            items = [
+                     SimpleTerm('Image', 'Image', _(u'Image'))]
         return SimpleVocabulary(items)
 
 CKEditorImageTypesVocabularyFactory = CKEditorImageTypesVocabulary()
@@ -203,7 +213,13 @@ class CKEditorUploadImageTypeVocabulary(object):
                                      t['type_ui_info'])
                           for t in flt])
         else:
-            items = []
+            # TODO compute from actual portal_types
+            msg1 = _(u'Content Type Registry default configuration (recommanded)')
+            msg2 = _(u'Custom configuration, fill next field')
+            items = [SimpleTerm('auto', 'auto', msg1),
+                     SimpleTerm('custom', 'custom', msg2)]
+            items.extend([
+                     SimpleTerm('Image', 'Image', _(u'Image'))])
         return SimpleVocabulary(items)
 
 CKEditorUploadImageTypeVocabularyFactory = CKEditorUploadImageTypeVocabulary()
@@ -225,7 +241,10 @@ class CKEditorFolderTypesVocabulary(object):
                                      t['type_ui_info'])
                           for t in flt])
         else:
-            items = []
+            # TODO compute from actual portal_types
+            items = [SimpleTerm('custom', 'custom',
+                                _(u'Custom configuration, fill next field')),
+                     SimpleTerm('Folder', 'Folder', _(u'Folder'))]
         return SimpleVocabulary(items)
 
 CKEditorFolderTypesVocabularyFactory = CKEditorFolderTypesVocabulary()
