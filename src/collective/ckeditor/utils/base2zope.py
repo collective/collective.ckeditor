@@ -30,6 +30,7 @@ for use in Zope, outputting to ../browser/ckeditor/. Usage:
 
 """
 
+from __future__ import print_function
 import os
 import re
 import shutil
@@ -37,6 +38,8 @@ import sys
 import codecs
 
 from collective import ckeditor
+import six
+from six.moves import input
 ROOT = os.path.dirname(ckeditor.__file__)
 
 
@@ -44,7 +47,7 @@ def rm_rf(path):
     """ equivalent to rm -rf on Unix
     """
     if os.path.realpath(path) == '/':
-        print 'will not rm -rf /'  # better safe than sorry :-)
+        print('will not rm -rf /')  # better safe than sorry :-)
         sys.exit(1)
     else:
         for root, dirs, files in os.walk(path, topdown=False):
@@ -59,13 +62,13 @@ def check_dirs(dest_root, src_root):
     """
 
     if not os.path.exists(src_root):
-        print "Source directory missing: " + src_root
+        print("Source directory missing: %s" % src_root)
         exit(2)
 
     if os.path.exists(dest_root):
         force = sys.argv[1:2] == ['--force']
         if not force:
-            answer = raw_input(
+            answer = input(
                 "destination directory already exists; "
                 "delete and recreate? (y/n) [n] "
             )
@@ -86,12 +89,6 @@ ext_unwanted = (
 files_unwanted = ()
 # files changed
 files_changed = {}
-
-REPLACE = {
-    '.cke_skin_kama .cke_fontSize .cke_text{width:25px;}': '',
-    '.cke_contextmenu{padding:2px;}':
-        '.cke_contextmenu{padding:2px; width: 180px !important;}'
-}
 
 # use regexp to fix xhtml errors in tal parser
 # (https://bugs.launchpad.net/zope2/+bug/142333)
@@ -129,8 +126,8 @@ def makeSkinDirs(srcDir, destDir):
 
                 # reduce a big frame in WSC Spellchecker (beurk)
                 elif filename == 'tmpFrameset.html':
-                    inputfile = file(src)
-                    outputfile = file(dest, 'w+')
+                    inputfile = open(src)
+                    outputfile = open(dest, 'w+')
                     for line in inputfile.readlines():
                         if "parseInt( oParams.thirdframeh, 10 )" in line:
                             newline = '    sFramesetRows = "27,*," + \
@@ -143,19 +140,6 @@ def makeSkinDirs(srcDir, destDir):
                     inputfile.close()
                     outputfile.close()
 
-                # fix css bugs ckeditor 3.0.2 editor.css (remove in future)
-                # http://dev.fckeditor.net/ticket/4559
-                # http://dev.fckeditor.net/attachment/ticket/3494
-                elif filename == 'editor.css':
-                    inputfile = file(src)
-                    outputfile = file(dest, 'w+')
-                    for line in inputfile.readlines():
-                        for replace in REPLACE:
-                            line = line.replace(replace, REPLACE[replace])
-                        outputfile.write(line)
-
-                    inputfile.close()
-                    outputfile.close()
                 else:
                     shutil.copy(src, dest)
 
@@ -166,15 +150,15 @@ def makeSkinDirs(srcDir, destDir):
                     fileObj = codecs.open(dest, "r", "utf-8")
                     u = fileObj.read()
                     fileObj.close()
-                    if u.startswith(unicode(codecs.BOM_UTF8, "utf8")):
+                    if u.startswith(six.text_type(codecs.BOM_UTF8, "utf8")):
                         fileObj = codecs.open(dest, "w", "utf-8")
-                        content = u.lstrip(unicode(codecs.BOM_UTF8, "utf8"))
+                        content = u.lstrip(six.text_type(codecs.BOM_UTF8, "utf8"))
                         fileObj.write(content)
                         fileObj.close()
 
                 # fix xhtml compilation error
                 if ext in ('html', 'xml', 'pt'):
-                    fileObj = file(dest)
+                    fileObj = open(dest)
                     content = fileObj.read()
                     fileObj.close()
 
@@ -191,7 +175,7 @@ def makeSkinDirs(srcDir, destDir):
                     # (another tal compilation error)
                     content = content.replace("></frame>", " />")
 
-                    fileObj = file(dest, "w")
+                    fileObj = open(dest, "w")
                     fileObj.write(content)
                     fileObj.close()
 
@@ -220,7 +204,7 @@ def tag_entrypoint(data):
     if data['name'] != 'collective.ckeditor':
         return
     root = os.path.join(data['tagdir'], 'src', 'collective', 'ckeditor')
-    print "Copying CKEditor code to %s" % root
+    print("Copying CKEditor code to %s" % root)
     copy_ckeditor(root)
 
 
