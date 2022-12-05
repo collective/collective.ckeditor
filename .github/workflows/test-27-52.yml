@@ -1,4 +1,4 @@
-name: Run tests
+name: 2.7 5.2 Run tests
 on: [push, pull_request]
 jobs:
   build:
@@ -14,24 +14,24 @@ jobs:
         with:
           path: |
             eggs
-          key: cache-Py2.7-Plone4.3
+          key: cache-Py2.7-Plone5.2
       - name: Install venv
         run: |
           pip install virtualenv
           virtualenv -p 2 .
           bin/pip install -r requirements-27.txt
-          bin/buildout -c test-4.3.x.cfg install copy_ckeditor_code ckeditor pytest
+          bin/buildout -c test-5.2.x.cfg install copy_ckeditor_code ckeditor pytest
       - name: Run unit tests
         run: |
           bin/pytest
-      - name: Install Firefox
-        uses: browser-actions/setup-firefox@latest
-      - name: Install Geckodriver
-        uses: browser-actions/setup-geckodriver@latest
-      - name: Run robot tests
-        run: |
-          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
-          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and image2"
+      # - name: Install Firefox
+      #   uses: browser-actions/setup-firefox@latest
+      # - name: Install Geckodriver
+      #   uses: browser-actions/setup-geckodriver@latest
+      # - name: Run robot tests
+      #   run: |
+      #     ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
+      #     ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and image2"
       - name: Run upgrade tests
         run: |
           bin/pytest -k "upgrade"

@@ -532,7 +532,7 @@ CKEDITOR.stylesSet.add('plone', styles);""" % dumped_styles
         """
         languageCodeToUse = None
         # get current content language or default site language
-        default_language = self.context.portal_languages.getDefaultLanguage()
+        default_language = api.portal.get_default_language()
         content_language = self.context.Language() or default_language
         # content language can be like 'fr' or 'fr-be'...
         # be smart, compute language_code with

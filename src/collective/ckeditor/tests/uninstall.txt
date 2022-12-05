@@ -3,23 +3,21 @@ CKEditor Uninstall
 
     >>> app = layer['app']
     >>> portal = layer['portal']
-    >>> from Products.CMFCore.utils import getToolByName
-    >>> qi = getToolByName(portal, 'portal_quickinstaller')
-    >>> qi.uninstallProducts(['collective.ckeditor'])
+    >>> from Products.CMFPlone.utils import get_installer
+    >>> installer = get_installer(portal)
+    >>> installer.is_product_installed('collective.ckeditor')
+    True
+    >>> installer.uninstall_product('collective.ckeditor')
+    True
 
-
-ckeditor properties
--------------------
-
-    >>> ptool = portal.portal_properties
 
 Control the wysiwyg_editor property in memberdata
 -------------------------------------------------
 
     >>> memberdata = portal.portal_memberdata
     >>> memberdata.wysiwyg_editor
-    ''    
-    
+    ''
+
 Control the wysiwyg_editor property in site_properties
 ------------------------------------------------------
 

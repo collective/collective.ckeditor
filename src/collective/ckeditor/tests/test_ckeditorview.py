@@ -30,22 +30,22 @@ class TestCKeditorViewTestCase(unittest.TestCase):
             (frontPage, frontPage.REQUEST),
             name='ckeditor_view'
         )
-        # by default, frontPage language is 'en'
-        self.assertEquals(frontPage.Language(), 'en')
-        self.assertEquals(view._getScaytLanguage(), 'en_US')
+        # by default, frontPage language is ''
+        self.assertEqual(frontPage.Language(), '')
+        self.assertEqual(view._getScaytLanguage(), 'en_US')
         # define another language for frontPage
         frontPage.setLanguage('fr')
         # used language will now be fr_FR
-        self.assertEquals(view._getScaytLanguage(), 'fr_FR')
+        self.assertEqual(view._getScaytLanguage(), 'fr_FR')
         # define a language with sub language
         frontPage.setLanguage('fr-ca')
         # as fr-ca is supported, it will be used
-        self.assertEquals(view._getScaytLanguage(), 'fr_CA')
+        self.assertEqual(view._getScaytLanguage(), 'fr_CA')
         # if NOT supported, the language can not be determined, it returns None
         frontPage.setLanguage('ru')
-        self.failIf(view._getScaytLanguage())
+        self.assertFalse(view._getScaytLanguage())
         frontPage.setLanguage('ru-ru')
-        self.failIf(view._getScaytLanguage())
+        self.assertFalse(view._getScaytLanguage())
 
     def test_uploadimage(self):
 
@@ -57,12 +57,12 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         )
         view.request.form['upload'] = DummyFileUpload(filename="image1.png")
         view()
-        self.failIf("image1.png" not in portal.objectIds())
-        self.assertEquals(portal['image1.png'].portal_type, 'Image')
+        self.assertFalse("image1.png" not in portal.objectIds())
+        self.assertEqual(portal['image1.png'].portal_type, 'Image')
         view()
-        self.failIf("image1-1.png" not in portal.objectIds())
-        self.assertEquals(portal['image1-1.png'].portal_type, 'Image')
-    
+        self.assertFalse("image1-1.png" not in portal.objectIds())
+        self.assertEqual(portal['image1-1.png'].portal_type, 'Image')
+ 
     def test_uploadimage_json(self):
         portal = self.layer['portal']
         setRoles(portal, TEST_USER_ID, ['Contributor'])
@@ -74,9 +74,9 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         result = json.loads(view())
         self.assertTrue('url' in result)
         self.assertTrue('fileName' in result)
-        self.assertEquals(result['fileName'], 'image1.png')
+        self.assertEqual(result['fileName'], 'image1.png')
         self.assertTrue('uploaded' in result)
-        self.assertEquals(result['uploaded'], 1)
+        self.assertEqual(result['uploaded'], 1)
 
     def test_uploadimage_url(self):
         portal = self.layer['portal']
@@ -92,13 +92,13 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         self.assertTrue('resolveuid' in result['url'], msg)
         uuid = result['url'].split('/')[-1]
         image = portal['image1.png']
-        self.assertEquals(api.content.get_uuid(image), uuid)
+        self.assertEqual(api.content.get_uuid(image), uuid)
 
-from plone.app.blob.interfaces import IFileUpload
-from zope.interface import implementer
+#from plone.app.blob.interfaces import IFileUpload
+#from zope.interface import implementer
 
 
-@implementer(IFileUpload)
+#@implementer(IFileUpload)
 class DummyFileUpload:
 
     def __init__(self, data='', filename='', content_type=''):
