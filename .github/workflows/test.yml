@@ -2,7 +2,7 @@ name: Run tests
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up python
@@ -19,7 +19,7 @@ jobs:
         run: |
           pip install virtualenv
           virtualenv -p 2 .
-          bin/pip install -r requirements.txt
+          bin/pip install -r requirements-27.txt
           bin/buildout -c test-4.3.x.cfg install copy_ckeditor_code ckeditor pytest
       - name: Run unit tests
         run: |
