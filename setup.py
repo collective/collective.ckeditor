@@ -9,6 +9,20 @@ long_description = (
     + open(os.path.join("docs", "FAQ.txt")).read()
 )
 
+install_requires = [
+    'setuptools',
+    'zope.i18nmessageid',
+    'collective.quickupload',
+    'collective.plonefinder',
+    'plone.app.uuid',
+    'plone.api',
+]
+
+if sys.version_info[0] < 3:
+    install_requires.append('demjson')
+else:
+    install_requires.append('demjson3')
+
 setup(
     name='collective.ckeditor',
     version=version,
@@ -21,12 +35,12 @@ setup(
         "Programming Language :: Python",
         "Environment :: Web Environment",
         "Framework :: Plone",
-        "Framework :: Plone :: 4.0",
-        "Framework :: Plone :: 4.1",
-        "Framework :: Plone :: 4.2",
-        "Framework :: Plone :: 4.3",
-        "Programming Language :: Python :: 2.6",
+        "Framework :: Plone :: 5.2",
+        "Framework :: Plone :: 6.0",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
     keywords='Plone CKeditor WYSIWYG',
     author='Alterway Solutions',
@@ -36,15 +50,7 @@ setup(
     namespace_packages=['collective'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        'setuptools',
-        'zope.i18nmessageid',
-        'collective.quickupload',
-        'collective.plonefinder',
-        'plone.app.uuid',
-        'demjson',
-        'plone.api',
-    ],
+    install_requires=install_requires,
     packages=find_packages('src'),
     package_dir={'': 'src'},
     extras_require=dict(

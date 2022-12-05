@@ -1,5 +1,6 @@
 import json
 import re
+import six
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 #from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
@@ -24,10 +25,14 @@ from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
 
-
-import demjson
-demjson.dumps = demjson.encode
-demjson.loads = demjson.decode
+if six.PY2:
+    import demjson
+    demjson.dumps = demjson.encode
+    demjson.loads = demjson.decode
+if six.PY3:
+    import demjson3
+    demjson3.dumps = demjson3.encode
+    demjson3.loads = demjson3.decode
 
 CK_VARS_TEMPLATE = """
 // set the good base path for the editor because
@@ -415,13 +420,20 @@ class CKeditorView(BrowserView):
         """
         request = self.request
         response = request.RESPONSE
-        styles = demjson.loads(self.get_registry_value('menuStyles', '[]'))
+        if six.PY2:
+            styles = demjson.loads(self.get_registry_value('menuStyles', '[]'))
+        if six.PY3:
+            styles = demjson3.loads(self.get_registry_value('menuStyles', '[]'))
         for style in styles:
             if 'name' in style:
                 style['name'] = self.context.translate(_(style['name']))
+        if six.PY2:
+            dumped_styles = demjson.dumps(styles)
+        if six.PY3:
+            dumped_styles = demjson3.dumps(styles)
         menu_styles_js_string = """
 styles = jQuery.parseJSON('%s');
-CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
+CKEDITOR.stylesSet.add('plone', styles);""" % dumped_styles
         response.setHeader(
             'Cache-control',
             'pre-check=0,post-check=0,must-revalidate,'
