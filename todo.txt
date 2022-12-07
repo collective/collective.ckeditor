@@ -3,4 +3,4 @@ Plone 6
 
 - DONE ckeditor_vars depends on plone 
 - fix issues with portal types vocabularies
-- fix issues with CSS
+- DONE fix issues with CSS

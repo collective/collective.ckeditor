@@ -3,7 +3,18 @@ import re
 import six
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-#from Products.CMFPlone.resources.browser.styles import StylesBase, StylesView
+try:
+    # Plone 6
+    from Products.CMFPlone.resources.browser.resource import ResourceView
+    import webresource
+    HAS_PLONE6_RESOURCES = True
+    HAS_PLONE5_RESOURCES = False
+except ImportError:
+    # Plone 5
+    from Products.CMFPlone.resources.browser.styles import StylesView
+    HAS_PLONE6_RESOURCES = False
+    HAS_PLONE5_RESOURCES = True
+
 from zExceptions import Unauthorized
 from zope import component
 from zope.component import getUtility
@@ -33,6 +44,47 @@ if six.PY3:
     import demjson3
     demjson3.dumps = demjson3.encode
     demjson3.loads = demjson3.decode
+
+
+if HAS_PLONE6_RESOURCES:
+    def get_css_urls(view):
+        class CKRenderer(webresource.ResourceRenderer):
+            # returns list of CSS URLS instead of link tags in HTML
+            def render(self):
+                base_url = self.base_url
+                urls = [res.resource_url(base_url) for res in self.resolver.resolve()]
+                return urls
+
+        class CKEditorCSSViewlet(ResourceView):
+            def index(self):
+                rendered = self._rendered_cache
+                if not rendered:
+                    resolver_css = self.renderer["css"].resolver
+                    renderer = CKRenderer(
+                        resolver_css, base_url=self.portal_state.portal_url()
+                    )
+                    rendered = renderer.render()
+                    self._rendered_cache = rendered
+                return rendered
+
+        viewlet = CKEditorCSSViewlet(
+            view.context,
+            view.request,
+            view
+        )
+        viewlet.update()
+        return viewlet.index()
+
+if HAS_PLONE5_RESOURCES:
+    def get_css_urls(view):
+        styles_viewlet = StylesView(
+            view.context,
+            view.request,
+            view
+        )
+        styles_viewlet.update()
+        urls = [style["src"] for style in styles_viewlet.styles()]
+        return urls
 
 CK_VARS_TEMPLATE = """
 // set the good base path for the editor because
@@ -191,14 +243,9 @@ class CKeditorView(BrowserView):
         the list is returned as a javascript string
         by default portal_css mixin + plone_ckeditor_area.css
         """
-        return repr([])
-        styles_viewlet = StylesView(
-            self.context,
-            self.request,
-            self
-        )
-        styles_viewlet.update()
-        urls = [style["src"] for style in styles_viewlet.styles()]
+        urls = get_css_urls(self)
+        area = '%s/++resource++ckeditor_for_plone/ckeditor_plone_area.css'
+        urls.append(area % self.portal_url)
         return repr(urls)
 
     def getCK_finder_url(self, type=None):
