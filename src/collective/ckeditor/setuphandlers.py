@@ -2,6 +2,8 @@ from collective.ckeditor import LOG
 from collective.ckeditor.config import DOCUMENT_DEFAULT_OUTPUT_TYPE, \
     REQUIRED_TRANSFORM
 from Products.CMFPlone.utils import getToolByName
+from Products.CMFPlone.interfaces import INonInstallable
+from zope.interface import implementer
 
 
 def importFinalSteps(context):
@@ -127,3 +129,14 @@ def unregisterTransformPolicy(context, output_mimetype, required_transform):
                     transforms.manage_addPolicy(output_mimetype, policies)
             break
     LOG.info("Removed transform policy for '%s' mimetype" % output_mimetype)
+
+
+@implementer(INonInstallable)
+class HiddenProfiles(object):
+    def getNonInstallableProfiles(self):
+        """Hide uninstall profile from site-creation and quickinstaller."""
+        return [
+            "collective.ckeditor:uninstall",
+            "collective.ckeditor:to4350",
+            "collective.ckeditor:to4330",
+        ]
