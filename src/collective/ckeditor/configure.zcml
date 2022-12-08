@@ -12,6 +12,11 @@
     <include package=".browser" />
     <include file="upgrades.zcml" />
 
+    <subscriber
+        for = "zope.processlifetime.IDatabaseOpenedWithRoot"
+        handler = ".session.setup"
+        />
+
     <genericsetup:registerProfile
       name="default"
       title="CKeditor for Plone"
