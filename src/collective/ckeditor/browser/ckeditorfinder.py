@@ -1,6 +1,6 @@
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from collective.plonefinder.browser.finder import Finder
+from collective.ckeditor.browser.ckeditorview import get_registry_value
 
 
 class CKFinder(Finder):
@@ -14,7 +14,6 @@ class CKFinder(Finder):
         self.multiselect = False
         self.allowupload = True
         self.allowaddfolder = True
-        context = aq_inner(context)
 
     def __call__(self):
 
@@ -22,10 +21,7 @@ class CKFinder(Finder):
         request = aq_inner(self.request)
         session = request.get('SESSION', {})
 
-        pp = getToolByName(context, 'portal_properties')
-        ckprops = pp.ckeditor_properties
-        self.allowaddfolder = ckprops.getProperty('allow_folder_creation',
-                                                  self.allowaddfolder)
+        self.allowaddfolder = get_registry_value('allow_folder_creation')
 
         self.showbreadcrumbs = request.get(
             'showbreadcrumbs',
@@ -93,12 +89,8 @@ class CKFinder(Finder):
         """
         return CKeditor settings for unik media_portal_type
         """
-        context = aq_inner(self.context)
 
-        pprops = getToolByName(context, 'portal_properties')
-        ckprops = pprops.ckeditor_properties
-
-        prop = ckprops.getProperty('%s_portal_type' % media)
+        prop = get_registry_value('%s_portal_type' % media)
 
         if prop == 'auto':
             return ''
@@ -109,7 +101,7 @@ class CKFinder(Finder):
 
         # custom type depending on scope
         mediatype = ''
-        customprop = ckprops.getProperty('%s_portal_type_custom' % media)
+        customprop = get_registry_value('%s_portal_type_custom' % media)
         for pair in customprop:
             listtypes = pair.split('|')
             if listtypes[0] == '*':
