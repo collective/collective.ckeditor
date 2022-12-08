@@ -48,6 +48,12 @@ class ICKeditorView(Interface):
     CKeditor browser view interface
     """
 
+def get_registry_value(key, default=api.portal.MISSING):
+    return api.portal.get_registry_record(
+        "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.{}".format(key),
+        default=default
+    )
+
 
 class CKeditorView(BrowserView):
     """
@@ -63,15 +69,9 @@ class CKeditorView(BrowserView):
         self.portal_url = self.portal.absolute_url()
         request.set('ckLoaded', True)
 
-    def get_registry_value(self, key, default=api.portal.MISSING):
-        return api.portal.get_registry_record(
-            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.{}".format(key),
-            default=default
-        )
-
     @property
     def overloadable_properties(self):
-        return self.get_registry_value('overloadable_properties', [])
+        return get_registry_value('overloadable_properties', [])
 
     def cke_config_url(self, context=None):
         """"
@@ -223,13 +223,13 @@ class CKeditorView(BrowserView):
             base_url += 'typeview=file&media=file'
         elif type == 'flash':
             pid = 'browse_flashs_portal_types'
-            flash_types = self.get_registry_value(pid)
+            flash_types = get_registry_value(pid)
             base_url += 'typeview=file&media=flash'
             for ftype in flash_types:
                 base_url += '&types:list=%s' % url_quote(ftype)
         elif type == 'image':
             pid = 'browse_images_portal_types'
-            image_types = self.get_registry_value(pid)
+            image_types = get_registry_value(pid)
             base_url += 'typeview=image&media=image'
             for itype in image_types:
                 base_url += '&types:list=%s' % url_quote(itype)
@@ -240,7 +240,7 @@ class CKeditorView(BrowserView):
         just get property from ckeditor_properties sheet
         return it as a javascript string
         """
-        propValue = self.get_registry_value(prop)
+        propValue = get_registry_value(prop)
         if type(propValue).__name__ in ('str', 'unicode'):
             return "'%s'" % propValue
         elif type(propValue).__name__ == 'bool':
@@ -256,7 +256,7 @@ class CKeditorView(BrowserView):
     def get_CK_image2_alignClasses(self):
         """check that each class is valid
         """
-        propValue = self.get_registry_value('image2_alignClasses')
+        propValue = get_registry_value('image2_alignClasses')
         result = json.dumps(list(propValue))
         for class_ in propValue:
             # TODO: check that classes are valid according to HTML
@@ -283,9 +283,9 @@ class CKeditorView(BrowserView):
                 params[p] = jsProp
         params['image2_alignClasses'] = self.get_CK_image2_alignClasses()
         params['skin'] = "'{}'".format(
-            self.get_registry_value('skin', 'moonocolor')
+            get_registry_value('skin', 'moonocolor')
         )
-        params['toolbar_Custom'] = self.get_registry_value('toolbar_Custom')
+        params['toolbar_Custom'] = get_registry_value('toolbar_Custom')
         params['contentsCss'] = self.getCK_contentsCss()
         params['filebrowserBrowseUrl'] = self.getCK_finder_url(type='file')
         img_url = self.getCK_finder_url(type='image')
@@ -320,7 +320,7 @@ class CKeditorView(BrowserView):
             """ % (k, v)
 
         ids = []
-        for line in self.get_registry_value('plugins', []):
+        for line in get_registry_value('plugins', []):
             # ignore the rest so we get no error
             if len(line.split(';')) == 2:
                 id, url = line.split(';')
@@ -332,7 +332,7 @@ class CKeditorView(BrowserView):
                     % (id, base_url.rstrip('/'), plugin))
         params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
-        removePlugins = self.get_registry_value('removePlugins', [])
+        removePlugins = get_registry_value('removePlugins', [])
         if removePlugins:
             params_js_string += (
                 '''config.removePlugins = "%s";''' % ','.join(removePlugins))
@@ -351,7 +351,7 @@ class CKeditorView(BrowserView):
                self.context.absolute_url(),
                self.portal_url)
 
-        templatesReplaceContent = self.get_registry_value(
+        templatesReplaceContent = get_registry_value(
             'templatesReplaceContent')
         if templatesReplaceContent:
             params_js_string += """config.templates_replaceContent = true;"""
@@ -359,10 +359,9 @@ class CKeditorView(BrowserView):
             params_js_string += """config.templates_replaceContent = false;"""
 
         use_disallowed_content = True
-        filtering = self.get_registry_value('filtering')
+        filtering = get_registry_value('filtering')
         if filtering == 'default':
-            extraAllowedContent = self.get_registry_value(
-                'extraAllowedContent')
+            extraAllowedContent = get_registry_value('extraAllowedContent')
             params_js_string += "config.extraAllowedContent = {0};".format(
                 extraAllowedContent)
         elif filtering == 'disabled':
@@ -372,20 +371,17 @@ class CKeditorView(BrowserView):
             # to true.
             use_disallowed_content = False
         elif filtering == 'custom':
-            customAllowedContent = self.get_registry_value(
-                'customAllowedContent')
+            customAllowedContent = get_registry_value('customAllowedContent')
             params_js_string += "config.allowedContent = {0};".format(
                 customAllowedContent)
 
         if use_disallowed_content:
-            disallowedContent = self.get_registry_value(
-                'disallowedContent')
+            disallowedContent = get_registry_value('disallowedContent')
             params_js_string += "config.disallowedContent = {0};".format(
                 disallowedContent)
 
         # enable SCAYT on startup if necessary
-        enableScaytOnStartup = self.get_registry_value(
-            'enableScaytOnStartup')
+        enableScaytOnStartup = get_registry_value('enableScaytOnStartup')
         if enableScaytOnStartup:
             scayt_lang = self._getScaytLanguage()
             # if no relevant language could be found, do not activate SCAYT
@@ -396,7 +392,7 @@ class CKeditorView(BrowserView):
         else:
             params_js_string += """config.scayt_autoStartup = false;"""
 
-        customTemplates = self.get_registry_value('customTemplates')
+        customTemplates = get_registry_value('customTemplates')
         if customTemplates:
             params_js_string += self.getCustomTemplatesConfig(customTemplates)
         params_js_string += """
@@ -430,7 +426,7 @@ class CKeditorView(BrowserView):
         """
         request = self.request
         response = request.RESPONSE
-        styles = demjson.loads(self.get_registry_value('menuStyles', '[]'))
+        styles = demjson.loads(get_registry_value('menuStyles', '[]'))
         for style in styles:
             if 'name' in style:
                 style['name'] = self.context.translate(_(style['name']))
