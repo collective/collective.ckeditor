@@ -1,10 +1,12 @@
 import os
+import sys
 from setuptools import setup, find_packages
 
-version = '4.10.2.dev0'
+version = '5.0.0.dev0'
 
 long_description = (
-    open("README.rst").read() + "\n"
+    open("TODO.rst").read() + "\n"
+    + open("README.rst").read() + "\n"
     + open(os.path.join("docs", "HISTORY.txt")).read() + "\n"
     + open(os.path.join("docs", "FAQ.txt")).read()
 )
@@ -28,6 +30,8 @@ setup(
     version=version,
     description="CKEditor for Plone",
     long_description=long_description,
+    python_requires=
+        '>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*,',
     classifiers=[
         "Topic :: Software Development :: Libraries :: Python Modules",
         "License :: OSI Approved :: GNU General Public License (GPL)",
@@ -43,7 +47,7 @@ setup(
         "Programming Language :: Python :: 3.9",
     ],
     keywords='Plone CKeditor WYSIWYG',
-    author='Alterway Solutions',
+    author='Plone Collective (started by Alterway Solutions)',
     author_email='toutpt@gmail.com',
     url='https://github.com/collective/collective.ckeditor',
     license='GPL',

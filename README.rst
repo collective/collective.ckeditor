@@ -268,6 +268,8 @@ Companies
 * `Ecreall <https://www.ecreall.com>`_
 * `BubbleNet <http://bubblenet.be>`_
 * `Hexagonit <https://www.hexagonit.fi>`_
+* Plone 5 support funded by `Imio <https://www.imio.be>`_
+* Plone 6 support funded by `KULeuven <https://kuleuven.be>`_
 
 Contributors
 ------------
@@ -284,9 +286,8 @@ Contributors
 - Gauthier Bastien <gauthier@imio.be>
 - Leonardo J. Caballero G. <leonardocaballero@gmail.com>
 
-.. _documentation: https://plone.org/documentation/kb/installing-add-ons-quick-how-to
-.. _FCKEditor: https://plone.org/fckeditor
-.. |makinacom| image:: https://depot.makina-corpus.org/public/logo.gif
-.. _makinacom:  https://www.makina-corpus.com
-.. _ckeditor: https://ckeditor.com/
-.. _collective.plonefinder: https://plone.org/products/collective.plonefinder
+.. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
+.. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
+.. _makinacom:  http://www.makina-corpus.com
+.. _ckeditor: http://ckeditor.com/
+.. _collective.plonefinder: http://plone.org/products/collective.plonefinder
