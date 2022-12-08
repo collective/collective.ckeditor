@@ -597,6 +597,7 @@ class Z3WidgetSettings(object):
                 language = widget.settings['language']
                 ckview.customize_browserurl(widget_settings, language)
         widget_settings['basehref'] = ckview.cke_basehref
+        widget_settings['language'] = ckview.cke_language
         self.setupAjaxSave(widget_settings)
         return widget_settings
 
