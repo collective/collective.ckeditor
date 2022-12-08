@@ -29,6 +29,7 @@ from plone import api
 from plone.portlets.interfaces import IPortletAssignment
 from plone.registry.interfaces import IRegistry
 from plone.app.portlets.browser.interfaces import IPortletAdding
+from plone.protect.utils import addTokenToUrl
 from collective.ckeditor import LOG
 from collective.ckeditor.config import CKEDITOR_PLONE_DEFAULT_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
@@ -267,6 +268,7 @@ class CKeditorView(BrowserView):
             base_url += 'typeview=image&media=image'
             for itype in image_types:
                 base_url += '&types:list=%s' % url_quote(itype)
+        base_url = addTokenToUrl(base_url)
         return "'%s'" % base_url
 
     def geCK_JSProperty(self, prop):
