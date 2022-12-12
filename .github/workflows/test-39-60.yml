@@ -1,4 +1,4 @@
-name: 3.8 5.2 Run tests
+name: 3.9 6.0 Run tests
 on: [push, pull_request]
 jobs:
   build:
