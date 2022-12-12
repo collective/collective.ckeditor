@@ -2,7 +2,7 @@ import os
 import sys
 from setuptools import setup, find_packages
 
-version = '5.0.0a2.dev0'
+version = '5.0.0a2'
 
 long_description = (
     open("TODO.rst").read() + "\n"
