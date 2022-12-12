@@ -4,13 +4,17 @@ Changelog
 5.0.0a2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix brown bag release.
+  [gotcha]
 
 
 5.0.0a1 (2022-12-12)
 --------------------
 
-- Fix robot tests
+- Plone 5.2 and Plone 6 support.
+  [aduchene, gotcha, spereverde, Mychae1]
+
+- Fix robot tests.
   [aduchene]
 
 4.10.1 (2021-10-01)
