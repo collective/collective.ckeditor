@@ -10,9 +10,12 @@ try:
 except ImportError:
     from Products.PortalTransforms.z3.interfaces import ITransform
 
-from collective.ckeditor.config import TAG_PATTERN, UID_PATTERN
 from plone.app.uuid.utils import uuidToURL
 
+RUID_URL_PATTERN = 'resolveuid'
+TAG_PATTERN = r'(\<(img|a|embed)[^>]*>)|(\<[^>]*style=[^>]*url\([^>]*>)'
+UID_PATTERN = r'(?P<uid_url>[^\"\']*%s/(?P<uid>[^\/\"\'#? ]*))' % \
+    RUID_URL_PATTERN
 
 @implementer(ITransform)
 class ck_ruid_to_url:

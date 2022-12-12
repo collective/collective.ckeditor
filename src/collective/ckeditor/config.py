@@ -52,12 +52,9 @@ CKEDITOR_BASIC_TOOLBAR = """[
 ]"""
 
 # quintagroup.com (from qPloneResolveUID product)
-RUID_URL_PATTERN = 'resolveuid'
 DOCUMENT_DEFAULT_OUTPUT_TYPE = "text/x-html-safe"
 REQUIRED_TRANSFORM = "ck_ruid_to_url"
-TAG_PATTERN = r'(\<(img|a|embed)[^>]*>)'
-UID_PATTERN = r'(?P<uid_url>[^\"\']*%s/(?P<uid>[^\/\"\'#? ]*))' % \
-    RUID_URL_PATTERN
+
 # taken from collective/ckeditor/_src/ckeditor/_source/plugins/scayt/plugin.js
 # XXX warning order language correctly because if several values for the same
 # main language, the first defined language will be used as fallback when
