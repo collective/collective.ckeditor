@@ -21,6 +21,7 @@ The javascript code must depend on ckeditor_props.
     >>> portal.error_log._ignored_exceptions = ()
     >>> import transaction
     >>> transaction.commit()
+    >>> plone_version = portal.portal_migration.coreVersions()['Plone']
 
 Test ckeditor finder configuration
 ==================================
@@ -51,7 +52,10 @@ Test Area style sheets configuration
 
 By default we must find all portal_css stylesheet in javascript configuration
 
-    >>> '++plone++static/plone-fullscreen/fullscreen.css' in browser.contents.decode('utf8')
+    >>> plone6_css = '++plone++static/plone-fullscreen/fullscreen.css'
+    >>> plone5_css = '++theme++barceloneta/less/barceloneta-compiled.css'
+    >>> required_css = plone6_css if plone_version.startswith('6.') else plone5_css
+    >>> required_css in browser.contents.decode('utf8')
     True
 
 By default we must also find a specific css for plone ckeditor area
