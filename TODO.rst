@@ -17,21 +17,7 @@ TODO before final release
 - integrate work done at TU Dresden
 - P6 move form.widgets.IRichTextBehavior.text_text_format below CK textarea
 - fix warning with @@ckeditor_vars.js (text/plain MIME type)
-
-Verify
-------
-
-Those notes were taken a while ago with duchenean.
-Still need to check what they mean.
-
-
- - Continue control panel work to migrate to registry
-   - Fix mandatory fields
-   - Remove old adapter CKEditorControlPanelAdapter
- - Write a migration from portal properties to portal registry.
- - Remove Flash from quickupload
- - Write upgrade step (P5.1 > P5.2) for css and js bundle
-
+- remove references to Flash (do not forget quickupload)
 
 Done
 ----
@@ -39,3 +25,7 @@ Done
 - hide profiles that should be hidden in ckeditor
 - ckeditor_vars depends on plone
 - fix issues with CSS
+- Continue control panel work to migrate to registry
+  - Fix mandatory fields
+  - Remove old adapter CKEditorControlPanelAdapter
+- Write a migration from portal properties to portal registry.
