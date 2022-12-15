@@ -96,6 +96,9 @@ launchCKInstances = function (ids_to_launch) {
 }
 
 jQuery(document).ready(launchCKInstances);
+// needed for text field in a modal dialog
+// among others, portlet manager
+jQuery(document).on('after-render.plone-modal.patterns', launchCKInstances);
 
 (function() {
 
