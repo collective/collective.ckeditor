@@ -15,6 +15,8 @@ TODO before final release
 - upgrade to latest CKEditor 4
 - fully remove usage of portal_properties
 - integrate work done at TU Dresden
+- P6 move form.widgets.IRichTextBehavior.text_text_format below CK textarea
+- fix warning with @@ckeditor_vars.js (text/plain MIME type)
 
 Verify
 ------
