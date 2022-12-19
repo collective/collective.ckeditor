@@ -8,7 +8,8 @@ from zope_instance import ZopeInstance
 def plone_instance(tmp_path_factory, pytestconfig):
     path = tmp_path_factory.mktemp('buildout')
     zi = ZopeInstance(path, pytestconfig)
-    zi.run_buildouts("collective.ckeditor=4.10.1")
+    zi.run_buildouts()
+
     with zi:
         yield zi
 
