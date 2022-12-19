@@ -10,7 +10,7 @@
 
     <genericsetup:registerProfile
       name="testing_to_registry"
-      title="Test properties to registry migration"
+      title="Non default properties to test upgrade to registry"
       directory="profiles/testing_to_registry"
       description=""
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -22,7 +22,7 @@
         profile="collective.ckeditor:default">
 
     <genericsetup:upgradeDepends
-        title="Migrate properties to registry"
+        title="Non default properties to test upgrade to registry"
         description=""
         import_profile="collective.ckeditor:testing_to_registry"
         import_steps="propertiestool"

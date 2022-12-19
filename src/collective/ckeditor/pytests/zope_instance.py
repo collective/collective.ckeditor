@@ -27,53 +27,87 @@ class ZopeInstance(object):
             pytestconfig.invocation_dir, sys.argv[0]
         ).parent.joinpath("buildout")
         package_path = pytestconfig.rootdir
-        buildout_cfg = pathlib.Path(tmp_path, "buildout.cfg")
-        buildout = u"""
+        buildout_43_cfg = pathlib.Path(tmp_path, "buildout-4.3.x.cfg")
+        content = u"""
 [buildout]
 extends =  %(package_path)s/test-4.3.x.cfg
 develop =  %(package_path)s
+
+[instance]
+eggs +=
+  collective.upgrade
 """ % dict(
             package_path=package_path
         )
-        with buildout_cfg.open("w") as f:
-            f.write(buildout)
+        with buildout_43_cfg.open("w") as f:
+            f.write(content)
+        buildout_52_cfg = pathlib.Path(tmp_path, "buildout-5.2.x.cfg")
+        content = u"""
+[buildout]
+extends =  %(package_path)s/test-5.2.x.cfg
+develop =  %(package_path)s
+
+[instance]
+eggs +=
+  Plone [archetypes]
+  collective.upgrade
+""" % dict(
+            package_path=package_path
+        )
+        with buildout_52_cfg.open("w") as f:
+            f.write(content)
         os.chdir(str(tmp_path))
-        retcode = subprocess.call([str(buildout_exe), "bootstrap"])
+        retcode = subprocess.call([str(buildout_exe), "-c", str(buildout_43_cfg), "bootstrap"])
         assert retcode == 0
         try:
             output = subprocess.check_output(
-                [str(buildout_exe), "query", "buildout:eggs-directory"]
+                [str(buildout_exe), "-c", str(buildout_43_cfg), "query", "buildout:eggs-directory"]
             )
-
-
             self.eggs_directory = output.decode("utf8").split("\n")[-2]
             print "Use eggs directory ", self.eggs_directory
 
-            output = subprocess.check_output(["bin/buildout", "query", "buildout:develop"])
+            output = subprocess.check_output(["bin/buildout", "-c", str(buildout_52_cfg), "query", "buildout:develop"])
             assert str(package_path).encode("utf8") in output
-
-            output = subprocess.check_output(["bin/buildout", "query", "instance:recipe"])
-            assert b"plone.recipe.zope2instance" in output
-
-            output = subprocess.check_output(["bin/buildout", "query", "plonesite:recipe"])
-            assert b"collective.recipe.plonesite" in output
 
         except subprocess.CalledProcessError as e:
             print(e.cmd)
             print(e.output)
             raise e
+        self.assert_buildout_can_upgrade_via_plonesite(str(buildout_43_cfg))
+        self.assert_buildout_can_upgrade_via_plonesite(str(buildout_52_cfg))
 
-    def run_buildouts(self, from_version):
+    def assert_buildout_can_upgrade_via_plonesite(self, buildout_cfg):
+        try:
+            output = subprocess.check_output(["bin/buildout", "-c", buildout_cfg, "query", "instance:recipe"])
+            assert b"plone.recipe.zope2instance" in output
+
+            output = subprocess.check_output(["bin/buildout", "-c", buildout_cfg, "query", "instance:eggs"])
+            assert b"collective.upgrade" in output
+
+            output = subprocess.check_output(["bin/buildout", "-c", buildout_cfg, "query", "plonesite:recipe"])
+            assert b"collective.recipe.plonesite" in output
+ 
+        except subprocess.CalledProcessError as e:
+            print(e.cmd)
+            print(e.output)
+            raise e
+
+
+    def run_buildouts(self):
         print 
-        print "Install collective.ckeditor", from_version
+        print "Install collective.ckeditor 4.10.1"
         start = time.time()
         retcode = subprocess.call(
             [
                 "bin/buildout",
                 "-N",
+                "-c",
+                "buildout-4.3.x.cfg",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "buildout:develop=",
-                "versions:%s" % from_version,
+                "versions:collective.ckeditor=4.10.1",
+                "versions:collective.plonefinder=1.3.1",
+                "versions:collective.quickupload=1.11.1",
                 "install",
                 "instance",
                 "plonesite",
@@ -85,12 +119,14 @@ develop =  %(package_path)s
         print "in %s seconds" % total
         print()
 
-        print("Setup properties as upgrade setup")
+        print("Non defaut properties as setup for upgrade step to registry")
         start = time.time()
         retcode = subprocess.call(
             [
                 "bin/buildout",
                 "-N",
+                "-c",
+                "buildout-5.2.x.cfg",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "instance:zcml=collective.ckeditor:migration-registry.zcml",
                 "plonesite:upgrade-profiles=collective.ckeditor:default",
@@ -110,6 +146,8 @@ develop =  %(package_path)s
             [
                 "bin/buildout",
                 "-N",
+                "-c",
+                "buildout-5.2.x.cfg",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
                 "install",
                 "instance",
@@ -133,8 +171,6 @@ develop =  %(package_path)s
 
     def stop(self):
         self.process.terminate()
-        # retcode = subprocess.call(["bin/instance", "stop"])
-        # assert retcode == 0
 
     __enter__ = start
 
