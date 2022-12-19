@@ -22,30 +22,10 @@ We will test first the rich widget settings used by a document (front-page)
 Get the rows attribute for this widget
 
     >>> from Products.CMFPlone import utils as ploneutils
-    >>> ploneutils._createObjectByType('Document', portal, 'front-page')
-    <ATDocument at /plone/front-page>
+    >>> doc = ploneutils._createObjectByType('Document', portal, 'front-page')
     >>> import transaction
     >>> transaction.commit()
     >>> doc = portal['front-page']
-    >>> field = doc.Schema()['text']
-    >>> rows = field.widget.rows
-
-Calculate the widget height as done in ckeditorview
-
-    >>> height = str(int(rows)*25) + 'px'
-
-Get the ckeditor widget settings on front-page
-----------------------------------------------
-
-    >>> browser.open('http://nohost/plone/front-page/edit')
-
-See if widget_settings are in contents:
-
-    >>> '<div class="widget_settings">' in browser.contents
-    True
-    
-    >>> browser.getControl(name='cke_height').value== height
-    True
 
 Choose to overload some widget properties in control panel
 ----------------------------------------------------------
