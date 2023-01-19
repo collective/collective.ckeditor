@@ -18,22 +18,48 @@ Control the wysiwyg_editor property in memberdata
     >>> memberdata.wysiwyg_editor
     ''
 
-Control the wysiwyg_editor property in site_properties
-------------------------------------------------------
+Control the available_editors in registry
+-----------------------------------------
 
-    >>> site_props = ptool.site_properties
-    >>> 'CKeditor' in site_props.available_editors
+    >>> from zope.component import getUtility
+    >>> from plone.registry.interfaces import IRegistry
+    >>> registry = getUtility(IRegistry)
+
+    >>> from Products.CMFPlone.interfaces import IEditingSchema
+    >>> settings = registry.forInterface(IEditingSchema, prefix='plone', check=False)
+
+    >>> 'CKeditor' in settings.available_editors
     False
 
-Control the default_editor property in site_properties
-------------------------------------------------------
+Control the default_editor in registry
+--------------------------------------
 
-   >>> 'CKeditor' == site_props.default_editor
+   >>> 'CKeditor' == settings.default_editor
     False
+
+Control CKeditor settings in registry
+-------------------------------------
+
+    >>> from collective.ckeditor.browser.ckeditorsettings import ICKEditorSchema
+    >>> registry.forInterface(ICKEditorSchema)
+    Traceback (most recent call last):
+    ...
+    KeyError: 'Interface `collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema` defines a field ...
+    >>> registry.get("collective.ckeditor.toolbars", None) is None
+    True
+
+Control resource bundles in registry
+------------------------------------
+
+    >>> from Products.CMFPlone.interfaces import IBundleRegistry
+    >>> bundles = registry.collectionOfInterface(IBundleRegistry, prefix="plone.bundles")
+    >>> [name for name in bundles if name.startswith("collective.ckeditor")]
+    []
 
 Control portal_transforms uninstalls
 ------------------------------------
 
+    >>> from Products.CMFCore.utils import getToolByName
     >>> transforms = getToolByName(portal, 'portal_transforms')
     >>> output_mimetype = 'text/x-html-safe'
     >>> cke_transform = 'ck_ruid_to_url'
