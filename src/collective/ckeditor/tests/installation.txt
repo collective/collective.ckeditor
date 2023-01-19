@@ -6,21 +6,25 @@ Log in as manager
     >>> app = layer['app']
     >>> portal = layer['portal']
     >>> from Products.CMFCore.utils import getToolByName
-    >>> ptool = portal.portal_properties
 
-    
-Control the wysiwyg_editor property in site_properties
-------------------------------------------------------
+Control the available_editors in registry
+-----------------------------------------
 
-    >>> site_props = ptool.site_properties
-    >>> 'CKeditor' in site_props.available_editors
+    >>> from zope.component import getUtility
+    >>> from plone.registry.interfaces import IRegistry
+    >>> registry = getUtility(IRegistry)
+
+    >>> from Products.CMFPlone.interfaces import IEditingSchema
+    >>> settings = registry.forInterface(IEditingSchema, prefix='plone', check=False)
+
+    >>> 'CKeditor' in settings.available_editors
     True
-    
-Control the default_editor property in site_properties
-------------------------------------------------------
 
-    >>> site_props.default_editor
-    'CKeditor'
+Control the default_editor in registry
+--------------------------------------
+
+    >>> 'CKeditor' == settings.default_editor
+    True
 
 Control the wysiwyg_editor property in memberdata
 -------------------------------------------------
@@ -32,6 +36,25 @@ property alone.
     >>> memberdata = portal.portal_memberdata
     >>> memberdata.wysiwyg_editor
     ''
+
+Control CKeditor settings in registry
+-------------------------------------
+
+    >>> from collective.ckeditor.browser.ckeditorsettings import ICKEditorSchema
+    >>> settings = registry.forInterface(ICKEditorSchema)
+    >>> settings.toolbar
+    'Plone'
+    >>> registry.get("collective.ckeditor.toolbars", None) is not None
+    True
+
+Control resource bundles in registry
+------------------------------------
+
+    >>> from Products.CMFPlone.interfaces import IBundleRegistry
+    >>> bundles = registry.collectionOfInterface(IBundleRegistry, prefix="plone.bundles")
+    >>> ckbundles = [name for name in bundles if name.startswith("collective.ckeditor")]
+    >>> len(ckbundles) == 3
+    True
 
 Control portal_transforms installation
 --------------------------------------
