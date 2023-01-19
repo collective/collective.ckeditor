@@ -64,7 +64,7 @@ eggs +=
                 [str(buildout_exe), "-c", str(buildout_43_cfg), "query", "buildout:eggs-directory"]
             )
             self.eggs_directory = output.decode("utf8").split("\n")[-2]
-            print "Use eggs directory ", self.eggs_directory
+            print("Use eggs directory ", self.eggs_directory)
 
             output = subprocess.check_output(["bin/buildout", "-c", str(buildout_52_cfg), "query", "buildout:develop"])
             assert str(package_path).encode("utf8") in output
@@ -94,8 +94,8 @@ eggs +=
 
 
     def run_buildouts(self):
-        print 
-        print "Install collective.ckeditor 4.10.1"
+        print() 
+        print("Install collective.ckeditor 4.10.1")
         start = time.time()
         retcode = subprocess.call(
             [
@@ -116,7 +116,7 @@ eggs +=
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
         total = time.time() - start
-        print "in %s seconds" % total
+        print("in %s seconds" % total)
         print()
 
         print("Non defaut properties as setup for upgrade step to registry")
@@ -138,7 +138,7 @@ eggs +=
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
         total = time.time() - start
-        print "in %s seconds" % total
+        print("in %s seconds" % total)
         print()
         print("Run upgrade")
         start = time.time()
@@ -157,7 +157,7 @@ eggs +=
         assert retcode == 0
         assert pathlib.Path("bin/instance").exists()
         total = time.time() - start
-        print "in %s seconds" % total
+        print("in %s seconds" % total)
 
     def check_port(self):
         msg = "There is already another process listening on port %d." % self.port
