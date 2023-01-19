@@ -32,6 +32,7 @@ class ZopeInstance(object):
 [buildout]
 extends =  %(package_path)s/test-4.3.x.cfg
 develop =  %(package_path)s
+auto-checkout = 
 
 [instance]
 eggs +=
@@ -92,10 +93,11 @@ eggs +=
             print(e.output)
             raise e
 
-
     def run_buildouts(self):
-        print() 
+        print()
+        print()
         print("Install collective.ckeditor 4.10.1")
+        print("----------------------------------")
         start = time.time()
         retcode = subprocess.call(
             [
@@ -118,8 +120,9 @@ eggs +=
         total = time.time() - start
         print("in %s seconds" % total)
         print()
-
+        print()
         print("Non defaut properties as setup for upgrade step to registry")
+        print("___________________________________________________________")
         start = time.time()
         retcode = subprocess.call(
             [
@@ -140,7 +143,9 @@ eggs +=
         total = time.time() - start
         print("in %s seconds" % total)
         print()
+        print()
         print("Run upgrade")
+        print("-----------")
         start = time.time()
         retcode = subprocess.call(
             [
@@ -149,6 +154,8 @@ eggs +=
                 "-c",
                 "buildout-5.2.x.cfg",
                 "buildout:eggs-directory=%s" % self.eggs_directory,
+                "plonesite:upgrade-profiles=collective.ckeditor:default",
+                "plonesite:profiles=collective.quickupload:default",
                 "install",
                 "instance",
                 "plonesite",
