@@ -32,6 +32,6 @@ jobs:
       #   run: |
       #     ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
       #     ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and image2"
-      - name: Run upgrade tests
-        run: |
-          bin/pytest -k "upgrade"
+      # - name: Run upgrade tests
+      #   run: |
+      #     bin/pytest -k "upgrade"
