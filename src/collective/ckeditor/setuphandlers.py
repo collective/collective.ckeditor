@@ -3,7 +3,11 @@ from collective.ckeditor.config import DOCUMENT_DEFAULT_OUTPUT_TYPE, \
     REQUIRED_TRANSFORM
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import IBundleRegistry
+from Products.CMFPlone.interfaces import IEditingSchema
 from zope.interface import implementer
+from zope.component import getUtility
 
 
 def importFinalSteps(context):
@@ -23,7 +27,7 @@ def uninstallSteps(context):
         return
     site = context.getSite()
     uninstallControlPanel(site)
-    uninstallSiteProperties(site)
+    uninstallFromRegistry(site)
     uninstallMemberProperties(site)
     unregisterTransform(site, 'ck_ruid_to_url')
     unregisterTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE,
@@ -69,26 +73,47 @@ def uninstallControlPanel(context):
     LOG.info("CKEditor configlet removed")
 
 
-def uninstallSiteProperties(context):
+def uninstallFromRegistry(context):
     """
     Remove CKeditor as available editor.
     Could not be done with GS.
     If default editor is CKeditor, we change it to TinyMCE
     or the basic html area.
     """
-    ptool = getToolByName(context, 'portal_properties')
-    stp = ptool.site_properties
-    ae = list(stp.getProperty('available_editors'))
-    if 'CKeditor' in ae:
-        ae.remove('CKeditor')
-        stp.manage_changeProperties(REQUEST=None, available_editors=ae)
-    default_editor = stp.getProperty('default_editor', '')
-    if default_editor == 'CKeditor':
-        if 'TinyMCE' in ae:
-            stp.manage_changeProperties(REQUEST=None, default_editor='TinyMCE')
+
+    registry = getUtility(IRegistry)
+    settings = registry.forInterface(
+        IEditingSchema,
+        prefix='plone',
+        check=False
+    )
+
+    available_editors = settings.available_editors
+    if 'CKeditor' in available_editors:
+        available_editors.remove('CKeditor')
+        settings.available_editors = available_editors
+
+    if settings.default_editor == 'CKeditor':
+        if 'TinyMCE' in available_editors:
+            settings.default_editor='TinyMCE'
         else:
             # Basic HTML area
-            stp.manage_changeProperties(REQUEST=None, default_editor='None')
+            settings.default_editor='None'
+
+    for key in registry.records.keys():
+        if key.startswith(
+            "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema"
+        ):
+            del registry.records[key]
+        if key.startswith(
+            "collective.ckeditor.toolbars"
+        ):
+            del registry.records[key]
+
+    bundles = registry.collectionOfInterface(IBundleRegistry, prefix="plone.bundles")
+    for name in bundles:
+        if name.startswith("collective.ckeditor"):
+            del bundles[name]
 
 
 def uninstallMemberProperties(context):
