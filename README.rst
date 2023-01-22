@@ -287,7 +287,7 @@ Contributors
 - Leonardo J. Caballero G. <leonardocaballero@gmail.com>
 
 .. _documentation: http://plone.org/documentation/kb/installing-add-ons-quick-how-to
-.. |makinacom| image:: http://depot.makina-corpus.org/public/logo.gif
-.. _makinacom:  http://www.makina-corpus.com
-.. _ckeditor: http://ckeditor.com/
+.. |makinacom| image:: https://depot.makina-corpus.org/public/logo.gif
+.. _makinacom:  https://www.makina-corpus.com
+.. _ckeditor: https://ckeditor.com/
 .. _collective.plonefinder: http://plone.org/products/collective.plonefinder
