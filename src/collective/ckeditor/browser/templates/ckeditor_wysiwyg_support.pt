@@ -41,7 +41,7 @@
                tal:content="inputvalue"
                style="display:none"
                tal:attributes="name inputname;
-                               id inputname;
+                               id python:inputname.replace('.', '_');
                                onfocus onfocus|nothing;
                                onblur onblur|nothing;"></textarea>
 

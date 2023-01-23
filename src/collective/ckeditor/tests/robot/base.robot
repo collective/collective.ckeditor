@@ -14,7 +14,7 @@ Test Teardown  Run keywords  Close all browsers
 *** Variables ***
 
 ${SELENIUM_IMPLICIT_WAIT}  1
-${WAIT_MORE}  5
+${WAIT_MORE}  1
 
 *** Test cases ***
 
@@ -41,23 +41,23 @@ Scenario: Uses default image editor
     Cancel edit
 
 # TODO: Fix "select some text" keyword
-#Scenario: Use bold button
-#    Given a logged-in editor
-#    and a document
-#    When I edit the document
-#    and select some text
-#    and click the bold button
-#    and save the document
-#    Then the selected text is bold
-#
-#Scenario: Use italic button
-#    Given a logged-in editor
-#    and a document
-#    When I edit the document
-#    and select some text
-#    and click the italic button
-#    and save the document
-#    Then the selected text is italic
+Scenario: Use bold button
+    Given a logged-in editor
+    and a document
+    When I edit the document
+    and select some text
+    and click the bold button
+    and save the document
+    Then the selected text is bold
+
+Scenario: Use italic button
+    Given a logged-in editor
+    and a document
+    When I edit the document
+    and select some text
+    and click the italic button
+    and save the document
+    Then the selected text is italic
 
 *** Keywords *****************************************************************
 
@@ -75,7 +75,7 @@ a document
   Page Should Not Contain Element  css=#p1 strong
 
 # --- WHEN -------------------------------------------------------------------
-    
+
 I edit the document
   Go to  ${PLONE_URL}/document-to-edit/edit
 
@@ -87,16 +87,16 @@ select some text
 
 click the bold button
   Set Selenium implicit wait  ${WAIT_MORE}
-  Page Should contain Element  css=span.cke_button__bold_icon 
-  Click Element  css=span.cke_button__bold_icon 
+  Page Should contain Element  css=span.cke_button__bold_icon
+  Click Element  css=span.cke_button__bold_icon
   Select Frame  css=iframe.cke_wysiwyg_frame
   Page Should Contain Element  css=#p1 strong
   Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
 
 click the italic button
   Set Selenium implicit wait  ${WAIT_MORE}
-  Page Should contain Element  css=span.cke_button__italic_icon 
-  Click Element  css=span.cke_button__italic_icon 
+  Page Should contain Element  css=span.cke_button__italic_icon
+  Click Element  css=span.cke_button__italic_icon
   Select Frame  css=iframe.cke_wysiwyg_frame
   Page Should Contain Element  css=#p1 em
   Set Selenium implicit wait  ${SELENIUM_IMPLICIT_WAIT}
@@ -109,7 +109,7 @@ save the document
 # --- THEN -------------------------------------------------------------------
 
 CKEditor is used for the text field
-  Page should contain element  css=#archetypes-fieldname-text #cke_text #cke_1_contents iframe
+  Page should contain element  css=#formfield-form-widgets-IRichTextBehavior-text #cke_1_contents iframe
 
 the selected text is bold
   Page Should Contain Element  css=#p1 strong
@@ -121,16 +121,16 @@ CKEditor does not show uncorrect spelling
   Select Frame  css=iframe.cke_wysiwyg_frame
   Sleep  1s  # to give time to scayt
   Page Should Not Contain Element  css=#p1 .scayt-misspell-word
-    
+
 CKEditor uses default image editor
-  Page Should Not Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
-  Page Should Contain Element  css=span.cke_button__image_icon 
+  Page Should Not Contain Element  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
+  Page Should Contain Element  css=span.cke_button__image_icon
   Click Element  css=span.cke_button__image_icon
-  Wait Until Element Is Visible  css=.cke_editor_text_dialog .cke_dialog_title
-  Page Should Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
-  Element should contain  css=.cke_editor_text_dialog .cke_dialog_title  Image Properties
-  Element should contain  css=.cke_editor_text_dialog  Preview
+  Wait Until Element Is Visible  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
+  Page Should Contain Element  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
+  Element should contain  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title  Image Properties
+  Element should contain  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog  Preview
 
 Cancel edit
   Unselect frame
-  Click element  name=form.button.cancel
+  Click element  name=form.buttons.cancel
