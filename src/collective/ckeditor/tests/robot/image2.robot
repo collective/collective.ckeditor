@@ -48,14 +48,14 @@ I edit the document
 # --- THEN -------------------------------------------------------------------
 
 CKEditor uses image2 editor
-  Page Should Not Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
+  Page Should Not Contain Element  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
   Page Should Contain Element  css=span.cke_button__image_icon 
   Click Element  css=span.cke_button__image_icon
-  Wait Until Element Is Visible  css=.cke_editor_text_dialog .cke_dialog_title
-  Page Should Contain Element  css=.cke_editor_text_dialog .cke_dialog_title
-  Element should contain  css=.cke_editor_text_dialog .cke_dialog_title  Image Properties
-  Element should contain  css=.cke_editor_text_dialog  Captioned image
+  Wait Until Element Is Visible  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
+  Page Should Contain Element  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
+  Element should contain  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title  Image Properties
+  Element should contain  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog  Captioned image
 
 Cancel edit
   Unselect frame
-  Click element  name=form.button.cancel
+  Click element  name=form.buttons.cancel
