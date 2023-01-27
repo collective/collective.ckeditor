@@ -8,13 +8,13 @@ Resource  plone/app/robotframework/selenium.robot
 Library  Remote  ${PLONE_URL}/RobotRemote
 Library  plone.app.robotframework.keywords.Debugging
 
-Test Setup  Open test browser and set window size
+Test Setup  Open test browser
 Test Teardown  Run keywords  Close all browsers
 
 *** Variables ***
 
 ${SELENIUM_IMPLICIT_WAIT}  1
-${WAIT_MORE}  3
+${WAIT_MORE}  1
 
 *** Test cases ***
 
@@ -80,11 +80,9 @@ I edit the document
   Go to  ${PLONE_URL}/document-to-edit/edit
 
 select some text
-  Scroll top left of element into view  css=iframe.cke_wysiwyg_frame
   Select Frame  css=iframe.cke_wysiwyg_frame
   Page Should Contain Element  css=#p1
-  Scroll top left of element into view  css=#content #p1
-  Mouse Select Element  css=#content #p1
+  Mouse Select  css=#p1  20  2
   Unselect Frame
 
 click the bold button
@@ -126,12 +124,8 @@ CKEditor does not show uncorrect spelling
 
 CKEditor uses default image editor
   Page Should Not Contain Element  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
-  Page Should Contain Element  css=a.cke_button__image
-  Wait Until Element Is Visible  css=a.cke_button__image
-  # Use javascript instead of selenium that fails on Github
-  #
-  # Click link  css=a.cke_button__image
-  Execute javascript  document.querySelector('a.cke_button__image').click();
+  Page Should Contain Element  css=span.cke_button__image_icon
+  Click Element  css=span.cke_button__image_icon
   Wait Until Element Is Visible  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
   Page Should Contain Element  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title
   Element should contain  css=.cke_editor_form_widgets_IRichTextBehavior_text_dialog .cke_dialog_title  Image Properties
@@ -139,29 +133,4 @@ CKEditor uses default image editor
 
 Cancel edit
   Unselect frame
-  Execute javascript  document.querySelector('.formControls').scrollIntoView(true);
-  Set focus to element  name=form.buttons.cancel
-  Sleep  0.5
-  Backport Wait For Then Click element  name=form.buttons.cancel
-
-Open test browser and set window size
-  Open test browser
-  Set window size  1200  800
-
-Backport Wait For Element
-    [Documentation]  Can contain css=, jquery=, or any other element selector.
-    ...              Element must match exactly one time.
-    [Arguments]  ${element}
-    Wait Until Page Contains Element  ${element}
-    Set Focus To Element  ${element}
-    Wait Until Element Is Visible  ${element}
-    Sleep  0.1
-    ${count} =  Get Element Count  ${element}
-    Should Be Equal as Numbers  ${count}  1
-
-Backport Wait For Then Click Element
-    [Documentation]  Can contain css=, jquery=, or any other element selector.
-    ...              Element must match exactly one time.
-    [Arguments]  ${element}
-    Backport Wait For Element  ${element}
-    Click Element  ${element}
+  Click element  name=form.buttons.cancel
