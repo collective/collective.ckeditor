@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a3 (unreleased)
+5.0.0a3 (2023-02-20)
 --------------------
 
 - Fix all tests for 5.2 and 6 and run them on GHA
