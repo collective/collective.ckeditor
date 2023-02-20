@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a4 (unreleased)
+5.0.0a4 (2023-02-20)
 --------------------
 
 - add Plone Addon classifier
