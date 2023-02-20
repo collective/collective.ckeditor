@@ -4,7 +4,11 @@ Changelog
 5.0.0a3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix all tests for 5.2 and 6 and run them on GHA
+  [gotcha]
+
+- Fix CKEditor in rich text field in modal dialog
+  [gotcha]
 
 
 5.0.0a2 (2022-12-12)
