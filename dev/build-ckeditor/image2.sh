@@ -1,5 +1,7 @@
 #!/bin/bash
 : "${CKEDITOR_VERSION:?"Need to set CKEDITOR_VERSION environment variable"}"
+CK_VERSIONS=( ${CKEDITOR_VERSION//./ } )                   # replace points, split into array
+CK_MINOR="${CK_VERSIONS[1]}"
 CKEDITOR_SRC_DIR="$(pwd)/../../src/collective/ckeditor/_src"
 
 # make download directory
@@ -25,6 +27,10 @@ if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
         IMAGE2_VERSION=${CKEDITOR_VERSION}
 fi
 if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
+        IMAGE2_VERSION=${CKEDITOR_VERSION}
+fi
+if test "${CK_MINOR}" -gt 12
+then
         IMAGE2_VERSION=${CKEDITOR_VERSION}
 fi
 if [ -z "${IMAGE2_VERSION+x}" ]; then

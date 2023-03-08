@@ -1,5 +1,7 @@
 #!/bin/bash
 : "${CKEDITOR_VERSION:?"Need to set CKEDITOR_VERSION environment variable"}"
+CK_VERSIONS=( ${CKEDITOR_VERSION//./ } )                   # replace points, split into array
+CK_MINOR="${CK_VERSIONS[1]}"
 CKEDITOR_SRC_DIR="$(pwd)/../../src/collective/ckeditor/_src"
 
 # make download directory
@@ -12,19 +14,8 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.4* ]]; then
         MOONO_COLOR_VERSION=1.4.1
 fi
-if [[ ${CKEDITOR_VERSION} == 4.5* ]]; then
-        MOONO_COLOR_VERSION=4.5.1
-fi
-if [[ ${CKEDITOR_VERSION} == 4.6* ]]; then
-        MOONO_COLOR_VERSION=4.5.1
-fi
-if [[ ${CKEDITOR_VERSION} == 4.7* ]]; then
-        MOONO_COLOR_VERSION=4.5.1
-fi
-if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
-        MOONO_COLOR_VERSION=4.5.1
-fi
-if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
+if test "${CK_MINOR}" -ge 5
+then
         MOONO_COLOR_VERSION=4.5.1
 fi
 if [ -z ${MOONO_COLOR_VERSION+x} ]; then

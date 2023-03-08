@@ -190,8 +190,8 @@ Or setup `ckeditor_properties` through generic setup `propertiestool.xml`::
 Development
 ===========
 
-.. attention:: 
-    ConfigurationError 
+.. attention::
+    ConfigurationError
 
     If you try to run a Zope/Plone instance with a collective.ckeditor
     checkout, your instance will break with a ``ConfigurationError``::
@@ -229,10 +229,17 @@ How to update to a newer version of CKEditor
 Valid for CKEditor 4
 
 1. Go to ``dev/build-ckeditor``
-2. Update plugin versions computation in ``image2.sh``, ``moono.sh``,
-   ``scayt`` and ``wsc`` in ``scayt.sh``
+2. Update plugin versions
+
+  * Check current version of plugins according to the new CKEditor version. See here for example : https://ckeditor.com/cke4/addon/image2
+  * Update plugin versions computation
+
+    - "Enhanced Image" in ``image2.sh``
+    - "Moono Color" in ``moono.sh``
+    - "SpellCheckAsYouType (SCAYT)" in ``scayt.sh``
+
 3. Issue the following command ``CKEDITOR_VERSION=4.x.x make``
-4. Run ``bin/copy_ckeditor_code``
+4. Go to the package root and run ``bin/copy_ckeditor_code``
 5. Test
 6. Add untracked files ``git add ../../src/collective/ckeditor/_src/ckeditor/``
 7. Commit
