@@ -4,11 +4,15 @@ Changelog
 4.10.2 (unreleased)
 -------------------
 
+- Update to CKEditor 4.20.2
+  [gotcha]
+
 - Migrate configuration from ``portal_properties`` to registry.
   [aduchene, gotcha, kimpaulissen, Mychae1]
 
 - Fix robot tests
   [aduchene]
+
 
 4.10.1 (2021-10-01)
 -------------------
