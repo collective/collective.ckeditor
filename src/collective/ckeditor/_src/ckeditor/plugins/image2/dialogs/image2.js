@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -77,7 +77,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 			isValid = !!( match && parseInt( match[ 1 ], 10 ) !== 0 );
 
 		if ( !isValid )
-			alert( commonLang[ 'invalidLength' ].replace( '%1', commonLang[ this.id ] ).replace( '%2', 'px' ) ); // jshint ignore:line
+			alert( commonLang.invalidLength.replace( '%1', commonLang[ this.id ] ).replace( '%2', 'px' ) ); // jshint ignore:line
 
 		return isValid;
 	}
@@ -122,8 +122,10 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 				callback( null );
 			} );
 
+			// (#3394)
+			var queryStringSeparator = src.indexOf( '?' ) !== -1 ? '&' : '?';
 			image.setAttribute( 'src',
-				( config.baseHref || '' ) + src + '?' + Math.random().toString( 16 ).substring( 2 ) );
+				( config.baseHref || '' ) + src + queryStringSeparator + Math.random().toString( 16 ).substring( 2 ) );
 		};
 	}
 
@@ -131,7 +133,9 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 	// "src" field is altered. Along with dimensions, also the
 	// dimensions lock is adjusted.
 	function onChangeSrc() {
-		var value = this.getValue();
+		var value = this.getValue(),
+			lockRatioValue = editor.config.image2_defaultLockRatio,
+			isLockRatioSet = lockRatioValue !== undefined;
 
 		toggleDimensions( false );
 
@@ -144,7 +148,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 
 				// There was problem loading the image. Unlock ratio.
 				if ( !image )
-					return toggleLockRatio( false );
+					return toggleLockRatio( ( isLockRatioSet ? lockRatioValue : false ) );
 
 				// Fill width field with the width of the new image.
 				widthField.setValue( editor.config.image2_prefillDimensions === false ? 0 : width );
@@ -159,7 +163,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 				preLoadedHeight = domHeight = height;
 
 				// Check for new lock value if image exist.
-				toggleLockRatio( helpers.checkHasNaturalRatio( image ) );
+				toggleLockRatio( ( isLockRatioSet ? lockRatioValue : helpers.checkHasNaturalRatio( image ) ) );
 			} );
 
 			srcChanged = true;
@@ -389,7 +393,7 @@ CKEDITOR.dialog.add( 'image2', function( editor ) {
 		},
 		onShow: function() {
 			// Create a "global" reference to edited widget.
-			widget = this.widget;
+			widget = this.getModel();
 
 			// Create a "global" reference to widget's image.
 			image = widget.parts.image;
