@@ -1,4 +1,7 @@
 #!/bin/bash
+: "${CKEDITOR_VERSION:?"Need to set CKEDITOR_VERSION environment variable"}"
+CK_VERSIONS=( ${CKEDITOR_VERSION//./ } )                   # replace points, split into array
+CK_MINOR="${CK_VERSIONS[1]}"
 CKEDITOR_DEV_DIR="$(pwd)/ckeditor-dev"
 BUILD_CONFIG="${CKEDITOR_DEV_DIR}/dev/builder/build-config.js"
 
@@ -31,7 +34,10 @@ function check_plugin
 
 check_plugin widget
 check_plugin lineutils
-check_plugin wsc
+if test "${CK_MINOR}" -lt 18
+then
+        check_plugin wsc
+fi
 check_plugin scayt
 check_plugin balloontoolbar
 
@@ -39,8 +45,13 @@ check_plugin balloontoolbar
 # so that they get included in the distro
 # also add widget and lineutils plugins, image2 dependencies
 echo "Fixing ${BUILD_CONFIG}"
-sed -i '/\<image: 1,/awsc: 1,' "${BUILD_CONFIG}"
-sed -i '/wsc: 1,/ascayt: 1,' "${BUILD_CONFIG}"
+if test "${CK_MINOR}" -gte 18
+then
+        sed -i '/\<image: 1,/ascayt: 1,' "${BUILD_CONFIG}"
+else
+        sed -i '/\<image: 1,/wsc: 1,' "${BUILD_CONFIG}"
+        sed -i '/wsc: 1,/ascayt: 1,' "${BUILD_CONFIG}"
+fi
 sed -i '/scayt: 1,/awidget: 1,' "${BUILD_CONFIG}"
 sed -i '/widget: 1,/alineutils: 1,' "${BUILD_CONFIG}"
 sed -i '/lineutils: 1,/aballoontoolbar: 1,' "${BUILD_CONFIG}"

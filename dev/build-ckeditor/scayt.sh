@@ -1,5 +1,7 @@
 #!/bin/bash
 : "${CKEDITOR_VERSION:?"Need to set CKEDITOR_VERSION environment variable"}"
+CK_VERSIONS=( ${CKEDITOR_VERSION//./ } )                   # replace points, split into array
+CK_MINOR="${CK_VERSIONS[1]}"
 PLUGINS_DIR="$(pwd)/ckeditor-dev/plugins"
 
 # make download directory
@@ -25,6 +27,10 @@ if [[ ${CKEDITOR_VERSION} == 4.9* ]]; then
         SCAYT_VERSION=${CKEDITOR_VERSION}
 fi
 if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
+        SCAYT_VERSION=${CKEDITOR_VERSION}
+fi
+if test "${CK_MINOR}" -gt 12
+then
         SCAYT_VERSION=${CKEDITOR_VERSION}
 fi
 if [ -z "${SCAYT_VERSION+x}" ]; then
@@ -54,6 +60,10 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
+if test "${CK_MINOR}" -ge 18
+then
+        WSC_VERSION="NOT_SUPPORTED"
+fi
 if [ -z "${WSC_VERSION+x}" ]; then
         echo "version of wsc plugin could not be computed"
         exit 1
@@ -72,6 +82,9 @@ curl -o "${DOWNLOAD_DIR}/${SCAYT_FILE}" "${SCAYT_URL}" || error_exit "download o
 rm -rf "${PLUGINS_DIR}/scayt"
 unzip "${DOWNLOAD_DIR}/${SCAYT_FILE}" -d "${PLUGINS_DIR}"
 
+if [[ ${WSC_VERSION} == NOT_SUPPORTED ]]; then
+	exit 0
+fi
 echo "Downloading ${WSC_URL}..."
 curl -o "${DOWNLOAD_DIR}/${WSC_FILE}" "${WSC_URL}" || error_exit "download of wsc failed" 
 rm -rf "${PLUGINS_DIR}/wsc"
