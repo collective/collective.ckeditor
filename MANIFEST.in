@@ -1,4 +1,10 @@
 recursive-include src *
 recursive-include docs *
 include *rst *cfg .*yml
-global-exclude *pyc *pyo
+global-exclude *pyc *pyo .DS_Store
+prune dev
+exclude requirements.txt
+exclude .coveragerc
+exclude .mr.developer.cfg
+exclude .installed.cfg
+prune .tx
