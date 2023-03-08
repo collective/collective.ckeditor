@@ -4,7 +4,8 @@ Changelog
 5.0.0a5 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Update to CKEditor 4.20.2
+  [gotcha]
 
 
 5.0.0a4 (2023-02-20)
@@ -37,8 +38,12 @@ Changelog
 - Plone 5.2 and Plone 6 support.
   [aduchene, gotcha, spereverde, Mychae1]
 
+- Migrate configuration from ``portal_properties`` to registry.
+  [aduchene, gotcha, kimpaulissen, Mychae1]
+
 - Fix robot tests.
   [aduchene]
+
 
 4.10.1 (2021-10-01)
 -------------------
