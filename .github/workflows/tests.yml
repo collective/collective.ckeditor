@@ -1,0 +1,86 @@
+on: [push, pull_request]
+name: Tests
+jobs:
+  instance:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "2.7"
+            plone-version: "5.2"
+            os: "ubuntu-20.04"
+          - python-version: "3.8"
+            plone-version: "5.2"
+            os: "ubuntu-latest"
+          - python-version: "3.9"
+            plone-version: "6.0"
+            os: "ubuntu-latest"
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.plone-version }}-${{ matrix.python-version }} start instance
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: collective/buildout.plonetest/.github/actions/buildout@gha-buildout-action
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          python-version: ${{ matrix.python-version }}
+          plone-version: ${{ matrix.plone-version }}
+          buildout-parts: "copy_ckeditor_code ckeditor instance"
+      - name: Check that instance starts
+        run: |
+          bin/instance run startup.py
+  all_tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "2.7"
+            plone-version: "5.2"
+            os: "ubuntu-20.04"
+          - python-version: "3.8"
+            plone-version: "5.2"
+            os: "ubuntu-latest"
+          - python-version: "3.9"
+            plone-version: "6.0"
+            os: "ubuntu-latest"
+    needs: instance
+    name: ${{ matrix.plone-version }}-${{ matrix.python-version }} run tests (robot inc)
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: collective/buildout.plonetest/.github/actions/buildout@gha-buildout-action
+        with:
+          github-token: ${{ secrets.github-token }}
+          python-version: ${{ matrix.python-version }}
+          plone-version:  ${{ matrix.plone-version }}
+          buildout-parts: "copy_ckeditor_code ckeditor pytest"
+      - name: Run unit tests
+        run: |
+          bin/pytest
+      - name: Install Firefox
+        uses: browser-actions/setup-firefox@latest
+        with:
+          firefox-version: "109.0"
+      - name: Install Geckodriver
+        uses: browser-actions/setup-geckodriver@latest
+        with:
+          geckodriver-version: "0.32.0"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run robot tests
+        run: |
+          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
+          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and image2"
+  test_upgrade:
+    needs: all_tests
+    name: 5.2-2.7 upgrade
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: collective/buildout.plonetest/.github/actions/buildout@gha-buildout-action
+        with:
+          github-token: ${{ secrets.github-token }}
+          python-version: "2.7"
+          plone-version: "5.2"
+          buildout-parts: "copy_ckeditor_code ckeditor pytest"
+      - name: Run upgrade tests
+        run: |
+          bin/pytest -k "upgrade"
