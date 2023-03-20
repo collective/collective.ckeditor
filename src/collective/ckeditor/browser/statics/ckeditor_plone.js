@@ -90,8 +90,11 @@ launchCKInstances = function (ids_to_launch) {
                 if (instance) { instance.destroy(true); }
 	    };
         }
-        CKEDITOR.replace( ckid, widget_config);
-	};
+        editor = CKEDITOR.replace( ckid, widget_config);
+        editor.on('blur', function(e) {
+            editor.updateElement();
+        })
+        };
     })
 }
 
