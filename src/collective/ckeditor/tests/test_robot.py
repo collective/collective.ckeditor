@@ -16,6 +16,10 @@ if sys.version_info[0] >= 3:
                     robotsuite.RobotTestSuite('robot/base.robot'),
                     layer=CKEDITOR_ROBOT
                 ),
+                layered(
+                    robotsuite.RobotTestSuite('robot/staticportlet.robot'),
+                    layer=CKEDITOR_ROBOT
+                ),
     # Disabled because CORS errors in Firefox
     #            layered(
     #                robotsuite.RobotTestSuite('robot/scayt.robot'),
