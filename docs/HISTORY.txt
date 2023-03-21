@@ -4,7 +4,14 @@ Changelog
 4.11.0a2 (unreleased)
 ---------------------
 
-- Nothing changed yet.
+- Fix availability of cke-save
+  [gbastien, gotcha]
+
+- Fix leftover usage of ``portal_properties``.
+  [gotcha]
+
+- Fix cke-upload-image URL setup
+  [gbastien, gotcha]
 
 
 4.11.0a1 (2023-03-08)
