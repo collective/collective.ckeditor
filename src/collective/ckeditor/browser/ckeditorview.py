@@ -460,16 +460,24 @@ CKEDITOR.stylesSet.add('plone', styles);""" % demjson.dumps(styles)
         settings.setup(ckview=self, fieldname=fieldname)
         return settings()
 
-
     def upload_image(self):
-        container = component.getMultiAdapter((self.context, self.request),name='folder_factories').add_context()
+        factory = component.getMultiAdapter(
+            (self.context, self.request),
+            name='folder_factories'
+        )
+        container = factory.add_context()
         upload = self.request.form['upload']
         try:
-            image = api.content.create(container=container, type='Image', file=upload, id=upload.filename, safe_id=True)
+            image = api.content.create(
+                container=container, type='Image',
+                file=upload, id=upload.filename,
+                safe_id=True
+        )
         except Unauthorized:
-            LOG.warning("Upload image not allowed at {}".format(container.absolute_url()))
+            LOG.warning(
+                "Upload image not allowed at %s", container.absolute_url()
+            )
             raise
-        navroot = api.portal.get_navigation_root(context=self.context)
         image_url = "/".join(('resolveuid', api.content.get_uuid(image)))
         result = {
             "uploaded": 1,

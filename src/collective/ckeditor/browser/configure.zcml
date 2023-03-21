@@ -89,7 +89,7 @@
         name="cke-upload-image"
         for="Products.CMFCore.interfaces.IFolderish"
         class=".ckeditorview.CKeditorView"
-        attribute="upload_image" 
+        attribute="upload_image"
         permission="cmf.ModifyPortalContent"
         />
 
@@ -97,7 +97,7 @@
         name="cke-upload-image"
         for="Products.CMFCore.interfaces.IContentish"
         class=".ckeditorview.CKeditorView"
-        attribute="upload_image" 
+        attribute="upload_image"
         permission="cmf.ModifyPortalContent"
         />
 
