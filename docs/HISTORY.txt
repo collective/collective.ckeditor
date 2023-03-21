@@ -4,6 +4,15 @@ Changelog
 5.0.0a5 (unreleased)
 --------------------
 
+- Fix availability of cke-save
+  [gbastien, gotcha]
+
+- Fix leftover usage of ``portal_properties``.
+  [gotcha]
+
+- Fix cke-upload-image URL setup
+  [gbastien, gotcha]
+
 - Update to CKEditor 4.20.2
   [gotcha]
 
