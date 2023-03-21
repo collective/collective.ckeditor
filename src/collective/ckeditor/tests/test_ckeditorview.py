@@ -62,7 +62,7 @@ class TestCKeditorViewTestCase(unittest.TestCase):
         view()
         self.assertFalse("image1-1.png" not in portal.objectIds())
         self.assertEqual(portal['image1-1.png'].portal_type, 'Image')
- 
+
     def test_uploadimage_json(self):
         portal = self.layer['portal']
         setRoles(portal, TEST_USER_ID, ['Contributor'])
