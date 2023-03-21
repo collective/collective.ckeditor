@@ -28,6 +28,8 @@ jobs:
         uses: browser-actions/setup-firefox@latest
       - name: Install Geckodriver
         uses: browser-actions/setup-geckodriver@latest
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run robot tests
         run: |
           ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
