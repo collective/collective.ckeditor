@@ -562,17 +562,17 @@ class Z3WidgetSettings(object):
         return widget_settings
 
     def setupAjaxSave(self, widget_settings):
-        portal = self.ckview.portal
         target = self.getSaveTarget()
-        widget_settings['ajaxsave_enabled'] = 'true'
-        try:
-            save_url = str(portal.portal_url.getRelativeUrl(target) + '/cke-save')
-            view = portal.restrictedTraverse(save_url)
-        except:
-            widget_settings['ajaxsave_enabled'] = 'false'
-        else:
+        view = component.queryMultiAdapter(
+            (target, self.ckview.request), name='cke-save'
+        )
+        if view is not None:
+            widget_settings['ajaxsave_enabled'] = 'true'
+            save_url = str(target.absolute_url() + '/cke-save')
             widget_settings['ajaxsave_url'] = save_url
             widget_settings['ajaxsave_fieldname'] = self.getFieldName()
+        else:
+            widget_settings['ajaxsave_enabled'] = 'false'
 
 
 class Z3CFormWidgetSettings(Z3WidgetSettings):
@@ -644,6 +644,7 @@ class ATWidgetSettings(object):
         widget_settings['ajaxsave_enabled'] = 'true'
         widget_settings['ajaxsave_fieldname'] = self.fieldname
         widget_settings['ajaxsave_url'] = self.ckview.context.absolute_url() + '/cke-save'
+
 
 class AjaxSave(BrowserView):
 
