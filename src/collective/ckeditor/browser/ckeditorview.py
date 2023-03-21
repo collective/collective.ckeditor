@@ -343,11 +343,12 @@ class CKeditorView(BrowserView):
     config.toolbar_Basic = %s;
     config.toolbar_Plone = %s;
     config.toolbar_Full = %s;
-    config.imageUploadUrl = '@@cke-upload-image';
+    config.imageUploadUrl = '%s/@@cke-upload-image';
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_BASIC_TOOLBAR,
                CKEDITOR_PLONE_DEFAULT_TOOLBAR,
                CKEDITOR_FULL_TOOLBAR,
+               self.context.absolute_url(),
                self.portal_url)
 
         templatesReplaceContent = self.get_registry_value(
