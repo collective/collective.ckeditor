@@ -32,6 +32,7 @@ jobs:
         uses: browser-actions/setup-geckodriver@latest
         with:
           geckodriver-version: "0.32.0"
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run robot tests
         run: |
           ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
