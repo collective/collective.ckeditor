@@ -10,10 +10,7 @@ Plone 4 code can be found in `4.x` branch.
 TODO before final release
 =========================
 
-- fix tests
 - fix issues with portal types vocabularies
-- upgrade to latest CKEditor 4
-- fully remove usage of portal_properties
 - integrate work done at TU Dresden
 - P6 move form.widgets.IRichTextBehavior.text_text_format below CK textarea
 - fix warning with @@ckeditor_vars.js (text/plain MIME type)
@@ -29,3 +26,6 @@ Done
   - Fix mandatory fields
   - Remove old adapter CKEditorControlPanelAdapter
 - Write a migration from portal properties to portal registry.
+- fix tests
+- upgrade to latest CKEditor 4
+- fully remove usage of portal_properties
