@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a5 (unreleased)
+5.0.0a5 (2023-03-27)
 --------------------
 
 - Fix availability of cke-save
