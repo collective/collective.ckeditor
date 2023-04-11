@@ -169,14 +169,14 @@
     </upgradeSteps>
 
     <upgradeSteps
-        source="*"
+        source="4350"
         destination="4360"
         profile="collective.ckeditor:default"
         zcml:condition="not-have migration-registry"
         >
 
         <upgradeDepends
-            title="Registry"
+            title="Upgrade to registry"
             description=""
             import_steps="plone.app.registry"
         />

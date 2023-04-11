@@ -8,24 +8,22 @@
 
     <include file="configure.zcml" />
 
-    <genericsetup:registerProfile
-      name="testing_to_registry"
-      title="Test properties to registry migration"
-      directory="profiles/testing_to_registry"
-      description=""
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
-
     <genericsetup:upgradeSteps
-        source="4350"
-        destination="4355"
-        profile="collective.ckeditor:default">
+        source="4355"
+        destination="4360"
+        profile="collective.ckeditor:default"
+        >
 
-    <genericsetup:upgradeDepends
-        title="Migrate properties to registry"
-        description=""
-        import_profile="collective.ckeditor:testing_to_registry"
-        import_steps="propertiestool"
+        <genericsetup:upgradeDepends
+            title="Upgrade to registry"
+            description=""
+            import_steps="plone.app.registry"
+        />
+
+        <genericsetup:upgradeStep
+             title="Migrate to plone.app.registry"
+             description="Copy portal_properties to registry"
+             handler=".upgrades.to_registry"
         />
 
     </genericsetup:upgradeSteps>

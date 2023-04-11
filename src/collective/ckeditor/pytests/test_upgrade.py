@@ -12,6 +12,13 @@ def plone_instance(tmp_path_factory, pytestconfig):
     with zi:
         yield zi
 
+@pytest.mark.upgrade
+def test_plone_is_running(plone_instance):
+    request = requests.get(
+        "http://localhost:8080/Plone",
+        auth=("admin", "admin"),
+    )
+    assert request.status_code == 200
 
 def check_boolean(registry_name, value_to_check):
     request = requests.get(

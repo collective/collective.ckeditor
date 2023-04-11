@@ -1,0 +1,33 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:meta="http://namespaces.zope.org/meta"
+    i18n_domain="collective.ckeditor">
+
+    <meta:provides feature="migration-registry" />
+
+    <include file="configure.zcml" />
+
+    <genericsetup:registerProfile
+      name="testing_to_registry"
+      title="Non default properties to test upgrade to registry"
+      directory="profiles/testing_to_registry"
+      description=""
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <genericsetup:upgradeSteps
+        source="4350"
+        destination="4355"
+        profile="collective.ckeditor:default">
+
+    <genericsetup:upgradeDepends
+        title="Non default properties to test upgrade to registry"
+        description=""
+        import_profile="collective.ckeditor:testing_to_registry"
+        import_steps="propertiestool"
+        />
+
+    </genericsetup:upgradeSteps>
+
+</configure>
