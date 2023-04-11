@@ -1,6 +1,7 @@
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
 from plone import api
+import sys
+
 
 PROFILE = "profile-collective.ckeditor:default"
 
@@ -124,57 +125,57 @@ def to_registry(context):
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.skin",
-        props.skin
+        safe_string(props.skin)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.toolbar",
-        props.toolbar
+        safe_string(props.toolbar)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.toolbar_Custom",
-        safe_unicode(props.toolbar_Custom)
+        safe_string(props.toolbar_Custom)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.filtering",
-        safe_unicode(props.filtering)
+        safe_string(props.filtering)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.customAllowedContent",
-        safe_unicode(props.customAllowedContent)
+        safe_string(props.customAllowedContent)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.extraAllowedContent",
-        safe_unicode(props.extraAllowedContent)
+        safe_string(props.extraAllowedContent)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.disallowedContent",
-        safe_unicode(props.disallowedContent)
+        safe_string(props.disallowedContent)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.menuStyles",
-        safe_unicode(props.menuStyles)
+        safe_string(props.menuStyles)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.plugins",
-        list(map(safe_unicode, props.plugins))
+        list(map(safe_string, props.plugins))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.removePlugins",
-        list(map(safe_unicode, props.removePlugins))
+        list(map(safe_string, props.removePlugins))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.customTemplates",
-        list(map(safe_unicode, props.customTemplates))
+        list(map(safe_string, props.customTemplates))
     )
 
     api.portal.set_registry_record(
@@ -189,27 +190,26 @@ def to_registry(context):
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.bodyId",
-        props.bodyId
+        safe_string(props.bodyId)
     )
-
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.bodyClass",
-        props.bodyClass
+        safe_string(props.bodyClass)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.defaultTableWidth",
-        props.defaultTableWidth
+        safe_string(props.defaultTableWidth)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.width",
-        props.width
+        safe_string(props.width)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.height",
-        props.height
+        safe_string(props.height)
     )
 
     api.portal.set_registry_record(
@@ -249,59 +249,58 @@ def to_registry(context):
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.file_portal_type",
-        props.file_portal_type
+        safe_string(props.file_portal_type)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.file_portal_type_custom",
-        list(map(safe_unicode, props.file_portal_type_custom))
+        list(map(safe_string, props.file_portal_type_custom))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.image_portal_type",
-        props.image_portal_type
+        safe_string(props.image_portal_type)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.image_portal_type_custom",
-        list(map(safe_unicode, props.image_portal_type_custom))
+        list(map(safe_string, props.image_portal_type_custom))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.browse_images_portal_types",
-        tuple(map(safe_unicode, props.browse_images_portal_types))
+        tuple(map(safe_string, props.browse_images_portal_types))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.flash_portal_type",
-        props.flash_portal_type
+        safe_string(props.flash_portal_type)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.flash_portal_type_custom",
-        list(map(safe_unicode, props.flash_portal_type_custom))
+        list(map(safe_string, props.flash_portal_type_custom))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.browse_flashs_portal_types",
-        tuple(map(safe_unicode, props.browse_flashs_portal_types))
+        tuple(map(safe_string, props.browse_flashs_portal_types))
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.folder_portal_type",
-        props.folder_portal_type
+        safe_string(props.folder_portal_type)
     )
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.folder_portal_type_custom",
-        list(map(safe_unicode, props.folder_portal_type_custom))
+        list(map(safe_string, props.folder_portal_type_custom))
     )
 
     # not migrating ck_force_path, ck_force_other_path, ck_force_root and ck_force_other_root because they are removed from the registry
-
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.overloadable_properties",
-        list(props.properties_overloaded)
+        list(map(safe_string, props.properties_overloaded))
     )
 
     api.portal.set_registry_record(
@@ -326,7 +325,23 @@ def to_registry(context):
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.image2_captionedClass",
-        props.image2_captionedClass
+        safe_string(props.image2_captionedClass)
     )
 
     ptool.manage_delObjects("ckeditor_properties")
+
+
+IS_PYTHON2 = sys.version_info[0] == 2
+if IS_PYTHON2:
+    text_type = unicode
+else:
+    text_type = str
+
+
+def safe_string(value):
+    if value is None:
+        return ''
+    elif isinstance(value, text_type):
+        return value.encode('utf8')
+    else:
+        return value

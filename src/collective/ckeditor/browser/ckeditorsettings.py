@@ -7,10 +7,9 @@ try:
 except:  # Plone < 4.3
     from zope.app.component.hooks import getSite
 
+from zope.schema import ASCII
 from zope.schema import ASCIILine
 from zope.schema import Bool
-from zope.schema import Text
-from zope.schema import TextLine
 from zope.schema import Choice
 from zope.schema import Tuple
 from zope.schema import List
@@ -53,7 +52,7 @@ class ICKEditorBaseSchema(Interface):
         default='Plone',
         vocabulary="collective.ckeditor.vocabularies.toolbar")
 
-    toolbar_Custom = Text(
+    toolbar_Custom = ASCII(
         title=_(u"Customized Toolbar"),
         description=_(u"Build your own CKEditor Toolbar. "
                       "Take care with the javascript syntax. "
@@ -72,7 +71,7 @@ class ICKEditorBaseSchema(Interface):
         default='default',
         vocabulary="collective.ckeditor.vocabularies.filtering")
 
-    customAllowedContent = Text(
+    customAllowedContent = ASCII(
         title=_(u"Custom Allowed Content"),
         description=_(
             u"Configuration of custom filtering. "
@@ -82,7 +81,7 @@ class ICKEditorBaseSchema(Interface):
         ),
         required=False)
 
-    extraAllowedContent = Text(
+    extraAllowedContent = ASCII(
         title=_(u"Extra Allowed Content"),
         description=_(
             u"Extra rules on top of automatic filtering. "
@@ -92,7 +91,7 @@ class ICKEditorBaseSchema(Interface):
         ),
         required=False)
 
-    disallowedContent = Text(
+    disallowedContent = ASCII(
         title=_(u"Disallowed Content"),
         description=_(
             u"The Disallowed Content feature complements the Allowed "
@@ -104,7 +103,7 @@ class ICKEditorBaseSchema(Interface):
         ),
         required=False)
 
-    menuStyles = Text(
+    menuStyles = ASCII(
         title=_(u"Menu styles"),
         description=_(u"Build your own CKEditor menu styles Combo box. "
                       u"Take care with the javascript syntax. "
@@ -122,13 +121,13 @@ class ICKEditorBaseSchema(Interface):
     plugins = List(
         title=_(u"Plugins"),
         description=_(u"Plugin format is 'id;relative path'."),
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         required=False)
 
     removePlugins = List(
         title=_(u"Plugins to remove"),
         description=_(u"List of plugins to remove, one plugin per line. Plugin format is 'id'."),
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         required=False)
 
     bodyClass = ASCIILine(
@@ -141,7 +140,7 @@ class ICKEditorBaseSchema(Interface):
         title=_(u"Custom templates"),
         description=_(u"URLs of Javascript "
                       "files that register custom templates"),
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         required=False)
 
     templatesReplaceContent = Bool(
@@ -250,7 +249,7 @@ class ICKEditorBrowserSchema(Interface):
                       "* means any portal type."
                       "Take care, no control is done over this field value."),
         required=False,
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         default=['*|File', 'Folder|File', ])
 
     browse_images_portal_types = Tuple(
@@ -278,7 +277,7 @@ class ICKEditorBrowserSchema(Interface):
                       "* means any portal type."
                       "Take care, no control is done over this field value."),
         required=False,
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         default=['*|Image', 'Folder|Image', ])
 
     browse_flashs_portal_types = Tuple(
@@ -306,7 +305,7 @@ class ICKEditorBrowserSchema(Interface):
                       "* means any portal type. "
                       "Take care, no control is done over this field value."),
         required=False,
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         default=['*|File', 'Folder|File', ])
 
     folder_portal_type = Choice(
@@ -324,7 +323,7 @@ class ICKEditorBrowserSchema(Interface):
                       "* means any portal type. "
                       "Take care, no control is done over this field value."),
         required=False,
-        value_type=TextLine(),
+        value_type=ASCIILine(),
         default=['*|Folder', 'Large Plone Folder|Large Plone Folder', ])
 
 

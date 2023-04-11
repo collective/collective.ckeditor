@@ -4,7 +4,8 @@ Changelog
 5.0.0a6 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Polish upgrade to registry
+  [gotcha]
 
 
 5.0.0a5 (2023-03-27)
