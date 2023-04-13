@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0a6 (unreleased)
+5.0.0b1 (2023-04-13)
 --------------------
 
 - Fix warning with @@ckeditor_vars.js (text/plain MIME type)
