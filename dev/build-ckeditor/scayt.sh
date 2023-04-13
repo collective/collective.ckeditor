@@ -60,6 +60,10 @@ fi
 if [[ ${CKEDITOR_VERSION} == 4.12* ]]; then
         WSC_VERSION=${CKEDITOR_VERSION}
 fi
+if test "${CK_MINOR}" -gt 12
+then
+        WSC_VERSION=${CKEDITOR_VERSION}
+fi
 if test "${CK_MINOR}" -ge 18
 then
         WSC_VERSION="NOT_SUPPORTED"

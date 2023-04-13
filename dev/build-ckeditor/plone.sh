@@ -45,7 +45,7 @@ check_plugin balloontoolbar
 # so that they get included in the distro
 # also add widget and lineutils plugins, image2 dependencies
 echo "Fixing ${BUILD_CONFIG}"
-if test "${CK_MINOR}" -gte 18
+if test "${CK_MINOR}" -ge 18
 then
         sed -i '/\<image: 1,/ascayt: 1,' "${BUILD_CONFIG}"
 else
