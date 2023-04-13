@@ -4,6 +4,9 @@ Changelog
 5.0.0a6 (unreleased)
 --------------------
 
+- Fix warning with @@ckeditor_vars.js (text/plain MIME type)
+  [gotcha]
+
 - Hide plone.app.textfield text format select.
   [gotcha]
 

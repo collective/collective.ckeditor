@@ -12,12 +12,12 @@ TODO before final release
 
 - fix issues with portal types vocabularies
 - integrate work done at TU Dresden
-- fix warning with @@ckeditor_vars.js (text/plain MIME type)
 - remove references to Flash (do not forget quickupload)
 
 Done
 ----
 
+- fix warning with @@ckeditor_vars.js (text/plain MIME type)
 - hide form.widgets.IRichTextBehavior.text_text_format
 - hide profiles that should be hidden in ckeditor
 - ckeditor_vars depends on plone
