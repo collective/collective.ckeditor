@@ -95,6 +95,8 @@ launchCKInstances = function (ids_to_launch) {
         editor.on('blur', update_element);
         editor.on('change', update_element);
         editor.on('input', update_element);
+        // hide text format select
+        jQuery(editor.element.$).parents('form').find('div.fieldTextFormat').hide() 
         };
     })
 }
