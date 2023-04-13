@@ -4,7 +4,10 @@ Changelog
 5.0.0a6 (unreleased)
 --------------------
 
-- Polish upgrade to registry
+- Fix integration with pattern validation.
+  [gotcha]
+
+- Polish upgrade to registry.
   [gotcha]
 
 
