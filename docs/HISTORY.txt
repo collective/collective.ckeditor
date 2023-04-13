@@ -4,7 +4,8 @@ Changelog
 4.11.0a4 (unreleased)
 ---------------------
 
-- Nothing changed yet.
+- Reset forcePasteAsPlainText default to false.
+  [gotcha]
 
 
 4.11.0a3 (2023-04-11)

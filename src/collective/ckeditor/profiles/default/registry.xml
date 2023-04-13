@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <registry>
     <records interface="collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema">
-        <value key="forcePasteAsPlainText">True</value>
+        <value key="forcePasteAsPlainText">False</value>
         <value key="skin">moonocolor</value>
         <value key="toolbar">Plone</value>
         <value key="toolbar_Custom">
