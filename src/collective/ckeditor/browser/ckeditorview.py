@@ -1,6 +1,7 @@
 import json
 import re
 import six
+import mimetypes
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 try:
@@ -19,6 +20,7 @@ from zExceptions import Unauthorized
 from zope import component
 from zope.component import getUtility
 from zope.interface import implementer, Interface
+from ZPublisher.HTTPRequest import FileUpload
 from Products.PythonScripts.standard import url_quote
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -36,6 +38,11 @@ from collective.ckeditor.config import CKEDITOR_BASIC_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_FULL_TOOLBAR
 from collective.ckeditor.config import CKEDITOR_SUPPORTED_LANGUAGE_CODES
 from collective.ckeditor import siteMessageFactory as _
+from plone.rfc822.interfaces import IPrimaryFieldInfo
+from plone.namedfile.file import NamedBlobImage
+from plone.namedfile.interfaces import INamedBlobImageField
+from Products.CMFPlone.utils import safe_unicode
+from plone.protect.utils import addTokenToUrl
 
 if six.PY2:
     import demjson
@@ -45,6 +52,18 @@ if six.PY3:
     import demjson3
     demjson3.dumps = demjson3.encode
     demjson3.loads = demjson3.decode
+
+try:
+    from Products.Archetypes.interfaces import IBaseContent
+    HAS_ARCHETYPES = True
+except ImportError:
+    HAS_ARCHETYPES = False
+
+try:
+    from plone.dexterity.interfaces import IDexterityContent
+    HAS_DEXTERITY = True
+except ImportError:
+    HAS_DEXTERITY = False
 
 
 if HAS_PLONE6_RESOURCES:
@@ -378,18 +397,19 @@ class CKeditorView(BrowserView):
             params_js_string += (
                 '''config.removePlugins = "%s";''' % ','.join(removePlugins))
 
+        upload_url = '%s/@@cke-upload-image' % self.context.absolute_url()
         params_js_string += """
     config.filebrowserWindowWidth = parseInt(jQuery(window).width()*70/100);
     config.filebrowserWindowHeight = parseInt(jQuery(window).height()-20);
     config.toolbar_Basic = %s;
     config.toolbar_Plone = %s;
     config.toolbar_Full = %s;
-    config.imageUploadUrl = '%s/@@cke-upload-image';
+    config.imageUploadUrl = '%s';
     config.stylesSet = 'plone:%s/ckeditor_plone_menu_styles.js';
         """ % (CKEDITOR_BASIC_TOOLBAR,
                CKEDITOR_PLONE_DEFAULT_TOOLBAR,
                CKEDITOR_FULL_TOOLBAR,
-               self.context.absolute_url(),
+               addTokenToUrl(upload_url),
                self.portal_url)
 
         templatesReplaceContent = get_registry_value(
@@ -507,6 +527,19 @@ CKEDITOR.stylesSet.add('plone', styles);""" % dumped_styles
         settings.setup(ckview=self, fieldname=fieldname)
         return settings()
 
+    def get_content_type(self, upload):
+        data = upload.read()
+        filename = upload.filename
+        content_type = mimetypes.guess_type(filename)[0]
+        # sometimes plone mimetypes registry could be more powerful
+        if not content_type:
+            mtr = getToolByName(self.context, 'mimetypes_registry')
+            mimetype = mtr.classify(data, filename=filename)
+            if mimetype is not None:
+                return str(mimetype)
+
+        return data, filename, content_type
+
     def upload_image(self):
         factory = component.getMultiAdapter(
             (self.context, self.request),
@@ -514,17 +547,45 @@ CKEDITOR.stylesSet.add('plone', styles);""" % dumped_styles
         )
         container = factory.add_context()
         upload = self.request.form['upload']
+        data, filename, content_type = self.get_content_type(upload)
         try:
             image = api.content.create(
                 container=container, type='Image',
-                file=upload, id=upload.filename,
+                id=filename,
                 safe_id=True
-        )
+            )
         except Unauthorized:
             LOG.warning(
                 "Upload image not allowed at %s", container.absolute_url()
             )
             raise
+        if HAS_DEXTERITY and IDexterityContent.providedBy(image):
+            try:
+                file_field = IPrimaryFieldInfo(image).field
+            except TypeError:
+                file_field = None
+            if file_field is None:
+                raise TypeError('Image portal_type does not have primary field.')
+            if INamedBlobImageField.providedBy(file_field):
+                value = NamedBlobImage(
+                    data=data,
+                    filename=safe_unicode(filename, 'utf8'),
+                    contentType=content_type
+                )
+            file_field.set(image, value)
+        elif HAS_ARCHETYPES and IBaseContent.providedBy(image):
+            primaryField = image.getPrimaryField()
+            if primaryField is not None:
+                mutator = primaryField.getMutator(image)
+                # mimetype arg works with blob files
+                mutator(data, content_type=content_type, mimetype=content_type)
+                if not image.getFilename():
+                    image.setFilename(filename)
+
+                image.reindexObject()
+        else:
+            raise NotImplementedError
+
         image_url = "/".join(('resolveuid', api.content.get_uuid(image)))
         result = {
             "uploaded": 1,
