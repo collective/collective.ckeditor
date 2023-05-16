@@ -11,6 +11,7 @@ from zope.schema import ASCII
 from zope.schema import ASCIILine
 from zope.schema import Bool
 from zope.schema import Choice
+from zope.schema import Text
 from zope.schema import Tuple
 from zope.schema import List
 
@@ -103,7 +104,7 @@ class ICKEditorBaseSchema(Interface):
         ),
         required=False)
 
-    menuStyles = ASCII(
+    menuStyles = Text(
         title=_(u"Menu styles"),
         description=_(u"Build your own CKEditor menu styles Combo box. "
                       u"Take care with the javascript syntax. "

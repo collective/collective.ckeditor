@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from plone import api
 import sys
 
@@ -160,7 +161,7 @@ def to_registry(context):
 
     api.portal.set_registry_record(
         "collective.ckeditor.browser.ckeditorsettings.ICKEditorSchema.menuStyles",
-        safe_string(props.menuStyles)
+        safe_unicode(props.menuStyles)
     )
 
     api.portal.set_registry_record(
@@ -334,14 +335,23 @@ def to_registry(context):
 IS_PYTHON2 = sys.version_info[0] == 2
 if IS_PYTHON2:
     text_type = unicode
+    binary_type = str
+    string_none = "None"
 else:
     text_type = str
+    binary_type = bytes
+    string_none = b"None"
 
 
 def safe_string(value):
     if value is None:
-        return ''
-    elif isinstance(value, text_type):
-        return value.encode('utf8')
+        return binary_type()
+    if isinstance(value, text_type):
+        result = value.encode('utf8')
     else:
-        return value
+        result = value
+    # workaround old settings screen that stored empty input as "None" string
+    if result == string_none:
+        return binary_type()
+    else:
+        return result

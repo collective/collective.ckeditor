@@ -1,3 +1,5 @@
+# coding=utf8
+import sys
 import pytest
 import requests
 import bs4
@@ -189,13 +191,17 @@ def test_upgrade_of_menuStyles(plone_instance):
     soup = bs4.BeautifulSoup(request.text)
     selected = soup.select("#form-widgets-value")
     assert len(selected) == 1
-    textarea = selected[0]
-    assert textarea.name == "textarea"
+    field = selected[0]
+    assert field.name == "textarea"
     menuStyle = """
-    { name : 'upgrade Title'		, element : 'h2', styles : { 'color' : '#888' } },
+    { name : 'upgrade ascii Title'		, element : 'h2', styles : { 'color' : '#888' } },
+    { name : 'upgrade unicode Title éè'		, element : 'h2', styles : { 'color' : '#888' } },
     """
+    IS_PYTHON2 = sys.version_info[0] == 2
+    if IS_PYTHON2:
+        menuStyle = menuStyle.decode('utf8')
     for line in menuStyle.splitlines():
-        assert line.strip() in textarea.text
+        assert line.strip() in field.text
 
 
 @pytest.mark.upgrade
