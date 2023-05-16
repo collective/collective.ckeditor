@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/collective/collective.ckeditor.svg
-    :target: https://travis-ci.org/collective/collective.ckeditor
+.. image:: https://github.com/collective/collective.ckeditor/actions/workflows/test.yml/badge.svg?branch=4.x
+    :target: https://github.com/collective/collective.ckeditor/actions/workflows/test.yml
 .. image:: https://coveralls.io/repos/collective/collective.ckeditor/badge.svg?branch=master&service=github
   :target: https://coveralls.io/github/collective/collective.ckeditor?branch=master
 
