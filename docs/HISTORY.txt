@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.11.0a4 (unreleased)
+4.11.0b1 (2023-05-16)
 ---------------------
 
 - Take care of "None" string saved by previous settings screen
