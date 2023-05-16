@@ -4,6 +4,12 @@ Changelog
 4.11.0a4 (unreleased)
 ---------------------
 
+- Take care of "None" string saved by previous settings screen
+  [gotcha]
+
+- menuStyles setting should allow utf8 for names
+  [gotcha]
+
 - Reset forcePasteAsPlainText default to false.
   [gotcha]
 
