@@ -22,7 +22,8 @@
     </property>
     <property name="menuStyles" type="text">
 [
-  { name : 'upgrade Title'		, element : 'h2', styles : { 'color' : '#888' } },
+  { name : 'upgrade ascii Title'		, element : 'h2', styles : { 'color' : '#888' } },
+  { name : 'upgrade unicode Title éè'		, element : 'h2', styles : { 'color' : '#888' } },
 ]
     </property>
     <property name="plugins" type="lines">
