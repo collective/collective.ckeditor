@@ -4,7 +4,8 @@ Changelog
 5.0.0b2 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix interaction with formunload pattern.
+  [gotcha]
 
 
 5.0.0b1 (2023-04-13)

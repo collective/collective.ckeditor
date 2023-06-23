@@ -91,7 +91,11 @@ launchCKInstances = function (ids_to_launch) {
 	    };
         }
         editor = CKEDITOR.replace( ckid, widget_config);
-        update_element = function() { editor.updateElement() };
+        update_element = function() {
+            this.updateElement();
+            var event = new Event('change');
+            this.element.$.dispatchEvent(event);
+        };
         editor.on('blur', update_element);
         editor.on('change', update_element);
         editor.on('input', update_element);
