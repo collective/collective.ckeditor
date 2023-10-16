@@ -3,9 +3,9 @@ import sys
 import time
 import subprocess
 try:
-    import pathlib2 as pathlib
-except ImportError:
     import pathlib
+except ImportError:
+    import pathlib2 as pathlib
 import socket
 from contextlib import closing
 

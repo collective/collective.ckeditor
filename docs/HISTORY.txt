@@ -4,7 +4,8 @@ Changelog
 5.0.0b3 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix ck_ruid_to_url transform for tags with style and url()
+  [gotcha]
 
 
 5.0.0b2 (2023-06-23)

@@ -11,6 +11,7 @@ long_description = (
     + open(os.path.join("docs", "FAQ.txt")).read()
 )
 
+
 setup(
     name='collective.ckeditor',
     version=version,
