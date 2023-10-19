@@ -11,20 +11,6 @@ long_description = (
     + open(os.path.join("docs", "FAQ.txt")).read()
 )
 
-install_requires = [
-    'setuptools',
-    'zope.i18nmessageid',
-    'collective.quickupload',
-    'collective.plonefinder',
-    'plone.app.uuid',
-    'plone.api',
-]
-
-if sys.version_info[0] < 3:
-    install_requires.append('demjson')
-else:
-    install_requires.append('demjson3')
-
 setup(
     name='collective.ckeditor',
     version=version,
@@ -46,6 +32,8 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
     ],
     keywords='Plone CKeditor WYSIWYG',
     author='Plone Collective (started by Alterway Solutions)',
@@ -55,7 +43,16 @@ setup(
     namespace_packages=['collective'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=install_requires,
+    install_requires=[
+        'setuptools',
+        'zope.i18nmessageid',
+        'collective.quickupload',
+        'collective.plonefinder',
+        'plone.app.uuid',
+        'plone.api',
+        'demjson;python_version<"3"',
+        'demjson3;python_version>="3"',
+    ],
     packages=find_packages('src'),
     package_dir={'': 'src'},
     extras_require=dict(
@@ -66,7 +63,7 @@ setup(
         pytest=[
             "pytest",
             "gocept.pytestlayer",
-            "pathlib2",
+            "pathlib2;python_version<'3'",
             "requests",
             "beautifulsoup4",
         ],

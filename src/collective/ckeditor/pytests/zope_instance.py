@@ -2,7 +2,10 @@ import os
 import sys
 import time
 import subprocess
-import pathlib2 as pathlib
+try:
+    import pathlib2 as pathlib
+except ImportError:
+    import pathlib
 import socket
 from contextlib import closing
 

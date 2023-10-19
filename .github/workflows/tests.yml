@@ -1,86 +1,74 @@
 on: [push, pull_request]
 name: Tests
 jobs:
-  instance:
+  all_tests_27:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - python-version: "2.7"
-            plone-version: "5.2"
-            os: "ubuntu-20.04"
-          - python-version: "3.8"
-            plone-version: "5.2"
-            os: "ubuntu-latest"
-          - python-version: "3.9"
-            plone-version: "6.0"
-            os: "ubuntu-latest"
-    runs-on: ${{ matrix.os }}
-    name: ${{ matrix.plone-version }}-${{ matrix.python-version }} start instance
+        config:
+        - ["plone52-py27", "plone/test-with-tox:5.2-2.7"]
+    runs-on: ubuntu-20.04
+    container:
+      image: ${{ matrix.config[1] }}
+    name: ${{ matrix.config[0] }}
     steps:
-      - uses: actions/checkout@v3.3.0
-      - uses: collective/buildout.plonetest/.github/actions/buildout@gha-buildout-action
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          python-version: ${{ matrix.python-version }}
-          plone-version: ${{ matrix.plone-version }}
-          buildout-parts: "copy_ckeditor_code ckeditor instance"
-      - name: Check that instance starts
-        run: |
-          bin/instance run startup.py
+    - uses: actions/checkout@v3
+    - name: Test
+      run: tox -e ${{ matrix.config[0] }}
   all_tests:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - python-version: "2.7"
-            plone-version: "5.2"
-            os: "ubuntu-20.04"
-          - python-version: "3.8"
-            plone-version: "5.2"
-            os: "ubuntu-latest"
-          - python-version: "3.9"
-            plone-version: "6.0"
-            os: "ubuntu-latest"
-    needs: instance
-    name: ${{ matrix.plone-version }}-${{ matrix.python-version }} run tests (robot inc)
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v3.3.0
-      - uses: collective/buildout.plonetest/.github/actions/buildout@gha-buildout-action
-        with:
-          github-token: ${{ secrets.github-token }}
-          python-version: ${{ matrix.python-version }}
-          plone-version:  ${{ matrix.plone-version }}
-          buildout-parts: "copy_ckeditor_code ckeditor pytest"
-      - name: Run unit tests
-        run: |
-          bin/pytest
-      - name: Install Firefox
-        uses: browser-actions/setup-firefox@latest
-        with:
-          firefox-version: "109.0"
-      - name: Install Geckodriver
-        uses: browser-actions/setup-geckodriver@latest
-        with:
-          geckodriver-version: "0.32.0"
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run robot tests
-        run: |
-          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and not image2"
-          ROBOT_BROWSER=headlessFirefox bin/pytest -k "robot and image2"
-  test_upgrade:
-    needs: all_tests
-    name: 5.2-2.7 upgrade
+        config:
+        # [Python version, tox env]
+        - ["3.6",   "plone52-py36"]
+        - ["3.7",   "plone52-py37"]
+        - ["3.8",   "plone52-py38"]
+        - ["3.8",   "plone60-py38"]
+        - ["3.9",   "plone60-py39"]
+        - ["3.10",  "plone60-py310"]
+        - ["3.11",  "plone60-py311"]
+    name: ${{ matrix.config[1] }}
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3.3.0
-      - uses: collective/buildout.plonetest/.github/actions/buildout@gha-buildout-action
-        with:
-          github-token: ${{ secrets.github-token }}
-          python-version: "2.7"
-          plone-version: "5.2"
-          buildout-parts: "copy_ckeditor_code ckeditor pytest"
-      - name: Run upgrade tests
-        run: |
-          bin/pytest -k "upgrade"
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.config[0] }}
+    - name: Pip cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ matrix.config[0] }}-${{ hashFiles('setup.*', 'tox.ini') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ matrix.config[0] }}-
+          ${{ runner.os }}-pip-
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install tox
+    - name: Prepare buildout egg cache
+      run: |
+        mkdir ~/.buildout
+        echo "[buildout]" >> ~/.buildout/default.cfg
+        echo "eggs-directory = ~/eggs" >> ~/.buildout/default.cfg
+    - name: Cache eggs
+      uses: actions/cache@v3
+      with:
+        path: ~/eggs
+        key: ${{ runner.os }}-eggs-${{ matrix.config[0] }}-${{ matrix.config[1] }}-${{ hashFiles('*cfg') }}
+        restore-keys: |
+          ${{ runner.os }}-eggs-${{ matrix.config[0] }}-${{ matrix.config[1] }}-
+          ${{ runner.os }}-eggs-${{ matrix.config[0] }}-
+    - name: Install Firefox
+      uses: browser-actions/setup-firefox@latest
+      with:
+        firefox-version: "109.0"
+    - name: Install Geckodriver
+      uses: browser-actions/setup-geckodriver@latest
+      with:
+        geckodriver-version: "0.32.0"
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Test
+      run: tox -e ${{ matrix.config[1] }}
