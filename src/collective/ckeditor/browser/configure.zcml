@@ -16,6 +16,11 @@
         />
 
     <browser:resourceDirectory
+        name="cke_plonepicturevariants"
+        directory="plonepicturevariants"
+        />
+
+    <browser:resourceDirectory
         name="cke_nonbreaking"
         directory="nonbreaking"
         />
