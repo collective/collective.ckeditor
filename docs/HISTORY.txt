@@ -1,7 +1,7 @@
 Changelog
 =========
 
-5.0.0b3 (unreleased)
+5.0.0b3 (2023-11-13)
 --------------------
 
 - Fix ck_ruid_to_url transform for tags with style and url()
