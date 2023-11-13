@@ -7,7 +7,7 @@ jobs:
       matrix:
         config:
         - ["plone52-py27", "plone/test-with-tox:5.2-2.7"]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container:
       image: ${{ matrix.config[1] }}
     name: ${{ matrix.config[0] }}
@@ -29,7 +29,7 @@ jobs:
         - ["3.10",  "plone60-py310"]
         - ["3.11",  "plone60-py311"]
     name: ${{ matrix.config[1] }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
