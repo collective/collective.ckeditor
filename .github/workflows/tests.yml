@@ -62,13 +62,14 @@ jobs:
           ${{ runner.os }}-eggs-${{ matrix.config[0] }}-${{ matrix.config[1] }}-
           ${{ runner.os }}-eggs-${{ matrix.config[0] }}-
     - name: Install Firefox
-      uses: browser-actions/setup-firefox@latest
+      uses: browser-actions/setup-firefox@v1
       with:
-        firefox-version: "109.0"
+        firefox-version: "119.0.1"
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Geckodriver
       uses: browser-actions/setup-geckodriver@latest
       with:
-        geckodriver-version: "0.32.0"
+        geckodriver-version: "0.33.0"
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Test
       run: tox -e ${{ matrix.config[1] }}
