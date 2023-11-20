@@ -24,22 +24,40 @@ def replace_resolveuid_urls_with_absolute_urls(text, compute_url=uuidToURL):
 
 
 TAG_WITH_URL_RE = r'(\<(img|a|embed)[^>]*>)'
-TAG_WITH_URL = re.compile(TAG_WITH_URL_RE, re.I | re.S)
+TAG_WITH_URL = re.compile(TAG_WITH_URL_RE, re.IGNORECASE | re.DOTALL)
 
 TAG_WITH_STYLE_RE = r'(\<[^>]*style=[^>]*url\([^>]*>)'
-TAG_WITH_STYLE = re.compile(TAG_WITH_STYLE_RE, re.I | re.S)
+TAG_WITH_STYLE = re.compile(
+    TAG_WITH_STYLE_RE, re.IGNORECASE | re.DOTALL)
 
 RUID_URL = 'resolveuid'
 
-RUID_URL_BETWEEN_QUOTES_RE = (
-    r'(?P<url_with_uid>[^\"\']*%s/(?P<uid>[^\/\"\'#? ]*))' % RUID_URL
+RUID_URL_BETWEEN_SINGLE_QUOTES_RE = (
+    r"'(?P<url_with_uid>%s/(?P<uid>[^'/#]*))[^']*'"
+    % RUID_URL
     )
-RUID_URL_BETWEEN_QUOTES = re.compile(RUID_URL_BETWEEN_QUOTES_RE, re.I | re.S)
+RUID_URL_BETWEEN_SINGLE_QUOTES = re.compile(
+    RUID_URL_BETWEEN_SINGLE_QUOTES_RE, re.IGNORECASE | re.DOTALL)
 
-RUID_URL_BETWEEN_PARENS_RE = (
-    r'[^(]*\((?P<url_with_uid>[^\"\')]*%s/(?P<uid>[^\/\"\')#? ]*))' % RUID_URL
+
+RUID_URL_BETWEEN_DOUBLE_QUOTES_RE = (
+    r'"(?P<url_with_uid>%s/(?P<uid>[^"/#]*))[^"]*"'
+    % RUID_URL
     )
-RUID_URL_BETWEEN_PARENS = re.compile(RUID_URL_BETWEEN_PARENS_RE, re.I | re.S)
+RUID_URL_BETWEEN_DOUBLE_QUOTES = re.compile(
+    RUID_URL_BETWEEN_DOUBLE_QUOTES_RE, re.IGNORECASE | re.DOTALL)
+
+
+RUID_URL_INSIDE_PARENS_AND_QUOT_OR_APOS_RE = (
+    r'(?P<url_with_uid>[^(]*%s/(?P<uid>[^)/#&]*))[^(]*'
+    % RUID_URL
+    )
+RUID_URL_BETWEEN_PARENS_AND_QUOT_OR_APOS_RE = (
+    r'\((&quot;|&apos;)?%s(&quot;|&apos;)?\)'
+    % RUID_URL_INSIDE_PARENS_AND_QUOT_OR_APOS_RE
+    )
+RUID_URL_BETWEEN_PARENS_AND_QUOT_OR_APOS = re.compile(
+    RUID_URL_BETWEEN_PARENS_AND_QUOT_OR_APOS_RE, re.IGNORECASE | re.DOTALL)
 
 
 def find_tags_with_resolveuid(data):
@@ -47,14 +65,21 @@ def find_tags_with_resolveuid(data):
     unique_uids = set()
 
     for m in TAG_WITH_URL.finditer(data):
-        ruid = re.search(RUID_URL_BETWEEN_QUOTES, m.group(0)[:3000])
+        ruid = re.search(RUID_URL_BETWEEN_SINGLE_QUOTES, m.group(0)[:3000])
+        if ruid:
+            tags_with_resolveuid.append(
+                (m.group(0), ruid.group('uid'), ruid.group('url_with_uid'))
+            )
+
+    for m in TAG_WITH_URL.finditer(data):
+        ruid = re.search(RUID_URL_BETWEEN_DOUBLE_QUOTES, m.group(0)[:3000])
         if ruid:
             tags_with_resolveuid.append(
                 (m.group(0), ruid.group('uid'), ruid.group('url_with_uid'))
             )
 
     for m in TAG_WITH_STYLE.finditer(data):
-        ruid = re.search(RUID_URL_BETWEEN_PARENS, m.group(0)[:3000])
+        ruid = re.search(RUID_URL_BETWEEN_PARENS_AND_QUOT_OR_APOS, m.group(0)[:3000])
         if ruid:
             tags_with_resolveuid.append(
                 (m.group(0), ruid.group('uid'), ruid.group('url_with_uid'))

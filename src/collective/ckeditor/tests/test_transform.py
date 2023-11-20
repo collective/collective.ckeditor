@@ -41,6 +41,36 @@ class TestReplaceUids(unittest.TestCase):
         self.assertEquals(len(unique), 1)
         self.assertEquals(unique, set(["abcdef"]))
 
+    def testFindTagAWithAbsoluteURL(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = "<a href='http://my-domain/plone/resolveuid/abcdef'>Link</a>"
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 0)
+        # double quotes
+        text = '<a href="http://my-domain/plone/resolveuid/abcdef">Link</a>'
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 0)
+
+    def testFindTagAWithAnchor(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = "<a href='resolveuid/abcdef#bla'>Link</a>"
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(tags[0], ("<a href='resolveuid/abcdef#bla'>",
+                                    'abcdef', 'resolveuid/abcdef'))
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = '<a href="resolveuid/abcdef#bla">Link</a>'
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(tags[0], ('<a href="resolveuid/abcdef#bla">',
+                                    'abcdef', 'resolveuid/abcdef'))
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
     def testFindTagEmbed(self):
         from collective.ckeditor.transforms import ck_ruid_to_url
         # single quotes
@@ -61,6 +91,278 @@ class TestReplaceUids(unittest.TestCase):
         self.assertEquals(unique, set(["abcdef"]))
 
     def testFindTagWithStyle(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='background-image=url(&quot;resolveuid/abcdef&quot;);'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='background-image=url(&quot;resolveuid/abcdef&quot;);'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="background-image=url(&quot;resolveuid/abcdef&quot;);">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="background-image=url(&quot;resolveuid/abcdef&quot;);">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithStyleAndViewInUrl(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='background-image=url(&quot;resolveuid/abcdef/image&quot;);'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='background-image=url(&quot;resolveuid/abcdef/image&quot;);'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="background-image=url(&quot;resolveuid/abcdef/image&quot;);">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="background-image=url(&quot;resolveuid/abcdef/image&quot;);">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithMoreStyle(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='border-color: red; "
+            "background-image=url(&quot;resolveuid/abcdef&quot;);'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='border-color: red; "
+             "background-image=url(&quot;resolveuid/abcdef&quot;);'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="border-color: red; '
+            'background-image=url(&quot;resolveuid/abcdef&quot;);">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="border-color: red; '
+             'background-image=url(&quot;resolveuid/abcdef&quot;);">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithEvenMoreStyle(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='border-color: red; "
+            "background-image=url(&quot;resolveuid/abcdef&quot;); "
+            "border-style:solid'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='border-color: red; "
+             "background-image=url(&quot;resolveuid/abcdef&quot;); "
+             "border-style:solid'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="border-color: red; '
+            'background-image=url(&quot;resolveuid/abcdef&quot;); '
+            'border-style:solid">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="border-color: red; '
+             'background-image=url(&quot;resolveuid/abcdef&quot;); '
+             'border-style:solid">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithStyleWithAposEntity(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='background-image=url(&apos;resolveuid/abcdef&apos;);'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='background-image=url(&apos;resolveuid/abcdef&apos;);'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="background-image=url(&apos;resolveuid/abcdef&apos;);">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="background-image=url(&apos;resolveuid/abcdef&apos;);">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithStyleAndViewInUrlWithAposEntity(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='background-image=url(&apos;resolveuid/abcdef/image&apos;);'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='background-image=url(&apos;resolveuid/abcdef/image&apos;);'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="background-image=url(&apos;resolveuid/abcdef/image&apos;);">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="background-image=url(&apos;resolveuid/abcdef/image&apos;);">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithMoreStyleWithAposEntity(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='border-color: red; "
+            "background-image=url(&apos;resolveuid/abcdef&apos;);'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='border-color: red; "
+             "background-image=url(&apos;resolveuid/abcdef&apos;);'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="border-color: red; '
+            'background-image=url(&apos;resolveuid/abcdef&apos;);">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="border-color: red; '
+             'background-image=url(&apos;resolveuid/abcdef&apos;);">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithEvenMoreStyleWithAposEntity(self):
+        from collective.ckeditor.transforms import ck_ruid_to_url
+        # single quotes
+        text = (
+            "<div style='border-color: red; "
+            "background-image=url(&apos;resolveuid/abcdef&apos;); "
+            "border-style:solid'>"
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ("<div style='border-color: red; "
+             "background-image=url(&apos;resolveuid/abcdef&apos;); "
+             "border-style:solid'>",
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+        # double quotes
+        text = (
+            '<div style="border-color: red; '
+            'background-image=url(&apos;resolveuid/abcdef&apos;); '
+            'border-style:solid">'
+            "content</div>"
+            )
+        tags, unique = ck_ruid_to_url.find_tags_with_resolveuid(text)
+        self.assertEquals(len(tags), 1)
+        self.assertEquals(
+            tags[0],
+            ('<div style="border-color: red; '
+             'background-image=url(&apos;resolveuid/abcdef&apos;); '
+             'border-style:solid">',
+             'abcdef', 'resolveuid/abcdef')
+        )
+        self.assertEquals(len(unique), 1)
+        self.assertEquals(unique, set(["abcdef"]))
+
+    def testFindTagWithStyleWithoutQuotEntity(self):
         from collective.ckeditor.transforms import ck_ruid_to_url
         # single quotes
         text = (
@@ -91,7 +393,7 @@ class TestReplaceUids(unittest.TestCase):
         self.assertEquals(len(unique), 1)
         self.assertEquals(unique, set(["abcdef"]))
 
-    def testFindTagWithMoreStyle(self):
+    def testFindTagWithMoreStyleWithoutQuotEntity(self):
         from collective.ckeditor.transforms import ck_ruid_to_url
         # single quotes
         text = (
@@ -126,7 +428,7 @@ class TestReplaceUids(unittest.TestCase):
         self.assertEquals(len(unique), 1)
         self.assertEquals(unique, set(["abcdef"]))
 
-    def testFindTagWithEvenMoreStyle(self):
+    def testFindTagWithEvenMoreStyleWithoutQuotEntity(self):
         from collective.ckeditor.transforms import ck_ruid_to_url
         # single quotes
         text = (
@@ -194,6 +496,34 @@ class TestReplaceUids(unittest.TestCase):
 
         original = (
             "<div style='border-color: red; "
+            "background-image=url(&quot;resolveuid/abcdef&quot;); "
+            "border-style:solid'>"
+            "content</div>"
+            )
+        final = ck_ruid_to_url.replace_resolveuid_urls_with_absolute_urls(
+            original, compute_url=mocked)
+        self.assertEquals(
+            final,
+            "<div style='border-color: red; "
+            "background-image=url(&quot;/Plone/ABCDEF&quot;); "
+            "border-style:solid'>content</div>")
+
+        original = (
+            "<div style='border-color: red; "
+            "background=url(&quot;resolveuid/abcdef&quot;); "
+            "border-style:solid'>"
+            "content</div>"
+            )
+        final = ck_ruid_to_url.replace_resolveuid_urls_with_absolute_urls(
+            original, compute_url=mocked)
+        self.assertEquals(
+            final,
+            "<div style='border-color: red; "
+            "background=url(&quot;/Plone/ABCDEF&quot;); "
+            "border-style:solid'>content</div>")
+
+        original = (
+            "<div style='border-color: red; "
             "background-image=url(resolveuid/abcdef); "
             "border-style:solid'>"
             "content</div>"
@@ -204,4 +534,18 @@ class TestReplaceUids(unittest.TestCase):
             final,
             "<div style='border-color: red; "
             "background-image=url(/Plone/ABCDEF); "
+            "border-style:solid'>content</div>")
+
+        original = (
+            "<div style='border-color: red; "
+            "background=url(resolveuid/abcdef); "
+            "border-style:solid'>"
+            "content</div>"
+            )
+        final = ck_ruid_to_url.replace_resolveuid_urls_with_absolute_urls(
+            original, compute_url=mocked)
+        self.assertEquals(
+            final,
+            "<div style='border-color: red; "
+            "background=url(/Plone/ABCDEF); "
             "border-style:solid'>content</div>")

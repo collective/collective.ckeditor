@@ -4,7 +4,8 @@ Changelog
 5.0.0b4 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix ck_ruid_to_url transform for tags with style and url(&quot;resolveuid/xxxx&quot;)
+  [gotcha]
 
 
 5.0.0b3 (2023-11-13)

@@ -1,8 +1,7 @@
 Transforms url uids
 -------------------
 
-each urls like './resolveuid/abcdef' or 'http://localhost/plone/resolveUID/'
-or 'http://localhost/plone/resolveuid/download'
+Each urls like 'resolveuid/abcdef'
 must be transformed on page view by absolute url of each objects resolved uid.
 
 Log in as manager
@@ -38,7 +37,7 @@ Create a document with resolveuid urls
     >>> browser.getControl(name='form.widgets.IDublinCore.title').value = 'Test Doc'
     >>> html_text = '''
     ... <p><a href="./resolveuid/%s/view">Test</a></p>
-    ... <p><a href="http://nohost/plone/resolveUid/%s#aaa">Test</a></p>
+    ... <p><a href="resolveUid/%s#aaa">Test</a></p>
     ... ''' % (uid, uid)
     >>> browser.getControl(name='form.widgets.IRichTextBehavior.text').value = html_text
     >>> browser.getControl('Save').click()
