@@ -4,7 +4,7 @@ Changelog
 5.0.0b4 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Include CKeditor resources only when user is logged in.
 
 
 5.0.0b3 (2023-11-13)
