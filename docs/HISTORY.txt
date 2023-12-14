@@ -4,7 +4,11 @@ Changelog
 5.0.0b4 (unreleased)
 --------------------
 
+- Unregister ck_ruid_to_url as plone.outputfilters come with the same feature.
+  [gotcha]
+
 - Include CKeditor resources only when user is logged in.
+  [gotcha]
 
 
 5.0.0b3 (2023-11-13)

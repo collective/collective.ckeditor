@@ -76,7 +76,7 @@
             />
 
     </upgradeSteps>
-    
+
     <upgradeSteps
         source="4300"
         destination="4301"
@@ -185,6 +185,35 @@
              title="Migrate porperties to plone.app.registry"
              description="Copy portal_properties to registry"
              handler=".upgrades.to_registry"
+        />
+
+    </upgradeSteps>
+
+    <registerProfile
+      name="to5010"
+      title="CKeditor for Plone"
+      directory="profiles/to5010"
+      description="enable js only when logged in"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+    <upgradeSteps
+        source="5000"
+        destination="5010"
+        profile="collective.ckeditor:default"
+        >
+
+        <upgradeDepends
+            title="Enable JS when logged in"
+            description=""
+            import_profile="collective.ckeditor:to5010"
+            import_steps="plone.app.registry"
+        />
+
+        <upgradeStep
+             title="Remove ck_ruid_to_url transform"
+             description="Remove ck_ruid_to_url transform and transform policies"
+             handler=".upgrades.no_transform"
         />
 
     </upgradeSteps>

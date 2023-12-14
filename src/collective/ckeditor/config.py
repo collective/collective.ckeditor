@@ -51,11 +51,6 @@ CKEDITOR_BASIC_TOOLBAR = """[
                 'Link', 'Unlink','-','About']
 ]"""
 
-# quintagroup.com (from qPloneResolveUID product)
-DOCUMENT_DEFAULT_OUTPUT_TYPE = "text/x-html-safe"
-REQUIRED_TRANSFORM = "ck_ruid_to_url"
-
-# taken from collective/ckeditor/_src/ckeditor/_source/plugins/scayt/plugin.js
 # XXX warning order language correctly because if several values for the same
 # main language, the first defined language will be used as fallback when
 # trying to find SCAYT language to use when enableScaytOnStartup is True

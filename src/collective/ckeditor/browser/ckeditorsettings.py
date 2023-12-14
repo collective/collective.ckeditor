@@ -191,7 +191,7 @@ class ICKEditorBrowserSchema(Interface):
         title=_(u"Allow link objects by UID"),
         description=_(u"Check if you want url with Unique ID "
                       "(no more 404 errors when moving objects). "
-                      "Notice that portal_transforms in standard "
+                      "Notice that plone.outputfilters in standard "
                       "configuration transforms uid links in absolute urls "
                       "in view displays."),
         default=True,
