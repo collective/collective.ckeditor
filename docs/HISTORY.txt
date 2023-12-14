@@ -4,6 +4,9 @@ Changelog
 5.0.0b4 (unreleased)
 --------------------
 
+- Add validation for "other" as link protocol when "resolveuid"
+  [gotcha]
+
 - Set "other" as default link protocol, to lessen the chances that
   https://resolveuid/xxxxx are setup with plonefinder.
   [gotcha]

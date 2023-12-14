@@ -113,12 +113,14 @@ jQuery(document).on('after-render.plone-modal.patterns', launchCKInstances);
 (function() {
 
     var format = function format(msg) {
-        return '<p>Actual URL</p><p>'+msg+'</p>';
+        var ploneLang = editor.lang.plone;
+        return '<p>'+ploneLang.actual_url+'</p><p>'+msg+'</p>';
     };
 
     var showActualUrl = function showActualUrl(domElement, url) {
+        var ploneLang = editor.lang.plone;
         if (url.indexOf('resolveuid') !== -1) {
-            domElement.setHtml(format('Loading...'));
+            domElement.setHtml(format(ploneLang.loading));
             var current_uid = url.split('resolveuid/')[1];
             var new_url = CKEDITOR_PLONE_PORTALPATH + '/convert_uid_to_url/' + current_uid;
             var settings = {
@@ -128,11 +130,11 @@ jQuery(document).on('after-render.plone-modal.patterns', launchCKInstances);
                     if (jqXHR.status == 200) {
                         domElement.setHtml(format(data));
                     } else {
-                        domElement.setHtml(format('Could not be resolved.'));
+                        domElement.setHtml(format(ploneLang.could_not_be_resolved));
                     }
                 },
                 error: function(jqXHR, textStatus){
-                    domElement.setHtml(format('Could not be resolved.'));
+                    domElement.setHtml(format(ploneLang.could_not_be_resolved));
                 }
             };
             $.ajax(settings);
@@ -140,6 +142,27 @@ jQuery(document).on('after-render.plone-modal.patterns', launchCKInstances);
         }
         domElement.setHtml('<p></p>');
     };
+
+CKEDITOR.plugins.add('plone', {name: 'plone', path: 'plone'});
+CKEDITOR.plugins.setLang('plone', 'en', {
+    invalid_ruid_protocol: 'When using internal link that contains "resolveuid", the value of the "Protocol" field needs to be "<other>".',
+    actual_url: 'Actual URL',
+    loading: 'Loading...',
+    could_not_be_resolved: 'Could not be resolved.',
+});
+CKEDITOR.plugins.setLang('plone', 'fr', {
+    invalid_ruid_protocol: 'Quand vous utilisez un lien interne qui contient "resolveuid", la valeur du champs "Protocole" doit être "<autre>".',
+    actual_url: 'URL finale',
+    loading: 'En cours...',
+    could_not_be_resolved: "Ne peut être déterminée.",
+});
+CKEDITOR.plugins.setLang('plone', 'nl', {
+    invalid_ruid_protocol: 'Als je een interne link met "resolveuid" erin gebruikt, moet het "Protocol" veld "<ander>" zijn.',
+    actual_url: 'Feitelijke URL',
+    loading: 'Laden...',
+    could_not_be_resolved: "Kan niet berekend worden.",
+});
+
 
 CKEDITOR.on( 'dialogDefinition', function( ev ) {
     // Take the dialog name and its definition from the event
@@ -176,6 +199,21 @@ CKEDITOR.on( 'dialogDefinition', function( ev ) {
             var url = this.getValue();
             showActualUrl(domElement, url);
             default_onKeyUp.apply(this);
+        };
+
+        var default_validate = url.validate;
+        url.validate = function() {
+            var ploneLang = editor.lang.plone;
+            if ( this.getValue().includes('resolveuid') ) {
+                var dialog = this.getDialog();
+                var protocol = dialog.getValueOf('info', 'protocol');
+                console.log("protocol: " + protocol);
+                if ( protocol != '') {
+                    alert( ploneLang.invalid_ruid_protocol );
+                    return false;
+                }
+            }
+            return default_validate.apply(this);
         };
     }
 

@@ -380,7 +380,7 @@ class CKeditorView(BrowserView):
     config.%s = %s;
             """ % (k, v)
 
-        ids = []
+        ids = ['plone']
         for line in get_registry_value('plugins', []):
             # ignore the rest so we get no error
             if len(line.split(';')) == 2:
