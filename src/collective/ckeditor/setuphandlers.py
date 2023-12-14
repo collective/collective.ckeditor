@@ -1,6 +1,4 @@
 from collective.ckeditor import LOG
-from collective.ckeditor.config import DOCUMENT_DEFAULT_OUTPUT_TYPE, \
-    REQUIRED_TRANSFORM
 from Products.CMFPlone.utils import getToolByName
 from Products.CMFPlone.interfaces import INonInstallable
 from plone.registry.interfaces import IRegistry
@@ -15,10 +13,6 @@ def importFinalSteps(context):
     if context.readDataFile('collective.ckeditor.txt') is None:
         return
     site = context.getSite()
-    registerTransform(site, 'ck_ruid_to_url',
-                      'collective.ckeditor.transforms.ck_ruid_to_url')
-    registerTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE,
-                            REQUIRED_TRANSFORM)
     LOG.info('CKEditor for Plone installed')
 
 
@@ -29,38 +23,7 @@ def uninstallSteps(context):
     uninstallControlPanel(site)
     uninstallFromRegistry(site)
     uninstallMemberProperties(site)
-    unregisterTransform(site, 'ck_ruid_to_url')
-    unregisterTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE,
-                              REQUIRED_TRANSFORM)
     LOG.info('CKEditor for Plone uninstalled')
-
-
-def registerTransform(context, name, module):
-    transforms = getToolByName(context, 'portal_transforms')
-    if name not in transforms.objectIds():
-        transforms.manage_addTransform(name, module)
-        LOG.info("Registered transform '%s'" % name)
-    else:
-        LOG.info("Transform '%s' always registered" % name)
-
-
-def registerTransformPolicy(context, output_mimetype, required_transform):
-    transforms = getToolByName(context, 'portal_transforms')
-    tpolicies = transforms.listPolicies()
-    mimetype_registered = False
-    for p in tpolicies:
-        out_type = p[0]
-        if out_type == output_mimetype:
-            policies = list(p[1])
-            if required_transform not in policies:
-                policies.append(required_transform)
-                transforms.manage_delPolicies([output_mimetype])
-                transforms.manage_addPolicy(output_mimetype, policies)
-            mimetype_registered = True
-            break
-    if not mimetype_registered:
-        transforms.manage_addPolicy(output_mimetype, [required_transform])
-    LOG.info("Registered policy for '%s' mimetype" % output_mimetype)
 
 
 def uninstallControlPanel(context):
@@ -164,4 +127,5 @@ class HiddenProfiles(object):
             "collective.ckeditor:uninstall",
             "collective.ckeditor:to4350",
             "collective.ckeditor:to4330",
+            "collective.ckeditor:to5010",
         ]

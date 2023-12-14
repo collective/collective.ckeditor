@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<registry>
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor_vars" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="expression">python: member is not None</value>
+    </records>
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor_js" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="expression">python: member is not None</value>
+    </records>
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor_plone" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+        <value key="expression">python: member is not None</value>
+    </records>
+</registry>

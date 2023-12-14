@@ -55,28 +55,3 @@ Control resource bundles in registry
     >>> ckbundles = [name for name in bundles if name.startswith("collective.ckeditor")]
     >>> len(ckbundles) == 3
     True
-
-Control portal_transforms installation
---------------------------------------
-
-    >>> transforms = getToolByName(portal, 'portal_transforms')
-    >>> output_mimetype = 'text/x-html-safe'
-    >>> cke_transform = 'ck_ruid_to_url'
-
-Control if cke_transform is here
-
-    >>> cke_transform in transforms.objectIds()
-    True
-
-Control if ckeditor policies are registered
-    >>> tpolicies = transforms.listPolicies()
-    >>> mimetype_registered = False
-    >>> for p in tpolicies :
-    ...     out_type = p[0]
-    ...     if out_type == output_mimetype :
-    ...         policies = p[1]
-    ...         if cke_transform in policies :
-    ...             mimetype_registered = True
-    ...             break
-    >>> mimetype_registered
-    True

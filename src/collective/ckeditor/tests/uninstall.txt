@@ -55,29 +55,3 @@ Control resource bundles in registry
     >>> bundles = registry.collectionOfInterface(IBundleRegistry, prefix="plone.bundles")
     >>> [name for name in bundles if name.startswith("collective.ckeditor")]
     []
-
-Control portal_transforms uninstalls
-------------------------------------
-
-    >>> from Products.CMFCore.utils import getToolByName
-    >>> transforms = getToolByName(portal, 'portal_transforms')
-    >>> output_mimetype = 'text/x-html-safe'
-    >>> cke_transform = 'ck_ruid_to_url'
-
-Control if cke_transform is removed
-
-    >>> cke_transform in transforms.objectIds()
-    False
-
-Control if ckeditor policies are removed
-    >>> tpolicies = transforms.listPolicies()
-    >>> mimetype_registered = False
-    >>> for p in tpolicies :
-    ...     out_type = p[0]
-    ...     if out_type == output_mimetype :
-    ...         policies = p[1]
-    ...         if cke_transform in policies :
-    ...             mimetype_registered = True
-    ...             break
-    >>> mimetype_registered
-    False

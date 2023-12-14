@@ -2,6 +2,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from plone import api
 import sys
+from collective.ckeditor.setuphandlers import unregisterTransform
+from collective.ckeditor.setuphandlers import unregisterTransformPolicy
 
 
 PROFILE = "profile-collective.ckeditor:default"
@@ -355,3 +357,14 @@ def safe_string(value):
         return binary_type()
     else:
         return result
+
+
+DOCUMENT_DEFAULT_OUTPUT_TYPE = "text/x-html-safe"
+REQUIRED_TRANSFORM = "ck_ruid_to_url"
+
+
+def no_transform(context):
+    site = api.portal.get()
+    unregisterTransform(site, 'ck_ruid_to_url')
+    unregisterTransformPolicy(site, DOCUMENT_DEFAULT_OUTPUT_TYPE,
+                              REQUIRED_TRANSFORM)

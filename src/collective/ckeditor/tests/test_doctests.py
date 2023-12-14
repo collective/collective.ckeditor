@@ -16,7 +16,6 @@ doc_tests = [
     'ckeditor_jsconfig.txt',
     'uninstall.txt',
     'widget.txt',
-    'transform_uids.txt',
 ]
 
 
