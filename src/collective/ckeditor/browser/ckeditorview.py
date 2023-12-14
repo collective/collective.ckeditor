@@ -354,6 +354,7 @@ class CKeditorView(BrowserView):
         params['filebrowserFlashBrowseUrl'] = flash_url
         # the basehref must be set in wysiwyg template
         # params['baseHref'] = self.cke_basehref
+        params['linkDefaultProtocol'] = "''"
         params.update(self.cke_toolbars())
         return params
 
