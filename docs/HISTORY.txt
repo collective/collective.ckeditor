@@ -4,6 +4,10 @@ Changelog
 5.0.0b4 (unreleased)
 --------------------
 
+- Set "other" as default link protocol, to lessen the chances that
+  https://resolveuid/xxxxx are setup with plonefinder.
+  [gotcha]
+
 - Unregister ck_ruid_to_url as plone.outputfilters come with the same feature.
   [gotcha]
 
