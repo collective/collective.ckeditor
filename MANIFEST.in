@@ -7,4 +7,5 @@ exclude requirements.txt
 exclude .coveragerc
 exclude .mr.developer.cfg
 exclude .installed.cfg
+exclude pyvenv.cfg
 prune .tx
