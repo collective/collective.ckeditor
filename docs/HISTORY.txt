@@ -4,7 +4,8 @@ Changelog
 4.11.0b2 (unreleased)
 ---------------------
 
-- Nothing changed yet.
+- Update to CKEditor 4.22.1
+  [gotcha]
 
 
 4.11.0b1 (2023-05-16)

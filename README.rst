@@ -7,7 +7,8 @@
 Introduction
 ============
 
-This addon is a ckeditor_ integration for Plone.  This release includes ckeditor_ version 4.20.2.
+This addon is a CKEditor_ integration for Plone.
+This release includes the last open source version of `CKEditor 4`_ : 4.22.1.
 
 .. contents::
 
@@ -295,5 +296,6 @@ Contributors
 .. _FCKEditor: https://plone.org/fckeditor
 .. |makinacom| image:: https://depot.makina-corpus.org/public/logo.gif
 .. _makinacom:  https://www.makina-corpus.com
-.. _ckeditor: https://ckeditor.com/
+.. _CKEditor: https://ckeditor.com/
+.. _`CKEditor 4`: https://ckeditor.com/ckeditor-4/download/#ckeditor-4
 .. _collective.plonefinder: https://plone.org/products/collective.plonefinder
