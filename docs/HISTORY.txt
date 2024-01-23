@@ -1,7 +1,7 @@
 Changelog
 =========
 
-4.11.0b2 (unreleased)
+4.11.0b2 (2024-01-23)
 ---------------------
 
 - Update to CKEditor 4.22.1
