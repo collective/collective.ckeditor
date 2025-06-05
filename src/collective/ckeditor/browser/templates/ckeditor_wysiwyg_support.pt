@@ -44,6 +44,15 @@
                                id python:inputname.replace('.', '_');
                                onfocus onfocus|nothing;
                                onblur onblur|nothing;"></textarea>
+		<script type="importmap">
+		{
+			"imports": {
+				"ckeditor5": "./++resource++ckeditor5/ckeditor5/ckeditor5.js",
+				"ckeditor5/": "./++resource++ckeditor5/ckeditor5/"
+			}
+		}
+		</script>
+     <script type="module" src="++resource++ckeditor5/main.js"></script>
 
     </tal:block>
     <tal:block condition="not: usesCKeditor">

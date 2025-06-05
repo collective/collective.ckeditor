@@ -162,28 +162,11 @@
                   key="default_editor"
                   purge="True">CKeditor</value>
     </records>
-    <records prefix="plone.bundles/collective.ckeditor.ckeditor_vars" interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <records prefix="plone.bundles/collective.ckeditor.ckeditor5-css" interface="Products.CMFPlone.interfaces.IBundleRegistry">
         <value key="depends">plone</value>
         <value key="enabled">True</value>
         <value key="compile">False</value>
-        <value key="jscompilation">ckeditor_vars.js</value>
-        <value key="last_compilation">2021-10-15 12:30:00</value>
-        <value key="expression">python: member is not None</value>
-    </records>
-    <records prefix="plone.bundles/collective.ckeditor.ckeditor_js" interface="Products.CMFPlone.interfaces.IBundleRegistry">
-        <value key="depends">collective.ckeditor.ckeditor_vars</value>
-        <value key="enabled">True</value>
-        <value key="compile">False</value>
-        <value key="jscompilation">++resource++ckeditor/ckeditor.js</value>
-        <value key="last_compilation">2021-10-15 12:30:00</value>
-        <value key="expression">python: member is not None</value>
-    </records>
-    <records prefix="plone.bundles/collective.ckeditor.ckeditor_plone" interface="Products.CMFPlone.interfaces.IBundleRegistry">
-        <value key="depends">collective.ckeditor.ckeditor_js</value>
-        <value key="enabled">True</value>
-        <value key="compile">False</value>
-        <value key="jscompilation">++resource++ckeditor_for_plone/ckeditor_plone.js</value>
-        <value key="last_compilation">2021-10-15 12:30:00</value>
+	<value key="csscompilation">++resource++ckeditor5/ckeditor5/ckeditor5.css</value>
         <value key="expression">python: member is not None</value>
     </records>
 </registry>

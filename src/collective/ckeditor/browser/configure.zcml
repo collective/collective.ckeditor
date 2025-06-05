@@ -11,6 +11,11 @@
       />
 
     <browser:resourceDirectory
+        name="ckeditor5"
+        directory="ckeditor5"
+      />
+
+    <browser:resourceDirectory
         name="cke_ajaxsave"
         directory="ajaxsave"
         />
