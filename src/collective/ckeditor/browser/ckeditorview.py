@@ -77,14 +77,12 @@ if HAS_PLONE6_RESOURCES:
 
         class CKEditorCSSViewlet(ResourceView):
             def index(self):
-                rendered = self._rendered_cache
-                if not rendered:
-                    resolver_css = self.renderer["css"].resolver
-                    renderer = CKRenderer(
-                        resolver_css, base_url=self.portal_state.portal_url()
-                    )
-                    rendered = renderer.render()
-                    self._rendered_cache = rendered
+                root_group_css = webresource.ResourceGroup(name="root_css")
+                resolver_css = webresource.ResourceResolver(root_group_css)
+                renderer = CKRenderer(
+                    resolver_css, base_url=self.portal_state.portal_url()
+                )
+                rendered = renderer.render()
                 return rendered
 
         viewlet = CKEditorCSSViewlet(
