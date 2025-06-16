@@ -371,7 +371,7 @@ class CKeditorView(BrowserView):
         """
         request = self.request
         response = request.RESPONSE
-        params_js_string = """CKEDITOR.editorConfig = function( config ) {"""
+        params_js_string = """var get_CKEditorConfig = function( config ) {"""
         params = self.cke_params
         for k, v in params.items():
             params_js_string += """
@@ -379,17 +379,17 @@ class CKeditorView(BrowserView):
             """ % (k, v)
 
         ids = ['plone']
-        for line in get_registry_value('plugins', []):
-            # ignore the rest so we get no error
-            if len(line.split(';')) == 2:
-                id, url = line.split(';')
-                abs_url = self.portal_url + url
-                base_url, plugin = abs_url.rsplit('/', 1)
-                ids.append(id)
-                params_js_string += (
-                    """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
-                    % (id, base_url.rstrip('/'), plugin))
-        params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
+        # for line in get_registry_value('plugins', []):
+        #     # ignore the rest so we get no error
+        #     if len(line.split(';')) == 2:
+        #         id, url = line.split(';')
+        #         abs_url = self.portal_url + url
+        #         base_url, plugin = abs_url.rsplit('/', 1)
+        #         ids.append(id)
+        #         params_js_string += (
+        #             """CKEDITOR.plugins.addExternal('%s', '%s/', '%s');"""
+        #             % (id, base_url.rstrip('/'), plugin))
+        # params_js_string += '''config.extraPlugins = "%s";''' % ','.join(ids)
 
         removePlugins = get_registry_value('removePlugins', [])
         if removePlugins:

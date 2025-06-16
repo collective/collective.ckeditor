@@ -44,16 +44,18 @@
                                id python:inputname.replace('.', '_');
                                onfocus onfocus|nothing;
                                onblur onblur|nothing;"></textarea>
-		<script type="importmap">
-		{
-			"imports": {
-				"ckeditor5": "./++resource++ckeditor5/ckeditor5/ckeditor5.js",
-				"ckeditor5/": "./++resource++ckeditor5/ckeditor5/"
-			}
-		}
-		</script>
-     <script type="module" src="++resource++ckeditor5/main.js"></script>
-
+    <script type="importmap">
+    {
+	    "imports": {
+		    "ckeditor5": "./++resource++ckeditor5/ckeditor5/ckeditor5.js",
+		    "ckeditor5/": "./++resource++ckeditor5/ckeditor5/",
+		    "plonelink": "./++resource++ckeditor5/plonelink/plonelink.js",
+		    "plonelink/": "./++resource++ckeditor5/plonelink/"
+	    }
+    }
+    </script>
+    <script type="module" src="++resource++ckeditor5/main.js"></script>
+    <script tal:attributes="src python:ckview.cke_config_url(finder_context)"></script>
     </tal:block>
     <tal:block condition="not: usesCKeditor">
      <textarea cols="80"

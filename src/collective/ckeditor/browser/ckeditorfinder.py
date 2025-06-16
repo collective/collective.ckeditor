@@ -1,6 +1,7 @@
 from Acquisition import aq_inner
 from collective.plonefinder.browser.finder import Finder
 from collective.ckeditor.browser.ckeditorview import get_registry_value
+from zope.component import getMultiAdapter
 
 
 class CKFinder(Finder):
@@ -14,6 +15,9 @@ class CKFinder(Finder):
         self.multiselect = False
         self.allowupload = True
         self.allowaddfolder = True
+        pstate = getMultiAdapter((self.context, self.request),
+                                           name="plone_portal_state")
+        self.portal_url = pstate.portal_url()
 
     def __call__(self):
 
@@ -124,10 +128,10 @@ class CKFinder(Finder):
 selectCKEditorItem = function (selector, title, image_preview) {
  image_preview = (typeof image_preview != "undefined") ? image_preview : false;
  if (image_preview) selector = selector + '/@@images/image/preview' ;
- window.opener.CKEDITOR.tools.callFunction( %s, 'resolveuid/' + selector );
+ window.opener.plone_ckeditors['%s'].fire('plone_set_url', {url: '%s/resolveuid/' + selector} );
  window.close();
 };
 Browser.selectItem = selectCKEditorItem;
-             """ % CKEditorFuncNum
+             """ % (CKEditorFuncNum, self.portal_url)
 
         return jsstring

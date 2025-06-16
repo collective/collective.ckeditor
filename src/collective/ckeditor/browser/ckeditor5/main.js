@@ -33,6 +33,7 @@ import {
 	Mention,
 	Paragraph,
 	SimpleUploadAdapter,
+        SourceEditing,
 	Table,
 	TableCaption,
 	TableCellProperties,
@@ -43,6 +44,8 @@ import {
 	TodoList,
 	Underline
 } from 'ckeditor5';
+
+import PloneLink from 'plonelink';
 
 /**
  * Create a free account with a trial: https://portal.ckeditor.com/checkout?plan=free
@@ -70,7 +73,9 @@ const editorConfig = {
 			'numberedList',
 			'todoList',
 			'outdent',
-			'indent'
+			'indent',
+			'|',
+		        'sourceEditing'
 		],
 		shouldNotGroupWhenFull: false
 	},
@@ -97,12 +102,14 @@ const editorConfig = {
 		IndentBlock,
 		Italic,
 		Link,
+		PloneLink,
 		LinkImage,
 		List,
 		ListProperties,
 		Mention,
 		Paragraph,
 		SimpleUploadAdapter,
+	        SourceEditing,
 		Table,
 		TableCaption,
 		TableCellProperties,
@@ -173,7 +180,7 @@ const editorConfig = {
 	initialData:'',
 	licenseKey: LICENSE_KEY,
 	link: {
-		addTargetToExternalLinks: true,
+	//	addTargetToExternalLinks: true,
 		defaultProtocol: 'https://',
 		decorators: {
 			toggleDownloadable: {
@@ -208,12 +215,21 @@ const editorConfig = {
 	}
 };
 
-var launchCK5Instances = function () {
+
+function launchCK5Instances() {
+    window.plone_ckeditors = {};
     var editors = document.querySelectorAll('.ckeditor_plone');
     editors.forEach(function(currentValue) {
 	content = currentValue.value;
         editorConfig['initialData'] = content;
-	ClassicEditor.create(currentValue, editorConfig);
+        var CK4Config = {};
+	get_CKEditorConfig(CK4Config);
+	var plone_dom_id = currentValue.getAttribute('id');
+	editorConfig['plone_dom_id'] = plone_dom_id;
+	editorConfig['filebrowserBrowserUrl'] = CK4Config.filebrowserBrowseUrl 
+	ClassicEditor.create(currentValue, editorConfig).then( editor => {;
+	    window.plone_ckeditors[plone_dom_id] = editor;
+	});
     });
 }
 
