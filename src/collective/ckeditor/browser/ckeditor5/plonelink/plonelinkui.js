@@ -7,20 +7,12 @@ export default class PloneLinkUI extends LinkUI {
 	    return 'PloneLinkUI';
     }
 
-    init() {
-        console.log( 'plonelinkui#init() got called' );
-	super.init();
-        const editor = this.editor;
-	editor.config.define( 'filebrowserBrowserUrl', 'none');
-    }
-
     _createFormView() {
 	var view = super._createFormView();
 	view.urlInputView.label = 'Plone Link';
 	view.children.first.label = 'Plone Link';
 	view.children.last.children.add(this._createBrowseButton(view), 1);
 	view.on('plone_set_url', (evt, data) => {
-	    console.log('view plone_set_url URL: ' + data.url); 
 	    view.urlInputView.fieldView.value = data.url;
 	    view.fire('submit');
 	    this._showUI();

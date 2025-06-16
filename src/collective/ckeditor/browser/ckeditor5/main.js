@@ -181,7 +181,7 @@ const editorConfig = {
 	licenseKey: LICENSE_KEY,
 	link: {
 	//	addTargetToExternalLinks: true,
-		defaultProtocol: 'https://',
+		defaultProtocol: '',
 		decorators: {
 			toggleDownloadable: {
 				mode: 'manual',
