@@ -12,13 +12,10 @@ export default class PloneLinkUI extends LinkUI {
 	view.urlInputView.label = 'Plone Link';
 	view.children.first.label = 'Plone Link';
 	view.children.last.children.add(this._createBrowseButton(view), 1);
-	view.on('plone_set_url', (evt, data) => {
+	this.editor.on('plone_set_url', (evt, data) => {
 	    view.urlInputView.fieldView.value = data.url;
 	    view.fire('submit');
 	    this._showUI();
-	});
-	this.editor.on('plone_set_url', (evt, data) => {
-	    view.fire('plone_set_url', data);
 	});
 	return view;
     }
