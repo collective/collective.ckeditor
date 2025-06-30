@@ -44,7 +44,7 @@
                                id python:inputname.replace('.', '_');
                                onfocus onfocus|nothing;
                                onblur onblur|nothing;"></textarea>
-    <script type="importmap">
+    <script type="importmap" tal:replace="structure context/@@ckeditor_importmap">
     {
 	    "imports": {
 		    "ckeditor5": "./++resource++ckeditor5/ckeditor5/ckeditor5.js",
@@ -54,7 +54,28 @@
 	    }
     }
     </script>
-    <script type="module" src="++resource++ckeditor5/main.js"></script>
+    <script type="module">
+    import { editorConfig } from 'ploneckeditor';
+    import { ClassicEditor } from 'ckeditor5';
+    function launchCK5Instances() {
+	window.plone_ckeditors = {};
+	var editors = document.querySelectorAll('.ckeditor_plone');
+	editors.forEach(function(currentValue) {
+	    content = currentValue.value;
+	    editorConfig['initialData'] = content;
+	    var CK4Config = {};
+	    get_CKEditorConfig(CK4Config);
+	    var plone_dom_id = currentValue.getAttribute('id');
+	    editorConfig['plone_dom_id'] = plone_dom_id;
+	    editorConfig['filebrowserBrowserUrl'] = CK4Config.filebrowserBrowseUrl 
+	    ClassicEditor.create(currentValue, editorConfig).then( editor => {;
+		window.plone_ckeditors[plone_dom_id] = editor;
+	    });
+	});
+    }
+
+    document.addEventListener('DOMContentLoaded', launchCK5Instances);
+    </script>
     <script tal:attributes="src python:ckview.cke_config_url(finder_context)"></script>
     </tal:block>
     <tal:block condition="not: usesCKeditor">

@@ -169,4 +169,18 @@
 	<value key="csscompilation">++resource++ckeditor5/ckeditor5/ckeditor5.css</value>
         <value key="expression">python: member is not None</value>
     </records>
+    <record name="plone.importmap">
+	<field type="plone.registry.field.Dict">
+	    <title>Importmap key/values</title>
+	    <key_type type="plone.registry.field.TextLine" />
+	    <value_type type="plone.registry.field.TextLine" />
+	</field>
+	<value>
+	    <element key="ckeditor5">./++resource++ckeditor5/ckeditor5/ckeditor5.js</element>
+	    <element key="ckeditor5/">./++resource++ckeditor5/ckeditor5/</element>
+	    <element key="plonelink">./++resource++ckeditor5/plonelink/plonelink.js</element>
+	    <element key="plonelink/">./++resource++ckeditor5/plonelink/</element>
+	    <element key="ploneckeditor">./++resource++ploneckeditor/main.js</element>
+	</value>
+    </record>
 </registry>

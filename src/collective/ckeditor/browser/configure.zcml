@@ -16,6 +16,12 @@
       />
 
     <browser:resourceDirectory
+        name="ploneckeditor"
+        directory="ploneckeditor"
+	layer=".interfaces.IThemeSpecific"
+      />
+
+    <browser:resourceDirectory
         name="cke_ajaxsave"
         directory="ajaxsave"
         />
@@ -120,6 +126,15 @@
         for="*"
         class=".ckeditorview.CKeditorView"
         attribute="getCK_plone_menu_styles"
+        permission="zope.Public"
+        />
+
+    
+    <browser:page
+        name="ckeditor_importmap"
+        for="*"
+        class=".importmap.ImportMap"
+	attribute="render"
         permission="zope.Public"
         />
 

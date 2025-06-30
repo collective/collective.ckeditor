@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<layers>
+   <layer name="collective.ckeditor.layer"
+     interface="collective.ckeditor.browser.interfaces.IThemeSpecific"  />
+</layers>

@@ -52,7 +52,7 @@ import PloneLink from 'plonelink';
  */
 const LICENSE_KEY = 'GPL'; // or <YOUR_LICENSE_KEY>.
 
-const editorConfig = {
+export const editorConfig = {
 	toolbar: {
 		items: [
 			'undo',
@@ -216,21 +216,3 @@ const editorConfig = {
 };
 
 
-function launchCK5Instances() {
-    window.plone_ckeditors = {};
-    var editors = document.querySelectorAll('.ckeditor_plone');
-    editors.forEach(function(currentValue) {
-	content = currentValue.value;
-        editorConfig['initialData'] = content;
-        var CK4Config = {};
-	get_CKEditorConfig(CK4Config);
-	var plone_dom_id = currentValue.getAttribute('id');
-	editorConfig['plone_dom_id'] = plone_dom_id;
-	editorConfig['filebrowserBrowserUrl'] = CK4Config.filebrowserBrowseUrl 
-	ClassicEditor.create(currentValue, editorConfig).then( editor => {;
-	    window.plone_ckeditors[plone_dom_id] = editor;
-	});
-    });
-}
-
-document.addEventListener('DOMContentLoaded', launchCK5Instances);
