@@ -4,7 +4,8 @@ Changelog
 5.0.0b5 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Support for CMFPlone >= 6.0.10 < 6.1 where CSS viewlet implementation has changed.
+  [gotcha]
 
 
 5.0.0b4 (2023-12-21)

@@ -67,6 +67,8 @@ except ImportError:
 
 
 if HAS_PLONE6_RESOURCES:
+    from .cmf_plone_resource import ResourceView
+
     def get_css_urls(view):
         class CKRenderer(webresource.ResourceRenderer):
             # returns list of CSS URLS instead of link tags in HTML
@@ -77,10 +79,8 @@ if HAS_PLONE6_RESOURCES:
 
         class CKEditorCSSViewlet(ResourceView):
             def index(self):
-                root_group_css = webresource.ResourceGroup(name="root_css")
-                resolver_css = webresource.ResourceResolver(root_group_css)
                 renderer = CKRenderer(
-                    resolver_css, base_url=self.portal_state.portal_url()
+                    self.resolver_css, base_url=self.portal_state.portal_url()
                 )
                 rendered = renderer.render()
                 return rendered
@@ -91,7 +91,9 @@ if HAS_PLONE6_RESOURCES:
             view
         )
         viewlet.update()
-        return viewlet.index()
+        result = viewlet.index()
+        return result
+
 
 if HAS_PLONE5_RESOURCES:
     def get_css_urls(view):

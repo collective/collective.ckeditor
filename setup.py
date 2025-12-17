@@ -35,6 +35,8 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
     ],
     keywords='Plone CKeditor WYSIWYG',
     author='Plone Collective (started by Alterway Solutions)',
@@ -46,6 +48,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'Products.CMFPlone<6.1',
         'zope.i18nmessageid',
         'collective.quickupload',
         'collective.plonefinder',
