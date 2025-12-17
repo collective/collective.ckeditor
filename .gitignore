@@ -38,3 +38,6 @@ htmlcov
 pyvenv.cfg
 .idea/
 share/
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
