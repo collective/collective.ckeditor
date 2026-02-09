@@ -38,3 +38,7 @@ htmlcov
 pyvenv.cfg
 .idea/
 share/
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
